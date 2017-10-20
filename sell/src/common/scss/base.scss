@@ -1,0 +1,42 @@
+body,
+html {
+  line-height: 1;
+  font-weight: 200;
+  font-family: 'PingFang SC','STHeitiSC-Light','Helvetica-Light',arial,sans-serif;
+}
+
+.clearfix {
+  display: inline-block;
+
+  &::after {
+    display: block;
+    content: '.';
+    height: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+$media: screen;
+$feature-webkit: -webkit-min-device-pixel-ratio; //设备像素比
+$feature: min-device-pixel-ratio; //设备像素比
+$value15: 1.5;
+$value2: 2; // 为了实现手机上的1像素做准备
+// 实现不同缩放比手机上，做正确的缩放根据Y轴
+// 根据设备的最小DPI去指定缩放的比例scaleY(0.7)或者0.5倍，这样就能实现真正的一像素
+@media #{$media} and ($feature-webkit: $value15),($feature: $value15) {
+  .border-1px {
+    &::after {
+      -webkit-transform: scaleY(0.7);
+      transform: scaleY(0.7);
+    }
+  }
+}
+@media #{$media} and ($feature-webkit: $value2),($feature: $value2) {
+  .border-1px {
+    &::after {
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+    }
+  }
+}

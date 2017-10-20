@@ -1,0 +1,24 @@
+// 为了实现手机上的1像素下边框
+// 如果是上边框可以是before,或者把bottom直接改成top
+@mixin border-1px($color) {
+  position: relative;
+
+  &:after {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid $color;
+    content: ' ';
+  }
+}
+$feature-webkit: -webkit-min-device-pixel-ratio; //设备像素比
+$feature: min-device-pixel-ratio; //设备像素比
+$value3: 3;
+@mixin bg-image($url) {
+  background-image: url($url + "@2x.png");
+  @media ($feature: $value3),($feature-webkit: $value3) {
+    background-image: url($url + "@3x.png");
+  }
+}

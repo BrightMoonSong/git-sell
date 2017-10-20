@@ -1,0 +1,30 @@
+"*":
+  "activate-power-mode":
+    plugins:
+      playAudio: true
+      screenShake: true
+  "atom-beautify":
+    js: {}
+  "atom-package-deps":
+    ignored: [
+      "linter-eslint"
+    ]
+  core:
+    themes: [
+      "atom-dark-ui"
+      "one-dark-syntax"
+    ]
+  editor:
+    fontSize: 18
+    showIndentGuide: true
+  "exception-reporting":
+    userId: "dc7ea187-9b2b-43b1-a7bd-90ce92934a36"
+  "linter-eslint":
+    lintHtmlFiles: true
+".html.text.vue":
+  editor:
+    autoIndent: true
+    scrollPastEnd: false
+    showIndentGuide: true
+    showInvisibles: false
+    softWrap: false

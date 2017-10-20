@@ -1,8 +1,12 @@
+git init //生成.git文件，用来管理git仓库
+git add README.md
+git remote -v | --verbose 列出详细信息，在每一个名字后面列出其远程url
+git remote add origin https://github.com/BrightMoonSong/sell.git  //添加远程仓库
 
 git status     // 查看当前状态（查看本地分支文件信息，确保更新时不产生冲突）
 git add .      // 添加到仓库
 git commit -m "commit of description"       // 提交进仓库  -m 后面是说明，对提交文件的说明，不写的话容易报错，所以最好写上
-git push origin master          // 提交进远程仓库，origin就是远程仓库的意思，这是git默认的，可以更改
+git push origin master          // 提交进远程仓库，origin就是远程仓库的意思，这是git默认的，可以更改，第一次的话应该加上-u,git push -u origin master
 git pull         // 若命令执行成功，则更新代码成功！
 
 // 下面的命令暂时还没有用过

@@ -48,14 +48,27 @@
   </div>
   <div class="nav">
     <div class="tab-item">
-      <span class="form-control first-nav">系统管理</span>
-      <div class="tab-item">
-        <router-link to="/user" class="form-control second-nav">用户管理</router-link>
-      </div>
-      <div class="tab-item">
-        <router-link to="/role" class="form-control second-nav">角色管理</router-link>
+      <span class="form-control first-nav" @click="hideOrShowDetail()">系统管理</span>
+      <div v-show="detailShow">
+        <div class="tab-item">
+          <router-link to="/user" class="form-control second-nav">用户管理</router-link>
+        </div>
+        <div class="tab-item">
+          <router-link to="/role" class="form-control second-nav">角色管理</router-link>
+        </div>
       </div>
     </div>
+      <div class="tab-item" v-for="item in navlist">
+        <span class="form-control first-nav" @click="hideOrShowDetail(item)">{{item}}</span>
+        <div v-show="detailShow">
+          <div class="tab-item">
+            <router-link to="/user" class="form-control second-nav">用户管理</router-link>
+          </div>
+          <div class="tab-item">
+            <router-link to="/role" class="form-control second-nav">角色管理</router-link>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 </template>
@@ -68,8 +81,19 @@ const ERR_OK = 0;
 export default {
   data() {
     return {
-      seller: {}
+      seller: {},
+      detailShow: true
     };
+  },
+  methods: {
+    hideOrShowDetail() {
+      let value = this.detailShow;
+      if (value) {
+        this.detailShow = false;
+      } else {
+        this.detailShow = true;
+      }
+    }
   },
   created() {
     this.$http.get('/api/seller').then((response) => {
@@ -78,6 +102,7 @@ export default {
         this.seller = response.data;
       }
     });
+    this.navlist = ['first', 'sec', 'third', 'four', 'five'];
   },
   components: {
     // 'v-header': header

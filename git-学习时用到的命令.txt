@@ -11,6 +11,16 @@ git pull         // 若命令执行成功，则更新代码成功！
 
 // 下面的命令暂时还没有用过
 git checkout -- [file name] （若文件有修改，可以还原到最初状态; 若文件需要更新到服务器上，应该先merge到服务器，再更新到本地）
-git branch（查看当前分支情况）
+git branch（查看当前分支情况）列出所有分支
 git checkout [remote branch](若分支为本地分支，则需切换到服务器的远程分支)
 
+git diff 对比文件的差异 
+git log 显示提交记录
+分支
+git brach 分支名 创建分支
+git checkout 分支名 切换分支
+提交
+git add 跟踪新文件或者已有文件的改动，或者用来解决冲突
+git commit 把文件从stage提交到branch
+删除
+git rm 文件名 不但从stage中删除，同时删除物理文件

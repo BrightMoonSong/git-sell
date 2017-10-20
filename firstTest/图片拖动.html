@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body onload="init()">
+<div id="block1" onMouseOut="drag=0" onMouseOver="dragObj=block1; drag=1;" style="height: 60; left: 200; position: absolute; top: 200; width: 120">
+
+<dd><img alt border="0" src="img/pointer.png" width="300"></dd></div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+drag = 0
+move = 0
+function init() {
+    window.document.onmousemove = mouseMove
+    window.document.onmousedown = mouseDown
+    window.document.onmouseup = mouseUp
+    window.document.ondragstart = mouseStop
+}
+function mouseDown() {
+    if (drag) {
+        clickleft = window.event.x - parseInt(dragObj.style.left)
+        clicktop = window.event.y - parseInt(dragObj.style.top)
+        dragObj.style.zIndex += 1
+        move = 1
+    }
+}
+function mouseStop() {
+    window.event.returnValue = false
+}
+function mouseMove() {
+    if (move) {
+        dragObj.style.left = window.event.x - clickleft
+        dragObj.style.top = window.event.y - clicktop
+    }
+}
+function mouseUp() {
+    move = 0
+}
+</script>

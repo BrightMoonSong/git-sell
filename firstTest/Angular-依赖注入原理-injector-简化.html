@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Angular-依赖注入原理-injector</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//这是要执行的函数
+			var greet = function(words, test,$scope) {
+				console.log(words.text);
+				console.log(test.text);
+				console.log($scope);
+			}
+			//就相当于我们的对象库，里面存放着所有能够注入的对象或服务
+			var registry = {
+				words: {
+					text: 'hello words'
+				},
+				test: {
+					text: 'moonTest'
+				},
+				$scope: {
+					text: 'moon$scope'
+				},
+				$rootScope: {
+					text: 'moon$rootScope'
+				},
+				$q: {
+					text: 'moon$q'
+				}
+			}
+			//自动注入服务对象并且运行参数里面的函数
+			var inject = function(func) {
+				var argnames = func.toString().match(/function\s.*?\(([^)]*)\)/)[1].replace(/\s/g, "").split(','); //返回数组   取出参数
+				var args = [];
+				for(var i = 0; i < argnames.length; i++) {
+					var argObj = registry[argnames[i]];
+					args.push(argObj);
+				}
+				func.apply(null, args);
+			}
+			//自动注入服务对象并且运行
+			inject(greet);
+		</script>
+	</body>
+
+</html>

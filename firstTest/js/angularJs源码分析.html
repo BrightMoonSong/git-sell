@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myContr">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				font-family: "microsoft yahei";
+			}
+		</style>
+		<script src="angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<input type="date" ng-model="moondata" />
+		<div ng-if="true">
+			<input type="text" id="applyValue" ng-model="applyValue" />
+		</div>
+		<input type="button" id="butapply" ng-click="butapply()" value="butapply" />
+		<span style="color: red;">applyValue：</span>{{applyValue}}
+
+		<clickable foo="foo" bar="bar"></clickable>
+		<div ng-if="true">
+			<input ng-model="$parent.name" /> Name updated: {{updated}} times.{{name}}
+		</div>{{name}}
+		<div class="dropdown" dropdown>
+			<button class="btn btn-default dropdown-toggle" type="button" ng-mouseenter="showMenu()" ng-mouseleave="hideMenu()">
+              Dropdown
+              <span class="caret"></span>
+          </button>
+			<ul class="dropdown-menu" ng-show="ifShowMenu" ng-mouseenter="showMenu()" ng-mouseleave="hideMenu()">
+				<li>
+					<a href="#">Action</a>
+				</li>
+				<li>
+					<a href="#">Another action</a>
+				</li>
+				<li>
+					<a href="#">Something else here</a>
+				</li>
+				<li>
+					<a href="#">Separated link</a>
+				</li>
+			</ul>
+		</div>
+
+		<script type="text/javascript">
+			var myApp = angular.module('myApp', []);
+			myApp.controller('myContr', function($scope, $timeout) {
+				$scope.ifShowMenu = false; //初始化不展示下拉框
+				var dsd = angular.lowercase('qwerTYUI');
+				console.log(dsd);
+				console.log(angular.uppercase(dsd));
+				var attr = ['21', '32'];
+				var str = String(attr);
+				console.log(str)
+				//				$scope.timeoutNameq = $timeout(function() {
+				//						$scope.$apply(function(){
+				//							$scope.ifShowMenu = true;
+				//						});
+				//					}, 3000);
+
+				$scope.applyValue = 'applyValue';
+				$scope.butapply = function() {
+					//$scope.$apply(function() {
+					$scope.applyValue = "改变后的值";
+					//  });
+				};
+				$scope.foo = 0;
+				$scope.bar = 0;
+
+				$scope.name = "Angular";
+
+				$scope.updated = 0;
+
+				var watch = $scope.$watch('name', function(newValue, oldValue, scope) {
+					console.log(newValue);
+					console.log(oldValue);
+					if(newValue === oldValue) {
+						return;
+					}
+					$scope.updated++;
+					$timeout.cancel($scope.timeoutName);
+					$scope.timeoutName = $timeout(function() {
+						alert('3秒没有改');
+						//$timeout.cancel($scope.timeoutName);
+					}, 3000);
+					//					$scope.timeoutName.then(function(data) {
+					//						console.log(data)
+					//					}, function(data) {
+					//						console.log(data)
+					//					});
+				}, true);
+				//注销监听 watch();
+				//太多的$watch将会导致性能问题，$watch如果不再使用，我们最好将其释放掉。
+				//$watch函数返回一个注销监听的函数，如果我们想监控一个属性，然后在稍后注销它，
+				//				var watch2 = $scope.$watch('updated', function() {
+				//					if($scope.updated>3){
+				//						watch();
+				//					}
+				//				},true);
+
+			});
+			console.dir(window.angular.fromJson);
+			myApp.directive('clickable', function() {
+				return {
+					restrict: "E",
+					scope: {
+						foo: '=',
+						bar: '='
+					},
+					template: '<ul style="background-color: lightblue"><li>{{foo}}</li><li>{{bar}}</li></ul>',
+					link: function(scope, element, attrs) {
+						element.bind('click', function() {
+							scope.$apply(function() {
+								scope.foo++;
+								scope.bar++;
+								console.log(scope.foo)
+							});
+							//scope.$apply();
+						});
+					}
+				}
+			});
+			myApp.directive('dropdown', function($timeout) {
+				return {
+					restrict: "EA",
+					link: function(scope, iele, iattr) {
+						scope.showMenu = function() {
+							$timeout.cancel(scope.t2);
+							scope.t1 = $timeout(function() {
+								scope.ifShowMenu = true
+							}, 500)
+						};
+						scope.hideMenu = function() {
+							$timeout.cancel(scope.t1);
+							scope.t2 = $timeout(function() {
+								scope.ifShowMenu = false
+							}, 500)
+						};
+					}
+				}
+			})
+
+			//
+			//			function Animal(name) {
+			//				this.name = name;
+			//				this.showName = function() {
+			//					alert(this.name);
+			//				}
+			//			}
+			//
+			//			function Cat(name) {
+			//				Animal.apply(this, [name]);
+			//			}
+			//
+			//			var cat = new Cat("咕咕");
+			//			cat.showName();
+
+			/*call的用法*/
+			//			Animal.call(this, name);
+		</script>
+	</body>
+
+</html>

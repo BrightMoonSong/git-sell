@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var attr = [{'a':'aa','b':'bb'},'fd'];
+			attr.forEach(function(res, index, array){
+				console.log(res);
+				console.log(index);
+				console.log(array);
+				try{
+					console.log(res.a.f);
+				}catch(e){
+					//TODO handle the exception
+					console.log(e);
+				}
+			})
+		</script>
+	</body>
+</html>

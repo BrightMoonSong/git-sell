@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="div_id">
+			<p>1234567</p>
+		</div>
+		<script type="text/javascript">
+			//这是直接插入html
+			//支持IE5以及IE5以上
+			//如果想追加，可以这样
+			//先保存div中原来的html
+			//再跟你想追加的代码加到一起插入div中
+			
+			//IE8不支持
+			Object.prototype.insertAfter=function(newElement){
+				this.innerHTML += newElement;
+			};
+			//所有IE都支持
+			function insertAfter(m,n){
+				m.innerHTML += n;
+			}
+			
+			var html = document.getElementById("div_id");
+			var str = "你想往div里追加的html代码";
+			//html.insertAfter(str);
+			insertAfter(html,str);
+		</script>
+	</body>
+
+</html>

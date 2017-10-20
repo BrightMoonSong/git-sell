@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/ngDialog/ngDialog.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/ngDialog/ngDialog-theme-default.min.css" />
+	</head>
+
+	<body ng-controller="myctr">
+		<style type="text/css">
+			body{
+				width: 100%;
+				height: 100%;
+			}
+			.table-div{
+				padding: 10px;
+				width: 99%;
+				height: 100%;
+				overflow: hidden;
+			}
+			.table {
+				border: solid 1px #0099CC;
+				margin: 10px;
+			}
+			
+			.dragFixedNav {
+				border: 1px #928989 solid;
+				width: 280px;
+				position: fixed;
+				padding: 10px;
+				right: -7px;
+				top: -3px;
+				background-color: #d0cece;
+			}
+			
+			.dragFixedNav2 {
+				width: 38px;
+				position: fixed;
+				padding: 10px;
+				right: -7px;
+				top: -3px;
+			}
+			
+			.fixed-nav {
+				max-height: 400px;
+				overflow: auto;
+			}
+		</style>
+		<div class="fixed-nav" ng-init="dragover=false" ng-class="{true: 'dragFixedNav', false: 'dragFixedNav2'}[dragover]" ng-mouseleave='dragover=false'>
+			<div class="btn btn-primary pull-right" ng-mouseenter='dragover=true'>
+				<i class="fa fa-bars"></i>
+			</div>
+			<p style="margin-top: 16px;" ng-show="dragover">下面可以拖拽排序（table列排序）</p>
+			<ul ng-show="dragover" class="list-group">
+				<li class="list-group-item" ng-repeat="head in headList" ng-drop="true" ng-drop-success="onDropComplete($index, $data,$event)" style="cursor:pointer;" ng-drag="true" ng-drag-data="head">
+					<div class="inline"><input type="checkbox" ng-model="head.ngif" /></div>
+					<div class="inline">
+						<span>{{head.value}}</span>
+					</div>
+					<div style="clear: both;"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="table-div">
+			<table id="userListToPdf" class="table">
+
+				<thead>
+					<tr>
+						<th width="50">序号</th>
+						<th width="{{head.width}}" ng-repeat="head in headList" ng-if="head.ngif">{{head.value}}<img width="16px" src="../img/paixu.png" ng-click="sort(head.code)" /></th>
+					</tr>
+					<tr>
+						<th width="50">过滤</th>
+						<!-- width="{{head.width}}"-->
+						<th ng-repeat="head in headList" ng-if="head.ngif"><input style="width:80px;" type="text" ng-model="filterInput[head.code]" ng-change="filtrate(filterInput[head.code],head.code)" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in tableData">
+						<td width="50">{{$index}}</td>
+						<!-- width="{{head.width}}"-->
+						<td ng-repeat="head in headList" ng-if="head.ngif" repeat-finish>{{data[head.code]}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</body>
+	<script src="../js/angular.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/ngDialog/ngDialog.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<!--html转pdf-->
+	<script type="text/javascript" src="../js/jsToExcelToPdf/canvg2.js"></script>
+	<script type="text/javascript" src="../js/jsToExcelToPdf/html2canvas-0.4.1.js"></script>
+	<script type="text/javascript" src="../js/jsToExcelToPdf/jspdf.min.js"></script>
+	<!--html转pdf 依赖jquery 所以放在jquery后面-->
+	<script src="../public/htmlToPdf.js" type="text/javascript" charset="utf-8"></script>
+
+	<!--依赖angular的拖拽-->
+	<script src="../js/ngDraggable/ngDraggable.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="../public/drag.js" type="text/javascript" charset="utf-8"></script>
+
+	<!--柱形图 折线图 饼图-->
+	<script src="../public/funEcharts.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="config/1.tableConfig.js" type="text/javascript" charset="utf-8"></script>
+	<!--Controller-->
+	<script src="controller/1.tableController.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

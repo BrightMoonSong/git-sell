@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>DemoController as demo</title>
+		<script src="angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body ng-app="app">
+
+		<div ng-controller="DemoController as demo">
+			<folder-tree current-folder="folder"></folder-tree>
+		</div>
+	</body>
+	<script type="text/javascript">
+		angular.module('app', [])
+			.factory('RecursionHelper', RecursionHelper)
+			.directive('folderTree', folderTree)
+			.controller('DemoController', function($scope, $rootScope, $timeout) {
+
+				$scope.folder = {
+					name: 'techs',
+					children: [{
+							name: 'server-side',
+							children: [{
+									name: 'Java'
+								},
+								{
+									name: 'Python'
+								},
+								{
+									name: 'Node'
+								}
+							]
+						},
+						{
+							name: 'front-end',
+							children: [{
+									name: 'jQuery'
+								},
+								{
+									name: 'Angular'
+								},
+								{
+									name: 'React'
+								}
+							]
+						}
+					]
+				}
+
+			});
+
+		function folderTree(RecursionHelper) {
+			return {
+				restrict: "E",
+				scope: {
+					currentFolder: '='
+				},
+				templateUrl: 'template/tree.html',
+				compile: function(element) {
+					// 我们这里使用RecursionHelper的compile方法编译指令当前元素，这里第二个参数指定一个函数，相当于常用的link函数  
+					// 当然我们也可以指定一个对象，里面包含pre和post函数，分别对应pre-link和post-link  
+					return RecursionHelper.compile(element, function(scope, iElement, iAttrs, controller, transcludeFn) {
+						// Define your normal link function here.  
+						// Alternative: instead of passing a function,  
+						// you can also pass an object with   
+						// a 'pre'- and 'post'-link function.    
+						// 这里可以往scope中绑定一些变量  
+						scope.variable = 'hello world';
+					});
+				}
+			};
+		}
+
+		function RecursionHelper($compile) {
+			return {
+				/** 
+				 * Manually compiles the element, fixing the recursion loop. 
+				 * @param element 
+				 * @param [link] A post-link function, or an object with function(s) registered via pre and post properties. 
+				 * @returns An object containing the linking functions. 
+				 */
+				compile: function(element, link) {
+					// Normalize the link parameter  
+					// 如果link参数是对象类型link:{pre: function(...){}, post: function(...){}}则不做处理  
+					// 如果link参数是函数类型则将其作为post-link函数在$compile之后调用  
+					if(angular.isFunction(link)) {
+						link = {
+							post: link
+						};
+					}
+
+					// Break the recursion loop by removing the contents  
+					// 获取并清空当前元素的内容，后面进行编译  
+					var contents = element.contents().remove();
+					var compiledContents;
+
+					return {
+						pre: (link && link.pre) ? link.pre : null,
+						/** 
+						 * Compiles and re-adds the contents 
+						 * 编译和重新添加内容到当前元素 
+						 */
+						post: function(scope, element) {
+							// Compile the contents  
+							if(!compiledContents) {
+								compiledContents = $compile(contents);
+							}
+							// Re-add the compiled contents to the element  
+							compiledContents(scope, function(clone) {
+								element.append(clone);
+							});
+
+							// Call the post-linking function, if any  
+							if(link && link.post) {
+								link.post.apply(null, arguments);
+							}
+						}
+					};
+				}
+			};
+		}
+	</script>
+
+</html>

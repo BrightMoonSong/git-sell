@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//除法
+			//一般的这样写就行其实  (a/b).toFixed(2)
+			//var a = Math.ceil(10/3);//取大于等于值的最小整数
+			//alert(a)//-->4
+
+			function getInt(a, b) {
+				if(isNaN(arguments[0]) || isNaN(arguments[1]) || arguments.length != 2) {
+					throw new Error("请输入两个数字!");
+				} else if(b == 0) {
+					throw new Error("被除数不能为0!");
+				}
+				return a < b ? 0 : Math.ceil(a / b);
+			}
+
+			//保留两位小数
+			//功能：将浮点数四舍五入，取小数点后2位
+			function toDecimal(x) {
+				var f = parseFloat(x);
+				if(isNaN(f)) {
+					return;
+				}
+				f = Math.round(x * 100) / 100;
+				return f;
+			}
+			//保留6位小数
+			//功能：将浮点数四舍五入，取小数点后6位
+			function toDecimal6(x) {
+				var f = parseFloat(x);
+				if(isNaN(f)) {
+					return;
+				}
+				f = Math.round(x * 1000000) / 1000000;
+				return f;
+			}
+			//制保留2位小数，如：2，会在2后面补上00.即2.00
+			function toDecimal2(x) {
+				var f = parseFloat(x);
+				if(isNaN(f)) {
+					return false;
+				}
+				var f = Math.round(x * 100) / 100;
+				var s = f.toString();
+				var rs = s.indexOf('.');
+				if(rs < 0) {
+					rs = s.length;
+					s += '.';
+				}
+				while(s.length <= rs + 2) {
+					s += '0';
+				}
+				return s;
+			}
+
+			function fomatFloat(src, pos) {
+				return Math.round(src * Math.pow(10, pos)) / Math.pow(10, pos);
+			}
+
+			//四舍五入
+			console.log("保留2位小数：" + toDecimal(3.14159267));
+			console.log("强制保留2位小数：" + toDecimal2(3.14159267));
+			console.log("保留2位小数：" + toDecimal(3.14559267));
+			console.log("强制保留2位小数：" + toDecimal2(3.15159267));
+			console.log("保留2位小数：" + fomatFloat(3.14559267, 2));
+			console.log("保留1位小数：" + fomatFloat(3.15159267, 1));
+			//五舍六入    
+			console.log("保留2位小数：" + 1000.003.toFixed(2));
+			console.log("保留1位小数：" + 1000.08.toFixed(1));
+			console.log("保留1位小数：" + 1000.04.toFixed(1));
+			console.log("保留1位小数：" + 1000.05.toFixed(1));
+			//科学计数  
+			console.log(3.1415.toExponential(2));
+			console.log(3.1455.toExponential(2));
+			console.log(3.1445.toExponential(2));
+			console.log(3.1465.toExponential(2));
+			console.log(3.1665.toExponential(1));
+			//精确到n位，不含n位
+			console.log("精确到小数点第2位" + 3.1415.toPrecision(2));
+			console.log("精确到小数点第3位" + 3.1465.toPrecision(3));
+			console.log("精确到小数点第2位" + 3.1415.toPrecision(2));
+			console.log("精确到小数点第2位" + 3.1455.toPrecision(2));
+			console.log("精确到小数点第5位" + 3.141592679287.toPrecision(5));
+			//106.694114,29.976536
+			//106.054808,29.248569
+			//108.586161,31.19519
+			var arry = ['106.694114|29.976536', '106.054808|29.248569', '108.586161|31.19519', '106.054808|29.248569', '108.586161|31.19519'];
+			//var arry = ['106.694114|29.976536', '106.054808|29.248569'];
+
+			function subtractTen(num1, num2) {
+				var a = '';
+				if(num1 > num2) {
+
+				} else if(num1 < num2) {
+					a = num1;
+					num1 = num2;
+					num2 = a;
+				} else if(num1 == num2) {
+					var b = num1 + '|' + num2;
+					return [b, b, b, b, b, b, b, b, b, b];
+				}
+				var diff = num1 - num2;
+				console.log("diff11：" + (diff / 10).toPrecision(5));
+				return(diff / 10).toPrecision(5);
+			}
+			//subtractTen(106.694114, 106.054808);
+
+			//保留6位小数
+			//功能：将浮点数四舍五入，取小数点后6位
+			function toDecimal6(x) {
+				var f = parseFloat(x);
+				if(isNaN(f)) {
+					return;
+				}
+				f = Math.round(x * 1000000) / 1000000;
+				return f;
+			}
+			
+		</script>
+	</body>
+
+</html>

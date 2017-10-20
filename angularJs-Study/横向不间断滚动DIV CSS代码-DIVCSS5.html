@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>横向不间断滚动DIV CSS代码-DIVCSS5</title>
+	</head>
+
+	<body>
+		<style>
+			.scroll_div {
+				width: 600px;
+				height: 49px;
+				margin: 0 auto;
+				overflow: hidden;
+				white-space: nowrap;
+				background: #ffffff;
+			}
+			
+			.scroll_div img {
+				width: 120px;
+				height: 49px;
+				border: 0;
+				margin: auto 8px;
+			}
+			
+			#scroll_begin,
+			#scroll_end,
+			#scroll_begin ul,
+			#scroll_end ul,
+			#scroll_begin ul li,
+			#scroll_end ul li {
+				display: inline;
+			}
+			/* 设置ul和li横排 */
+		</style>
+		<h2 align="center"><a href="#">DIVCSS5</a>演示说明：向左滚动</h2>
+		<div style="text-align:center">
+			<div class="sqBorder">
+				<!--#####滚动区域#####-->
+				<div id="scroll_div" class="scroll_div">
+					<div id="scroll_begin">
+						<ul>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" alt="div css" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" alt="divcss" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" alt="CSS" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" alt="divcss5" /></a>
+							</li>
+							<li>
+								<a href="http://www.divcss5.com/"><img src="http://www.divcss5.com/img/css-logo.gif" /></a>
+							</li>
+						</ul>
+					</div>
+					<div id="scroll_end"></div>
+				</div>
+				<!--#####滚动区域#####-->
+			</div>
+
+			<script type="text/javascript">
+				function ScrollImgLeft() {
+					var speed = 5;
+					var scroll_begin = document.getElementById("scroll_begin");
+					var scroll_end = document.getElementById("scroll_end");
+					var scroll_div = document.getElementById("scroll_div");
+					scroll_end.innerHTML = scroll_begin.innerHTML;
+
+					function Marquee() {
+						if(scroll_end.offsetWidth - scroll_div.scrollLeft <= 0)
+							scroll_div.scrollLeft -= scroll_begin.offsetWidth;
+						else
+							scroll_div.scrollLeft++;
+					}
+					var MyMar = setInterval(Marquee, speed);
+					scroll_div.onmouseover = function() {
+						clearInterval(MyMar);
+					}
+					scroll_div.onmouseout = function() {
+						MyMar = setInterval(Marquee, speed);
+					}
+				}
+				ScrollImgLeft();
+			</script>
+		</div>
+		<!--//向左滚动代码结束-->
+	</body>
+
+</html>

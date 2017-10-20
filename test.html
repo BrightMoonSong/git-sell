@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Object.keys()应用</title>
+  <style>
+    select {
+      width: auto;
+      padding: 0 2%;
+      margin: 0;
+    }
+
+    option {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <select>
+    <option>1fdsfsdf0</option>
+  <select>
+  <script>
+    function funcReplaceInteger(obj) {
+      var r = /^-?\d*?\d*$/;
+      if (!r.test(obj.value)) {
+        obj.value = "";
+      }
+    }
+  </script>
+  <input type="text" onkeyup="funcReplaceInteger(this)">
+  <script type="text/javascript">
+    var person = {
+      firstName: "David",
+      lastName: "Walsh",
+      others: "Smith"
+    };
+    console.log(Object.keys(person));
+    Object.keys(person).forEach(function(trait) {
+      console.log('person', trait, ':', person[trait]);
+    });
+    var dataStr = ''; //数据拼接字符串
+    Object.keys(person).forEach(function(key) {
+      dataStr += key + '=' + person[key] + '&';
+    })
+    var url = '';
+    if (dataStr !== '') {
+      console.log(dataStr.lastIndexOf('&'));
+      dataStr = dataStr.substr(0, dataStr.lastIndexOf('&'));
+      url = url + '?' + dataStr;
+    }
+    console.log(url);
+
+    var a = 'ancdefg';
+    var fds=a.substring(a.length - 2);
+    console.log(fds);
+    // substring() 方法用于提取字符串中介于两个指定下标之间的字符。
+    // stringObject.substring(start,stop)
+    // start:开始位置
+    // stop：结束位置，如果结束位置不写，默认到最后。
+
+    var strd= 'afds,fds,,'
+    var log=strd.split(',,');
+    console.log(log);
+  </script>
+</body>
+
+</html>

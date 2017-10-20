@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>禁用右键复制另存为功能</title>
+		<style type="text/css">
+			.test {
+				width: 100%;
+				height: 900px;
+			}
+		</style>
+	</head>
+
+	<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" oncopy="return false" oncut="return false;" leftMargin=0 topMargin=0 style="width: 100%;height: 100%;">
+		<div class="test">
+			以下代码是禁用网页另存为但是我测试没有成功，谁知道原因可以在下面给出评论，谢谢。
+		</div>
+		<!--noscript 元素用来定义在脚本未被执行时的替代内容（文本）。
+此标签可被用于可识别 <script> 标签但无法支持其中的脚本的浏览器。-->
+		<noscript> 
+			<iframe scr="*.htm "></iframe> 
+		</noscript>
+	</body>
+	<script type="text/javascript">
+		//******************** 屏蔽右键 *********************** 不太管用   具体原因不明确
+		function click(e) {
+			if(document.all) {
+				if(event.button == 1 || event.button == 2 || event.button == 3) {
+					oncontextmenu = 'return false';
+				}
+			}
+			if(document.layers) {
+				if(e.which == 3) {
+					oncontextmenu = 'return false';
+				}
+			}
+		}
+		if(document.layers) {
+			document.captureEvents(Event.MOUSEDOWN);
+		}
+		document.onmousedown = click;
+		document.oncontextmenu = new Function("return false;")
+			//******************************************* 
+		document.onkeydown = function(evt) {
+			if(document.selection.createRange().parentElement().type == "file") {
+				return false;
+			}
+			if((event.keyCode == 116) || //屏蔽 F5 刷新键 
+				(event.ctrlKey && event.keyCode == 82)) { //Ctrl + R 
+				event.keyCode = 0;
+				event.returnValue = false;
+			}
+			if((window.event.altKey) && (window.event.keyCode == 115)) { //屏蔽Alt+F4 
+				return false;
+			}
+		}
+	</script>
+
+</html>

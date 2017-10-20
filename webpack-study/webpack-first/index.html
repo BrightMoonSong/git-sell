@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>1111</title>
+	</head>
+	<body ng-app='myApp'>
+		<div class="borderRed" class="col-lg-9" ng-controller="myctr">
+			<input type="text" class="col-lg-9" ng-model="firstVal" id="firstVal" />
+			<br />
+			<button class="btn btn-success pull-right" ng-click="findall()">
+                <span class="glyphicon glyphicon-refresh"></span> 刷新
+            </button>
+			<button class="btn btn-warning pull-right" ng-click="openModal()">
+                <span class="glyphicon glyphicon-plus"></span> 添加一级分类
+            </button>
+			<input type="text" my-model="firstVal" />
+			<p>{{firstVal}}</p>
+		</div>
+		<script src="dist/common.js.bundle.js" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/page1.bundle.js" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/page2.bundle.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

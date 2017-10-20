@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>任务五：听指令的小方块（二）</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.con{
+				position: relative;
+			}
+			.tabdiv{
+				position: absolute;
+				left: 100px;
+				top: 20px;
+			}
+			.tab{
+				border-collapse: collapse;
+			}
+			.tab td{
+				border: 1px solid #ccc;
+				width: 50px;
+				height: 50px;
+			}
+			.firsttr td{
+				border: 0;
+				border-bottom: 1px solid black;
+				text-align: center;
+			}
+			.firsttr td:first-child{
+				border: 0;
+			}
+			.lasttr td{
+				border-bottom: 1px solid black;
+			}
+			#firstcol1{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			#firstcol2{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			#firstcol3{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			#firstcol4{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			#firstcol5{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			#firstcol6{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			#firstcol7{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			#firstcol8{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			#firstcol9{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			#firstcol10{
+				border: 0;
+				border-right: 1px solid black;
+				text-align: center;
+			}
+			/*这里对td添加class一直被覆盖，不知道原因*/
+			#lastcol1{
+				border-right: 1px solid black;
+			}
+			#lastcol2{
+				border-right: 1px solid black;
+			}
+			#lastcol3{
+				border-right: 1px solid black;
+			}
+			#lastcol4{
+				border-right: 1px solid black;
+			}
+			#lastcol5{
+				border-right: 1px solid black;
+			}
+			#lastcol6{
+				border-right: 1px solid black;
+			}
+			#lastcol7{
+				border-right: 1px solid black;
+			}
+			#lastcol8{
+				border-right: 1px solid black;
+			}
+			#lastcol9{
+				border-right: 1px solid black;
+			}
+			#lastcol10{
+				border-right: 1px solid black;
+			}
+			.fangkuai{
+				height: 50px;
+				width: 50px;
+				background-color: red;
+				transition: all 1s;
+			}
+			.bluep{
+				margin: 0;
+				position: absolute;
+				left: 0;
+				top: 0;
+				/*刚刚设置为0不对原来是因为p的margin在作祟*/
+				height: 10px;
+				width: 50px;
+				background-color: blue;
+			}
+			.inputdiv{
+				position: absolute;
+				left: 700px;
+				top: 70px;
+			}
+			.tishi{
+				position: absolute;
+				left: 720px;
+				top: 100px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="con">
+			<div class="tabdiv">
+				<div>
+					<table class="tab">
+						<tr class="firsttr">
+							<td class="noborder">&nbsp</td>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td>7</td>
+							<td>8</td>
+							<td>9</td>
+							<td>10</td>
+						</tr>
+						<tr>
+							<td id="firstcol1">1</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol1"></td>
+						</tr>
+						<tr>
+							<td id="firstcol2">2</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol2"></td>
+						</tr>
+						<tr>
+							<td id="firstcol3">3</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol3"></td>
+						</tr>
+						<tr>
+							<td id="firstcol4">4</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol4"></td>
+						</tr>
+						<tr>
+							<td id="firstcol5">5</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol5"></td>
+						</tr>
+						<tr>
+							<td id="firstcol6">6</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol6"></td>
+						</tr>
+						<tr>
+							<td id="firstcol7">7</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol7"></td>
+						</tr>
+						<tr>
+							<td id="firstcol8">8</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol8"></td>
+						</tr>
+						<tr>
+							<td id="firstcol9">9</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol9"></td>
+						</tr>
+						<tr class="lasttr">
+							<td id="firstcol10">10</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td id="lastcol10"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="fangkuai" id="gogo" style="position: absolute;left: 306px;top: 306px;">
+					<p class="bluep" id="bluep"></p>
+				</div>
+			</div>
+			<div class="inputdiv">
+				<input type="text" id="instruct"/>
+				<button id="btn">执行</button>
+			</div>
+			<ul class="tishi">
+				<li>GO 向蓝色边所面向的方向前进一格</li>
+				<li>TUN LEF 向左转</li>
+				<li>TUN RIG 向右转</li>
+				<li>TUN BAC 向右转</li>
+				<li>TRA LEF 向屏幕的左侧移动一格，方向不变</li>
+				<li>TRA TOP 向屏幕的上面移动一格，方向不变</li>
+				<li>TRA RIG 向屏幕的右侧移动一格，方向不变</li>
+				<li>TRA BOT 向屏幕的下面移动一格，方向不变</li>
+				<li>MOV LEF 方向转向屏幕左侧，并向屏幕的左侧移动一格</li>
+				<li>MOV TOP 方向转向屏幕上面，向屏幕的上面移动一格</li>
+				<li>MOV RIG 方向转向屏幕右侧，向屏幕的右侧移动一格</li>
+				<li>MOV BOT 方向转向屏幕下面，向屏幕的下面移动一格</li>
+			</ul>
+		</div>
+		
+		<script>
+			var instruct = document.getElementById("instruct");
+			var gogo = document.getElementById("gogo");
+			var bluep = document.getElementById("bluep");
+			var btn = document.getElementById("btn");
+			var flag = 0;
+			var angle = 0;
+			//var lastClickTime = new Date().getTime();
+			//var delay = 1000;
+			
+			btn.onclick = function(){
+				//var cur = new Date().getTime();
+				//if(cur - lastClickTime < delay){
+				//	return;
+				//}
+				//lastClickTime = new Date().getTime();
+				doIt();
+			};
+			
+			//function getStyle(obj){
+			//	return obj.currentStyle ? obj.currentStyle : window.getComputedStyle(obj, null);
+			//}
+			
+			function goleft(){
+				var leftVal = parseInt(gogo.style.left);
+				if(leftVal-51 < 1 || leftVal-51 > 510){
+					alert("主人主人，越雷池啦~~");
+				}
+				else{
+					gogo.style.left = leftVal - 51 + "px"; 
+				}
+			}
+			
+			function gotop(){
+				var topVal = parseInt(gogo.style.top);
+				if(topVal-51 < 1 || topVal-51 > 510){
+					alert("主人主人，越雷池啦~~");
+				}
+				else{
+					gogo.style.top = topVal - 51 + "px"; 
+				}
+			}
+			
+			function goright(){
+				var leftVal = parseInt(gogo.style.left);
+				if(leftVal+51 < 1 || leftVal+51 > 510){
+					alert("主人主人，越雷池啦~~");
+				}
+				else{
+					gogo.style.left = leftVal + 51 + "px";  
+				}
+			}
+			
+			function gobottom(){
+				var topVal = parseInt(gogo.style.top);
+				if(topVal+51 < 1 || topVal+51 > 510){
+					alert("主人主人，越雷池啦~~");
+				}
+				else{
+					gogo.style.top = topVal + 51 + "px"; 
+				}
+			}
+			
+			function goAhead(){
+				while(flag < 0){
+					flag = flag+4 ;
+				}
+				//console.log(flag%4);
+				switch(flag%4){
+					case 0: 
+						//console.log("正面");
+						gotop();
+						break;
+					case 1: 
+						//console.log("右面");
+						goright();
+						break;
+					case 2: 
+						//console.log("下面");
+						gobottom();
+						break;
+					case 3: 
+						//console.log("左面");
+						goleft();
+						break;
+				}
+			}
+			
+			function turnLeft(){
+				angle = angle-90 ;
+				gogo.style.transform = "rotate(" + angle + "deg)";
+				flag-- ;
+			}
+			
+			function turnRight(){
+				angle = angle+90 ;
+				gogo.style.transform = "rotate(" + angle + "deg)";
+				flag++ ;
+			}
+			
+			function turnBack(){
+				angle = angle+180 ;
+				gogo.style.transform = "rotate(" + angle + "deg)";
+				flag = flag+2 ;
+			}
+			
+			function traLeft(){
+				goleft();
+			}
+			
+			function traTop(){
+				gotop();
+			}
+			
+			function traRight(){
+				goright();
+			}
+			
+			function traBottom(){
+				gobottom();
+			}
+			
+			function moveLeft(){
+				var leftVal = parseInt(gogo.style.left);
+				if(leftVal-51 < 1 || leftVal-51 > 510){
+					alert("主人主人，越雷池啦~~");
+				}
+				else{
+					//如果不是朝着左边，可能是朝着上面、下面、右面
+					while(flag < 0){
+						flag = flag+4 ;
+					}
+					switch(flag%4){
+						case 0: 
+							//console.log("上面");
+							turnLeft();
+							break;
+						case 1: 
+							//console.log("右面");
+							turnBack();
+							break;
+						case 2: 
+							//console.log("下面");
+							turnRight();
+							break;
+						case 3: 
+							//console.log("左面");
+							break;
+					}
+					gogo.style.left = leftVal - 51 + "px"; 
+				}
+			}
+			
+			function moveTop(){
+				var topVal = parseInt(gogo.style.top);
+				if(topVal-51 < 1 || topVal-51 > 510){
+					alert("主人主人，越雷池啦~~");
+				}
+				else{
+					while(flag < 0){
+						flag = flag+4 ;
+					}
+					switch(flag%4){
+						case 0: 
+							//console.log("上面");
+							break;
+						case 1: 
+							//console.log("右面");
+							turnLeft();
+							break;
+						case 2: 
+							//console.log("下面");
+							turnBack();
+							break;
+						case 3: 
+							//console.log("左面");
+							turnRight();
+							break;
+					}
+					gogo.style.top = topVal - 51 + "px"; 
+				}
+				
+			}
+			
+			function moveRight(){
+				var leftVal = parseInt(gogo.style.left);
+				if(leftVal+51 < 1 || leftVal+51 > 510){
+					alert("主人主人，越雷池啦~~");
+				}
+				else{
+					while(flag < 0){
+						flag = flag+4 ;
+					}
+					switch(flag%4){
+						case 0: 
+							//console.log("上面");
+							turnRight();
+							break;
+						case 1: 
+							//console.log("右面");
+							break;
+						case 2: 
+							//console.log("下面");
+							turnLeft();
+							break;
+						case 3: 
+							//console.log("左面");
+							turnBack();
+							break;
+					}
+					gogo.style.left = leftVal + 51 + "px";  
+				}
+			}
+			
+			function moveBottom(){
+				var topVal = parseInt(gogo.style.top);
+				if(topVal+51 < 1 || topVal+51 > 510){
+					alert("主人主人，越雷池啦~~");
+				}
+				else{
+					while(flag < 0){
+						flag = flag+4 ;
+					}
+					switch(flag%4){
+						case 0: 
+							//console.log("上面");
+							turnBack();
+							break;
+						case 1: 
+							//console.log("右面");
+							turnRight();
+							break;
+						case 2: 
+							//console.log("下面");
+							break;
+						case 3: 
+							//console.log("左面");
+							turnLeft();
+							break;
+					}
+					gogo.style.top = topVal + 51 + "px"; 
+				}
+			}
+			
+			function doIt(){
+				switch(instruct.value){
+					case "GO": goAhead();break;
+					case "TUN LEF": turnLeft();break;
+					case "TUN RIG": turnRight();break;
+					case "TUN BAC": turnBack();break;
+					case "TRA LEF": traLeft();break;
+					case "TRA TOP": traTop();break;
+					case "TRA RIG": traRight();break;
+					case "TRA BOT": traBottom();break;
+					case "MOV LEF": moveLeft();break;
+					case "MOV TOP": moveTop();break;
+					case "MOV RIG": moveRight();break;
+					case "MOV BOT": moveBottom();break;
+					//default: alert("输入指令有误");
+				}
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>拖放</title>
+		<style type="text/css">
+			#div1,#div2 {
+				width: 398px;
+				height: 266px;
+				padding: 10px;
+				margin: 10px;
+				border: 1px solid #aaaaaa;
+				float: left;
+			}
+		</style>
+		<script type="text/javascript">
+			function allowDrop(ev) {
+				ev.preventDefault();
+			}
+
+			function drag(ev) {
+				ev.dataTransfer.setData("Text", ev.target.id);
+			}
+
+			function drop(ev) {
+				ev.preventDefault();
+				var data = ev.dataTransfer.getData("Text");
+				ev.target.appendChild(document.getElementById(data));
+			}
+		</script>
+	</head>
+
+	<body>
+
+		<p>请把图片拖放到矩形中：</p>
+
+		<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+		<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+		<br />
+		<img id="drag1" src="https://ss3.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D200/sign=db4b7ef477f082023292963f7bfafb8a/f3d3572c11dfa9ecfc13ccc066d0f703918fc12c.jpg"
+			 draggable="true" ondragstart="drag(event)" />
+		
+	</body>
+
+</html>

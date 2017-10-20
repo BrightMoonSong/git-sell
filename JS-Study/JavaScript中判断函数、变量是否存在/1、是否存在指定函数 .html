@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function isExitsFunction(funcName) {
+				try {
+					if(typeof(eval(funcName)) == "function") {
+						return true;
+					}
+				} catch(e) {}
+				return false;
+			}
+		</script>
+	</body>
+
+</html>

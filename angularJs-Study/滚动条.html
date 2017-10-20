@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义滚动条</title>
+	</head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>滚动条</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		#mainBox {
+			width: 400px;
+			height: 500px;
+			border: 1px #bbb solid;
+			position: relative;
+			overflow: hidden;
+			margin: 50px auto;
+		}
+		
+		#content {
+			height: 2500px;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background: url(img/2017009.jpg);
+			background-repeat : no-repeat;
+		}
+		
+		.scrollDiv {
+			width: 18px;
+			position: absolute;
+			top: 0;
+			background: #666;
+			border-radius: 6px;
+		}
+	</style>
+	</head>
+
+	<body>
+		<div id="mainBox">
+			<div id="content"></div>
+		</div>
+		<script src="js/滚动条.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var _wheelData = -1;
+			var mainBox = document.getElementById('mainBox');
+			
+			new addScroll('mainBox', 'content', 'scrollDiv');
+		</script>
+	</body>
+
+</html>

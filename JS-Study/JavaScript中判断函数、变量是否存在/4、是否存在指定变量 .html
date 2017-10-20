@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function isExitsVariable(variableName) {
+				try {
+					if(typeof(variableName) == "undefined") {
+						//alert("value is undefined"); 
+						return false;
+					} else {
+						//alert("value is true"); 
+						return true;
+					}
+				} catch(e) {}
+				return false;
+			}
+			//一般情况下，我们单独判断变量是否存在都是用
+			if("undefined" != typeof downlm) {
+				if(downlm == "soft") {
+					document.write('成功');
+				}
+			}
+		</script>
+	</body>
+
+</html>

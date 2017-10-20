@@ -1,0 +1,45 @@
+1.安装nodeJS----https://nodejs.org/en/download/ 
+  -v6.11.3  64-bit
+
+2.npm install -g cnpm --registry=https://registry.npm.taobao.org
+	eg:
+	使用淘宝 NPM 镜像
+	大家都知道国内直接使用 npm 的官方镜像是非常慢的，这里推荐使用淘宝 NPM 镜像。
+	淘宝 NPM 镜像是一个完整 npmjs.org 镜像，你可以用此代替官方版本(只读)，同步频率目前为 10分钟 一次以保证尽量与官方服务同步。
+	你可以使用淘宝定制的 cnpm (gzip 压缩支持) 命令行工具代替默认的 npm:
+	$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+	这样就可以使用 cnpm 命令来安装模块了：
+	$ cnpm install [name]
+	
+3.跟网站学习---http://www.runoob.com/w3cnote/webpack-tutorial.html
+	cnpm install webpack -g
+
+4.学习一个小项目  ---http://www.cnblogs.com/souvenir/p/5006559.html
+	
+	
+entry：入口。注意这里的路径是相对于webpack.config.js的路径，也就是根目录
+
+　　path：主要是定义了打包后的文件存放目录和文件名，这里我们是将打包后的文件存放在/dist/bundle.js文件中。
+
+　　module-loaders：加载器。这里我们只使用了一个CSS加载器
+
+　　plugins：插件。第一个是jquery，我们将jquery加载进行项目中并将$作为全局变量返回，所以在任何位置都可以使用jquery而且无需更多配置。
+
+　　　　　　　第二个是对输出的的js代码进行压缩，这一步是可选的，一般也可以将有部署服务器将部署到正式环境之前在进行压缩处理。
+
+　　OK,接下来我们就可以使用webpack进行打包了，在命令行切换当前项目所在目录，然后打包使用：
+
+webpack -w
+-w 是打包选项，watch的意思，webpack将监控项目的文件如果有修改变动的时候，将会自动运行打包命令
+
+　　其他的选项还有：-p  压缩代码。但是一般我们都将代码压缩卸载配置文件中。
+
+　　-d 输出sourcemap
+
+　　打包成功后我们在index.html页面中就只需要引入/dist/bundle.js即可，连css都无需再引入。
+
+　　然后就可以运行页面查看具体的效果。
+
+OK，webpack打包过程大概就是这样，相信大家可能会有一些疑问，这不就是把所有资源文件都放在一个文件里面吗，如果项目太大的话，那这个文件还不得很大了。
+
+　　这里就涉及到之前说的webpack可以实现按需加载模块，我们将在下一篇为大家进行介绍有关内容。

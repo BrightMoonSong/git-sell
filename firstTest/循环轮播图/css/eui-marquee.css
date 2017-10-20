@@ -1,0 +1,235 @@
+/* 
+  Reset
+*/
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, 
+form, fieldset, legend, input, textarea, p, blockquote, th, td, 
+article, aside, canvas, details, figcaption, figure, footer, header, 
+hgroup, menu, nav, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;  }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;  }
+
+fieldset, img {
+    border: 0;  }
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;  }
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+    font-weight: normal;  }
+
+ol, ul {
+    list-style: none;  }
+
+caption, th {
+    text-align: left;  }
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;  }
+
+q:before, q:after {
+    content: '';  }
+
+abbr, acronym {
+    border: 0;
+    font-variant: normal;  }
+
+sup {
+    vertical-align: text-top;  }
+
+sub {
+    vertical-align: text-bottom;  }
+
+input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;  }
+
+/*to enable resizing for IE*/
+input, textarea, select {
+    *font-size: 100%;  }
+   
+/*because legend doesn't inherit in IE */
+legend {
+    color: #000;  }
+
+
+
+/*  base  */
+
+body {
+    font: 14px 微软雅黑, "Lucida Grande", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: rgb(51,51,51);  }
+
+a {
+    /*color: rgb(0, 136, 204);*/
+    /*颜色存档 rgb(0, 136, 204)  rgb(0,69,206) 
+              rgb(71, 135, 238) rgb(64, 131, 169)*/
+    color: rgb(0, 136, 204);  }
+
+a:link, a:visited {
+    outline: medium none;
+    text-decoration: none;  }
+
+a.link:hover {
+    text-decoration: underline;  }
+
+p {
+    margin-bottom: 20px;  }
+
+.p-l {
+    margin-bottom: 0;  }
+
+.d-i {
+    display: inline;  }
+
+.d-ib {
+    display: inline-block;  }
+
+.d-b {
+    display: block;  }
+
+.f-l {
+    float: left;  }
+
+.ta-c {
+    text-align: center;  }
+
+.o-h {
+    overflow: hidden;
+    zoom: 1;  }
+
+.o-a {
+    overflow: auto;
+    zoom: 1;  }
+
+.va-t {
+    vertical-align: top;
+}
+
+
+.indent {
+    height: 0;
+    text-indent: -9999px;  }
+
+.op-6 {
+    opacity: 0.6;
+}
+
+
+html {
+	background-color:rgb(255,255,255);
+}
+
+#main {
+    width: 900px;
+    margin: 50px auto;
+}
+
+
+/* pt 尾巴 */
+
+.pt, .pt-inner {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+
+/*  marquee   */
+
+.mq {
+    position: relative;
+    height: 300px;
+    border: 1px solid rgb(206,206,206);
+	 overflow: hidden;
+}
+
+.mq-c {
+    position: relative;
+    height: 280px;
+    margin: 10px;
+    overflow: hidden;
+}
+
+
+.mq-p {
+    position: absolute;
+    height: 280px;
+    top: 0;
+    left: -1325px;
+    overflow: hidden;
+}
+
+
+.mq-i {
+    float: left;
+    margin-right: 10px;
+    width: 700px;
+    height: 280px;
+    background-color: rgb(68,68,68);
+}
+
+.mq-btn {
+    position: absolute;
+    top: 50%;
+    margin-top: -23px;
+    width: 24px;
+    height: 46px;
+    background-color: rgb(255,255,255);
+}
+
+.mq-btn.left {
+    left: 0;
+    border-radius: 0 23px 23px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,1);
+}
+
+.mq-btn.right {
+    right: 0;
+    border-radius: 23px 0 0 23px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.mq-btn .pt {
+    top: 50%;
+    margin-top: -8px;
+    border-width: 8px;
+    border-color: transparent rgb(0,0,0) transparent transparent;
+}
+
+.mq-btn .pt-inner {
+    top: -8px;
+    border-width: 8px;
+}
+
+.mq-btn.left .pt {
+    left: 50%;
+    margin-left: -16px;
+    border-color: transparent rgb(68,68,68) transparent transparent;
+}
+
+.mq-btn.left .pt-inner {
+    left: -4px;
+    border-color: transparent rgb(255,255,255) transparent transparent;
+}
+
+.mq-btn.right .pt {
+    right: 50%;
+    margin-right: -16px;
+    border-color: transparent transparent transparent rgb(68,68,68);
+}
+
+.mq-btn.right .pt-inner {
+    right: -4px;
+    border-color: transparent transparent transparent rgb(255,255,255);
+}

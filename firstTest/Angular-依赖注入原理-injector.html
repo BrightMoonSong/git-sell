@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Angular-依赖注入原理-injector</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//这是要执行的函数
+			var greet = function(words, test) {
+				console.log(words.text);
+				console.log(test.text);
+			}
+			//就相当于我们的对象库，里面存放着所有能够注入的对象或服务
+			var registry = {
+				words: {
+					text: 'hello'
+				},
+				test: {
+					text: 'moonTest'
+				},
+				scope: {
+					text: 'moonScope'
+				}
+			}
+			//自动注入服务对象并且运行参数里面的函数
+			var inject = function(func) {
+				var source = func.toString();
+				source = Trim(source, 'g');//去掉字符串中所有空格
+				source = brackets(source);//取出字符串圆括号内的内容      带着括号    是个数组
+				var argnames = quChuCanShu(source)//返回数组   取出参数
+				//var matchers = source.match(/function\s?\((\w+)\)/);
+				//var argnames = matchers.slice(1);
+				var args = [];
+				for(var i = 0; i < argnames.length; i++) {
+					var argObj = registry[argnames[i]];
+					args.push(argObj);
+				}
+				func.apply(null, args);
+			}
+			//自动注入服务对象并且运行
+			inject(greet);
+
+			/**
+			 * 去掉字符串中所有空格(包括中间空格,需要设置第2个参数为:g)    Trim(str, 'g');
+			 * @param {Object} str  含有空格的字符串
+			 * @param {Object} is_global  -->'g'
+			 */
+			function Trim(str, is_global) {
+				var result;
+				result = str.replace(/(^\s+)|(\s+$)/g, "");
+				if(is_global.toLowerCase() == "g") {
+					result = result.replace(/\s/g, "");
+				}
+				return result;
+			}
+			
+			/**
+			 * 取出字符串圆括号内的内容 带着括号    是个数组
+			 * @param {Object} str
+			 */
+			function brackets(str) {
+				//定义正则表达式对象，\表示转义字符,原点表示任意字符，+表示出现次数至少1次，igm表示忽略大小写，且全局匹配
+				pattern = new RegExp("\\((.| )+?\\)", "igm");
+				//取出匹配正则表达式的内容
+				return str.match(pattern);
+			}
+			/**
+			 * 返回数组   取出参数
+			 */
+			function quChuCanShu(res) {
+				var myArray = [];
+				res.forEach(function(element, index, array) {
+					var ss = element.replace("(", "").replace(")", "");
+					myArray.push(ss);
+				})
+				var attr = [];
+				if(myArray[0].indexOf(',') > 0) {
+					var shuzu = myArray[0].split(",");
+					attr = attr.concat(shuzu);
+				}else{
+					attr.push(myArray[0]);
+				}
+				return attr;
+			}
+		</script>
+	</body>
+
+</html>

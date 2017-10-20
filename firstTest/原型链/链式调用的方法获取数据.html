@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			window.API = window.API || function() {
+				var name = 'mackxu';
+				//特权方法
+				this.setName = function(name0) {
+					name = name0;
+					return this;
+				};
+				this.getName = function(callback) {
+					callback.call(this, name);
+					return this;
+				};
+			};
+			//------------- test ---
+			var obj = new API();
+			obj.getName(console.log).setName('zhangsan').getName(console.log);
+		</script>
+	</body>
+
+</html>

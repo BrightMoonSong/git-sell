@@ -1,0 +1,6 @@
+<p>{{currentFolder.name}}</p>  
+<ul>  
+    <li ng-repeat="subfolder in currentFolder.children">  
+        <folder-tree current-folder="subfolder"></folder-tree>  
+    </li>  
+</ul>  

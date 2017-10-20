@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />-->
+		<title>demo-百度地图API自定义地图</title>
+		<!--引用百度地图API-->
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=L0EcRkZ9YBaGTOH5X1mpQqC7SVvDhmKL"></script>
+	</head>
+
+	<body>
+		<div id="r-result">
+			<div class="optionpanel">
+				<label>选择主题</label>
+				<select id="stylelist" onchange="changeMapStyle(this.value)"></select>
+			</div>
+			<!--<p>查看详细信息请参考
+				<a href='http://lbsyun.baidu.com/custom/list.htm' target="_blank">个性模板列表页</a>
+			</p>-->
+		</div>
+		<!--百度地图容器-->
+		<div class="container_baidu_map" id="dituContent"></div>
+		<!--<div id="r-result">
+			<div class="optionpanel">
+				<label>选择主题</label>
+				<select id="stylelist" onchange="changeMapStyle(this.value)"></select>
+			</div>
+		</div>-->
+	</body>
+	<script src="js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<!--以下是选择主题-->
+	<script src="js/stylelist.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//初始化模板选择的下拉框
+		var sel = document.getElementById('stylelist');
+		for(var key in mapstyles) {
+			var style = mapstyles[key];
+			var item = new Option(style.title, key);
+			sel.options.add(item);
+		}
+
+		function changeMapStyle(style) {
+			map.setMapStyle({
+				style: style
+			});
+			$('#desc').html(mapstyles[style].desc);
+		}
+	</script>
+
+</html>

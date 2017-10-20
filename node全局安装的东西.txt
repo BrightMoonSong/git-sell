@@ -1,0 +1,24 @@
+
+查看npm全局-g安装过哪些包
+npm list -g --depth 0
+
+--------------安装过了的
+webpack
+cnpm
+cnpm install electron -g
+npm install dva-cli -g
+
+
++-- babel@6.23.0
++-- cnpm@5.1.1
++-- dva-cli@0.8.1
++-- electron@1.7.6
++-- generator-react-webpack@1.2.11
++-- grunt-cli@1.2.0
++-- node-sass@4.5.3
++-- webpack@3.5.6
++-- webpack-dev-server@2.7.1
++-- yarn@1.0.2
+`-- yo@2.0.0
+bower
+vue-cli

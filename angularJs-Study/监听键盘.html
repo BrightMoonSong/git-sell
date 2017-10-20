@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function keyUp(e) {
+				var currKey = 0,
+					e = e || event;
+				currKey = e.keyCode || e.which || e.charCode;
+				var keyName = String.fromCharCode(currKey);
+				console.log("按键码: " + currKey + " 字符: " + keyName);
+			}
+			document.onkeyup = keyUp;
+		</script>
+	</body>
+
+</html>

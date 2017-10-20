@@ -1,0 +1,42 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>多功能jQuery日期控件 jeDate - 素材家园-www.sucaijiayuan.com</title>
+<script type="text/javascript" src="jeDate/jedate.js"></script>
+
+<style>
+body{ padding:50px 0 0 50px;}
+.datainp{ width:200px; height:30px; border:1px #ccc solid;}
+.datep{ margin-bottom:40px;}
+</style>
+</head>
+
+<body>
+<div style="width:100%;height:1000px;">
+<p class="datep"><a href="http://www.jayui.com/jedate/" target="_blank" rel="nofollow">日期控件API</a></p>
+<p class="datep"><input class="datainp" id="indate" type="text" placeholder="只显示年月" value=""  readonly></p>
+<p class="datep"><input class="datainp" id="dateinfo" type="text" placeholder="请选择"  readonly></p>
+<p class="datep"><input class="datainp" id="datebut" type="text" placeholder="请选择"  readonly><input type="button" onClick="jeDate({dateCell:'#datebut',isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="打开"></p>
+</div>
+<script type="text/javascript">
+    //jeDate.skin('gray');
+	jeDate({
+		dateCell:"#indate",//isinitVal:true,
+		format:"YYYY-MM",
+		isTime:false, //isClear:false,
+		minDate:"2015-10-19 00:00:00",
+		maxDate:"2016-11-8 00:00:00"
+	})
+    jeDate({
+		dateCell:"#dateinfo",
+		format:"YYYY年MM月DD日 hh:mm:ss",
+		isinitVal:true,
+		isTime:true, //isClear:false,
+		minDate:"2014-09-19 00:00:00",
+		okfun:function(val){alert(val)}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>异步加载脚本</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/**
+			 * 脚本加载与解析会阻塞HTML渲染，可以通过异步加载方式来避免渲染阻塞。
+			 * 异步加载的方式很多，比较通用的方法是通过类似下面的代码实现
+			 */
+			var loadjs = function(script_filename) {
+				var script = document.createElement('script');
+				script.setAttribute('type', 'text/javascript');
+				script.setAttribute('src', script_filename);
+				script.setAttribute('id', 'script-id');
+				scriptElement = document.getElementById('script-id');
+				if(scriptElement) {
+					document.getElementsByTagName('head')[0].removeChild(scriptElement);
+				}
+				document.getElementsByTagName('head')[0].appendChild(script);
+			}
+			var script = 'js/alert.js';
+			loadjs(script);
+
+			/**
+			 * （性能优化）
+			 * 减少DOM元素数量
+			 * 1. 在console中执行命令查看DOM元素数量
+			 * 2. Yahoo首页DOM元素数量在1200左右。正常页面大小一般不应该超过 1000。
+			 * 3. DOM元素过多会使DOM元素查询效率，样式表匹配效率降低，是页面性能最主要的瓶颈之一。
+			 */
+			//获取页面的DOM元素个数
+			var num = document.getElementsByTagName('*').length;
+			alert("获取页面的DOM元素个数:" + num);
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var obj1 = {'id':1,'name':'dsf'},obj2 = {'id':2,'name':'dsf'};
+			Object.prototype.comparison = function(obj){
+				var obj = this;
+				for (var key in obj) {
+					console.log(key);
+				}
+			}
+			obj1.comparison(obj2);
+		</script>
+		
+	</body>
+</html>

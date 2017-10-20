@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>原生js实现给指定元素的后面追加内容</title>
+	</head>
+
+	<body>
+		<div id="header2"></div>
+		<div id="header">1</div>
+		<div id="header1"></div>
+		<script type="text/javascript">
+			var header1 = document.getElementById("header");
+			var p = document.createElement("p"); // 创建一个元素节点 
+			p.innerText='pppppp';
+			function insertAfter(newElement, targetElement) { // newElement是要追加的元素 targetElement 是指定元素的位置 
+				var parent = targetElement.parentNode; // 找到指定元素的父节点 
+				if(parent.lastChild == targetElement) { // 判断指定元素的是否是节点中的最后一个位置 如果是的话就直接使用appendChild方法 
+					parent.appendChild(newElement, targetElement);
+				} else {
+					parent.insertBefore(newElement, targetElement.nextSibling);
+				};
+			};
+			Object.prototype.insertAfter=function(newElement){
+				var targetElement = this;
+				var parent = targetElement.parentNode; // 找到指定元素的父节点 
+				if(parent.lastChild == targetElement) { // 判断指定元素的是否是节点中的最后一个位置 如果是的话就直接使用appendChild方法 
+					parent.appendChild(newElement, targetElement);
+				} else {
+					parent.insertBefore(newElement, targetElement.nextSibling);
+				};
+			};
+			//insertAfter(p, header1); // 因为js没有直接追加到指定元素后面的方法 所以要自己创建一个方法 
+			header1.insertAfter(p);
+		</script>
+	</body>
+
+</html>

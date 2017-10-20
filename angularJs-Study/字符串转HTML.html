@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>字符串转HTML</title>
+		<style type="text/css">
+			.borderRed {
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+
+	<body ng-app='myApp'>
+		<div class="borderRed" ng-controller="myctr">			
+			<div ng-bind-html="html | trust2Html">
+				
+			</div>
+		</div>
+		<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			var app = angular.module('myApp', []);
+			app.controller('myctr', myctr);
+			app.filter('trust2Html', ['$sce', function($sce) {
+				return function(val) {
+					return $sce.trustAsHtml(val);
+				};
+			}])
+
+			function myctr($scope) {
+				$scope.html = "<p>fsd</p>";
+			}
+		</script>
+	</body>
+
+</html>

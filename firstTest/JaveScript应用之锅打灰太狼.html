@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style type="text/css">
+            #wrap {
+                width: 320px;
+                height: 480px;
+                margin: 20px auto;
+                position: relative;
+            }
+
+            #content {
+                width: 100%;
+                height: 100%;
+                background: url(imgs/timg.jpg);
+            }
+
+            #progress {
+                position: absolute;
+                top: 66px;
+                left: 63px;
+                width: 180px;
+                height: 16px;
+                border-radius: 8px;
+            }
+
+            #menuGame {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            #start,
+            #introduce {
+                color: red;
+                font-size: 30px;
+            }
+
+            #start {
+                position: absolute;
+                top: 40%;
+                left: 40%;
+            }
+
+            #introduce {
+                position: absolute;
+                top: 50%;
+                left: 31%;
+            }
+
+            #content img {
+                width: 80px;
+                height: 80px;
+                border: 1px solid red;
+                position: absolute;
+            }
+
+            #content img:nth-child(1) {
+                bottom: 260px;
+                left: 14px;
+            }
+
+            #content img:nth-child(2) {
+                left: 110px;
+                bottom: 260px;
+            }
+
+            #content img:nth-child(3) {
+                left: 210px;
+                bottom: 260px;
+            }
+
+            #content img:nth-child(4) {
+                left: 14px;
+                bottom: 150px;
+            }
+
+            #content img:nth-child(5) {
+                left: 110px;
+                bottom: 150px;
+            }
+
+            #content img:nth-child(6) {
+                left: 210px;
+                bottom: 150px;
+            }
+
+            #content img:nth-child(7) {
+                left: 14px;
+                bottom: 40px;
+            }
+
+            #content img:nth-child(8) {
+                left: 110px;
+                bottom: 40px;
+            }
+
+            #content img:nth-child(9) {
+                left: 210px;
+                bottom: 40px;
+            }
+
+            #menuOver {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: none;
+            }
+
+            #gameOver {
+                font-size: 30px;
+                line-height: 480px;
+                color: red;
+                text-align: center;
+            }
+            #scores{
+                /*width: 10px;
+                height: 10px;
+                border: 1px solid black;*/
+                position: absolute;
+                top:0px;
+                left: 57px;
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="wrap">
+            <div id="content">
+                <!--九个坑的图片-->
+                <img src="" alt="" />
+                <img src="" alt="" />
+                <img src="" alt="" />
+                <img src="" alt="" />
+                <img src="" alt="" />
+                <img src="" alt="" />
+                <img src="" alt="" />
+                <img src="" alt="" />
+                <img src="" alt="" />
+            </div>
+            <!--进度条-->
+            <img src="imgs/jindu.jpg" alt="" id="progress" />
+            <!--开始菜单-->
+            <div id="menuGame">
+                <p id="start">开始</p>
+                <!--操作说明没进行设置-->
+                <p id="introduce">操作说明</p>
+            </div>
+            <!--结束菜单-->
+            <div id="menuOver">
+                <p id="gameOver">game over!</p>
+            </div>
+            <!--分数-->
+            <p id="scores">0</p>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var start = document.getElementById('start');
+        var progress = document.getElementById('progress');
+        var content = document.getElementById('content');
+        var imgs = content.getElementsByTagName('img');
+        var menuGame = document.getElementById('menuGame');
+        var menuOver = document.getElementById('menuOver');
+        var scores = document.getElementById('scores');
+        //随机数
+        function randomNum(m, n) {
+            return Math.floor(Math.random() * (n - m + 1) + m)
+        }
+        //图片出现
+        var imgAppear;
+        //图片消失
+        var imgDisappear;
+        //随机在哪出现
+        var timerRandomNum;
+        //点击图片
+        var hitBig;
+        //储存分数
+        var score = 0;
+        //点击开始按钮
+        start.onclick = function() {
+            menuGame.style.display = 'none';
+            //进度条逐渐缩短
+            var divWidth = 180;
+            var timer = setInterval(function() {
+                divWidth--;
+                progress.style.width = divWidth + 'px';
+                if (divWidth == 0) {
+                    clearInterval(timer);
+                    menuOver.style.display = 'block';
+                    menuOver.onclick = function() {
+                        menuOver.style.display = 'none';
+                        menuGame.style.display = 'block';
+                        score = 0;
+                        scores.innerHTML = score;
+                    }
+                    clearInterval(timerRandomNum);
+                }
+            }, 100)
+            //随机灰太狼和小灰灰
+            //h 为灰太狼, x 为小灰灰
+            //灰太狼出现的概率为75%,小灰灰出现的概率为25%
+            var arr = ['h', 'h','h','x'];
+            timerRandomNum = setInterval(function() {
+                clearInterval(imgAppear);
+                var num = 0;
+                num = randomNum(0, 8);
+                //图片 h0-h5 或 x0-x5
+                var imgNum = 0;
+                var imgNum1 = 5;
+                var imgStyle = arr[randomNum(0, 3)]
+                //图片出现
+                imgAppear = setInterval(function() {
+                    imgs[num].src = 'imgs/' + imgStyle + imgNum + '.jpg';
+                    imgNum++;
+                    if (imgNum == 5) {
+                        clearInterval(imgAppear);
+                        //图片消失
+                        imgDisappear = setInterval(function() {
+                            imgNum1--;
+                            imgs[num].src = 'imgs/' + imgStyle + imgNum1 + '.jpg';
+                            if (imgNum1 == 0) {
+                                clearInterval(imgDisappear);
+                                imgs[num].src = '';
+                            }
+                        }, 100)
+                    }
+                }, 100)
+                for (var i = 0;i <imgs.length;i++) {
+                    imgs[i].index = i;
+                    //点击图片
+                    imgs[i].onclick = function () {
+                        //点击后图片h6-h9或 x6-x9
+                        var numHitBig = 5;
+                        if (this.index == num){
+                            clearInterval(imgAppear);
+                            clearInterval(imgDisappear);
+                            this.src = '';
+                            clearInterval(hitBig);
+                            hitBig = setInterval (function () {
+                                numHitBig++;
+                                imgs[num].src = 'imgs/' + imgStyle + numHitBig + '.jpg';
+                                if (numHitBig == 9) {
+                                    clearInterval(hitBig);
+                                    imgs[num].src = '';
+                                }
+                            },100);
+                        }
+                        //点击灰太狼加十分,点击小灰灰减十分
+                        if(imgStyle == 'h'){
+                            score += 10;
+                        }else{
+                            score -= 10;
+                        }
+                        //输入分数
+                        scores.innerHTML = score;
+                    }
+                }
+            }, 1000)
+        }
+    </script>
+
+</html>

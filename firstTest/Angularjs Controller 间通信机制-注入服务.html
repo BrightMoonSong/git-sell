@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body ng-app="demo">
+		<div ng-controller="childCtrl1">
+			<h3>data in child controller 1 : {{data.name}}</h3>
+			<input class="form-control" type="text" ng-model="data.name">
+		</div>
+		<div ng-controller="childCtrl2">
+			<h3>data in child controller 2 : {{data.name}}</h3>
+			<input class="form-control" type="text" ng-model="data.name">
+		</div>
+
+		<script type="text/javascript">
+			angular.module('demo', [])
+				.factory('Data', function() {
+					return {
+						name: 'htf'
+					};
+				})
+				.controller('childCtrl1', ['$scope', 'Data', function($scope, Data) {
+					$scope.data = Data;
+				}])
+				.controller('childCtrl2', ['$scope', 'Data', function($scope, Data) {
+					$scope.data = Data;
+				}])
+		</script>
+	</body>
+
+</html>

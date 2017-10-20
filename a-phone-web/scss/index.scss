@@ -1,0 +1,25 @@
+$back-color: #fff;
+$margin: 0;
+$padding: 0;
+$color: #ccc;
+$width-nav: 100% !default;
+$height-nav: 7.5rem !default;
+$background-nav: rgba(83,68,60,1) !default;
+
+body {
+  background-color: $back-color;
+  margin: $margin;
+  padding: $padding;
+  color: $color;
+}
+
+.container {
+  background-color: transparent;
+  color: inherit;
+
+  .nav {
+    background-color: $background-nav;
+    width: $width-nav;
+    height: $height-nav;
+  }
+}

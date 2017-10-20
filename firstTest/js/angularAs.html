@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>DemoController as demo</title>
+		<script src="angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body ng-app="app">
+			<span style="color: red;">
+				:controller:::<span style="color: blue;">{{rootScopeValue}}</span>
+			</span>
+		<div ng-controller="DemoController as demo">
+			<div>hello : {{demo.count}}</div>
+			<button ng-click="demo.increase ();">increase ++</button>
+			<br /> {{::yourModel}}
+			<br /> {{yourModel}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		angular.module('app', [])
+			.controller('DemoController', function($scope,$rootScope, $timeout) {
+				this.count = 0;
+				this.increase = function() {
+					this.count++;
+				};
+				var aa = angular.isString('1');
+				//alert(aa);
+				console.time("constime")
+				$scope.yourModel = 'yourModelyourModelyourModel';
+				$scope.timeoutName = $timeout(function() {
+					$scope.yourModel = '000000000';
+					console.timeEnd("constime")
+				}, 3000);
+				$rootScope.rootScopeValue = "rootScopeValuerootScopeValuerootScopeValue";
+				$scope.attr = ['11','22'];
+				$scope.attr2 = ['55','66'];
+				
+				console.log($scope.attr.concat($scope.attr2));
+				
+			});
+		var aa = window.angular.isString('1');
+		//	alert(aa)
+	</script>
+
+</html>

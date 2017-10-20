@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			html {
+				position: absolute;
+				overflow: hidden;
+			}
+			
+			body {
+				background-color: white;
+				overflow: hidden;
+			}
+			
+			.random {
+				width: 14.6rem;
+				height: 14.6rem;
+				position: absolute;
+				margin: auto;
+			}
+			
+			.content {
+				width: 14.6rem;
+				height: 14.6rem;
+				background: url(bg.jpg);
+				background-repeat: no-repeat;
+				background-size: 100%;
+				background-orign: content-box;
+				transform: rotate(0deg);
+			}
+			
+			.down {
+				width: 2rem;
+				height: 0.7rem;
+				background-image: url(down.png);
+				background-size: 100%;
+				position: absolute;
+				left: 7rem;
+				top: 0;
+			}
+			
+			.start {
+				width: 3rem;
+				height: 3rem;
+				background-color: red;
+				position: absolute;
+				top: 5.8rem;
+				left: 5.8rem;
+				border-radius: 4rem;
+				-o-border-radius: 4rem;
+				text-align: center;
+				line-height: 3rem;
+			}
+			
+			.close {
+				position: absolute;
+				top: 3rem;
+				width: 4rem;
+				left: 5rem;
+				text-align: center;
+				font-weight: bold;
+				background-color: white;
+				font-size: 1rem;
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="random" id="randomDiv">
+			<div class="content" id="content">
+			</div>
+			<div class="start" id="start">start</div>
+			<div class='close' id="close"> 恭喜中奖</div>
+		</div>
+		<div class="down" id='down'></div>
+	</body>
+
+</html>
+<script src="js/touch.js"></script>
+<script src="js/random.js"></script>
+<script src="js/main.js"></script>
+<script>
+	var start = document.getElementById('start');
+	var randomDiv = document.getElementById('randomDiv');
+	var content = document.getElementById('content');
+	var close = document.getElementById('close');
+	var down = document.getElementById('down');
+	//转盘中一共有四种可能性，每种可能性的概率为0.1,0.2,0.3,0.4，
+	//一共为1 
+	var arr = [{ 'pro': 0.1, 'deg': [96, 316], 'type': '一等奖' },
+	{ 'pro': 0.3, 'deg': [40, 274, 176], 'type': '二等奖' }, 
+	{ 'pro': 0.6, 'deg': [18, 297, 197, 117], 'type': '三等奖' }, 
+	{ 'pro': 1, 'deg': [68, 342, 236, 148], 'type': '幸运奖' }]; 
+	//content.style.transform = 'rotate(316deg)'; 
+	var $attrcommon = new $attrCommon();//实例化random.js接口 
+	start.addEventListener('touchend', function(e) { $attrCommon.init(e, content, close, start, arr); }, false);
+	$attrCommon.setTop(randomDiv, down);
+</script>

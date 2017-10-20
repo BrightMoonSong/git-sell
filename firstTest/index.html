@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>firstTest</title>
+		<style type="text/css">
+			#div1{
+				border: 1px red solid;
+				width: 500px;
+				height: 300px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p contenteditable="true">这是一段可编辑的slk;d'alfsjkfskjsognhaoyuenihao段落。请试着编辑该文本。</p>
+						
+		<div>
+			<p>Java定义了8个简单的数据类型：字节型（byte）， 短整型（short），</p>
+			<p>整型（int），长整型（long），字符型（char），浮点型（float），双精度型（double），布尔型（boolean）.</p>
+		</div>
+
+		<code>
+			js中callback.call()和callback()的区别<br />
+一直不是很明白在js中callback.call()和callback() 有什么区别,举个例子:<br />
+function a(){<br />
+alert('hello!');<br />
+}<br />
+function b(callback){<br />
+callback();<br />
+}<br />
+function c(callback){<br />
+callback.call();<br />
+}<br />
+function test(){<br />
+b(a);<br />
+c(a);<br />
+}<br />
+在test函数中,b和c的效果是一样的,都执行了回调函数a.<br />
+那么这两种用法有什么区别呢?<br />
+
+<br />
+
+优质解答 <br />
+callback是回调函数。函数有call和apply方法。可以在函数执行时动态的绑定上下文。<br />
+因为你这里callback.call()没有传入任何参数。因此callback.call()跟callback()是等价的。没有任何不同。<br />
+函数的上下文主要影响函数中的this对象。<br />
+正常情况下this对象是根据运行上下文自动指定的。<br />
+但是用call方法或者apply方法可以手动设置上下文。相当于可以随意调整函数中的this对象指向谁。 <br />
+		</code>
+
+		<script type="text/javascript">
+			function add(a, b) {
+				alert(a + b);
+			}
+
+			function sub(a, b) {
+				alert(a - b);
+			}
+
+			add.call(sub, 3, 1);
+
+			function calculate() {
+				if(arguments.length == 2) {
+					return arguments[0] + arguments[1];
+				}
+				if(arguments.length == 3) {
+					return arguments[0] * arguments[1] * arguments[2];
+				}
+			}
+
+			alert(calculate(1, 3))
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			.borderRed {
+				border: 1px solid red;
+			}
+			
+			.backhui {
+				background: #A7E2E7;
+			}
+			
+			.backdata {
+				background: #A332E7;
+			}
+		</style>
+	</head>
+
+	<body ng-app='myApp'>
+		<div class="borderRed" ng-controller="myctr">
+			<div class="borderRed backhui">
+				<input type="text" ng-model="firstVal" />
+				<br />
+				<input type="text" my-model="firstVal"/>
+				<p>{{firstVal}}</p>
+			</div>
+			<div class="borderRed backdata">
+				<br /> 普通日期指令：
+				<input type="text" id="dataputong" datapicker='dataday' readonly="readonly"/>
+				<p>{{dataday}}</p>
+			</div>
+		</div>
+		<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/My97DatePicker/WdatePicker.js"></script>
+
+		<script type="text/javascript">
+			var app = angular.module('myApp', []);
+			app.controller('myctr', myctr)
+				.directive('myModel', myModel)
+				.directive('datapicker', datapicker)
+				.directive('startPicker', startPicker)
+				.directive('endPicker', endPicker);
+
+			function myctr($scope) {
+				$scope.WdatePicker = {};
+				$scope.$watch('firstVal', function(newVal, oldVal) {
+					console.log(newVal, oldVal);
+				})
+			}
+
+			function myModel() {
+				return {
+					//链接函数
+					//element-->jQ的对象;attr-->元素上属性的集合
+					link: function(scope, element, attr) {
+						console.log('121334')
+						//1，当input value发生变化的时候修改scope上对应的属性
+						element.on('keyup', function() {//keyup
+							console.log('1')
+							scope[attr['myModel']] = element.val();
+							//强行进行脏值检查
+							scope.$apply();
+						});
+						//2，当模型变化时设置input  value值
+						scope.$watch(attr['myModel'], function(newVal) {
+							element.val(newVal);
+						});
+					}
+				};
+			}
+
+			/**
+			 * datapicker 普通日期指令
+			 */
+			function datapicker() {
+				return {
+					restrict: "A",
+					scope: false,
+					link: function(scope, element, attr) {
+						element.bind('click', function() {
+							window.WdatePicker({
+								onpicked: function() {
+									scope.$apply(function() {
+										//scope.WdatePicker.dataTime = element.val();
+										scope[attr['datapicker']] = element.val();
+									})
+								},
+								oncleared: function() {
+									scope.$apply(function() {
+										//scope.WdatePicker.dataTime = element.val();
+										scope[attr['datapicker']] = element.val();
+									})
+								},
+								dateFmt: 'yyyy-MM-dd HH:mm:ss'
+							})
+						})
+						scope.$watch(attr['datapicker'], function(newVal) {
+							element.val(newVal);
+						});
+					}
+				};
+			}
+			/**
+			 * startPicker 开始日期指令
+			 */
+			function startPicker() {
+				return {
+					restrict: "A",
+					scope: false,
+					link: function(scope, element, attr) {
+						element.bind('click', function() {
+							window.WdatePicker({
+								onpicked: function() {
+									scope.$apply(function() {
+										scope.WdatePicker.startTime = element.val();
+										scope[attr['startPicker']] = element.val();
+									})
+								},
+								oncleared: function() {
+									scope.$apply(function() {
+										scope.WdatePicker.startTime = element.val();
+										scope[attr['startPicker']] = element.val();
+									})
+								},
+								dateFmt: 'yyyy-MM-dd HH:mm:ss',
+								maxDate: scope.WdatePicker.endTime
+							})
+						})
+						scope.$watch(attr['startPicker'], function(newVal) {
+							element.val(newVal);
+						});
+					}
+				};
+			}
+			/**
+			 * endPicker 结束日期指令
+			 */
+			function endPicker() {
+				return {
+					restrict: "A",
+					scope: false,
+					link: function(scope, element, attr) {
+						element.bind('click', function() {
+							window.WdatePicker({
+								onpicked: function() {
+									scope.$apply(function() {
+										scope.WdatePicker.endTime = element.val();
+									})
+								},
+								oncleared: function() {
+									scope.$apply(function() {
+										scope.WdatePicker.endTime = element.val();
+									})
+								},
+								dateFmt: 'yyyy-MM-dd HH:mm:ss',
+								minDate: scope.WdatePicker.startTime
+							})
+						})
+					}
+				};
+			}			
+		</script>
+	</body>
+
+</html>

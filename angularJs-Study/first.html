@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>ng-model的封装原理</title>
+</head>
+
+<body ng-app='myApp'>
+	<!--注意 as moonTest--this指向as后面-->
+	<div class="borderRed" ng-controller="myctr as moonTest">
+		{{moonTest.value}}
+		<input type="text" ng-model="firstVal" id="firstVal" />
+		<br />
+		<input type="text" my-model="firstVal" />
+		<p>{{firstVal}}</p>
+		<button ng-click="bofang()">播放</button>
+	</div>
+	<audio id="bgMusic">
+	    <source = src="eun.mp3" type="audio/mp3">
+	    <source = src="eun.ogg" type="audio/ogg">
+	</audio>
+	<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function bofang() {
+			var audio = document.getElementById("bgMusic");
+			//重新播放
+			audio.currentTime = 0;
+			audio.play();
+		}
+		var app = angular.module('myApp', []);
+		app.controller('myctr', myctr)
+			.directive('myModel', myModel);
+
+		function myctr($scope) {
+			this.value = "moonTest测试";
+
+			$scope.bofang= function(){
+				bofang();
+			}
+			$scope.$watch('firstVal', function(newVal, oldVal) {
+				console.log(newVal, oldVal);
+			}, true);
+			//监听键盘
+			function keyUp(e) {
+				var currKey = 0,
+					e = e || event;
+				currKey = e.keyCode || e.which || e.charCode;
+				var keyName = String.fromCharCode(currKey);
+				console.log("按键码: " + currKey + " 字符: " + keyName);
+				$scope.firstVal = currKey;
+				$scope.$apply();
+			}
+			document.onkeyup = keyUp;
+		}
+
+		function myModel() {
+			return {
+				//链接函数
+				//element-->jQ的对象;attr-->元素上属性的集合
+				link: function(scope, element, attr) {
+					//1，当input value发生变化的时候修改scope上对应的属性
+					element.on('keyup', function() {
+						console.log('1')
+						scope[attr['myModel']] = element.val();
+						//强行进行脏值检查
+						scope.$apply();
+					});
+					//2，当模型变化时设置input  value值
+					scope.$watch(attr['myModel'], function(newVal) {
+						element.val(newVal);
+					});
+				}
+			};
+		}
+	</script>
+</body>
+
+</html>

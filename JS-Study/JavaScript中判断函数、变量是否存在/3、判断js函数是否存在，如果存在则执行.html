@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//假设funcName为函数名字，用如下方法就可以达到目标
+			//一定要添加try catch块，否则不起作用。
+			try {
+				if(typeof(eval(funcName)) == "function") {
+					funcName();
+				}
+			} catch(e) {
+				//alert("not function"); 
+			}
+		</script>
+	</body>
+
+</html>

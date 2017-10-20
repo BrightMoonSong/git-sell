@@ -1,0 +1,4 @@
+cnpm install -g fis3
+fis3 release -d ./dist
+fis3 release -w -d ./dist    启动监听
+./dist   是同级的目录    输出目录

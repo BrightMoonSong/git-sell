@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>js实现图片放大和拖拽特效</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/drag_map.js"></script>
+    <style type="text/css">
+        body{font-size: 12px;font-family: "Verdana" , "Arial" , "Helvetica" , "sans-serif";} 
+		td{font-size: 12px; line-height: 150%;} 
+		TD{font-size: 12px; color: #000000;} 
+		A{font-size: 12px; color: #000000;} 
+		#Layer1{z-index: 100; position: absolute; top: 150px;} 
+		#Layer2{z-index: 1; position: absolute;}
+    </style>
+    <script type="text/JavaScript">
+        function MM_reloadPage(init) {
+            if (init == true) with (navigator) {
+                if ((appName == "Netscape") && (parseInt(appVersion) == 4)) {
+                    document.MM_pgW = innerWidth; document.MM_pgH = innerHeight; onresize = MM_reloadPage;
+                }
+            }
+            else if (innerWidth != document.MM_pgW || innerHeight != document.MM_pgH) location.reload();
+        }
+        MM_reloadPage(true);
+    </script>
+</head>
+<body onLoad="" onmouseup="document.selection.empty()" oncontextmenu="return false"
+    onselectstart="return false" ondragstart="return false" onbeforecopy="return false"
+    style="overflow-y: hidden; overflow-x: hidden" oncopy="document.selection.empty()"
+    leftmargin="0" topmargin="0" onselect="document.selection.empty()" marginheight="0"
+    marginwidth="0">
+	
+    <div id="Layer1">
+        <table cellspacing="2" cellpadding="0" border="0">
+            <tbody>
+                <tr>
+                    <td>&nbsp;
+                        
+                    </td>
+                    <td>
+                        <img title="向上" style="cursor: hand" onClick="clickMove('down')" height="20" src="images/up.gif"
+                            width="20">
+                    </td>
+                    <td>&nbsp;
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img title="向左" style="cursor: hand" onClick="clickMove('right')" height="20" src="images/left.gif"
+                            width="20">
+                    </td>
+                    <td>
+                        <img title="还原" style="cursor: hand" onClick="realsize();" height="20" src="images/zoom.gif"
+                            width="20">
+                    </td>
+                    <td>
+                        <img title="向右" style="cursor: hand" onClick="clickMove('left')" height="20" src="images/right.gif"
+                            width="20">
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;
+                        
+                    </td>
+                    <td>
+                        <img title="向下" style="cursor: hand" onClick="clickMove('up')" height="20" src="images/down.gif"
+                            width="20">
+                    </td>
+                    <td>&nbsp;
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;
+                        
+                    </td>
+                    <td>
+                        <img title="放大" style="cursor: hand" onClick="bigit();" height="20" src="images/zoom_in.gif"
+                            width="20">
+                    </td>
+                    <td>&nbsp;
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;
+                        
+                    </td>
+                    <td>
+                        <img title="缩小" style="cursor: hand" onClick="smallit();" height="20" src="images/zoom_out.gif"
+                            width="20">
+                    </td>
+                    <td>&nbsp;
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>
+        <br>
+    </p>
+   <!-- <div id="hiddenPic" style="z-index: 1; left: 0px; visibility: hidden; width: 0px;
+        position: absolute; top: 150px; height: 0px">
+        <img src="http://ww2.sinaimg.cn/large/adde8400gw1eeazlmtqa8j20qd0mdadm.jpg" border="0" name="images2">
+    </div>-->
+    
+	<div class="dragAble" id="block1" onMouseOver="dragObj=block1; drag=1;" style="z-index: 10;
+        left: 0px; width: 0px; position: absolute; top: 150px; height: 0px" onMouseOut=""
+        drag="0">
+        <img onmousewheel="return onWheelZoom(this)" style="zoom: 0.7" src="images/adde8400gw1eeazlmtqa8j20qd0mdadm.jpg"
+            border="0" name="images1">
+    </div>
+	
+</body>
+</html>

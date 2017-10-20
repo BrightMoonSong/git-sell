@@ -1,0 +1,68 @@
+1.建立webpack.config.js和package.json
+2.cnpm install
+cnpm install url-loader -save -dev
+//cnpm install css-loader style-loader jsx-loader
+cnpm install -g node-sass
+jsx-loader--已经废弃，用babel-loader
+cnpm install babel-loader --save-dev
+
+cnpm i bootstrap url url-loader style-loader css-loader --save
+注意：--save-dev保存进package.json
+--save进入--devDependencies
+--save-dev保存进入dependencies
+3.webpack --config webpack.config2.js可以读取这个配置文件启动webpack
+
+4.webpack是打包的命令
+
+5.webpack --watch  这个命令在改动JS时自动编译打包
+
+6.
+$ webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包
+ 
+$ webpack --watch   //监听变动并自动打包
+ 
+$ webpack -p    //压缩混淆脚本，这个非常非常重要！
+ 
+$ webpack -d    //生成map映射文件，告知哪些模块被最终打包到哪里了
+
+7.
+cnpm install webpack-dev-server --save-dev
+webpack-dev-server --hot --inline --port 3000
+
+webpack-dev-server
+　　1.webpack-dev-server是一个轻量级的服务器，修改文件源码后，自动刷新页面将修改同步到页面上
+
+　　2.安装webpack-dev-server：
+　　　　全局安装：npm install webpack-dev-server -g
+　　　　在项目中安装并将依赖写在package.json文件中:npm install webpack-dev-server --save-dev
+
+　　3.使用命令webpack-dev-server --hot --inline完成自动刷新
+　　4.默认的端口号是8080，如果需要8080端口被占用，就需要改端口，webpack-dev-server --port 3000(将端口号改为3000)
+
+　　5.安装webpack-dev-server后就可以在命令行中输入webpack-dev-server开启服务，然后在浏览器地址栏中
+　　输入localhost:端口号，就可以在浏览器中打开项目根目录的index.html文件，如果项目根目录中没有index.html
+　　文件，就会在浏览器中列出项目根目录中的所有的文件夹。
+　　6.第五条只是启动服务并不能自动刷新，要自动刷新需要用到webpack-dev-server --hot --inline
+
+　　7.当使用webpack-dev-server --hot --inline命令时，在每次修改文件，是将文件打包
+　　保存在内存中并没有写在磁盘里(默认是根据webpack.config.js打包文件，通过--config xxxx.js修改)，这种打包得到的文件
+　　和项目根目录中的index.html位于同一级（但是你看不到，因为
+　　它在内存中并没有在磁盘里）。使用webpack命令将打包后的文件保存在磁盘中
+　　例如在index.html文件中引入通过webpack-dev-server --hot --inline打包的build.js
+　　　　<script src="build.js"></script>
+　　在index.html文件中引入通过webpack命令打包的build.js
+　　　　<script src="./build/build.js"></script>
+
+　　8.每一次都敲一长串命令太麻烦，在项目根目录的package.json文件的scripts配置中添加配置，如
+　　"build":"webpack-dev-server --hot --inline",然后在命令行中输入 npm run build就能
+　　代替输入一长串命令（webpack-dev-server --hot --inline），运行webpack-dev-server --hot --inline默认是找　　　　　　　　webpack.config.js,通过--config命令可以修改为另一个配置文件。例如：webpack-dev-server --hot --inline --config 　　　　　'webpack.es6.config.js'
+
+　　9.配置根目录
+
+　　　　（1）当在命令行中输入webpack-dev-server --hot --inline，再在浏览器中输入localhost：端口号，浏览器会在项目的
+
+　　　　　根目录中去查找内容，通过--content-base可以配置根目录。
+
+　　　　如webpack-dev-server --hot --inline --content-base './build/'，在build文件夹中去加载index.html，如果没有
+
+　　　　index.html文件，将会在浏览器中显示所有build目录下的文件和文件夹

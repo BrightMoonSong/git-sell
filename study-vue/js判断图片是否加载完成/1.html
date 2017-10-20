@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>img - load event</title>
+  <style media="screen">
+    #img1 {
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <img id="img1" src="http://pic1.win4000.com/wallpaper/f/51c3bb99a21ea.jpg">
+  <p id="p1">loading...</p>
+  <script type="text/javascript">
+    img1.onload = function() {
+      p1.innerHTML = 'loaded';
+    }
+  </script>
+</body>
+
+</html>
+<!--测试，所有浏览器都显示出了“loaded”，说明所有浏览器都支持img的load事件。-->

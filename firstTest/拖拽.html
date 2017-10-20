@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="header" style="padding-left:100px;padding-top:10px">
+			<h1>可拖拽说明:</h1>
+			<p>（1）让一个元素可以拖动，可以自定义拖拽范围(第一个被设定了position的父元素)，默认是window，可以自定义拖拽时鼠标的按下区域，默认是可拖拽元素本身</p>
+			<p>（2）事件支持：鼠标按下准备拖拽；拖拽中；拖拽完成后</p>
+			<p>（3）如果拖拽范围是window，拖拽元素html会被放置在body下面</p>
+			<p>（4）为获得良好的拖动性能，请尽量采用代理拖动模式</p>
+			<br />
+			<br />
+		</div>
+		<div id="dragContainer" style="padding:10px; margin:0 auto;width:960px;height:350px;padding-top:20px; background:#cccccc;padding-left:100px">
+			<div id="dragDiv" style="width:400px;height:200px; background:#0094ff;">
+				<h2 id="title" style="background:#E8D379;height:35px;">标题..............</h2> 用户名：
+				<input type="text" value="hjwen" />
+				<p>(1)简单实用的ui，不常用，不必要的功能，不实现</p>
+				<p>(2)只支持js创建，不支持html属性形式，尽量保持html的整洁</p>
+			</div>
+		</div>
+		
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/拖拽/new_file.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var drag;
+			$(function() {
+				//drag = $("#dragDiv").draggable({ dragArea: 'dragContainer', mousedownObj: 'title' });//限定范围，按标题拖动
+				drag = $("#dragDiv").draggable({
+					mousedownObj: 'title'
+				}); //window拖动范围，按标题拖动
+				//drag = $("#dragDiv").draggable({ dragArea: 'dragContainer', mousedownObj: 'title',proxy:false });//非代理模式拖动
+				//默认，拖动范围body，按元素拖动
+				//drag = $("#dragDiv").draggable({
+				//    onStart: function (params) {
+				//        //console.log("onStart"+JSON.stringify(params));
+				//    },
+				//    onDraging: function (params) {
+				//        //console.log("onDraging" + JSON.stringify(params));
+				//    },
+				//    onStop: function (params) {
+				//        //console.log("onStop" + JSON.stringify(params));
+				//    }
+				//});
+			});
+		</script>
+	</body>
+
+</html>

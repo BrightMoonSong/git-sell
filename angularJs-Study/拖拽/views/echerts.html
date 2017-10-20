@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+	<li ng-init="activeEcharts=true;" ng-class="{true: 'active', false: ''}[activeEcharts]"><a data-toggle="tab" ng-click="sliderEcharts()"> 柱形图 </a></li>
+	<li><a data-toggle="tab" ng-click="lineEcharts()"> 折线图 </a></li>
+	<li><a data-toggle="tab" ng-click="pieEcharts()"> 饼图 </a></li>
+</ul>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 820px;height:530px;"></div>

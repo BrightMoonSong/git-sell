@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			#test-1,
+			#test-2 {
+				width: 100px;
+				height: 100px;
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="test-1">test-1</div>
+		<div id="test-2">test-2</div>
+		<ul>
+			<li id='li-1'>Coffee</li>
+			<li id='li-2'>Milk</li>
+			<li id='li-3'>Soda</li>
+		</ul>
+
+		<script type="text/javascript">
+			(function() {
+				/*
+				 * 创建一个私有class
+				 * @param {Object} els  arguments 所有参数组成的类数组
+				 */
+				function _$(els) {
+					//...
+					this.elements = []; //存放HTML元素
+					for(var i = 0, len = els.length; i < len; i++) {
+						var element = els[i];
+						if(typeof element === 'string') {
+							element = document.getElementById(element);
+						}
+						this.elements.push(element);
+					}
+				}
+				//对HTML元素可执行的操作
+				_$.prototype = {
+					each: function(fn) { //fn 回调函数
+						for(var i = 0; i < this.elements.length; i++) {
+							//执行len次，每次把一个元素elements[i]作为参数传递过去
+							fn.call(this, this.elements[i]);
+						}
+						return this;
+					},
+					setStyle: function(prop, value) {
+						this.each(function(el) {
+							el.style[prop] = value;
+						});
+						return this;
+					},
+					show: function() {
+						var that = this;
+						this.each(function(el) {
+							that.setStyle('display', 'block');
+						});
+						return this;
+					},
+					text: function() {
+						var that = this;
+						var zi = [];
+						this.each(function(el) {
+							zi.push(el.innerHTML);
+						});
+						return zi;
+					},
+					addEvent: function(type, fn) {
+						var addHandle = function(el) {
+							if(document.addEventListener) {
+								el.addEventListener(type, fn, false);
+							} else if(document.attachEvent) {
+								el.attachEvent('on' + type, fn);
+							}
+						};
+						this.each(function(el) {
+							addHandle(el);
+						});
+						return this;
+					}
+				};
+				//对外开放的接口
+				window.$ = function() {
+					return new _$(arguments);
+				}
+
+			})();
+			//----------------------- test --------
+			$(window).addEvent('load', function() {
+				$('test-1', 'test-2').show()
+					.setStyle('color', 'red')
+					.addEvent('click', function() {
+						$(this).setStyle('color', 'green');
+					});
+			})
+			console.log($);
+			
+			$("li-1","li-2","li-3").each(function(ele) {
+				console.log(ele.innerHTML);
+			});
+			console.log($("li-1","li-2","li-3"));
+			console.log($("li-1","li-2","li-3").text());
+			console.log($("li-1","li-2","li-3").text()[0]);
+		</script>
+	</body>
+
+</html>

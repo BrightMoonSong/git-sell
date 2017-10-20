@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>指令</title>
+	</head>
+
+	<body ng-app='myApp'>
+		<div class="borderRed" ng-controller="myctr">
+			firstVal:<input type="text" ng-model="firstVal" /><br />
+			name:<input type="text" ng-model="name" /><br />
+			age:<input type="text" ng-model="age" /><br />
+			<button ng-click="changeAge(firstVal)">firstVal</button>
+			 <div my-directive my-name="{{name}}" age-son="age"  change-my-age="changeAge(firstVal)"></div>
+		</div>
+		<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var app = angular.module('myApp', []);
+			app.controller('myctr', myctr)
+				.directive('myModel', myModel)
+				.directive('myDirective', myDirective);
+
+			function myctr($scope) {
+				$scope.$watch('firstVal', function(newVal, oldVal) {
+					console.log(newVal, oldVal);
+				});
+
+				$scope.name = "dreamapple";
+				$scope.age = 20;
+				$scope.changeAge = function(n) {
+					//$scope.age = n;
+					alert(n)
+				}
+			}
+
+			function myDirective() {
+				return {
+					restrict: "AE",
+					scope: {
+						name: '@myName',
+						age1: '=ageSon',
+						changeAg1e: '&changeMyAge'
+					},
+					replace: true,
+					template: "<div class='my-directive'>" +
+						"<h3>下面部分是我们创建的指令生成的</h3>" +
+						"我的名字是：<span ng-bind='name'></span><br/>" +
+						"我的年龄是：<span ng-bind='age1'></span><br/>" +
+						"在这里修改名字：<input type='text' ng-model='name'><br/>" +
+						"在这里修改年龄：<input type='text' ng-model='age'><br/>" +
+						"<button ng-click='changeAg1e()'>修改年龄</button>" +
+						" </div>"
+				};
+			}
+			
+			function myModel() {
+				return {
+					//链接函数
+					//element-->jQ的对象;attr-->元素上属性的集合
+					link: function(scope, element, attr) {
+						//1，当input value发生变化的时候修改scope上对应的属性
+						element.on('keyup', function() {
+							console.log('1')
+							scope[attr['myModel']] = element.val();
+							//强行进行脏值检查
+							scope.$apply();
+						});
+						//2，当模型变化时设置input  value值
+						scope.$watch(attr['myModel'], function(newVal) {
+							element.val(newVal);
+						});
+					}
+				};
+			}
+		</script>
+	</body>
+
+</html>

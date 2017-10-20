@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div ng-app="app" ng-controller="parentCtr">
+			<div ng-controller="childCtr1">
+				name :<input ng-model="name" type="text" ng-change="change(name);" />
+			</div>
+			<div ng-controller="childCtr2">
+				Ctr1 name:<input ng-model="ctr1Name" />
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			var app = angular.module("app", []);
+			app.controller("parentCtr", function($scope) {
+				//$on则是angularjs的事件注册函数
+				$scope.$on("Ctr1NameChange",function(event, msg) {
+					console.log("parent", msg);
+					$scope.$broadcast("Ctr1NameChangeFromParrent", msg);//$broadcast会把事件广播给所有子controller
+				});
+			});
+			app.controller("childCtr1", function($scope) {
+				$scope.change = function(name) {
+					console.log("childCtr1", name);
+					$scope.$emit("Ctr1NameChange", name);//$emit将事件冒泡传递给父controller
+				};
+			});
+			app.controller("childCtr2", function($scope) {
+				$scope.$on("Ctr1NameChangeFromParrent",function(event, msg) {
+					console.log("childCtr2", msg);
+					$scope.ctr1Name = msg;
+				});
+			});
+		</script>
+	</body>
+
+</html>

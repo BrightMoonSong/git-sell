@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="div2">
+			<p>1</p>
+			<p>2</p>
+			<p>3</p>
+			<p>4</p>
+			<p>5</p>
+		</div>
+		<script type="text/javascript">
+			//IE8以及IE8以上可以用
+			var div2 = document.querySelector("#div2");
+			div2.insertAdjacentHTML("beforebegin", "<p>hello world</p>"); //在调用元素外部前面添加一个元素
+			div2.insertAdjacentHTML("afterbegin", "<p>hello world</p>"); //在调用元素的内部添加一个子元素并取代了第一个子元素
+			div2.insertAdjacentHTML("beforeend", "<p>hello world</p>"); //在调用元素内部后面添加一个子元素 即取代了最后的子元素
+			div2.insertAdjacentHTML("afterend", "<p>hello world</p>"); //在调用元素的外部后面添加一个元素
+			
+			/*【笔记】js原生方法 在元素外部或内部实现添加元素功能（类似jq 的 insert 和 append）
+			介绍的这个方法是：insetAdjacentHTML() 方法
+			此方法接收两个参数：
+			第一个参数必为下列值：
+			beforebegin：在调用的元素外部的前面添加一个目标元素
+			afterend：在调用元素外部的后面添加一个目标元素
+			afterbegin：在调用元素的内部第一个子元素前面添加一个目标元素
+			beforeend：在调用元素的内部最后一个子元素后面添加一个目标元素*/
+		</script>
+	</body>
+
+</html>

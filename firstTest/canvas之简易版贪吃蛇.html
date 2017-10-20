@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			
+			h2 {
+				text-align: center;
+				display: inline;
+			}
+			
+			p {
+				text-align: center;
+				display: inline;
+			}
+			
+			#wrap {
+				text-align: center;
+			}
+			
+			small {
+				color: #094;
+			}
+			
+			#snakeMap {
+				width: 100%;
+				height: 100%;
+				border: 5px solid #989794;
+				margin: 0 auto;
+			}
+			
+			.row {
+				height: 20px;
+				/*border: 1px solid red;*/
+				background: rgba(120, 150, 149, 0.4);
+			}
+			
+			.col {
+				width: 20px;
+				height: 20px;
+				border: 1px solid #9b9e8d;
+				box-sizing: border-box;
+				float: left;
+			}
+			
+			.activeSnake {
+				background: rgba(56, 58, 210, 0.7);
+			}
+			
+			.food {
+				background: green;
+			}
+			
+			.alert-danger {
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				z-index: 2;
+				top: 0px;
+				left: 0px;
+				background-color: rgba(39, 36, 36, 0.9);
+				color: rgba(198, 234, 18, 0.9);
+				font-size: 75px;
+				text-align: center;
+				padding-top: 15%;
+				display: none;
+			}
+			
+			.fixedspeed {
+				position: fixed;
+				width: 410px;
+				height: 30px;
+				top: 0px;
+				right: 0px;
+			}
+			
+			.fixedspeed>span {
+				line-height: 25px;
+				background-color: #007AFF;
+				color: #2AABD2;
+				margin-right: 5px;
+				padding: 5px;
+				cursor:pointer;
+			}
+			.fixright{
+				left: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="fixedspeed">
+			<span style="background-color: #999999;color: white;">速度:</span>
+			<span onclick="fixedspeedClick(50)">50ms</span>
+			<span onclick="fixedspeedClick(100)">100ms</span>
+			<span onclick="fixedspeedClick(200)">200ms</span>
+			<span onclick="fixedspeedClick(300)">300ms</span>
+			<span onclick="fixedspeedClick(400)">400ms</span>
+		</div>
+		<div class="fixedspeed fixright">
+			<button onclick="startOrEndTimerMove(1)">开始</button>
+			<button onclick="startOrEndTimerMove(50)">暂停</button>
+		</div>
+		<div id="wrap">
+			<h2>贪吃蛇<small>分数：</small></h2>
+			<p id="score">0</p>
+			<div id="snakeMap">
+
+			</div>
+		</div>
+		<div class="alert-danger">
+			game over!!!!!
+		</div>
+	</body>
+	<script type="text/javascript">
+		var alertGameOver = document.getElementsByClassName("alert-danger")[0];
+		alertGameOver.onclick = function() {
+			window.location.reload();
+		}
+		var snakespeed = 100;
+
+		function fixedspeedClick(n) {
+			snakespeed = n;
+			console.log(n)
+		}
+		//获取分数
+		var score = document.getElementById('score');
+		//获取地图
+		var snakeMap = document.getElementById('snakeMap');
+		//设置行数
+		var rowNumber = 30;
+		//设置列数
+		var colNumber = 60;
+		//设置地图的宽,高
+		snakeMap.style.width = colNumber * 20 + 'px';
+		snakeMap.style.height = rowNumber * 20 + 'px';
+		var arrMap = []; //记录地图中的行
+		var direction = 'right'; // 记录方向
+		var changeDir = true; //设置点击按键是否改变方向
+		var timerDelay; //设置一个延时器
+		var timerMove; //设置一个定时器
+		//定义蛇的位置
+		var x = 2;
+		var y = 0;
+		//食物的坐标
+		var foodX = 0;
+		var foodY = 0;
+		var scoreNum = 0; //记录分数
+		//设置地图中的单元格
+		for(var i = 0; i < rowNumber; i++) {
+			//创建行
+			var rowDiv = document.createElement('div');
+			//给行添加 class 名
+			rowDiv.className = 'row';
+			//添加元素节点
+			snakeMap.appendChild(rowDiv);
+			var arrRow = []; //记录行中的每一个单元格
+			for(var j = 0; j < colNumber; j++) {
+				var colDiv = document.createElement('div');
+				colDiv.className = 'col';
+				rowDiv.appendChild(colDiv);
+				arrRow.push(colDiv);
+			}
+			//往数组里添加元素
+			arrMap.push(arrRow);
+		}
+		var snakeBody = []; //定义蛇身
+		for(var i = 0; i < 3; i++) {
+			//蛇身设置颜色
+			arrMap[0][i].className = 'col activeSnake';
+			snakeBody[i] = arrMap[0][i];
+		}
+		//为页面添加键盘事件
+		document.onkeydown = function(e) {
+			//如果 changeDir 值为 false, 则直接跳出键盘事件
+			if(!changeDir) {
+				return;
+			}
+			var event = window.event || e;
+			//如果蛇向右移动,而且点击左按键,则不作任何操作
+			if(direction == 'right' && event.keyCode == 37) {
+				return;
+			} else if(direction == 'left' && event.keyCode == 39) {
+				return;
+			} else if(direction == 'top' && event.keyCode == 40) {
+				return;
+			} else if(direction == 'bottom' && event.keyCode == 38) {
+				return;
+			}
+			//方向键控制方向
+			switch(event.keyCode) {
+				case 37:
+					{
+						direction = 'left';
+						break;
+					}
+				case 38:
+					{
+						direction = 'top';
+						break;
+					}
+				case 39:
+					{
+						direction = 'right';
+						break;
+					}
+				case 40:
+					{
+						direction = 'bottom';
+						break;
+					}
+				default:
+					{
+						break;
+					}
+			}
+			//为了避免快速对此点击方向按键(修改方向)
+			//防止出现 bug
+			changeDir = false;
+			//300毫秒后,将bool 的值赋值为 true;
+			timerDelay = setTimeout(function() {
+				changeDir = true;
+			}, snakespeed)
+		}
+		//蛇的移动
+		var startOrEndTimerMove = function(n) {
+			switch(n) {
+				case 1:
+					timerMove = setInterval(snakeMoveTimer, snakespeed);
+					break;
+				default:
+					clearInterval(timerMove);
+					break;
+			}
+		}
+		startOrEndTimerMove(1);
+		function snakeMoveTimer() {
+			//清除延时器
+			clearTimeout(timerDelay);
+			//为了防止下次点击按键触发事件
+			changeDir = true;
+			//判断蛇移动的方向
+			switch(direction) {
+				case 'right':
+					{
+						x++;
+						break;
+					}
+				case 'left':
+					{
+						x--;
+						break;
+					}
+				case 'top':
+					{
+						y--;
+						break;
+					}
+				case 'bottom':
+					{
+						y++;
+						break;
+					}
+				default:
+					{
+						break;
+					}
+			}
+
+			//超出范围
+			if(x >= colNumber || x < 0 || y >= rowNumber || y < 0) {
+				alertGameOver.style.display = 'block';
+				//alert('game over');
+				clearInterval(timerMove);
+				return;
+			}
+			//碰到自己
+			for(var i = 0; i < snakeBody.length; i++) {
+				//将此时移动之后的蛇头位置和再次之前的所有蛇身所在的 div 比较,如果相同,则说明吃到蛇身
+				if(snakeBody[i] == arrMap[y][x]) {
+					//alert('game over');
+					alertGameOver.style.display = 'block';
+					//关闭蛇移动的定时器
+					clearInterval(timerMove);
+					return; // 终止函数执行
+				}
+			}
+			//判断前方是否是食物
+			if(foodX == x && foodY == y) {
+				arrMap[y][x].className = 'col activeSnake';
+				//添加蛇的长度
+				snakeBody.push(arrMap[y][x]);
+				//加分
+				scoreNum++;
+				score.innerHTML = scoreNum;
+				//随机食物
+				ranFood();
+			} else {
+				//删除蛇尾
+				snakeBody[0].className = 'col';
+				snakeBody.shift();
+				//增加蛇头
+				arrMap[y][x].className = 'col activeSnake';
+				snakeBody.push(arrMap[y][x]);
+			}
+		}
+
+		//随机数
+		function ranNum(min, max) {
+			return Math.floor(Math.random() * (max - min + 1) + min);
+		}
+		//随机食物
+		function ranFood() {
+			foodX = ranNum(0, colNumber - 1);
+			foodY = ranNum(0, rowNumber - 1);
+			//判断食物的位置是否与蛇身重合
+			if(arrMap[foodY][foodX].className == 'col activeSnake') {
+				ranFood(); //继续随机食物
+			} else {
+				//将随机出的食物设置颜色
+				arrMap[foodY][foodX].className = 'food col';
+			}
+		}
+		ranFood();
+	</script>
+
+</html>

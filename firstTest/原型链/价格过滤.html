@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var iw = 1,
+				iws = '1',
+				iws1 = 0;
+				
+			Number.prototype.priceFilter = function() { //String的话   Number类型的用的时候需要 toString() 一下，
+				var price = this;
+				price = price.toString();
+				var re = /\d+\.[0-9]/g; //判断数字是否为小数
+				if(!re.test(price)) {
+					price = price + ".00";
+				} else {
+					if(price.toString().split(".")[1].length == 1) {
+						price = price + "0";
+					} else if(price.toString().split(".")[1].length > 2) {
+						price = Math.round(parseFloat(price) * 100) / 100;
+					}
+				}
+				return price;
+			};
+			String.prototype.priceFilters = function() { //String 的话   Number类型的用的时候需要 toString() 一下，
+				var price = this;
+				price = price.toString();
+				var re = /\d+\.[0-9]/g; //判断数字是否为小数
+				if(!re.test(price)) {
+					price = price + ".00";
+				} else {
+					if(price.toString().split(".")[1].length == 1) {
+						price = price + "0";
+					} else if(price.toString().split(".")[1].length > 2) {
+						price = Math.round(parseFloat(price) * 100) / 100;
+					}
+				}
+				return price;
+			};
+			//alert(iw.priceFilter());		
+			//alert(Number(iws).priceFilter());
+			alert(iws1.toString().priceFilters());
+		</script>
+	</body>
+
+</html>

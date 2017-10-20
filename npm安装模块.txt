@@ -1,0 +1,37 @@
+
+npm安装模块
+
+【npm install xxx】利用 npm 安装xxx模块到当前命令行所在目录；
+【npm install -g xxx】利用npm安装全局模块xxx；
+本地安装时将模块写入package.json中：
+
+【npm install xxx】安装但不写入package.json；
+【npm install xxx –save】 安装并写入package.json的”dependencies”中；
+【npm install xxx –save-dev】安装并写入package.json的”devDependencies”中。
+npm 删除模块
+
+【npm uninstall xxx】删除xxx模块； 
+【npm uninstall -g xxx】删除全局模块xxx；
+
+
+如何查看generator-react-webpack的版本信息
+///////////npm list -g --depth 0
+
+npm ls -g --depth=1 2>/dev/null | grep generator-                     
+（解释下该句意思：npm ls -g 列出我们全局安装的npm包；因为npm包往往会依赖其他的包，
+所以往往会是一个树状结构的展现，一层一层会比较难以查找，
+所以我们这里通过--depth=1来限制树状结构展示最多往下一层；
+2>/dev/null  其中>表示重定向，1表示标准输出、2表示标准错误，/dev/null代表空设备文件，
+所以他表示的意思就是：如果执行npm list -g的过程当中有错误消息，把错误消息重定向到我们的空设备文件上，
+就是在输出中过滤掉错误消息（不加的话往往会出现一些错误信息，这也是NPM做的不好的一点，往往会missing一些依赖）；
+|表示通道，用来将上一个命令的输出内容作为下一个命令的输入内容；
+grep generator- 在前面的输出结果中检索‘generator-’关键字开头的内容）
+
+在windows系统下会报错，【grep是Linux里面的命令，因此需要linux环境，windows可以用Git bash，gitbash里有MinGW,可以执行执行一些linux命令】
+
+
+
+
+
+在git bash 中用这个命令npm ls -g --depth 0 2>/dev/null可以查看全局安装的模块  可以省掉一些错误信息输出
+cmd中不行  因为该命令在Linux中可以运行  windows下不可运行

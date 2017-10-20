@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>无法点击查看浏览器--这里单纯的是个笔记本</title>
+		<!--可在-- https://jsfiddle.net/reactjs/69z2wepo/   实验-->
+	</head>
+	<body>
+		<script src="https://facebook.github.io/react/js/jsfiddle-integration.js" type="text/javascript" charset="utf-8"></script>
+	
+		<div id="container"></div>
+		<script type="text/javascript">
+			var Hello = React.createClass({
+				getInitialState:function(){//执行顺序  -1
+					alert('init');
+					return {
+						opacity:1.0,
+						fontSize:'12px'
+					};
+				},
+				render:function(){//执行顺序  -3
+					alert("render");
+					return <div style={this.state}>Hello {this.props.name}</div>;
+				},
+				componentWillMount:function(){//component-->组件  Mount-->安装  will-->将要 //执行顺序  -2
+					alert("will");
+				},
+				componentDidMount:function(){//component-->组件  Mount-->安装  did-->过去式  //执行顺序  -4
+					alert("did");
+					//为何要在这里额外声明一个_self变量？-->因为在window.setTimeout函数之外的时候this指的是  当前的 component的实例
+					//但是在该函数内时表示的便是当前运行环境的 global对象,即对于浏览器来说就是window对象,所以要用_self把this保存下来
+					//this本身是函数运行时生成的一个内部对象，只能在函数内部使用，随着使用场合的不同this的值会发生变化。this指的是调用函数的那个对象
+//					var _self = this;
+//					window.setTimeout(function(){
+//						_self.setState({
+//							opacity:0.5,
+//							fontSize:'44px'
+//						});
+//					},1000);
+					//利用bind
+					window.setTimeout(function(){
+						this.setState({
+							opacity:0.5,
+							fontSize:'44px'
+						});
+					}.bind(this),1000);//bind是ES5标准里的，低版本IE不支持
+				}
+			});
+			//样式为何一般不写在 props 里；这就涉及到了props和state的差异对比，props我们往往是通过组件调用方在调用组件的时候指定的
+			//我们认为props一旦指定了，在一般情况下是不会改变的。尤其是对于被调用组件来说，这个props的拥有者是其调用方，或者说在结构上是
+			//其parent,而state我们认为他私属于当前组件的，state值是可变的，切记不要混用props和state。
+			ReactDOM.render(
+			  <Hello name="World" />,
+			  document.getElementById('container')
+			);
+			//所谓构造函数就是通过这个函数生成一个新的对象object；这里this指向对象
+			//apply  call  bind
+		</script>
+	</body>
+</html>

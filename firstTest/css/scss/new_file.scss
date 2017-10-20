@@ -1,0 +1,16 @@
+$blue:"#1875e7";
+div {
+    color: $blue;
+}
+
+$side: left;
+.rounded {
+    border-#{$side}-radius: 5px;
+}
+
+$var:1;
+body {
+    margin: (14px/2);
+    top: 50px + 100px;
+    right: $var * 10%;
+}

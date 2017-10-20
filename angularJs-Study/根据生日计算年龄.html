@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function ages(str) {
+				str = str.substr(0,10);
+				var r = str.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+				if(r == null) return false;
+				var d = new Date(r[1], r[3] - 1, r[4]);
+				if(d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4]) {
+					var Y = new Date().getFullYear();
+					return("年龄   =   " + (Y - r[1]) + "   周岁");
+				}
+				return("输入的日期格式错误！");
+			}
+			alert(ages("1990-07-02 17:29:17"));
+		</script>
+	</body>
+
+</html>

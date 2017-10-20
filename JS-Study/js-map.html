@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>菜鸟教程(runoob.com)</title>
+	</head>
+
+	<body>
+
+		<p>点击按钮将数组中的每个元素乘于输入框指定的值，并返回新数组。</p>
+		<p>最小年龄: <input type="number" id="multiplyWith" value="10"></p>
+		<button onclick="myFunction()">点我</button>
+		<p>新数组: <span id="demo"></span></p>
+		<script>
+			var numbers = [65, 44, 12, 4];
+
+			function multiplyArrayElement(num,index,arr) {
+				console.log(num,index,arr)
+				console.log(this)
+				return num * document.getElementById("multiplyWith").value;
+			}
+
+			function myFunction() {
+				var thisValue = document.getElementById("multiplyWith");
+				document.getElementById("demo").innerHTML = numbers.map(multiplyArrayElement,thisValue);
+			}
+		</script>
+
+	</body>
+
+</html>

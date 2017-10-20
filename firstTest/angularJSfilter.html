@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Angular基础</title>
+	</head>
+
+	<body>
+		<div ng-app="myApp">
+
+			<!-- 向表达式添加过滤器：可以通过一个管道字符(|)和一个过滤器添加到表达式中-->
+			<p>将字符串转换为大小写：</p>
+			<div ng-controller="uppercaseController">
+				<p>姓名为 {{ person.lastName | uppercase }}</p>
+			</div>
+			<div ng-controller="lowercaseController">
+				<p>姓名为 {{ person.lastName | lowercase }}</p>
+			</div>
+
+			<p>货币过滤：</p>
+			<div ng-controller="costController">
+				数量：<input type="number" ng-model="quantity"> 价格：
+				<input type="number" ng-model="price">
+				<p>总价 = {{ (quantity * price) | currency }}</p>
+				{{(quantity * price) |currency:"RMB ¥"}}
+			</div>
+ 
+			<!-- 向指令添加过滤器：可以通过一个管道字符(|)和一个过滤器添加到指令中-->
+			<p>按国家的字母顺序排序对象：</p>
+			<div ng-controller="namesController">
+				<p>循环对象：</p>
+				<ul>
+					<li ng-repeat="x in names | orderBy:'country'">
+						{{ x.name + ', ' + x.country }}
+					</li>
+				</ul>
+				<!--json格式过滤-->
+				{{jsonText | json}} <br/>
+				<!--date格式过滤-->
+				<span>{{1288323623006 | date:'yyyy-MM-dd HH:mm:ss'}}</span><br/>
+				<!--number格式过滤-->
+				{{1.2345678 |number:1}}<br/>
+				<!--字符串截取-->
+				{{ "i love tank" | limitTo:6 }}<br/> {{ "i love tank" | limitTo:-6 }}<br/>
+				<!--对象排序：降序-->
+				{{ [{"age": 20,"id": 10,"name": "iphone"}, {"age": 12,"id": 11,"name": "sunm xing"}, {"age": 44,"id": 12,"name": "test abc"} ] | orderBy:'id':true }}<br/>
+				<!--对象排序：升序-->
+				{{ [{"age": 20,"id": 10,"name": "iphone"}, {"age": 12,"id": 11,"name": "sunm xing"}, {"age": 44,"id": 12,"name": "test abc"} ] | orderBy:'id' }}
+			</div>
+			<p>按输入的字母显示对象：</p>
+			<div ng-controller="namesFilterController">
+				<p>输入过滤：</p>
+				<p><input type="text" ng-model="name"></p>
+				<ul>
+					<li ng-repeat="x in names | filter:name | orderBy:'country':true">
+						{{ (x.name | uppercase) + ', ' + x.country }}
+					</li>
+				</ul>
+				<p>name筛选：</p>
+				<ul>
+					<li ng-repeat="x in names | filter:{'name':name} | orderBy:'country':true">
+						{{ (x.name | uppercase) + ', ' + x.country }}
+					</li>
+				</ul>
+
+				{{ [{"age": 20,"id": 10,"name": "iphone"}, {"age": 12,"id": 11,"name": "sunm"}, {"age": 44,"id": 12,"name": "test abc"} ] | filter:{'name':'sunm'} }}
+			</div>
+
+		</div>
+		<script src="js/angular.min.js"></script>
+		<script type="application/javascript">
+			var myApp = angular.module('myApp', []);
+			myApp.controller('uppercaseController', function($scope) {
+				$scope.person = {
+					firstName: "John",
+					lastName: "Doe"
+				};
+			});
+			myApp.controller('lowercaseController', function($scope) {
+				$scope.person = {
+					firstName: "John",
+					lastName: "Doe"
+				};
+			});
+			myApp.controller('costController', function($scope) {
+				$scope.quantity = 1;
+				$scope.price = 9.99;
+			});
+			myApp.controller('namesController', function($scope) {
+				$scope.names = [{
+					name: 'Jani',
+					country: 'Norway'
+				}, {
+					name: 'Hege',
+					country: 'Sweden'
+				}, {
+					name: 'Kai',
+					country: 'Denmark'
+				}];
+				$scope.jsonText = {
+					foo: "bar",
+					baz: 23
+				};
+			});
+			myApp.controller('namesFilterController', function($scope) {
+				$scope.names = [{
+					name: 'Jani',
+					country: 'Norway'
+				}, {
+					name: 'Hege',
+					country: 'Sweden'
+				}, {
+					name: 'Kai',
+					country: 'Denmark'
+				}];
+			});
+		</script>
+	</body>
+
+</html>

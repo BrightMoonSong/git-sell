@@ -1,0 +1,37 @@
+{
+  "name": "loopback-example-angular",
+  "version": "1.0.0",
+  "description": "loopback-example-angular",
+  "main": "server/server.js",
+  "scripts": {
+    "pretest": "jshint .",
+    "postinstall": "bower install --allow-root",
+    "start": "node .",
+    "test": "tape tests/**/*.js"
+  },
+  "dependencies": {
+    "async": "^2.1.2",
+    "compression": "^1.0.3",
+    "cors": "^2.8.1",
+    "loopback": "^3.0.0",
+    "loopback-boot": "^2.6.5",
+    "memory-cache": "^0.1.6",
+    "pug": "~2.0.0-beta6",
+    "serve-favicon": "^2.0.1",
+    "strong-error-handler": "^1.1.1",
+    "angular-qr": "latest"
+  },
+  "optionalDependencies": {
+    "loopback-component-explorer": "^2.1.0"
+  },
+  "devDependencies": {
+    "bower": "^1.5.2",
+    "jshint": "^2.5.6",
+    "tape": "^4.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/strongloop/loopback-example-angular"
+  },
+  "license": "MIT"
+}

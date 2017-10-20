@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//比较时间JS：
+			var comp = function(date) {
+					var now = new Date;
+					var d = new Date(date);
+					if(now > d) {
+						alert("之前的日期");
+					} else if(now < d) {
+						alert("之后的日期");
+					} else {
+						alert("一样的日期");
+					}
+				}
+				//比较时间JS：(链式写法)
+			String.prototype.comp = function() {
+				var date = this;
+				var now = new Date;
+				var d = new Date(date);
+				if(now > d) {
+					alert("之前的日期");
+					return false;
+				} else if(now < d) {
+					alert("之后的日期");
+					return true;
+				} else {
+					alert("一样的日期");
+					return false;
+				}
+			}
+
+			//调用时间比较的JS：
+			comp("2017-04-06 10:16:13");
+			var aa = "2017-04-06 10:16:13";
+			("2017-04-06 10:16:13").comp();
+			aa.comp();
+		</script>
+	</body>
+
+</html>

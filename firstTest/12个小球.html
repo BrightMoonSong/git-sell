@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//随机数
+			function selectfrom(lowValue, highValue) {
+				var choice = highValue - lowValue + 1;
+				return Math.floor(Math.random() * choice + lowValue);
+			}
+			//球的质量的数组
+			var arr = [];
+
+			function chuti() {
+				var m = selectfrom(1, 11); //随机一个正常球质量
+				var n = selectfrom(1, 11); //随机一个劣质球质量
+				if(m == n) {
+					n += 1; //改变劣质球质量使他不与正常球质量一样     暂时把他变重（哈哈）
+				}
+				var z = selectfrom(0, 11); //随机一个下标
+				for(var j = 0; j < 12; j++) { //把劣质球随机放一个位置
+					arr[j] = m;
+					if(j == z) {
+						arr[j] = n;
+					}
+				}
+				console.log('球重量一览表');
+				console.log(arr);
+				console.log('劣质球位置下标:' + z);
+				console.log('正确答案：');
+				if(m > n) {
+					console.log('劣质球位置下标:' + z + "，偏轻");
+				}
+				if(m < n) {
+					console.log('劣质球位置下标:' + z + "，偏重");
+				}
+				test(arr);
+			}
+			chuti();
+
+			//小球
+			function test(arr) {
+				//分三组
+				var b1 = arr[0] + arr[1] + arr[2] + arr[3];
+				var b2 = arr[4] + arr[5] + arr[6] + arr[7];
+				var b3 = arr[8] + arr[9] + arr[10] + arr[11];
+				//第一称 b1  b2
+				if(b1 == b2) { //劣质球在 b3 里 , 且arr[0] --arr[7] 都是正常球
+					var c1 = arr[0] + arr[1] + arr[2];
+					var c2 = arr[8] + arr[9] + arr[10];
+					//第二称  c1  c2
+					if(c1 == c2) { //劣质球是 arr[11] 
+						//第三称
+						if(arr[0] > arr[11]) {
+							document.write(arr+"<br>"+"劣质球比其他球轻！它下标是11，它重量是：arr[11] =" + arr[11]);
+						}
+						if(arr[0] < arr[11]) {
+							document.write(arr+"<br>"+"劣质球比其他球重！它下标是11，它重量是：arr[11] =" + arr[11]);
+						}
+					}
+					if(c1 > c2) { //劣质球比其他球轻
+						//第三称  arr[8]   arr[9] 
+						if(arr[8] == arr[9]) {
+							document.write(arr+"<br>"+"劣质球比其他球轻！它下标是10，它重量是：arr[10] =" + arr[10]);
+						}
+						if(arr[8] > arr[9]) {
+							document.write(arr+"<br>"+"劣质球比其他球轻！它下标是9，它重量是：arr[9] =" + arr[9]);
+						}
+						if(arr[8] < arr[9]) {
+							document.write(arr+"<br>"+"劣质球比其他球轻！它下标是8，它重量是：arr[8] =" + arr[8]);
+						}
+					}
+					if(c1 < c2) { //劣质球比其他球重
+						//第三称
+						//第三称  arr[8]   arr[9] 
+						if(arr[8] == arr[9]) {
+							document.write(arr+"<br>"+"劣质球比其他球重！它下标是10，它重量是：arr[10] =" + arr[10]);
+						}
+						if(arr[8] > arr[9]) {
+							document.write(arr+"<br>"+"劣质球比其他球重！它下标是8，它重量是：arr[8] =" + arr[8]);
+						}
+						if(arr[8] < arr[9]) {
+							document.write(arr+"<br>"+"劣质球比其他球重！它下标是9，它重量是：arr[9] =" + arr[9]);
+						}
+					}
+				}
+				//第一称 b1  b2
+				if(b1 > b2) { //劣质球在 b1 b2 里 , 且arr[8] --arr[11] 都是正常球 ,arr[0] +..arr[3] >arr[4]  +...arr[7] 
+					//从新分配   
+					var d1 = arr[2] + arr[4] + arr[8];
+					var d2 = arr[0] + arr[1] + arr[6];
+					//第二称
+					if(d1 == d2) { //arr[0] arr[1]  arr[2]  arr[4]  arr[6]   arr[8] --arr[11] 都是正常球,arr[3]  比 arr[5] 或者arr[7] 重
+						//第三称  称arr[5]   arr[7] 
+						if(arr[5] == arr[7]) {
+							document.write(arr+"<br>"+"劣质球比其他球重！它下标是3，它重量是：arr[3] =" + arr[3]);
+						}
+						if(arr[5] > arr[7]) {
+							document.write(arr+"<br>"+"劣质球比其他球轻！它下标是7，它重量是：arr[7] =" + arr[7]);
+						}
+						if(arr[5] < arr[7]) {
+							document.write(arr+"<br>"+"劣质球比其他球轻！它下标是5，它重量是：arr[5] =" + arr[5]);
+						}
+					}
+				}
+				//第一称 b1  b2
+				if(b1 < b2) { //劣质球在 b1 b2 里 , 且arr[8] --arr[11] 都是正常球
+					//从新分配   
+					var e1 = arr[2] + arr[4] + arr[8];
+					var e2 = arr[0] + arr[1] + arr[6];
+					//第二称
+					if(e1 == e2) { //arr[0] arr[1]  arr[2]  arr[4]  arr[6]   arr[8] --arr[11] 都是正常球,arr[3]  比 arr[5] 或者arr[7] 轻
+						//第三称  称arr[5]   arr[7] 
+						if(arr[5] == arr[7]) {
+							document.write(arr+"<br>"+"劣质球比其他球轻！它下标是3，它重量是：arr[3] =" + arr[3]);
+						}
+						if(arr[5] > arr[7]) {
+							document.write(arr+"<br>"+"劣质球比其他球重！它下标是5，它重量是：arr[5] =" + arr[5]);
+						}
+						if(arr[5] < arr[7]) {
+							document.write(arr+"<br>"+"劣质球比其他球重！它下标是7，它重量是：arr[7] =" + arr[7]);
+						}
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

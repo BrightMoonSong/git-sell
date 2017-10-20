@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://unpkg.com/vue"></script>
+		<style type="text/css">
+			/*定义页面基础CSS*/
+			body{
+			  font-family: 'microsoft yahei',Arial,sans-serif;
+			  color: #EFEFEF;
+			  background: #222;
+			  text-align: center;
+			  margin-top: 50px;
+			}
+			/* 定义keyframe动画，命名为blink */
+			@keyframes blink{
+			  0%{opacity: 1;}
+			  50%{opacity: 1;}
+			  50.01%{opacity: 0;} /* 注意这里定义50.01%立刻透明度为０，可以设置闪烁效果 */
+			  100%{opacity: 0;}
+			}
+			/* 添加兼容性前缀 */
+			@-webkit-keyframes blink {
+			    0% { opacity: 1; }
+			    50% { opacity: 1; }
+			    50.01% { opacity: 0; }
+			    100% { opacity: 0; }
+			}
+			@-moz-keyframes blink {
+			    0% { opacity: 1; }
+			    50% { opacity: 1; }
+			    50.01% { opacity: 0; }
+			    100% { opacity: 0; }
+			}
+			@-ms-keyframes blink {
+			    0% { opacity: 1; }
+			    50% { opacity: 1; }
+			    50.01% { opacity: 0; }
+			    100% { opacity: 0; }
+			}
+			@-o-keyframes blink {
+			    0% { opacity: 1; }
+			    50% { opacity: 1; }
+			    50.01% { opacity: 0; }
+			    100% { opacity: 0; }
+			}
+			/* 定义blink类*/
+			.blink{
+			    animation: blink .75s linear infinite; 
+			    /* 其它浏览器兼容性前缀 */
+			    -webkit-animation: blink .75s linear infinite;
+			    -moz-animation: blink .75s linear infinite;
+			    -ms-animation: blink .75s linear infinite;
+			    -o-animation: blink .75s linear infinite;
+			    color: #dd4814;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			{{ message }}
+		</div>
+		<div id="app-2">
+			<span v-bind:title="message">
+			   鼠标悬停几秒钟查看此处动态绑定的提示信息！
+			</span>
+		</div>
+		<!-- 这里定义一段文字及其闪烁的部分 //-->
+		<div id="container">
+		    这里查看“<span class="blink">闪烁效果</span>”，ENjoy!
+		</div>
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data: {
+					message: 'Hello Vue!'
+				}
+			})
+			var app2 = new Vue({
+				el: '#app-2',
+				data: {
+					message: '页面加载于 ' + new Date().toLocaleString()
+				}
+			})
+		</script>
+	</body>
+
+</html>

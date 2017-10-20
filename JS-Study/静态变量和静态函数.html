@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/**
+			 * 当定义一个函数后通过 “.”为其添加的属性和函数，通过对象本身仍然可以访问得到，
+			 * 但是其实例却访问不到，这样的变量和函数分别被称为静态变量和静态函数
+			 */
+			function Obj() {
+
+			}
+
+			Obj.a = 0; //静态变量
+
+			Obj.fn = function() { //静态函数
+
+			}
+
+			console.log(Obj.a); //0
+			console.log(typeof Obj.fn); //function
+
+			var o = new Obj();
+			console.log(o.a); //undefined
+			console.log(typeof o.fn); //undefined
+		</script>
+	</body>
+
+</html>

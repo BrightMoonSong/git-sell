@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/**
+			 * 传递方法取代方法字符串
+			 * 一些方法例如setTimeout()/setInterval()，接受字符串或者方法实例作为参数。
+			 * 直接传递方法对象作为参数来避免对字符串的二次解析。
+			 * 传递方法:setTimeout(test, 1);
+			 * 传递方法字符串:setTimeout('test()', 1);
+			 */
+			function test(){
+				alert("2");
+			}
+			setTimeout(test, 1000);//--->推荐    性能更好
+			setTimeout('test()', 3000);
+		</script>
+	</body>
+</html>

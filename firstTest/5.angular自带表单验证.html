@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html ng-app="myTest">
+
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<title>Index</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<script src="js/angular.min.js">
+		</script>
+		<style type="text/css">
+			body {
+				padding-top: 30px;
+			}
+		</style>
+	</head>
+
+	<body ng-Controller="MyController">
+		<div class="col-md-6">
+			<form role="form" name="myForm" ng-submit="submitForm(myForm.$valid)" class="form-horizontal" novalidate>
+				<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="name">.必填项</label>
+					</div>
+					<div class="col-md-8">
+						<input class="form-control" id="name" name="name" type="text" required ng-model='user.name' />
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.name.$dirty && myForm.name.$valid"></span>
+					</div>
+				</div>
+				<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="minlength">2.最小长度=5</label>
+					</div>
+					<div class="col-md-8">
+						<input type="text" id="minlength" name="minlength" ng-minlength="5" ng-model="user.minlength" class="form-control" />
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.minlength.$dirty && myForm.minlength.$valid"></span>
+					</div>
+				</div>
+				<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="maxlength">3.最大长度=20</label>
+					</div>
+					<div class="col-md-8">
+						<input type="text" id="maxlength" name="maxlength" ng-model="user.maxlength" ng-maxlength="20" class="form-control" />
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.maxlength.$dirty && myForm.maxlength.$valid"></span>
+					</div>
+				</div>
+				<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="pattern">4. 模式匹配</label>
+					</div>
+					<div class="col-md-8">
+						<input type="text" id="pattern" name="pattern" ng-model="user.pattern" ng-pattern="/^[a-zA-Z]*\d$/" class="form-control" />
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.pattern.$dirty && myForm.pattern.$valid"></span>
+					</div>
+				</div>
+				<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="email">5. 电子邮件</label>
+					</div>
+					<div class="col-md-8">
+						<input type="email" id="email" name="email" ng-model="user.email" class="form-control" />
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.email.$dirty && myForm.email.$valid"></span>
+					</div>
+				</div>
+				<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="age">6. 数字</label>
+					</div>
+					<div class="col-md-8">
+						<input type="number" id="age" name="age" ng-model="user.age" class="form-control" />
+
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.age.$dirty && myForm.age.$valid"></span>
+					</div>
+				</div>
+				<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="url"> 7. URL</label>
+					</div>
+					<div class="col-md-8">
+						<input type="url" id="url" name="url" ng-model="user.url" class="form-control" />
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.url.$dirty && myForm.url.$valid"></span>
+					</div>
+				</div>
+				<!--<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="url"> 8. select</label>
+					</div>
+					<div class="col-md-8">
+						<input type="url" id="select" name="url" ng-model="user.url" class="form-control" />
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.url.$dirty && myForm.url.$valid"></span>
+					</div>
+				</div>
+				<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="url"> 9. radio</label>
+					</div>
+					<div class="col-md-8">
+						<input type="url" id="url" name="url" ng-model="user.url" class="form-control" />
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.url.$dirty && myForm.url.$valid"></span>
+					</div>
+				</div>
+				<div class="form-group  has-feedback">
+					<div class="col-md-4">
+						<label for="url"> 10. checbox</label>
+					</div>
+					<div class="col-md-8">
+						<input type="url" id="url" name="url" ng-model="user.url" class="form-control" />
+						<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.url.$dirty && myForm.url.$valid"></span>
+					</div>
+				</div>-->
+				<div class="form-group  text-center">
+					<input class="btn btn-primary btn-lg" ng-disabled="myForm.$invalid" type="submit" value="提交" />
+				</div>
+				<!--<pre>{{myForm | json}}</pre>-->
+					
+				<!--用来提示当前没有必填时显示出来-->
+				<div ng-show="myForm.email.$error.required&&myform.email.$dirty" class="alert alert-warning">
+					此项为必填项，需要填入内容
+				</div>
+				<div ng-show="myForm.email.$error.email" class="alert-info alert">
+					邮箱验证不成功
+				</div>
+				<div ng-show="myForm.pattern.$error.pattern" class="alert alert-danger">
+					正则不通过
+				</div>
+				<div ng-show="myForm.password.$error.minlength||myform.password.$error.maxlength">
+					密码最多不超过12位最短不少于4位
+				</div>
+			</form>
+		</div>
+		<div class="col-md-2">
+			1.必填项:{{user.name}}
+			<br> $pristine 【没修改】：{{myForm.name.$pristine }}
+			<br> $dirty【修改过】：{{myForm.name.$dirty}}
+
+			<br> $invalid【验证失败】：{{myForm.name.$invalid}}
+
+			<br> $invalid【验证成功】：{{myForm.name.$valid}}
+
+			<br> required：{{myForm.name.$error.required}}
+
+			<br>
+			<br> 2.最小长度=5:{{user.minlength}}
+			<br>$pristine 【没修改】：{{myForm.minlength.$pristine }}
+			<br> $dirty【修改过】：{{myForm.minlength.$dirty}}
+
+			<br> $invalid【验证失败】：{{myForm.minlength.$invalid}}
+
+			<br> $invalid【验证成功】：{{myForm.minlength.$valid}}
+
+			<br> $error【错误详情】：{{myForm.minlength.$error}}
+
+			<br>
+			<br> 3.最大长度=20:{{user.maxlength}}
+			<br>$pristine 【没修改】：{{myForm.maxlength.$pristine }}
+			<br> $dirty【修改过】：{{myForm.maxlength.$dirty}}
+
+			<br> $invalid【验证失败】：{{myForm.maxlength.$invalid}}
+
+			<br> $invalid【验证成功】：{{myForm.maxlength.$valid}}
+
+			<br> $error【错误详情】：{{myForm.maxlength.$error}}
+
+			<br>
+			<br> 4.模式匹配:{{user.pattern}}
+			<br/>$pristine【没修改】：{{myForm.pattern.$pristine }}
+			<br> $dirty【修改过】：{{myForm.pattern.$dirty}}
+
+			<br> $invalid【验证失败】：{{myForm.pattern.$invalid}}
+
+			<br> $invalid【验证成功】：{{myForm.pattern.$valid}}
+			<br> $error【错误详情】：{{myForm.pattern.$error}}
+
+		</div>
+		<div class="col-md-2">
+			<br> 5.电子邮件:{{user.email}}
+			<br/>$pristine【没修改】：{{myForm.email.$pristine }}
+			<br> $dirty【修改过】：{{myForm.email.$dirty}}
+
+			<br> $invalid【验证失败】：{{myForm.email.$invalid}}
+			<br> $invalid【验证成功】：{{myForm.email.$valid}}
+			<br> $error【错误详情】：{{myForm.email.$error}}
+			<br>
+			<br> 6.数字:{{user.age}}
+			<br/>$pristine【没修改】：{{myForm.age.$pristine }}
+			<br> $dirty【修改过】：{{myForm.age.$dirty}}
+			<br> $invalid【验证失败】：{{myForm.age.$invalid}}
+			<br> $invalid【验证成功】：{{myForm.age.$valid}}
+			<br> $error【错误详情】：{{myForm.age.$error}}
+			<br>
+			<br> 7.URL:{{user.url}}
+			<br/>$pristine【没修改】：{{myForm.url.$pristine }}
+			<br> $dirty【修改过】：{{myForm.url.$dirty}}
+			<br> $invalid【验证失败】：{{myForm.url.$invalid}}
+			<br> $invalid【验证成功】：{{myForm.url.$valid}}
+			<br> $error【错误详情】：{{myForm.url.$error}}
+			<br>
+
+			<br>
+		</div>
+		<script type="text/javascript">
+			angular.module('myTest', [])
+				.controller('MyController', function($scope) {
+					$scope.submitForm = function(isValid) {
+						if(!isValid) {
+							alert('验证失败');
+						}
+					};
+				});
+		</script>
+	</body>
+
+</html>

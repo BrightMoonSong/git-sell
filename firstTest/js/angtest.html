@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myContr">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<input type="date" ng-model="moondata" ng-change="moonchange()" />
+
+		<script type="text/javascript">
+			var myApp = angular.module('myApp', []);
+			myApp.controller('myContr', function($scope) {
+				var aa = '2017-5-25'
+				$scope.moondata = new Date(aa);
+				console.log($scope.moondata);
+				$scope.moonchange = function() {
+					console.log($scope.moondata);
+					var d = new Date($scope.moondata);
+					var youWant = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+					console.log(youWant);
+				}
+
+			});
+			var aa = [22, 33, 44];
+			Array.prototype.remove = function(val) {
+				var index = this.indexOf(val);
+				if(index > -1) {
+					this.splice(index, 1);
+				}
+			};
+			aa.remove(22);
+			console.log(aa)
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,16 @@
+html,body{
+	font-family: "微软雅黑";
+}
+.pageContent{
+	width: 100%;
+}
+
+/**content*/
+.pictureShowWrapper{
+	width: 1000px;
+	margin: 0 auto;
+}
+.pictureShowWrapper .pictureShow{
+	margin: 60px auto 0;
+}
+

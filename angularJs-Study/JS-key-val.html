@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var obj = [{
+					'id': 1,
+					'name': 'woshi111',
+					'storeName': '清华'
+				},
+				{
+					'id': 2,
+					'name': 'woshi222',
+					'storeName': '北大'
+				},
+				{
+					'id': 3,
+					'name': 'woshi333',
+					'storeName': '邮电'
+				},
+				{
+					'id': 4,
+					'name': 'woshi444',
+					'storeName': '哈弗'
+				}
+			];
+			var arrys = [];
+			obj.forEach(function(ele, index, arry) {
+				var str = {};
+				for(var key in ele) {
+					if(key == 'id') {
+						str.orderId = ele[key];
+					}
+					if(key == 'name') {
+						str['名字'] = ele[key];
+					}
+					if(key == 'storeName') {
+						str['学校名字'] = ele[key];
+					}
+				}
+				arrys.push(str);
+			})
+			console.log(arrys);
+		</script>
+	</body>
+
+</html>

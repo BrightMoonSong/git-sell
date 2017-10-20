@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--添加一个meta标签，以便使您的页面更好的在移动平台上展示-->
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<title>异步加载</title>
+		<!--设置样式，使地图充满整个浏览器窗口-->
+		<style type="text/css">
+			html {
+				height: 100%
+			}
+			
+			body {
+				height: 100%;
+				margin: 0px;
+				padding: 0px
+			}
+			
+			#container {
+				height: 100%
+			}
+		</style>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥">
+			//v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
+			//v1.4版本及以前版本的引用方式：src="http://api.map.baidu.com/api?v=1.4&key=您的密钥&callback=initialize"
+		</script>
+	</head>
+
+	<body>
+		<div id="container"></div>
+
+		<script type="text/javascript">
+			//创建地图实例
+			var map = new BMap.Map("container");
+			/*
+			 * 请注意：在使用百度地图JavaScript API服务时，需使用百度BD09坐标，
+			 * 如使用其他坐标（ WGS84、GCJ02）进行展示，需先将其他坐标转换为BD09，
+			 * 详细说明请参考坐标转换说明，请勿使用非官方的转换方法！！！
+			 * Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。
+			 */
+			var point = new BMap.Point(116.404, 39.915); // 创建点坐标  
+			/*
+			 * 在创建地图实例后，我们需要对其进行初始化，
+			 * BMap.Map.centerAndZoom()方法要求设置中心点坐标和地图级别。 
+			 * 地图必须经过初始化才可以执行其他操作。
+			 */
+			map.centerAndZoom(point, 15); // 初始化地图，设置中心点坐标和地图级别
+		</script>
+	</body>
+
+</html>

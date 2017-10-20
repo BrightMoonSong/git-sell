@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			.borderRed {
+				border: 1px solid red;
+			}
+			
+			.backhui {
+				background: #A7E2E7;
+			}
+			
+			.backdata {
+				background: #A332E7;
+			}
+			
+			.black-background {
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				z-index: 10;
+				top: 0px;
+				left: 0px;
+				background-color: rgba(180, 182, 202, 0.4);
+			}
+			
+			.black-top-img {
+				width: 80%;
+				position: fixed;
+				z-index: 12;
+				top: 0px;
+				left: 0px;
+				text-align: center;
+				margin: 4% 10%;
+			}
+		</style>
+	</head>
+
+	<body ng-app='myApp'>
+		<div class="borderRed" ng-controller="myctr">
+			<div class="borderRed backhui">
+				<input type="text" ng-model="firstVal" />
+				<br />
+				<input type="text" my-model="firstVal" />
+				<p>{{firstVal}}</p>
+			</div>
+			<div class="borderRed backhui">
+				<img src="img/2017009.jpg" width="100" alt="..." my-img/>
+			</div>
+		</div>
+		<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/My97DatePicker/WdatePicker.js"></script>
+
+		<script type="text/javascript">
+			var app = angular.module('myApp', []);
+			app.controller('myctr', myctr)
+				.directive('myModel', myModel)
+				.directive('myImg', myImg);
+
+			function myctr($scope) {
+				$scope.WdatePicker = {};
+				$scope.$watch('firstVal', function(newVal, oldVal) {
+					console.log(newVal, oldVal);
+				})
+			}
+
+			function myImg() {
+				return {
+					//scope: true,// 继承父级作用域并创建指令自己的作用域
+					scope: {}, // 创建指令自己的独立作用域，与父级毫无关系
+					// controller: function($scope, $element, $attrs, $transclude) {},
+					//restrict: 'AE', // E = Element, A = Attribute, C = Class, M = Comment
+					//链接函数
+					//element-->jQ的对象;attr-->元素上属性的集合
+					link: function(scope, element, attr) {
+						element.on('click', function() {
+							var elesrc = '<div class="borderRed backhui black-top-img" id="myImgBigElement" ng-click="closeImg()"><img src="' +
+								attr.src +
+								'" width="700" alt="..." /></div><div id="myImgBigBackElement" class="black-background"></div>'
+							element.after(elesrc);
+							$("#myImgBigElement").on('click', function() {
+								$("#myImgBigElement").remove();
+								$("#myImgBigBackElement").remove();
+							});
+						});
+					}
+				};
+			}
+
+			function myModel() {
+				return {
+					//链接函数
+					//element-->jQ的对象;attr-->元素上属性的集合
+					link: function(scope, element, attr) {
+						//1，当input value发生变化的时候修改scope上对应的属性
+						element.on('keyup', function() { //keyup
+							scope[attr['myModel']] = element.val();
+							//强行进行脏值检查
+							scope.$apply();
+						});
+						//2，当模型变化时设置input  value值
+						scope.$watch(attr['myModel'], function(newVal) {
+							element.val(newVal);
+						});
+					}
+				};
+			}
+		</script>
+	</body>
+
+</html>

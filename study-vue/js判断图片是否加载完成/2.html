@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>img - readystatechange event</title>
+</head>
+<body>
+    <img id="img1" src="http://pic1.win4000.com/wallpaper/f/51c3bb99a21ea.jpg">
+    <p id="p1">loading...</p>
+    <script type="text/javascript">
+        img1.onreadystatechange = function() {
+            if(img1.readyState=="complete"||img1.readyState=="loaded"){
+                p1.innerHTML = 'readystatechange:loaded'
+            }
+        }
+    </script>
+</body>
+</html>
+<!--readyState为complete和loaded则表明图片已经加载完毕。测试IE6-IE10支持该事件，其它浏览器不支持。-->
+	
+<!--经测试有问题-->

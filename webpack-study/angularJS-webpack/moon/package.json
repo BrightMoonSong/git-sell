@@ -1,0 +1,17 @@
+{
+	"name": "moon",
+	"version": "1.0.0",
+	"description": "",
+	"main": "webpack.config.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": {
+		"name": "brightmoon",
+		"email": "892206397@qq.com"
+	},
+	"license": "ISC",
+	"dependencies": {
+		"angular": "^1.5.0"
+	}
+}

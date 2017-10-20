@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>菜鸟教程(runoob.com)</title>
+	</head>
+
+	<body>
+
+		<p>点击按钮将数组中的所有值乘以特定数字。</p>
+		<p>乘以: <input type="number" id="multiplyWith" value="10"></p>
+		<button onclick="numbers.forEach(myFunction)">点我</button>
+
+		<p>计算后的值: <span id="demo"></span></p>
+
+		<script>
+			var numbers = [65, 44, 12, 4];
+			//forEach() 方法用于调用数组的每个元素，并将元素传递给回调函数。
+			function myFunction(item, index, arr) {
+				arr[index] = item * document.getElementById("multiplyWith").value;
+				demo.innerHTML = numbers;
+			}
+		</script>
+
+	</body>
+
+</html>

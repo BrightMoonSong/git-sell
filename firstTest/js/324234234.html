@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function fn() {
+				this.a = 0;
+				this.b = function() {
+					alert(this.a)
+				}
+			}
+			fn.prototype = {
+				b: function() {
+					debugger;
+					this.a = 20;
+					alert(this.a);
+				},
+				c: function() {
+					this.a = 30;
+					alert(this.a);
+				}
+			}
+			var myfn = new fn();
+			myfn.b();//0
+			console.log(myfn.a);//0
+			myfn.c();//30
+			console.log(myfn.a);//30
+		</script>
+	</body>
+
+</html>

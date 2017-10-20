@@ -6,8 +6,8 @@ import router from './router';
 import VueResource from 'vue-resource';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'jquery/dist/jquery.min.js';
-import 'bootstrap/dist/js/bootstrap.min.js';
+// import 'jquery/dist/jquery.min.js';
+// import 'bootstrap/dist/js/bootstrap.min.js';
 import './common/scss/index.scss';
 // Vue.use()安装插件，在这里是安装路由模块
 // 相当于全局注册

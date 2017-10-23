@@ -39,12 +39,12 @@ export default new Router({
       component: Home
     },
     {
-      path: '/user',
+      path: '/user/:funcId',
       name: 'user',
       component: User
     },
     {
-      path: '/role',
+      path: '/role/:funcId',
       name: 'role',
       component: Role
     }

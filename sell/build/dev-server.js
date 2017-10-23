@@ -26,6 +26,7 @@ var appData = require('../data.json');
 var seller = appData.seller;
 var goods = appData.goods;
 var ratings = appData.ratings;
+var navlist = appData.navlist;
 
 var apiRoutes = express.Router();
 
@@ -33,6 +34,13 @@ apiRoutes.get('/seller', function(req, res){
   res.json({
     errno: 0,
     data: seller
+  })
+});
+
+apiRoutes.get('/navlist', function(req, res){
+  res.json({
+    errno: 0,
+    data: navlist
   })
 });
 

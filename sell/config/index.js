@@ -33,6 +33,7 @@ module.exports = {
         target: 'http://localhost:8899/mapi',
         changeOrigin: true,
         pathRewrite: {
+          // 该方法是指将默认指向的那个/mapi替换为‘’（注：不是路径上的原mapi）
          '^/mapi': ''
         }
       }

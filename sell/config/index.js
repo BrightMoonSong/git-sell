@@ -30,10 +30,10 @@ module.exports = {
     // proxyTable: {},// 那些接口需要转发时用，代理的接口，没有代理不写，根据业务需要添加，做转发,开发环境的跨域，生产环境用nginx解决跨域
     proxyTable: {
       '/mapi': {
-        target: 'http://localhost:8899',
+        target: 'http://localhost:8899/mapi',
         changeOrigin: true,
         pathRewrite: {
-        // '^/api': ''
+         '^/mapi': ''
         }
       }
     },

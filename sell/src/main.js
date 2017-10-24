@@ -39,7 +39,7 @@ Vue.http.interceptors.push((request, next) => {
   // 在响应之后传给then之前对response进行修改和逻辑判断。对于token时候已过期的判断，就添加在此处，页面中任何一次http请求都会先调用此处方法
   next((response) => {
     console.log(response);
-  //  response.body = '...';
+    //  response.body = '...';
     return response;
   });
 });

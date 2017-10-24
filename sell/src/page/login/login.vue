@@ -49,18 +49,18 @@
 export default {
   data() {
     return {
-      userName: '',
-      password: ''
+      userName: '17301088769',
+      password: '123456'
     };
   },
   methods: {
     login() {
-      this.$http.post('/mapi/mapi/shiro/login?phone=' + this.userName + '&password=' + this.password).then((response) => {
+      this.$http.post('/mapi/shiro/login?phone=' + this.userName + '&password=' + this.password).then((response) => {
         response = response.body;
         console.log(response);
-        this.$router.push({
-          path: '/home/user/2'
-        });
+        // this.$router.push({
+        //   path: '/home'
+        // });
       });
     },
     forgetPassword() {

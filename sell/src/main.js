@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import ElementUI from 'element-ui';
 import VueResource from 'vue-resource';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,6 +13,7 @@ import './common/scss/index.scss';
 // Vue.use()安装插件，在这里是安装路由模块
 // 相当于全局注册
 Vue.use(VueResource);
+Vue.use(ElementUI);
 // 设置为 false 以阻止 vue 在启动时生成生产提示。
 Vue.config.productionTip = false;
 

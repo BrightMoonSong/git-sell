@@ -7,6 +7,7 @@ import Seller from '@/components/sellers/seller';
 import Home from '@/page/home';
 import User from '@/page/user/user';
 import Role from '@/page/role/role';
+import Login from '@/page/login/login';
 
 // Vue.use()安装插件，在这里是安装路由模块
 Vue.use(Router);
@@ -17,6 +18,11 @@ export default new Router({
   routes: [{
       path: '/',
       redirect: '/home'
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/goods',
@@ -36,17 +42,20 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home
-    },
-    {
-      path: '/user/:funcId',
-      name: 'user',
-      component: User
-    },
-    {
-      path: '/role/:funcId',
-      name: 'role',
-      component: Role
+      component: Home,
+      // 这里就是二级路由的配置
+      children: [
+        {
+          path: '/home/user/:funcId',
+          name: 'user',
+          component: User
+        },
+        {
+          path: '/home/role/:funcId',
+          name: 'role',
+          component: Role
+        }
+      ]
     }
   ]
 });

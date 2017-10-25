@@ -67,10 +67,13 @@
       <span class="form-control first-nav" @click="hideOrShowDetail()">系统管理</span>
       <div v-show="detailShow">
         <div class="tab-item">
-          <router-link to="/user" class="form-control second-nav">用户管理</router-link>
+          <router-link to="/home/user/1" class="form-control second-nav">用户管理</router-link>
         </div>
         <div class="tab-item">
-          <router-link to="/role" class="form-control second-nav">角色管理</router-link>
+          <router-link to="/home/role/2" class="form-control second-nav">角色管理</router-link>
+        </div>
+        <div class="tab-item">
+          <router-link to="/home/carmodellist/476" class="form-control second-nav">车型管理</router-link>
         </div>
       </div>
     </div>

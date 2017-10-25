@@ -1,0 +1,56 @@
+vue.js 接收url参数
+1) 路由配置传参方式
+在配置路由时 例如 "/firewall/authorize/:uid/:uname/:token"
+页面url为 http://XXX.com/firewall/authorize/23/zhangman/232454
+
+js 接收方式 this.$route.params.uid,
+2) ?传参方式
+例 http://XXX.com/firewall/authorize?uid=12&uname=zhangman&token=23243
+js 接收方式 this.$route.query.uid
+
+<script>
+export default {
+  data() {
+    return {
+      userName: '17301088769',
+      confirmVisible: false,
+      password: '123456'
+    };
+  },
+  methods: {
+    login($event) {
+      this.$http.post('/mapi/shiro/login?phone=' + this.userName + '&password=' + this.password).then((response) => {
+        response = response.body;
+        console.log(response);
+        this.confirmVisible = true;
+
+        // this.$kiko_message('这是一个message');
+
+        // 若想改变消失时间
+        // this.$kiko_message({
+        //   message: '这是一个message2',
+        //   time: 1000
+        // });
+
+        // this.$kiko_tooltip($event, {
+        //   content: '这是一个toolTip',
+        //   direction: 'top',
+        //   background: '#13CE66',
+        //   color: '#fff',
+        //   time: 3000
+        // });
+
+        // this.$router.push({
+        //   path: '/home'
+        // });
+      });
+    },
+    forgetPassword() {
+      console.log('forgetPassword');
+    },
+    confirmMakeSure() {
+      console.log('confirmMakeSure');
+    }
+  }
+};
+</script>

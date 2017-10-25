@@ -4,7 +4,12 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-default/index.css';
 import VueResource from 'vue-resource';
+import Kiko from 'kiko-rascalhao';
+import {
+  getStore
+} from '@/config/mUtils';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'jquery/dist/jquery.min.js';
@@ -14,6 +19,7 @@ import './common/scss/index.scss';
 // 相当于全局注册
 Vue.use(VueResource);
 Vue.use(ElementUI);
+Vue.use(Kiko);
 // 设置为 false 以阻止 vue 在启动时生成生产提示。
 Vue.config.productionTip = false;
 
@@ -31,8 +37,21 @@ new Vue({
 // 下边代码添加在main.js中
 Vue.http.interceptors.push((request, next) => {
   // 此处this为请求所在页面的Vue实例
-  console.log(this);
   console.log('this');
+  let userToken = getStore('userToken');
+  console.log(request);
+  try {
+    console.log(this.$route.params.funcId);
+  } catch (e) {
+
+  } finally {
+
+  }
+
+  if (userToken && request.url.indexOf('mapi') > 0) {
+    request.url += '&userToken=' + userToken;
+  }
+
   // modify request
   // request.method = 'POST'; //在请求之前可以进行一些预处理和配置
   // continue to next interceptor

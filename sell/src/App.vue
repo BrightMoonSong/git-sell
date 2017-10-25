@@ -1,4 +1,5 @@
-<style lang="scss" scoped>
+<style lang="less" scoped>
+@import './page/style/common.less';
 </style>
 
 <template>

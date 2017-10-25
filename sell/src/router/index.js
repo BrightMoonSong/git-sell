@@ -8,6 +8,7 @@ import Home from '@/page/home';
 import User from '@/page/user/user';
 import Role from '@/page/role/role';
 import Login from '@/page/login/login';
+import Carmodellist from '@/page/carmodel/carmodellist';
 
 // Vue.use()安装插件，在这里是安装路由模块
 Vue.use(Router);
@@ -54,6 +55,11 @@ export default new Router({
           path: '/home/role/:funcId',
           name: 'role',
           component: Role
+        },
+        {
+          path: '/home/carmodellist/:funcId',
+          name: 'carmodellist',
+          component: Carmodellist
         }
       ]
     }

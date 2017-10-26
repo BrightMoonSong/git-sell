@@ -1,0 +1,31 @@
+{
+  "createTime": 1508486231817,
+  "createTimeStr": "2017-10-20 15:57:11",
+  "loadCapacity": "800公斤",
+  "modelId": 11,
+  "modelImgUrlSelected": "https://zhydl.oss-cn-beijing.aliyuncs.com/dev/carmodel/20171026144238336.png",
+  "modelImgUrlUnselected": "https://zhydl.oss-cn-beijing.aliyuncs.com/dev/carmodel/20171026144244540.png",
+  "modelName": "小面包车",
+  "modelSpec": "1.5*1.2*1.1米",
+  "referStartPrice": 20,
+  "sort": 4,
+  "status": 1,
+  "updateTime": 1509000165943,
+  "updateTimeStr": "2017-10-26 14:42:45",
+  "user": {
+    "birthday": null,
+    "createTime": null,
+    "createTimeStr": null,
+    "password": null,
+    "phone": "17601621434",
+    "roles": null,
+    "sex": null,
+    "status": null,
+    "updateTime": null,
+    "updateTimeStr": null,
+    "userId": null,
+    "userName": "小胖",
+    "userToken": null
+  },
+  "userId": 39
+}

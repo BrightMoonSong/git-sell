@@ -1,0 +1,167 @@
+
+less  两种注释形式  /**/这种注释会被编译   //这种注释编译时移除
+
+在less中想声明变量的话  一定要用@开头，例如@变量名:值;
+@test_width:100px;
+.box{
+  width:@test_width;
+}
+
+//混合--用法------
+.box{
+  .border;
+}
+.boder{
+  border:solid 5px pink;
+}
+//混合--可带参数--必须传值
+.boder_02(@boder_width){
+  border:solid @boder_width pink;
+}
+.test_hunhe{
+  .boder_02(30px);
+}
+//混合--带默认值--传值就用传的值，不传就用默认值
+.boder_03(@boder_width:10px){
+  border:solid @boder_width pink;
+}
+.test_hunhe_03{
+  .boder_03();
+}
+.test_hunhe_04{
+  .boder_03(20px);
+}
+
+//匹配模式--三角形
+.sanjiao{
+  width:0;
+  height:0;
+  overflow:hidden;//主要用来处理IE6的最小高度的问题
+
+  border-width:10px;
+  border-color:red transparent transparent transparent;//上三角 其他透明就行
+  //border-color:transparent transparent red transparent;//下三角 其他透明就行
+  border-style:solid;
+  //border-style:solid dashed dashed dashed;//兼容IE6的写法
+}
+//匹配模式  --- 上下   左右的一样的写法
+.triangle(top,@w:5px,@c:#ccc){
+  border-width:@w;
+  border-color:@c transparent transparent transparent;//上三角 其他透明就行
+  border-style:solid dashed dashed dashed;//兼容IE6的写法
+}
+.triangle(bottom,@w:5px,@c:#ccc){
+  border-width:@w;
+  border-color:transparent transparent @c transparent;//下三角 其他透明就行
+  border-style:dashed dashed solid dashed;//兼容IE6的写法
+}
+.sanjiao{
+  width:0;
+  height:0;
+  overflow:hidden;//主要用来处理IE6的最小高度的问题
+  .triangle(top);
+  //.triangle(top,100px);
+}
+//更彻底的封装,这里必须用@_,代表给.triangle添加共同的部分，这里如果输入的不是top bottom是一个不认识的，他就只显示下面的代码，相当于if else
+.triangle(@_,@w:5px,@c:#ccc){
+  width:0;
+  height:0;
+  overflow:hidden;//主要用来处理IE6的最小高度的问题
+}
+//此时就这样写就行了
+.sanjiao{
+  .triangle(top,100px);
+}
+
+//运算
+@test_1:300px;
+.box_2{
+  width:(@test_1-200)*5;//->500px  在less中只要有一个是带px的最后就会带px;可以进行加减乘除
+  color:#ccc-10;// 颜色 less会把它转成255进行运算
+}
+
+//嵌套
+.list{
+  li{
+    a{//a的hover
+    &:hover{}//&代表上一层
+      span{
+
+      }
+    }
+  }
+}
+
+// @arguments
+.border_arg(@xx:solid,@w:5px,@c:#ccc){
+  //border:@xx @w @c;
+  border:@arguments;// 效果一样  ，@arguments代表把所有参数带进来
+}
+
+//避免编译
+.test_04{
+  //width:300px;
+  //css3的calc可用于计算，但是这个一般让浏览器去计算，但是less编译时会把他计算完输出到css，正确写法是加~"calc(320px - 20px)"或者~'calc(320px - 20px)'
+  //width:calc(320px - 20px);
+  width:~'calc(320px - 20px)';//这样就不会编译了，一般用在calc和滤镜啊这种地方，防止less帮了不该帮的忙
+}
+
+//!important
+.test_important{
+  .border_03() !important;//这样会给.border_03()里面所有样式都加!important
+}
+
+查阅资料的话
+less中文网站
+- http://lesscss.net/
+如果看不懂英文的，可以访问less中文旧版网站
+- http://old.lesscss.net/article/document.html
+
+less导入别的文件（less）方式----@import "main";//less可以不加拓展名
+less导入别的文件（css）方式----@import (less) "main.css";//这个东西出现在什么位置就在什么位置
+
+.box{
+  @h:62px;
+  height:@h;
+  h3{
+    //font-size:22px;
+    //font-family:"微软雅黑";
+    //font-weight:normal;
+    font:22px/@h "微软雅黑";//效果同上面3行，font-weight:normal在这可省略
+  }
+}
+
+<div>
+  <div class="sec"></div>
+  <div class="sec"></div>
+  <div class="sec"></div>
+</div>
+//这里如果sec这3个宽度超过外DIV一点，第三个会掉下去，此时可以给外div加个margin-right:-32px;让他上去
+
+//清除浮动
+//默认
+.clearfix:after{
+  content:'';
+  display:block;
+  clear:both;
+}
+.clearfix{zoom:1;}
+//less
+.clearfix(){
+  &:after{
+    content:"";
+    display:block;
+    clear:both;
+  }
+  zoom:1;
+}
+
+img{
+  border:none;//在IE6里他会有边框，兼容时需要去掉边框
+}
+
+//css浮动有个边距加倍问题，可以用display:inline;解决
+.fl(@fl:left){
+  float:@fl;
+  display:inline;
+}

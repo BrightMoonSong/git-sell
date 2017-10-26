@@ -8,7 +8,8 @@ import 'element-ui/lib/theme-default/index.css';
 import VueResource from 'vue-resource';
 import Kiko from 'kiko-rascalhao';
 import {
-  getStore
+  getStore,
+  setStore
 } from '@/config/mUtils';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -37,12 +38,18 @@ new Vue({
 // 下边代码添加在main.js中
 Vue.http.interceptors.push((request, next) => {
   // 此处this为请求所在页面的Vue实例
-  console.log('this');
   let userToken = getStore('userToken');
-  console.log(request);
+  let formToken = getStore('formToken');
+  let funcId = getStore('funcId');
 
   if (userToken && request.url.indexOf('mapi') > 0) {
-    request.url += '&userToken=' + userToken;
+    if (request.url.indexOf('?') < 0) {
+      request.url += '?userToken=' + userToken;
+    } else {
+      request.url += '&userToken=' + userToken;
+    }
+    request.url += '&formToken=' + formToken;
+    request.url += '&funcId=' + funcId;
     // 获取不到funcId
     // try {
     //   console.log(this.$route);
@@ -58,7 +65,9 @@ Vue.http.interceptors.push((request, next) => {
   // continue to next interceptor
   // 在响应之后传给then之前对response进行修改和逻辑判断。对于token时候已过期的判断，就添加在此处，页面中任何一次http请求都会先调用此处方法
   next((response) => {
-    console.log(response);
+    if (response.headers.map.formtoken) {
+      setStore('formToken', response.headers.map.formtoken[0]);
+    }
     //  response.body = '...';
     return response;
   });

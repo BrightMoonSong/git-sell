@@ -8,6 +8,25 @@ js 接收方式 this.$route.params.uid,
 例 http://XXX.com/firewall/authorize?uid=12&uname=zhangman&token=23243
 js 接收方式 this.$route.query.uid
 
+//--Vue-resource 请求方式
+get(url, [options])
+head(url, [options])
+delete(url, [options])
+jsonp(url, [options])
+post(url, [body], [options])
+put(url, [body], [options])
+patch(url, [body], [options])
+除了jsonp以外，另外6种的API名称是标准的HTTP方法。当服务端使用REST API时，客户端的编码风格和服务端的编码风格近乎一致，这可以减少前端和后端开发人员的沟通成本。
+
+客户端请求方法	服务端处理方法
+this.$http.get(...)	Getxxx
+this.$http.post(...)	Postxxx
+this.$http.put(...)	Putxxx
+this.$http.delete(...)	Deletexxx
+
+
+
+
 <script>
 export default {
   data() {

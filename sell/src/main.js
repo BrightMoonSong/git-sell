@@ -40,16 +40,17 @@ Vue.http.interceptors.push((request, next) => {
   console.log('this');
   let userToken = getStore('userToken');
   console.log(request);
-  try {
-    console.log(this.$route.params.funcId);
-  } catch (e) {
-
-  } finally {
-
-  }
 
   if (userToken && request.url.indexOf('mapi') > 0) {
     request.url += '&userToken=' + userToken;
+    // 获取不到funcId
+    // try {
+    //   console.log(this.$route);
+    //   console.log(this.$route.params.funcId);
+    //   request.url += '&funcId=' + this.$route.params.funcId;
+    // } catch (e) {
+    //
+    // }
   }
 
   // modify request

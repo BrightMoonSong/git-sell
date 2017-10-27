@@ -54,30 +54,10 @@
       </el-table-column>
     </el-table>
     <div class="Pagination" style="text-align: left;margin-top: 10px;">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-size="2" layout="total, prev, pager, next" :total="count">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-size="10" layout="total, prev, pager, next" :total="count">
       </el-pagination>
     </div>
-    <carfrommodel :dialogFormVisible="dialogFormVisible" :selectTable="selectTable"></carfrommodel>
-    <!-- <el-dialog title="修改车型信息" v-model="dialogFormVisible">
-      <el-form :model="selectTable">
-        <el-form-item label="车型ID" label-width="100px">
-          <el-input v-model="selectTable.id"></el-input>
-        </el-form-item>
-        <el-form-item label="车型名称" label-width="100px">
-          <el-input v-model="selectTable.total_amount" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="车型图标" label-width="100px">
-          <img :src="selectTable.status" class="image" width="100px">
-        </el-form-item>
-        <el-form-item label="user_id" label-width="100px">
-          <el-input v-model="selectTable.user_id"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="updateShop">确 定</el-button>
-      </div>
-    </el-dialog> -->
+    <carfrommodel :dialogFormVisible="dialogFormVisible" :selectTable="selectTable" v-on:refreshbizlines="onResultChange"></carfrommodel>
   </div>
 </div>
 </template>
@@ -110,6 +90,13 @@ export default {
   },
   components: {
     carfrommodel
+  },
+  watch: {
+    dialogFormVisible: function(val, oldVal) {
+      if (oldVal) {
+        this.initData();
+      }
+    }
   },
   created() {
     //  this.restaurant_id = this.$route.query.restaurant_id;
@@ -159,30 +146,6 @@ export default {
       });
       this.carmodel = res2.data.carmodel;
     },
-    // async updateShop() {
-    //   this.dialogFormVisible = false;
-    //   try {
-    //     Object.assign(this.selectTable);
-    //     const res = await this.$http.put('/mapi/carmodel/update', this.carmodel).then((response) => {
-    //       response = response.body;
-    //       return response;
-    //     });
-    //     if (res.code === 1) {
-    //       this.$message({
-    //         type: 'success',
-    //         message: '更新车型信息成功'
-    //       });
-    //       this.initData();
-    //     } else {
-    //       this.$message({
-    //         type: 'error',
-    //         message: res.message
-    //       });
-    //     }
-    //   } catch (err) {
-    //     console.log('更新车型信息失败', err);
-    //   }
-    // },
     async getOrders() {
       this.tableData = [];
       this.Orders.forEach((item, index) => {
@@ -213,6 +176,9 @@ export default {
         const index = this.expendRow.indexOf(row.index);
         this.expendRow.splice(index, 1);
       }
+    },
+    onResultChange(val) {
+      this.dialogFormVisible = val; // 4外层调用组件方注册变更方法，将组件内的数据变更，同步到组件外的数据状态中
     }
   }
 };

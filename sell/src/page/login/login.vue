@@ -72,7 +72,6 @@ export default {
             response = response.body;
             return response;
           });
-          console.log(res);
           if (res.code === 0) {
             removeStore('userToken');
             removeStore('userId');

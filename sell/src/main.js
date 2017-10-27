@@ -11,6 +11,9 @@ import {
   getStore,
   setStore
 } from '@/config/mUtils';
+import {
+  messageCode
+} from '@/config/config';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'jquery/dist/jquery.min.js';
@@ -48,8 +51,12 @@ Vue.http.interceptors.push((request, next) => {
     } else {
       request.url += '&userToken=' + userToken;
     }
-    request.url += '&formToken=' + formToken;
-    request.url += '&funcId=' + funcId;
+    if (formToken) {
+      request.url += '&formToken=' + formToken;
+    }
+    if (funcId && request.url.indexOf('userfunctions') < 0) {
+      request.url += '&funcId=' + funcId;
+    }
     // 获取不到funcId
     // try {
     //   console.log(this.$route);
@@ -68,7 +75,24 @@ Vue.http.interceptors.push((request, next) => {
     if (response.headers.map.formtoken) {
       setStore('formToken', response.headers.map.formtoken[0]);
     }
-    //  response.body = '...';
+    let res = response.body;
+    try {
+      if (res.code || res.code === 0) {
+        if (messageCode()[res.code].type === 5) { // 请重新登录
+          alert(messageCode()[res.code].message);
+          // this.$router.push('login'); 不起作用
+          window.location.href = 'http://localhost:8085/#/login';
+        } else if (messageCode()[res.code].type === 4) { // 权限不足
+          alert(messageCode()[res.code].message);
+        } else if (messageCode()[res.code].type === 3) { // 系统错误，操作失败
+          alert(messageCode()[res.code].message);
+        } else if (messageCode()[res.code].type === 6) { // 请稍后重试
+          alert(messageCode()[res.code].message);
+        }
+      }
+    } catch (e) {
+
+    }
     return response;
   });
 });

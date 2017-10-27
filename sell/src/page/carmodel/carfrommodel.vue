@@ -37,7 +37,8 @@ export default {
     },
     myDialogFormVisible(val) {
       // 3组件内对 myDialogFormVisible 变更后向外部发送事件通知
-      this.$emit('refreshbizlines', val);
+      // val 就是子要传的数据 - 这里很重要,refrs (两边一致就行，不固定) 就是父组件$on监测的自定义函数不是父组件的自定义函数。
+      this.$emit('refrs', val);
     }
   },
   methods: {

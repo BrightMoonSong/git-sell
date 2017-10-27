@@ -3,16 +3,17 @@
     width: 100%;
     float: left;
     height: 100%;
+    overflow: auto;
 }
 
 .content {
     height: 100%;
     background: #eee;
     margin-left: 200px;
-    .top-strip{
-      width: 100%;
-      height: 60px;
-      background: #aaa;
+    .top-strip {
+        width: 100%;
+        height: 60px;
+        background: #aaa;
     }
 }
 
@@ -23,17 +24,20 @@
     color: #bfcbd9;
     float: left;
     margin-left: -100%;
-    .nav-top-strip{
-      width: 100%;
-      height: 80px;
-      background: #ccc;
+    overflow: auto;
+    .nav-top-strip {
+        width: 100%;
+        height: 80px;
+        background: #ccc;
     }
     .tab-item {
         background: #1F2D3D;
         .first-nav {
+            display: inline-block;
             background: #1F2D3D;
             border: none;
             color: #fff;
+            margin: 3px auto;
         }
         .second-nav {
             padding-left: 20px;
@@ -64,8 +68,8 @@
 
     </div>
     <div class="tab-item">
-      <span class="form-control first-nav" @click="hideOrShowDetail()">系统管理</span>
-      <div v-show="detailShow">
+      <span class="form-control first-nav">系统管理</span>
+      <div>
         <div class="tab-item">
           <router-link to="/home/user/1" class="form-control second-nav">用户管理</router-link>
         </div>
@@ -77,15 +81,12 @@
         </div>
       </div>
     </div>
-    <div class="tab-item" v-for="item in navlist">
-      <span class="form-control first-nav" @click="hideOrShowDetail(item)" v-text="item.name"></span>
-      <div v-show="detailShow">
-        <div class="tab-item" v-for="res in item.childrenList">
-          <router-link :to="res.url+'/'+res.funcId" class="form-control second-nav" v-text="res.name"></router-link>
+    <div class="tab-item" v-for="(item, index) in navlist">
+      <span class="form-control first-nav" @click="hideOrShowDetail(index)" v-if="item.parentId===0" v-text="item.name"></span>
+      <div v-if="detailShow==index">
+        <div class="tab-item" v-for="res in navlist" v-if="res.parentId===item.functionId">
+          <router-link :to="res.functionUrl+'/'+res.functionId" class="form-control second-nav" v-text="res.name"></router-link>
         </div>
-        <!-- <div class="tab-item">
-            <router-link to="/role" class="form-control second-nav">角色管理</router-link>
-          </div> -->
       </div>
     </div>
   </div>
@@ -102,27 +103,33 @@ export default {
     return {
       seller: {},
       navlist: [],
-      detailShow: true
+      detailShow: -1
     };
   },
   methods: {
-    hideOrShowDetail() {
-      let value = this.detailShow;
-      if (value) {
-        this.detailShow = false;
+    hideOrShowDetail(index) {
+      console.log(index);
+      if (this.detailShow === index) {
+        this.detailShow = -1;
       } else {
-        this.detailShow = true;
+        this.detailShow = index;
       }
     }
   },
   created() {
-    this.$http.get('/api/navlist').then((response) => {
+    // this.$http.get('/api/navlist').then((response) => {
+    //   response = response.body;
+    //   if (response.errno === ERR_OK) {
+    //     this.navlist = response.data;
+    //   }
+    // });
+    // /mapi/shiro/userfunctions
+    this.$http.get('/mapi/shiro/userfunctions').then((response) => {
       response = response.body;
-      if (response.errno === ERR_OK) {
+      if (response.code === ERR_OK) {
         this.navlist = response.data;
       }
     });
-    //  this.navlist = ['first', 'sec', 'third', 'four', 'five'];
   },
   components: {
     // 'v-header': header

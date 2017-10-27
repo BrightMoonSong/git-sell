@@ -21,6 +21,28 @@
         "childrenList": []
       }
     ]
+  },{
+    "name": "系统管理22",
+    "url": "/home",
+    "childrenList": [{
+        "name": "用户管理",
+        "url": "/home/user",
+        "funcId": "23",
+        "childrenList": []
+      },
+      {
+        "name": "角色管理",
+        "url": "/home/role",
+        "funcId": "24",
+        "childrenList": []
+      },
+      {
+        "name": "用户管理1",
+        "url": "/home/user",
+        "funcId": "25",
+        "childrenList": []
+      }
+    ]
   }],
   "seller": {
     "carmodel":{

@@ -36,63 +36,65 @@ new Vue({
   template: '<App/>',
   components: {
     App
-  }
-});
-// 下边代码添加在main.js中
-Vue.http.interceptors.push((request, next) => {
-  // 此处this为请求所在页面的Vue实例
-  let userToken = getStore('userToken');
-  let formToken = getStore('formToken');
-  let funcId = getStore('funcId');
+  },
+  created() {
+    // 下边代码添加在main.js中
+    Vue.http.interceptors.push((request, next) => {
+      // 此处this为请求所在页面的Vue实例
+      let userToken = getStore('userToken');
+      let formToken = getStore('formToken');
+      let funcId = getStore('funcId');
 
-  if (userToken && request.url.indexOf('mapi') > 0) {
-    if (request.url.indexOf('?') < 0) {
-      request.url += '?userToken=' + userToken;
-    } else {
-      request.url += '&userToken=' + userToken;
-    }
-    if (formToken) {
-      request.url += '&formToken=' + formToken;
-    }
-    if (funcId && request.url.indexOf('userfunctions') < 0) {
-      request.url += '&funcId=' + funcId;
-    }
-    // 获取不到funcId
-    // try {
-    //   console.log(this.$route);
-    //   console.log(this.$route.params.funcId);
-    //   request.url += '&funcId=' + this.$route.params.funcId;
-    // } catch (e) {
-    //
-    // }
-  }
-
-  // modify request
-  // request.method = 'POST'; //在请求之前可以进行一些预处理和配置
-  // continue to next interceptor
-  // 在响应之后传给then之前对response进行修改和逻辑判断。对于token时候已过期的判断，就添加在此处，页面中任何一次http请求都会先调用此处方法
-  next((response) => {
-    if (response.headers.map.formtoken) {
-      setStore('formToken', response.headers.map.formtoken[0]);
-    }
-    let res = response.body;
-    try {
-      if (res.code || res.code === 0) {
-        if (messageCode()[res.code].type === 5) { // 请重新登录
-          alert(messageCode()[res.code].message);
-          // this.$router.push('login'); 不起作用
-          window.location.href = 'http://localhost:8085/#/login';
-        } else if (messageCode()[res.code].type === 4) { // 权限不足
-          alert(messageCode()[res.code].message);
-        } else if (messageCode()[res.code].type === 3) { // 系统错误，操作失败
-          alert(messageCode()[res.code].message);
-        } else if (messageCode()[res.code].type === 6) { // 请稍后重试
-          alert(messageCode()[res.code].message);
+      if (userToken && request.url.indexOf('mapi') > 0) {
+        if (request.url.indexOf('?') < 0) {
+          request.url += '?userToken=' + userToken;
+        } else {
+          request.url += '&userToken=' + userToken;
         }
+        if (formToken) {
+          request.url += '&formToken=' + formToken;
+        }
+        if (funcId && request.url.indexOf('userfunctions') < 0) {
+          request.url += '&funcId=' + funcId;
+        }
+        // 获取不到funcId
+        // try {
+        //   console.log(this.$route);
+        //   console.log(this.$route.params.funcId);
+        //   request.url += '&funcId=' + this.$route.params.funcId;
+        // } catch (e) {
+        //
+        // }
       }
-    } catch (e) {
 
-    }
-    return response;
-  });
+      // modify request
+      // request.method = 'POST'; //在请求之前可以进行一些预处理和配置
+      // continue to next interceptor
+      // 在响应之后传给then之前对response进行修改和逻辑判断。对于token时候已过期的判断，就添加在此处，页面中任何一次http请求都会先调用此处方法
+      next((response) => {
+        if (response.headers.map.formtoken) {
+          setStore('formToken', response.headers.map.formtoken[0]);
+        }
+        let res = response.body;
+        try {
+          if (res.code || res.code === 0) {
+            if (messageCode()[res.code].type === 5) { // 请重新登录
+              alert(messageCode()[res.code].message);
+              // window.location.href = 'http://localhost:8085/#/login';
+              this.$router.push('login');
+            } else if (messageCode()[res.code].type === 4) { // 权限不足
+              alert(messageCode()[res.code].message);
+            } else if (messageCode()[res.code].type === 3) { // 系统错误，操作失败
+              alert(messageCode()[res.code].message);
+            } else if (messageCode()[res.code].type === 6) { // 请稍后重试
+              alert(messageCode()[res.code].message);
+            }
+          }
+        } catch (e) {
+
+        }
+        return response;
+      });
+    });
+  }
 });

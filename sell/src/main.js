@@ -98,3 +98,8 @@ new Vue({
     });
   }
 });
+// 过滤器--全局
+// Vue.filter('money', function(value, type) {
+//   return '￥' + value.toFixed(2) + type;
+// });
+Vue.filter('money', (value, type) => '￥' + value.toFixed(2) + type);

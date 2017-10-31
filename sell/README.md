@@ -19,3 +19,9 @@ npm run build --report
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+
+ created 钩子用来在一个实例被创建之后执行代码
+ 生命周期：
+ beforeCreate-->created-->beforeMount-->mounted-->(when data changes;-->beforeUpdate-->updated)-->beforeDestroy--->destroyed

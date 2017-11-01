@@ -1,0 +1,11 @@
+yeoman--脚手架----学习慕课网的--Grunt_Beginner-里面有详细介绍
+cnpm install -g yo    安装yeoman
+yo --version         查看yeoman版本  2.0.0
+cnpm install -g yarn    
+cnpm install -g generator-vue-webpack  安装generator-vue-webpack 生成器
+
+yo 回车 选择 Vuewebpack 或者 yo generator-vue-webpack //在你的项目目录下执行
+
+//打开cmd输入yo vue-webpack generator-vue-webpack回车，选择配置
+
+然后进yeoman官网下载项目生成器    -- http://yeoman.io/generators/

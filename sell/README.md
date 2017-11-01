@@ -24,4 +24,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
  created 钩子用来在一个实例被创建之后执行代码
  生命周期：
- beforeCreate-->created-->beforeMount-->mounted-->(when data changes;-->beforeUpdate-->updated)-->beforeDestroy--->destroyed
+ beforeCreate-->created-->beforeMount-->mounted-->(when data changes;-->beforeUpdate-->updated)-->(when this.destroy{} is called;-->beforeDestroy--->destroyed)
+
+   display:table  去写垂直居中最好了  display:table-cell
+   &:last-child{}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>移动端-flex</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="./css/reset.css">
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    /*http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html  阮一峰老师网址关于flex*/
+
+    .box {
+      display: flex;
+      /*flex-wrap: wrap;
+      flex-direction: row;*/
+      /*flex-flow 就是flex-direction与flex-wrap的缩写*/
+      flex-flow: row wrap;
+      /*
+      justify-content属性定义了项目在主轴上的对齐方式。
+      justify-content: flex-start | flex-end | center | space-between | space-around;
+      flex-start（默认值）：左对齐
+      flex-end：右对齐
+      center： 居中
+      space-between：两端对齐，项目之间的间隔都相等。
+      space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
+       */
+      justify-content: center;
+      align-content: flex-start;
+      background: rgba(22, 0, 0, 0.5);
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .item {
+      display: table;
+      width: 100px;
+      height: 100px;
+      margin: 30px;
+      background: rgba(33, 2, 44, 0.5);
+    }
+    .item1{
+      flex-grow: 1;
+      background: rgba(77, 11, 44, 0.7);
+    }
+    .item2{
+      flex-grow: 1;
+      background: rgba(222, 11, 44, 0.7);
+    }
+    .item3{
+      /*flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。*/
+      /*flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。*/
+      /*flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。
+      浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。*/
+      /*flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。*/
+      /*flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+      建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。*/
+      flex: 0 2 100px;
+      /*align-self: flex-end;*/
+      background: rgba(77, 11, 44, 0.7);
+    }
+    .item>span {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <!-- <div class="item"><span>header 1</span></div>
+    <div class="item"><span>header 2</span></div>
+    <div class="item"><span>header 3</span></div>
+    <div class="item"><span>header 4</span></div>
+    <div class="item"><span>header 5</span></div> -->
+    <!-- div.item*3>span{header $@6} -->
+    <!-- <div class="item"><span>header 6</span></div>
+    <div class="item"><span>header 7</span></div>
+    <div class="item"><span>header 8</span></div>
+    <div class="item"><span>header 9</span></div>
+    <div class="item"><span>header 10</span></div>
+    <div class="item"><span>header 11</span></div> -->
+    <div class="item1"><span>header 12</span></div>
+    <div class="item2"><span>header 13</span></div>
+    <div class="item3"><span>header 14</span></div>
+  </div>
+</body>
+
+</html>

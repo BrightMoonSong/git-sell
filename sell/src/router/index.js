@@ -5,6 +5,7 @@ import Ratings from '@/components/ratings/ratings';
 import Seller from '@/components/sellers/seller';
 
 import Home from '@/page/home';
+import NotFound from '@/page/404';
 import User from '@/page/user/user';
 import Role from '@/page/role/role';
 import Login from '@/page/login/login';
@@ -19,6 +20,16 @@ export default new Router({
   routes: [{
       path: '/',
       redirect: '/login'
+    },
+    // 将不匹配路径(‘*')跳404
+    {
+      path: '*',
+      redirect: '/404'
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: NotFound
     },
     {
       path: '/login',
@@ -45,8 +56,7 @@ export default new Router({
       name: 'home',
       component: Home,
       // 这里就是二级路由的配置
-      children: [
-        {
+      children: [{
           path: '/home/user/:funcId',
           name: 'user',
           component: User

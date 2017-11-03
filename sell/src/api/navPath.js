@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
 const User = () =>
   import ('@/page/user/user');
-/* eslint-disable no-unused-vars */
+/* eslint-disable */
 const Role = () =>
   import ('@/page/role/role');
-/* eslint-disable no-unused-vars */
 const Carmodellist = () =>
   import ('@/page/carmodel/carmodellist');
-/* eslint-disable no-unused-vars */
 const Home = () =>
   import ('@/page/home');
+/* eslint-disable */
 
 export default (navlist = []) => {
   // 我们的动态路由

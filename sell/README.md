@@ -87,8 +87,9 @@ Vue.directive('has', {
 [addRoutes动态路由参考原文-详情见此](http://refined-x.com/2017/09/01/%E7%94%A8addRoutes%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1/)
 
 
-### eslint-禁止规则-语法
+eslint-禁止规则-语法
 ====
+----
 > 整个文件范围内禁止规则出现警告
 
 将/* eslint-disable */放置于文件最顶部

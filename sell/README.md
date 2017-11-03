@@ -84,7 +84,7 @@ Vue.directive('has', {
 ## 个人应用过程中发现this.$router.addRoutes必须写在根文件main.js中，否则会出现各种问题，这里是根据后台数据重新处理（用src/api/navPath.js作处理，不适用其他地方根据具体情况而定）。
 
 
-[详情见此](http://refined-x.com/2017/09/01/%E7%94%A8addRoutes%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1/)
+[addRoutes动态路由参考原文-详情见此](http://refined-x.com/2017/09/01/%E7%94%A8addRoutes%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1/)
 
 
 

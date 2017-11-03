@@ -19,6 +19,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'jquery/dist/jquery.min.js';
 // import 'bootstrap/dist/js/bootstrap.min.js';
 import './common/scss/index.scss';
+import navPath from '@/api/navPath';
 // Vue.use()安装插件，在这里是安装路由模块
 // 相当于全局注册
 Vue.use(VueResource);
@@ -38,6 +39,7 @@ new Vue({
     App
   },
   created() {
+    this.routerIfUsertoken();
     // 下边代码添加在main.js中
     Vue.http.interceptors.push((request, next) => {
       // 此处this为请求所在页面的Vue实例
@@ -96,6 +98,28 @@ new Vue({
         return response;
       });
     });
+  },
+  methods: {
+    async routerIfUsertoken() {
+      // let userToken = getStore('userToken');
+      let userId = getStore('userId');
+      // if (userToken === '6c5c4b9dced50fb4f45a922bde7de327ce2633') {
+      if (userId === '38') {
+        const navPathList = await this.$http.get('/api/navlist').then((response) => {
+          response = response.body;
+          if (response.errno === 0) {
+            return response.data;
+          } else {
+            return [];
+          }
+        });
+        // 我们的动态路由
+        let userPath = await navPath(navPathList);
+        this.$router.addRoutes(userPath);
+      } else {
+        this.$router.push('login');
+      }
+    }
   }
 });
 // 过滤器--全局

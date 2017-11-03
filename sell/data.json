@@ -1,48 +1,32 @@
 {
   "navlist": [{
-    "name": "系统管理",
-    "url": "/home",
-    "childrenList": [{
-        "name": "用户管理",
-        "url": "/home/user",
-        "funcId": "23",
-        "childrenList": []
-      },
-      {
-        "name": "角色管理",
-        "url": "/home/role",
-        "funcId": "24",
-        "childrenList": []
-      },
-      {
-        "name": "用户管理1",
-        "url": "/home/user",
-        "funcId": "25",
-        "childrenList": []
-      }
-    ]
+    "name": "动态路由",
+    "namePath": "home",
+    "path": "Home",
+    "functionUrl": "/home",
+    "functionId": 1,
+    "parentId": 0
   },{
-    "name": "系统管理22",
-    "url": "/home",
-    "childrenList": [{
-        "name": "用户管理",
-        "url": "/home/user",
-        "funcId": "23",
-        "childrenList": []
-      },
-      {
-        "name": "角色管理",
-        "url": "/home/role",
-        "funcId": "24",
-        "childrenList": []
-      },
-      {
-        "name": "用户管理1",
-        "url": "/home/user",
-        "funcId": "25",
-        "childrenList": []
-      }
-    ]
+    "name": "用户管理",
+    "namePath": "user",
+    "path": "User",
+    "functionUrl": "/home/user/:funcId",
+    "functionId": 11,
+    "parentId": 1
+  },{
+    "name": "角色管理",
+    "namePath": "role",
+    "path": "Role",
+    "functionUrl": "/home/role/:funcId",
+    "functionId": 12,
+    "parentId": 1
+  },{
+    "name": "车型管理",
+    "namePath": "carmodellist",
+    "path": "Carmodellist",
+    "functionUrl": "/home/carmodellist/:funcId",
+    "functionId": 13,
+    "parentId": 1
   }],
   "seller": {
     "carmodel":{

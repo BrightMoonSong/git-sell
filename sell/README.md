@@ -28,7 +28,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
    display:table  去写垂直居中最好了  display:table-cell
    &:last-child{}
-   
+
 
 # [Markdown 语法说明 (简体中文版)](http://www.appinn.com/markdown/)
 
@@ -81,31 +81,58 @@ Vue.directive('has', {
 神奇的prototype貌似自带惰性效果，可以先注册后实现，具体原因我也不太明白，如过有大牛路过，希望能留下答案。
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+个人应用过程中发现this.$router.addRoutes必须写在根文件main.js中，否则会出现各种问题，这里是根据后台数据重新处理
+（用src/api/navPath.js作处理，不适用其他地方根据具体情况而定）
 
 
 [详情见此](http://refined-x.com/2017/09/01/%E7%94%A8addRoutes%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1/)
+
+
+
+> 整个文件范围内禁止规则出现警告
+
+将/* eslint-disable */放置于文件最顶部
+``` javascript
+/* eslint-disable */
+alert('foo');
+```
+> 在文件中临时禁止规则出现警告
+
+将需要忽略的代码块用注释包裹起来
+``` javascript
+/* eslint-disable */
+alert('foo');
+/* eslint-enable */
+```
+> 对指定规则的启用或者禁用警告
+
+将需要忽略的代码块用注释包裹起来
+``` javascript
+/* eslint-disable no-alert, no-console */
+alert('foo');
+console.log('bar');
+/* eslint-enable no-alert, no-console */
+```
+> 对指定行禁用规则警告
+
+此方法，有两种形式，参见下方。
+``` javascript
+alert('foo'); // eslint-disable-line
+
+// eslint-disable-next-line
+alert('foo');
+```
+> 在指定行上禁用指定的某个规则
+``` javascript
+alert('foo'); // eslint-disable-line no-alert
+
+// eslint-disable-next-line no-alert
+alert('foo');
+```
+> 在某个特定的行上禁用多个规则
+``` javascript
+alert('foo'); // eslint-disable-line no-alert, quotes, semi
+
+// eslint-disable-next-line no-alert, quotes, semi
+alert('foo');
+```

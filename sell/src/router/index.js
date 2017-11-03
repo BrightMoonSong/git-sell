@@ -1,15 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Goods from '@/components/goods/goods';
-import Ratings from '@/components/ratings/ratings';
-import Seller from '@/components/sellers/seller';
+// import Goods from '@/components/goods/goods';
+// import Ratings from '@/components/ratings/ratings';
+// import Seller from '@/components/sellers/seller';
 
-import Home from '@/page/home';
+// import Home from '@/page/home';
 import NotFound from '@/page/404';
-import User from '@/page/user/user';
-import Role from '@/page/role/role';
+// import User from '@/page/user/user';
+// import Role from '@/page/role/role';
 import Login from '@/page/login/login';
-import Carmodellist from '@/page/carmodel/carmodellist';
+// import Carmodellist from '@/page/carmodel/carmodellist';
 
 // Vue.use()安装插件，在这里是安装路由模块
 Vue.use(Router);
@@ -21,11 +21,6 @@ export default new Router({
       path: '/',
       redirect: '/login'
     },
-    // 将不匹配路径(‘*')跳404
-    {
-      path: '*',
-      redirect: '/404'
-    },
     {
       path: '/404',
       name: '404',
@@ -35,43 +30,28 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
-    },
-    {
-      path: '/goods',
-      name: 'goods',
-      component: Goods
-    },
-    {
-      path: '/ratings',
-      name: 'ratings',
-      component: Ratings
-    },
-    {
-      path: '/seller',
-      name: 'seller',
-      component: Seller
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: Home,
-      // 这里就是二级路由的配置
-      children: [{
-          path: '/home/user/:funcId',
-          name: 'user',
-          component: User
-        },
-        {
-          path: '/home/role/:funcId',
-          name: 'role',
-          component: Role
-        },
-        {
-          path: '/home/carmodellist/:funcId',
-          name: 'carmodellist',
-          component: Carmodellist
-        }
-      ]
     }
+    // {
+    //   path: '/home',
+    //   name: 'home',
+    //   component: Home
+    //   这里就是二级路由的配置
+    //   children: [{
+    //       path: '/home/user/:funcId',
+    //       name: 'user',
+    //       component: User
+    //     },
+    //     {
+    //       path: '/home/role/:funcId',
+    //       name: 'role',
+    //       component: Role
+    //     },
+    //     {
+    //       path: '/home/carmodellist/:funcId',
+    //       name: 'carmodellist',
+    //       component: Carmodellist
+    //     }
+    //   ]
+    // }
   ]
 });

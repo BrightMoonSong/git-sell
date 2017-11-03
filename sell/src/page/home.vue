@@ -81,11 +81,11 @@
         </div>
       </div>
     </div>
-    <div class="tab-item" v-for="(item, index) in navlist">
-      <span class="form-control first-nav" @click="hideOrShowDetail(index)" v-if="item.parentId===0" v-text="item.name"></span>
-      <div v-if="detailShow==index">
-        <div class="tab-item" v-for="res in navlist" v-if="res.parentId===item.functionId">
-          <router-link :to="res.functionUrl+'/'+res.functionId" class="form-control second-nav" v-text="res.name"></router-link>
+    <div class="tab-item">
+      <span class="form-control first-nav" @click="hideOrShowDetail()">动态路由</span>
+      <div v-if="detailShow">
+        <div class="tab-item" v-for="res in navlist" v-if="res.parentId!==0">
+          <router-link :to="res.functionUrl.split(':funcId')[0]+''+res.functionId" class="form-control second-nav" v-text="res.name"></router-link>
         </div>
       </div>
     </div>
@@ -95,6 +95,9 @@
 
 <script type="text/ecmascript-6">
 // import header from './components/header/header.vue';
+import {
+  getStore
+} from '@/config/mUtils';
 
 const ERR_OK = 0;
 
@@ -103,33 +106,44 @@ export default {
     return {
       seller: {},
       navlist: [],
-      detailShow: -1
+      detailShow: false
     };
   },
   methods: {
-    hideOrShowDetail(index) {
-      console.log(index);
-      if (this.detailShow === index) {
-        this.detailShow = -1;
+    hideOrShowDetail() {
+      if (this.detailShow) {
+        this.detailShow = false;
       } else {
-        this.detailShow = index;
+        this.detailShow = true;
+      }
+    },
+    async routerIfUsertoken() {
+      // let userToken = getStore('userToken');
+      let userId = getStore('userId');
+      // if (userToken === '6c5c4b9dced50fb4f45a922bde7de327ce2633') {
+      if (userId === '38') {
+        this.navlist = await this.$http.get('/api/navlist').then((response) => {
+          response = response.body;
+          if (response.errno === ERR_OK) {
+            return response.data;
+          } else {
+            return [];
+          }
+        });
+      } else {
+        this.$router.push('login');
       }
     }
   },
   created() {
-    // this.$http.get('/api/navlist').then((response) => {
+    this.routerIfUsertoken();
+    // /mapi/shiro/userfunctions
+    // this.$http.get('/mapi/shiro/userfunctions').then((response) => {
     //   response = response.body;
-    //   if (response.errno === ERR_OK) {
+    //   if (response.code === ERR_OK) {
     //     this.navlist = response.data;
     //   }
     // });
-    // /mapi/shiro/userfunctions
-    this.$http.get('/mapi/shiro/userfunctions').then((response) => {
-      response = response.body;
-      if (response.code === ERR_OK) {
-        this.navlist = response.data;
-      }
-    });
   },
   components: {
     // 'v-header': header

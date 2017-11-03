@@ -28,6 +28,8 @@ module.exports = {
     // 改变格式化插件格式化后的OK,忽略indent配置
     'indent': 0,
     // 忽略检测function的name前的空格检测
-    'space-before-function-paren': 0
+    'space-before-function-paren': 0,
+    'func-call-spacing': 0,
+    'no-eval': 0
   }
 }

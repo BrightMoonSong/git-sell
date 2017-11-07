@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html ng-app="chargeMoneyApp">
+
+<head>
+  <script type="text/javascript">
+    //IE8以及以下
+    if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0")
+    {
+      alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+      window.open("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100","_self");
+    }
+
+  </script>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="js/common/zhecConfig.js"></script>
+  <script language="javascript">
+      if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+
+      }else{
+          var strDelete = publicUrlMall.split("/mall");
+          publicUrlMall = strDelete[0] + strDelete[1];
+      }
+      document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+      document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/payMoney.css>");
+      document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+      document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog.min.css>");
+      document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/plugins/qrcode/qrcode.min.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/plugins/ngDialog/ngDialog.min.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/common/interceptor.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/controllers/pay/chargeMoneyController.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+      document.write("<script src="+publicUrlMall+"js/controllers/cart/cartConfig.js><\/script>");
+  </script>
+
+
+  <title>充值页面-众会商城</title>
+        <!-- <link rel="shortcut icon" type="image/ico" href="/favicon.ico"> -->
+        <!-- <link rel="stylesheet" href="stylesheets/payMoney.css" /> -->
+        <!-- <link rel="stylesheet" href="stylesheets/screen.css" /> -->
+        <!-- <link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog.min.css"/> -->
+        <!-- <script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script> -->
+		<!-- <script type="text/javascript" src="js/common/zhecConfig.js"></script> -->
+		<!-- Piwik -->
+		<!-- <script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script> -->
+		<!-- End Piwik Code -->
+
+        <!-- <script type="text/javascript" src="js/common/zhec.js"></script> -->
+        <!-- <script type="text/javascript" src="js/plugins/angular/angular.min.js"></script> -->
+        <!-- <script type="text/javascript" src="js/plugins/ngDialog/ngDialog.min.js"></script> -->
+        <!-- <script type="text/javascript" src="js/common/cookie.js"></script> -->
+        <!--拦截器-->
+        <!-- <script type="text/javascript" src="js/common/interceptor.js" ></script> -->
+        <!-- <script type="text/javascript" src="js/common/CommonService.js"></script> -->
+        <!-- <script type="text/javascript" src="js/common/directives.js"></script> -->
+        <!-- <script type="text/javascript" src="js/controllers/pay/chargeMoneyController.js"></script> -->
+        <!-- 二维码 -->
+        <!-- <script type="text/javascript" src="js/plugins/qrcode/qrcode.min.js"></script> -->
+</head>
+
+<body ng-controller="chargeMoneyController">
+<headerpage></headerpage>
+<!---------------头导航条---------------------------->
+<search></search>
+
+<navigation-bar></navigation-bar>
+
+<div class="conter clearfix" id="conter_charge">
+  <div class="conter_pay_head" id="conter_pay_head_charge">
+    充值:
+  </div>
+  <div class="conter_pay_conter clearfix">
+        <div class="payMoney_payment clearfix">
+          <div class="conter_pay_three_money">
+            <lable>在线充值:</lable>
+            <span>第三方支付：<b>￥</b><b ng-bind="money | number:2"></b></span>
+          </div>
+          <ul class="conter_pay_conter_all clearfix">
+            <li>
+              <ul class="conter_pay_conter_head getHeight">
+                <!--<li class="pay_hover">
+                  <input type="checkbox" name="balance" class="payMoney_inp_img"/>
+                  <img src="images/wx.png">
+                  <span>微信支付</span>
+                </li>
+                <li>
+                <input type="checkbox" name="balance"/>
+                <img src="images/zf.png">
+                <span>支付宝</span>
+                </li>
+                <li>
+                <input type="checkbox" name="balance"/>
+                <img src="images/yl.png">
+                <span>银联支付</span></li>-->
+
+                <li class="pay_hover">
+										<input type="checkbox" ng-click="WeChat()" ng-model="ifShowWeChat" name="balance" ng-class="{true: 'payMoney_inp_img', false: 'paymoney_quxia'}[ifShowWeChat]" />
+										<img src="images/wx.png">
+										<span>微信支付</span>
+									</li>
+									<li>
+										<input type="checkbox" ng-click="SavingsDepositCard()" ng-model="ifShowSavingsDepositCard" name="balance" ng-class="{true: 'payMoney_inp_img', false: 'paymoney_quxia'}[ifShowSavingsDepositCard]" />
+										<img src="images/zf.png">
+										<span>支付宝</span>
+									</li>
+									<li>
+										<input type="checkbox" ng-click="ThirdPartyPayment()" ng-model="ifShowThirdPartyPayment" name="balance" ng-class="{true: 'payMoney_inp_img', false: 'paymoney_quxia'}[ifShowThirdPartyPayment]" />
+										<img src="images/yl.png">
+										<span>银联支付</span></li>
+
+
+              </ul>
+            </li>
+            <li class="pay_clickShow" ng-show="ifShowWeChat">
+              <div class="pay_conter_product"  >
+                <ol >
+                  <li>
+                    <div id="qrcode"></div>
+                  </li>
+
+                  <!-- <li></li> -->
+                </ol>
+                <div class="pay_can_bottm">
+                  <img src="images/weixinzf.png">
+                </div>
+
+              </div>
+
+
+            </li>
+            <li class="pay_clickShow" ng-show="ifShowSavingsDepositCard">
+              <div class="pay_direction" >
+                <ol >
+                  <li>
+                    <div id="qrcode"></div>
+                  </li>
+
+                  <li></li>
+                </ol>
+                <div class="pay_can_bottm">
+                  <img src="images/weixinzf.png">
+                </div>
+              </div>
+            </li>
+            <li class="pay_clickShow" ng-show="ifShowThirdPartyPayment">
+              <div class="pay_regarding" >
+                <ol >
+                  <li>
+                    <div id="qrcode"></div>
+                  </li>
+
+                  <li></li>
+                </ol>
+                <div class="pay_can_bottm">
+                  <img src="images/weixinzf.png">
+                </div>
+              </div>
+            </li>
+
+
+          </ul>
+        </div>
+  </div>
+</div>
+
+<!--尾部-->
+<footerpage></footerpage>
+
+
+<script type="text/javascript">
+  var qrcode = new QRCode(document.getElementById("qrcode"), {
+    width: 300,
+    height: 300,
+    colorDark: "#000000",
+    colorLight: "#eeeeee",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  function makeCode(res) {
+    //var elText = document.getElementById("textvalue");
+
+    if(!res) { /*elText.value*/
+      //alert("Input a text");
+      //elText.focus();
+      return;
+    }
+
+    qrcode.makeCode(res);
+  }
+
+  //makeCode();
+//
+  $("#textvalue").on("blur", function() {
+    makeCode();
+  }).on("keydown", function(e) {
+    if(e.keyCode == 13) {
+      makeCode();
+    }
+  });
+
+</script>
+</body>
+
+</html>

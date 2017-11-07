@@ -1,0 +1,107 @@
+<body>
+	<div id="needs_head">
+		<ul class="head">
+			<li ng-click=goBack()><img src="../../img/fh.png" /></li>
+			<li id="needs_xq">订单详情</li>
+		</ul>
+	</div>
+	<div class="detailsord_head clearfix">
+		<div class="detailsord_header ">
+			物流信息
+		</div>
+		<ol class="clearfix detailsord_address">
+			<li>
+				<li>
+					<b ng-if="logisticsMessage.Success == true" ng-bind="logisticsMessage.Traces[logisticsMessage.Traces.length-1].AcceptStation"></b>
+					<b ng-if="logisticsMessage.Success == false">暂无物流信息！</b>
+					<!-- [周口市]在河南沈丘县公司北洋吉祥分布签收扫描，快件已被 本人签收感谢使用韵达快递，期待再次为您服务。 -->
+				</li>
+				<li ng-bind="memberOrder.createTime"></li>
+			</li>
+		</ol>
+	</div>
+	<div class="orderd_head clearfix">
+		<ul class="orderd_head_ul clearfix">
+			<li><span ng-bind="memberOrder.consigneeName"></span><span ng-bind="memberOrder.consigneeMobile"></span></li>
+			<li><span ng-bind="memberOrder.consigneePca"></span><span ng-bind="memberOrder.consigneeAddress"></span></li>
+		</ul>
+	</div>
+	<div class="orderd_conter clearfix">
+		<div class="orderd_conter_head">
+			<label>
+				商品信息
+			</label>
+			<span class="orderd_conter_span_color" id="orderd_conter_span_floa" ng-bind="memberOrderStatus"></span>
+		</div>
+		<div class="clearfix orderd_conter_div_ul" ng-repeat="goods in orderList">
+			<ul class="orderd_conter_ul">
+				<li class="orderd_conter_ul_img">
+					<a ng-href="/index.html#/info/goods-{{goods.goodsId}}"><img src="{{goods.masterImg}}" alt="" /></a>
+				</li>
+				<li class="orderd_conter_ul_name words ">
+					<b ng-if="goods.goodsType==1">
+						<img src="../../img/rxpc.png" />
+					</b>
+					
+					<a ng-href="/index.html#/info/goods-{{goods.goodsId}}" ng-bind="goods.goodsName"></a>
+				</li>
+				<li class="orderd_conter_ul_bz" ng-bind="goods.productSpecInfo"></li>
+				<li class="orderd_conter_ul_mon">
+					<label>价格:</label>
+					<span ng-if="discountList.length == 0" class="orderd_conter_ul_mon_mey" ng-bind="goods.salesPrice"></span>
+					<span ng-if="discountList.length == 0" style="text-decoration: line-through;" ng-bind="goods.marketPrice"></span>
+					<span ng-if="discountList.length != 0 && discount.promotionType == 1 && order.productId != discount.productIds" ng-repeat="discount in discountList" class="orderd_conter_ul_mon_mey" ng-bind="goods.salesPrice"></span>
+					<span ng-if="discountList.length != 0 && discount.promotionType == 1 && order.productId != discount.productIds" ng-repeat="discount in discountList" style="text-decoration: line-through;" ng-bind="goods.marketPrice"></span>
+					<span ng-repeat="discount in discountList" ng-if="order.productId == discount.productIds && discount.promotionType == 1" class="orderd_conter_ul_mon_mey" ng-bind="goods.salesPrice"></span>
+					<span ng-repeat="discount in discountList" ng-if="order.productId == discount.productIds && discount.promotionType == 1" style="text-decoration: line-through;" ng-bind="goods.productPrice"></span>
+
+					<!-- 服务详情 -->
+					<a ng-if="memberOrder.orderStatus==4&&goods.returnType==1&&memberOrder.allowRefund==1&&goods.refundingNumber<goods.productNumber" class="return_button" ng-href="/index.html#/info/apply-{{memberId}}-{{orderId}}-{{goods.productId}}-{{goods.goodsId}}">申请售后</a>
+
+					<!-- <li>
+						<b ng-bind="order.productNumber"></b>
+						<b ng-if="memberOrder.orderStatus==4&&order.returnType==1&&memberOrder.allowRefund==1&&memberOrder.refundingNumber<memberOrder.productNumber" id="personal_sh_ex">
+							<a href="afterSales.html?memberId={{memberId}}&orderId={{order.ordersId}}&productId={{order.productId}}&goodsId={{order.goodsId}}">申请售后</a>
+						</b>
+					</li> -->
+					<span class="orderd_conter_ul_mon_rig orderd_conter_ul_mon_rig_jj">x <b ng-bind="goods.productNumber"></b></span>
+
+				</li>
+			</ul>
+		</div>
+		<div class="bill_fapiao ">
+			<a>
+				<label><b>发票信息</b></label>
+				<img src="../../img/ljjt.png" />
+				<span ng-if="memberOrder.invoiceType==1">纸质发票</span>
+				<span ng-if="memberOrder.invoiceType==2">电子发票</span>
+				<span ng-bind="memberOrder.invoiceDetail"></span>
+				<span ng-bind="memberOrder.invoiceTitle"></span>
+
+			</a>
+		</div>
+		<!-- <div class="orderd_conter_div clearfix">
+			<ul class="clearfix">
+				<li>
+					<label>商品金额:</label>
+					<span>¥ 118.00</span>
+				</li>
+				<li>
+					<label>物流费用:</label>
+					<span>¥ 11.00</span>
+				</li>
+				<li>
+					<label>优惠金额:</label>
+					<span>-¥ 1.00</span>
+				</li>
+				<li id="orderd_conter_div_pay">
+					<label>总计:</label>
+					<span>¥ 118.00</span>
+				</li>
+			</ul>
+		</div> -->
+	</div>
+	<findcommenddata></findcommenddata>
+</body>
+
+</html>

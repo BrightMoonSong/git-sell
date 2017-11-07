@@ -1,0 +1,131 @@
+<style type="text/css">
+	.dbclick {
+		background-color: #7e9ec8 !important;
+	}
+	
+	.zhende {
+		background-color: #cdcdcd !important;
+		color: #9d9a9a !important;
+	}
+</style>
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">管理员</h1>
+    </div>
+    <form class="" name="myform" verify-scope="tipStyle: 1">
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">登录名（*）：</label>
+
+                    <div class="col-sm-9">
+                        <input ng-verify="{min:3 ,max:12}" type="text" class="form-control"
+                               ng-model="dataEntity.loginId">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">姓名（*）：</label>
+
+                    <div class="col-sm-9">
+                        <input ng-verify="{min:1 ,max:30}" type="text" class="form-control"
+                               ng-model="dataEntity.userName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">手机（*）：</label>
+
+                    <div class="col-sm-9">
+                        <input ng-verify="pattern:/^0?1[3|4|5|7|8][0-9]\d{8}$/,errmsg:'手机号格式不正确'" type="phone" class="form-control"
+                               ng-model="dataEntity.phone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">邮箱：</label>
+
+                    <div class="col-sm-9">
+                        <input ng-verify="{required:false,pattern:/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/,errmsg:'邮箱格式不正确'}" type="email" class="form-control"
+                               ng-model="dataEntity.email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">角色（*）：</label>
+                    <div class="col-sm-9">
+                        <!--<select ng-verify="option:" ng-model="dataEntity.roleId" class="form-control" ng-options="x.roleId as x.name for x in roleList">
+                        	<option value="">--请选择--</option>
+                        </select>-->
+                        <span ng-repeat="res in roleList" style="cursor: pointer;float:left;padding: 10px;margin: 5px;" ng-bind="res.name" ng-click="roleListSelct(res.roleId)" ng-class="{false:'zhende',true:'dbclick'}[roleIdList.contains(res.roleId)]"></span>
+                    </div>
+                </div>
+<!--
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">ip：</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"
+                               ng-model="dataEntity.ip">
+                    </div>
+                </div>-->
+               <!-- <div class="form-group">
+                    <label class="col-sm-3 control-label">应用范围（*）：</label>
+
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio"
+                                       ng-checked="dataEntity.scope=='1'" name="scope" value="1"
+                                       ng-model="dataEntity.scope">&nbsp;平台&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input ng-verify type="radio"
+                                       ng-checked="dataEntity.scope=='2'" name="scope" value="2"
+                                       ng-model="dataEntity.scope">&nbsp;顾问&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">状态（*）：</label>
+
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline"> <input type="radio"
+                                                                ng-checked="dataEntity.status=='1'" name="status"
+                                                                value="1" ng-model="dataEntity.status">&nbsp;正常&nbsp;
+                            </label> <label class="radio-inline"> <input type="radio" ng-verify
+                                                                         ng-checked="dataEntity.status=='0'"
+                                                                         name="status" value="0"
+                                                                         ng-model="dataEntity.status">&nbsp;禁用&nbsp;
+                        </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">备注：</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"
+                               ng-model="dataEntity.remark">
+                    </div>
+                </div>
+
+
+            </li>
+        </ul>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+            <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+        </div>
+    </form>
+
+</div>
+

@@ -1,0 +1,30 @@
+<div class="cart_like clearfix">
+  <div class="conter_header">
+    猜你喜欢
+  </div>
+  <ol class="clearfix detailord_ol" id="conter_cnxh">
+    <li ng-repeat="goods in findcommenddata">
+      <ul class="conter_family_ol_ul">
+        <li>
+          <a ng-href="/index.html#/info/goods-{{goods.id}}">
+            <img src="{{goods.masterImg}}" />
+          </a>
+        </li>
+        <li>
+          <a ng-href="/index.html#/info/goods-{{goods.id}}" ng-bind="goods.name1">
+
+				</a>
+        </li>
+        <li ng-bind="goods.price | priceFormatFilter">
+          ￥36
+        </li>
+        <li class="conter_family_ol_ul_rx" ng-if="goods.goodsType==1">
+          <img src="../../img/rxpc.png" />
+        </li>
+      </ul>
+    </li>
+
+
+
+  </ol>
+</div>

@@ -1,0 +1,207 @@
+body {
+	font-family: "微软雅黑 Regular", "微软雅黑";
+	font-weight: 400;
+	font-style: normal;
+	font-size: 12px;
+	color: #333333;
+}
+
+.clearfix {
+	*zoom: 1;
+}
+
+.clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+button:focus {
+	outline: none;
+}
+
+button:hover {
+	-webkit-filter: brightness(1.05);
+	filter: brightness(1.05);
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+	background: white !important;
+	padding: 0 !important;
+	border-radius: 0 !important;
+}
+
+.order_morder_all {
+	height: 400px;
+}
+
+.order_morder_head {
+	width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #E5E5E5;
+    line-height: 40px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #333333;
+    letter-spacing: 1.2px;
+    text-indent: 20px;
+}
+
+.order_morder_conter>ul {
+	width: 100%;
+	height: 100%;
+}
+
+.order_morder_conter>ul>li {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+}
+.order_morder_conter>ul>li:nth-child(1){
+	margin-top:20px;
+}
+
+.order_morder_conter>ul>li>label,
+.order_morder_conter>ul>li>input {
+	float: left;
+}
+
+.order_morder_conter>ul>li>label {
+	display: block;
+    width: 80px;
+    height: 100%;
+    text-align: right;
+    margin-left: 22px;
+    font-family: MicrosoftYaHei;
+font-size: 12px;
+color: #333333;
+letter-spacing: 1.19px;
+line-height: 30px;
+margin-right: 10px;
+}
+
+.order_morder_conter>ul>li>label >b{
+	color: red;
+	margin-right: 5px;
+	
+}
+.order_morder_conter>ul>li>input {
+	width: 200px;
+    height: 100%;
+    border-radius: 5px;
+    border: 0;
+    outline: medium;
+    text-indent: 10px;
+    font-family: MicrosoftYaHei;
+    font-size: 12px;
+    color: #666666;
+    letter-spacing: 1.19px;
+    line-height: 13px;
+}
+.order_morder_conter>ul>li:nth-child(4){
+	height: 30px;
+}
+.order_morder_conter>ul>li:nth-child(4)>label{
+	line-height: 30px;
+}
+.order_morder_conter>ul>li>select,
+.order_morder_conter>ul>li>label {
+	float: left;
+}
+.order_morder_conter .addres_select{
+	    margin-left: 11px;
+}
+.order_morder_conter>ul>li:nth-child(6){
+	height: 70px;
+}
+.order_morder_conter>ul>li>textarea{
+	width: 268px;
+	height: 88%;
+	border:0;
+	outline: medium;
+	resize: none;
+	background: white;
+	border:1px solid #E5E5E5;
+	color: #666666;
+    line-height: 18px;
+    font-size: 12px;
+    margin-top: 8px;
+}
+.order_morder_conter>ul>li>select {
+	width: 86px;
+	height: 100%;
+	line-height: 30px;
+	margin-left: 1px;
+	outline: medium;
+	color: #666666;
+	font-size: 12px;
+	margin-right: 5px;
+    border-color: #e5e5e5;
+    background: white;
+}
+
+.order_morder_conter>ul>li>select:hover {
+	border-color: #FF9900;
+}
+
+.order_morder_conter_label>label:nth-child(1) {
+	width: 129px;
+	line-height: 19px;
+    margin-left: 19px;
+}
+.order_morder_conter_label>label:nth-child(1)>input,.order_morder_conter_label>label:nth-child(1)>span{
+	float: left;
+}
+.order_morder_conter_label>label:nth-child(1)>span{
+	display: block;
+}
+.order_morder_conter_label>label:nth-child(2) {
+	width: 144px;
+}
+
+.order_morder_conter_label>label:nth-child(3) {
+	width: 144px;
+}
+
+.order_morder_conter>ul>li.order_morder_conter_button {
+	width:70px;
+	height: 40px;
+	float: right;
+	
+    margin-top: 20px;
+}
+#order_morder_conter_buttonli{
+	margin-right: 30px;
+} 
+.order_morder_conter>ul>li.order_morder_conter_button>button {
+	width: 70px;
+	height: 30px;
+	border: 0;
+	outline: medium;
+	background: #FF9900;
+	text-align: center;
+	font-family: MicrosoftYaHei;
+font-size: 12px;
+color: #FFFFFF;
+letter-spacing: 1.19px;
+}
+.order_morder_conter>ul>li.order_morder_conter_button .order_morder_conter_buttonq{
+	background:white;
+	font-family: MicrosoftYaHei;
+font-size: 12px;
+color: #666666;
+letter-spacing: 1.19px;
+}
+.order_morder_conter>ul>li.order_morder_conter_button>button[disabled] {
+	background: #ccc;
+}
+
+.verifyTips .tipStyle-1 {
+	margin-top: 20px !important;
+	right: 250px !important;
+}
+button[disabled] ,button[disabled]:hover{
+	background: #ccc !important;
+	-webkit-filter: brightness(1) !important;
+    filter: brightness(1) !important;
+}

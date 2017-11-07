@@ -1,0 +1,79 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">异常详情</h1>
+    </div>
+    <div class="modal-body" name="myform" verify-scope="tipStyle: 2">
+        <!-- 标签页start -->
+        <ul class="nav nav-tabs">
+            <li ng-click="onClickTab('optParameterId.html')">
+                <a data-toggle="tab">操作人IP</a>
+            </li>
+            <li ng-click="onClickTab('optParameter.html')">
+                <a data-toggle="tab">请求参数</a>
+            </li>
+            <li ng-click="onClickTab('optParameterText.html')">
+                <a data-toggle="tab">请求参数</a>
+            </li>
+            <li ng-click="onClickTab('optMessage.html')">
+                <a data-toggle="tab">备注信息</a>
+            </li>
+
+
+        </ul>
+        <div id="mainView">
+            <div ng-include="currentTab"></div>
+        </div>
+        <!-- 订单详情 -->
+        <script type="text/ng-template" id="optParameterId.html">
+            <div class="" name="myform" verify-scope="tipStyle: 1">
+                <div class="form-group">
+                    <p ng-bind="dataEntity.optIp"></p>
+                </div>
+            </div>
+
+        </script>
+
+        <script type="text/ng-template" id="optParameter.html">
+            <div class="" name="myform" verify-scope="tipStyle: 1">
+                <div class="form-group">
+                    <p ng-bind="dataEntity.optParameter"></p>
+                </div>
+            </div>
+
+        </script>
+        <script type="text/ng-template" id="optParameterText.html">
+            <div class="" name="myform" verify-scope="tipStyle: 1">
+                <div class="form-group">
+                    <p ng-bind="dataEntity.optParameter"></p>
+                </div>
+            </div>
+
+        </script>
+        <script type="text/ng-template" id="optParameterText.html">
+            <div class="" name="myform" verify-scope="tipStyle: 1">
+                <div class="form-group">
+                    <p ng-bind="dataEntity.optParameterText"></p>
+                </div>
+            </div>
+
+        </script>
+        <script type="text/ng-template" id="optMessage.html">
+            <div class="" name="myform" verify-scope="tipStyle: 1">
+                <div class="form-group">
+                    <p ng-bind="dataEntity.optMessage"></p>
+                </div>
+            </div>
+
+        </script>
+
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+    </div>
+
+
+</div>

@@ -1,0 +1,54 @@
+	<ul class="clearfix property_ul">
+				<li class="recent_goods_propetry">
+					我的资产：
+				</li>
+				<li class="proper_balance">
+					<label>账单:</label>
+					<ol>
+						<li>
+							<ul>
+								<li>时间</li>
+								<li>金额</li>
+								<li>方式</li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li ng-repeat="list in spentScoreList">
+									<ol>
+										<li ng-bind="list.addTime"></li>
+										<li ng-bind="list.balanceChange |number:2">+</li>
+										<li>{{estimateType(list.changeType)}}</li>
+									</ol>
+								</li>
+								<!--<li>
+									<ol>
+										<li>2016-09-20</li>
+										<li>+500</li>
+										<li>支付宝</li>
+									</ol>
+								</li>-->
+
+
+							</ul>
+							<div class="proper_balance_hide">
+									您还没有余额交易欧~
+							</div>
+						</li>
+					</ol>
+				</li>
+				<li class="propert_money" name="myform" verify-scope="tipStyle: 2">
+					<ol>
+						<li ><label>账户余额：</label><span>￥<b ng-bind="balance |number:2"></b></span></li>
+						<li><label>充值金额：</label>
+							<span>
+							<input type="number" ng-model="money" name="myform" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d{0,2})| ([1-9]+\d*\.\d{0,2})|([1-9]+\d*))$/}" class="ng-pristine ng-valid ng-touched" maxlength="8">
+
+							<!--<div class="verifyTips" style="z-index: 100"><p class="tipStyle-2"><span class="tipMsg"></span><i></i></p></div>-->
+               				 </span>
+              <b>元</b>
+						</li>
+						<li><button ng-disabled="flag" ng-verify="{control:'myform'}" ng-click="chargeMoney(money,chargeStyle)">去充值</button></li>
+					</ol>
+				</li>
+			</ul>

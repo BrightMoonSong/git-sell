@@ -1,0 +1,243 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">商品管理</h1>
+	</div>
+	<div class="modal-body">
+		<!-- 标签页start -->
+		<ul class="nav nav-tabs">
+			<li class="active" ng-click="onClickTab('basicInformation.html')">
+				<a data-toggle="tab"> 基本信息 </a>
+			</li>
+			<li ng-click="onClickTab('goodsImg.html')">
+				<a data-toggle="tab"> 商品图片 </a>
+			</li>
+			<li ng-click="onClickTab('goodsCheckbills.html')">
+				<a data-toggle="tab"> 审核记录 </a>
+			</li>
+			<li ng-click="onClickTab('goodsExplain.html')">
+				<a data-toggle="tab"> 说明书 </a>
+			</li>
+		</ul>
+		<div id="mainView">
+			<div ng-include="currentTab"></div>
+		</div>
+
+		<!-- 说明书 -->
+		<script type="text/ng-template" id="goodsExplain.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item">
+					<element ng-bind-html="goodsExplainData | trust2Html"></element>
+				</li>
+			</ul>
+		</script>
+		<!-- 审核记录 -->
+		<script type="text/ng-template" id="goodsCheckbills.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item">
+					<table class="table table-striped table-bordered table-hover dataTables-example">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>提交人</th>
+								<th>提交时间</th>
+								<th>提交人类型</th>
+								<th>审核状态</th>
+								<th>备注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="res in checkBillsList">
+								<td ng-bind="res.checkId"></td>
+								<td ng-bind="res.createUserName"></td>
+								<td ng-bind="res.createTimeStr"></td>
+								<td ng-if="res.userScope!=1&&res.userScope!=2"></td>
+								<td ng-if="res.userScope==1">商户</td>
+								<td ng-if="res.userScope==2">平台管理员</td>
+								<td ng-if="res.checkStatus===0">待审核</td>
+								<td ng-if="res.checkStatus===1">通过</td>
+								<td ng-if="res.checkStatus===2">不通过</td>
+								<td ng-if="res.checkStatus!==0&&res.checkStatus!==1&&res.checkStatus!==2"></td>
+								<td ng-bind="res.remark"></td>
+							</tr>
+						</tbody>
+					</table>
+					<br />
+					<datalistpagerdialog></datalistpagerdialog>
+				</li>
+			</ul>
+		</script>
+		<!-- 商品图片 -->
+		<script type="text/ng-template" id="goodsImg.html">
+			<style type="text/css">
+				.centerscript {
+					background-color: rgba(1, 1, 1, 0);
+					/*border: none;*/
+					text-align: center;
+				}
+			</style>
+			<ul class="form-horizontal">
+				<li class="list-group-item" >
+					<table class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>上传的图片</th>
+									<th></th>
+									<th>状态</th>
+									<th>排序号</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="img in dataInfoImages">
+									<td>
+										<img my-img ng-src="{{img.imagePath}}" onerror="javascript:this.src='../../img/loadding.gif';" alt="努力加载中..." style="width: 50px" />
+									</td>
+									<td ng-if="$index===0">
+										<small>注：首张图片是主图</small>
+									</td>
+									<td ng-if="$index!==0">
+										
+									</td>
+									<td ng-bind="img.status===0?'不启用':'启用'"></td>
+									<td ng-bind="img.sort"></td>
+								</tr>
+							</tbody>
+						</table>
+				</li>
+			</ul>
+		</script>
+		<!-- 基本信息 -->
+		<script type="text/ng-template" id="basicInformation.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">分类名称：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="分类ID" ng-bind="dataEntity.goodsCate"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">商品名称：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="商品名称" ng-bind="dataEntity.name1"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">商品售价：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="商品售价" ng-bind="dataEntity.salesPrice"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">商品促销信息：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="商品促销信息" ng-bind="dataEntity.name2"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">商品关键字：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="商品关键字" ng-bind="dataEntity.keyword"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">商品条形码：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="商品条形码" ng-bind="dataEntity.barCode"></span>
+						</div>
+					</div>
+
+					<!--<div class="form-group">
+						<label class="col-sm-4 control-label">商品类型：</label>
+
+						<div class="col-sm-8">
+							<label class="radio-inline" ng-click="checkedRadio(1,'goodsType')">
+	                                <input type="radio" name="goodsType" ng-checked="dataEntity.goodsType=='1'">&nbsp;处方药&nbsp;
+	                            </label>
+							<label class="radio-inline" ng-click="checkedRadio(2,'goodsType')">
+	                                <input type="radio" name="goodsType" ng-checked="dataEntity.goodsType=='2'">&nbsp;非处方药&nbsp;
+	                            </label>
+							<label class="radio-inline" ng-click="checkedRadio(3,'goodsType')">
+	                                <input type="radio" name="goodsType" ng-checked="dataEntity.goodsType=='3'">&nbsp;其它&nbsp;
+	                            </label>
+						</div>
+					</div>-->
+					<div class="form-group">
+						<label class="col-sm-4 control-label">生产厂家：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="生产厂家" ng-bind="dataEntity.factory"></span>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">品牌：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="品牌" ng-bind="dataEntity.goodsBrand"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">包装：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="包装" ng-bind="dataEntity.packing"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">排序号：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="排序号" ng-bind="dataEntity.sort"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">单品规格信息：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="单品规格信息" ng-bind="dataEntity.specification"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">库存单位：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="库存单位" ng-bind="dataEntity.unit"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">重量(单位:g)：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="单位：克" ng-bind="dataEntity.weight"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">SKU：</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" placeholder="SKU" ng-bind="dataEntity.sku"></span>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<div style="clear: both;"></div>
+		<div class="modal-footer" style="margin-top: 5px;">
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+		</div>
+	</div>
+</div>

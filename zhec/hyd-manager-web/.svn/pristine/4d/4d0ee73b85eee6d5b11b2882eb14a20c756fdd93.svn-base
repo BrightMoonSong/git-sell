@@ -1,0 +1,237 @@
+<style type="text/css">
+	.table-striped>tbody>tr:nth-of-type(odd) {
+		background-color: #f9f9f9;
+	}
+	
+	.table-striped>tbody>tr {
+		background-color: #f9f9f9;
+	}
+	
+	.singleclick {
+		background-color: #c5c5f7 !important;
+	}
+	
+	.dbclick {
+		background-color: #7e9ec8 !important;
+	}
+	
+	.zhende {
+		background-color: #cdcdcd !important;
+		color: #9d9a9a !important;
+	}
+</style>
+
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">订单管理</h1>
+	</div>
+	<div class="modal-body">
+		<!-- 标签页start -->
+		<ul class="nav nav-tabs">
+			<!--  class="active" -->
+			<li class="active" ng-click="onClickTab('order.html')">
+				<a data-toggle="tab"> 订单信息 </a>
+			</li>
+			<li ng-click="onClickTab('shipper.html')" ng-if='orderId'>
+				<a data-toggle="tab"> 货主信息</a>
+			</li>
+			<li ng-click="onClickTab('carmodel.html')" ng-if='orderId'>
+				<a data-toggle="tab"> 车型信息</a>
+			</li>
+		</ul>
+		<div id="mainView">
+			<div ng-include="currentTab"></div>
+		</div>
+		<!-- 订单信息 -->
+		<script type="text/ng-template" id="order.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">需求单编号：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.orderNo"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">订单状态：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderStatus(orderallEntiy.orderStatus)"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">起始地址：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.startPlace"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">终点地址：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.endPlace"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">订单备注：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.remark"></span>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item col-sm-6" style="min-height: 267px;">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">收货人姓名：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.receiveName"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">收货人电话：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.receivePhone"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">更新时间：</label>
+							<div class="col-sm-9">
+								<spn class="form-control" ng-bind="orderallEntiy.updateTimeStr"></spn>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()" style="margin-top: 13px;">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+
+		<!-- 货主信息 -->
+		<script type="text/ng-template" id="shipper.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">货主经营类型：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-if="orderallEntiy.shipper.businessType==1">个人</span>
+								<span class="form-control" ng-if="orderallEntiy.shipper.businessType==2">企业</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">车主签约类型：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-if="orderallEntiy.shipper.contractType==1">未签约</span>
+								<span class="form-control" ng-if="orderallEntiy.shipper.contractType==2">签约</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">公司性质：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="companyNature(orderallEntiy.shipper.companyNature)"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">审核状态：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="checkStatus(orderallEntiy.shipper.checkStatus)"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">手机号：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.shipper.phone"></span>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item col-sm-6" style="min-height: 267px;">
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">姓名：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.shipper.realName"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">性别：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-if="orderallEntiy.shipper.sex==1">男</span>
+								<span class="form-control" ng-if="orderallEntiy.shipper.sex==2">女</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">身份证号码：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.shipper.idCardNo"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">昵称：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.shipper.nickName"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()" style="margin-top: 13px;">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+		<!-- 车型信息 -->
+		<script type="text/ng-template" id="carmodel.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">车型名称：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.carModel.modelName"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">车型规格：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.carModel.modelSpec"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">载重量：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.carModel.loadCapacity"></span>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item col-sm-6" style="min-height: 169px;">
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">起步价：</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="orderallEntiy.carModel.referStartPrice | currency:' '"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">车型图标：</label>
+							<div class="col-sm-9">
+								<img my-img onerror="this.src='img/loadding.gif'" ng-src="{{orderallEntiy.carModel.modelImgUrlSelected}}" style="width: 50px;max-height: 38px;" />
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()" style="margin-top: 13px;">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+
+		<!--尾部-->
+	</div>
+
+</div>

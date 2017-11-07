@@ -1,0 +1,44 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">上传图片</h1>
+	</div>
+	<div class="modal-body">
+		<div>
+			<form name='theform' style="display: none !important;">
+				<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+				<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+				<br/> 上传到指定目录:
+				<input type="text" id="dirname" value="{{idData}}" placeholder="如果不填，默认是上传到根目录" size=50>
+			</form>
+			<!-- <h4>您所选择的文件列表：</h4>-->
+			<!--
+            <img id="imgPreview" style="max-width: 150px;"/>-->
+
+			<div id="ossfile">
+				<!-- ng-hide="previewHide"-->
+				你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系管理员)
+			</div>
+			<br/>
+
+			<div id="container" style="width: 100%;clear: both;">
+				<a id="selectfiles" href="javascript:void(0);" class="btn btn-success">选择文件</a>
+				<a id="postfiles" href="javascript:void(0);" class="btn btn-warning">开始上传</a>
+				<button id="ifSucessShow" disabled type="button" class="btn btn-warning pull-right" ng-click="imgPathSet()" ng-hide="false">
+                   <!-- <span class="glyphicon glyphicon-plus"></span>--> 确定
+                </button>
+			</div>
+			<pre id="console" ng-hide="true"></pre>
+		</div>
+
+	</div>
+</div>
+<script type="text/javascript">
+	$("#ossfuwenbenId").remove();
+</script>
+
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/base64.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/upload.js"></script>

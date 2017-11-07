@@ -1,0 +1,29 @@
+<div class="foot">
+	<div class="footer">
+		<ul class="footer-ul clearfix">
+			<li>
+				<ol class="footer-header clearfix">
+					<li class="footer-header-first">
+						<a href="">加入收藏</a>
+					</li>
+					<li>
+						<a href="">设为首页</a>
+					</li>
+					<li class="footer-header-last">
+						<a href="">联系我们</a>
+					</li>
+				</ol>
+			</li>
+			<li class="footer-banner">
+				<label>《互联网药品信息服务资格证》 证书编号</label><span>：（川）-非经营性-2014-0034</span>
+			</li>
+			<li>
+				本网站未发布麻醉药品、精神药品、医疗用毒性药品、放射性药品、解毒药品和医疗结构制剂的产品信息
+			</li>
+			<li class="footer-foot">
+				<p>天津御草堂药品销售有限公司 天津市河北区金纬路379号</p>
+				<p>电话：022-60966929</p>
+			</li>
+		</ul>
+	</div>
+</div>

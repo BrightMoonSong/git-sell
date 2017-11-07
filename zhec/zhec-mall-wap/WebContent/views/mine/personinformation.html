@@ -1,0 +1,167 @@
+<style>
+	.swiper-container-fvp {
+		height: 100%;
+		height: auto;
+	}
+</style>
+<div class="swiper-container swiper-container-fvp">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+			<div id="needs_head">
+				<ul class="head">
+					<li>
+						<a href="#/main/mine"><img src="img/fh.png" /></a>
+					</li>
+					<li id="needs_xq">个人信息</li>
+				</ul>
+			</div>
+			<div class="person_conter clearfix">
+				<ul class="person_conter_ul clearfix">
+					<li class="bill_fapiao " id="person_bill_img">
+						<a ng-click="slideTo(1)">
+							<label class="bill_fapiao_label">修改头像</label>
+							<img src="img/ljjt.png" />
+							<span class="person_img ycenter "><img id="changeViewImg"></span>
+						</a>
+					</li>
+					<li class="bill_fapiao ">
+						<a ng-click="slideTo(2)">
+							<label class="bill_fapiao_label">昵称</label>
+							<img src="img/ljjt.png" />
+							<span class="app_det_color" ng-bind="memberName"></span>
+						</a>
+					</li>
+					<li class="bill_fapiao ">
+						<a ng-click="changeInvoiceTitle(1)">
+							<label class="bill_fapiao_label">性别</label>
+							<img src="img/ljjt.png" />
+							<span class="app_det_color" ng-if="status==0">女</span>
+							<span class="app_det_color" ng-if="status==1">男</span>
+						</a>
+					</li>
+					<li class="bill_fapiao ">
+						<a>
+							<label class="bill_fapiao_label">出生日期</label>
+							<img src="img/ljjt.png" />
+							<!-- <span class="app_det_color" data-currentData = theSelectData id="demo1">{{memberBirth}}</span> -->
+
+							<input readonly id="demo1" style="float:right" placeholder="{{memberBirth}}"  class="personifo_input">
+							<script>
+								var calendar = new datePicker();
+								calendar.init({
+									'trigger': '#demo1',
+									/*按钮选择器，用于触发弹出插件*/
+									'type': 'date',
+									/*模式：date日期；datetime日期时间；time时间；ym年月；*/
+									'minDate': '1900-1-1',
+									/*最小日期*/
+									'maxDate': '2100-12-31',
+									/*最大日期*/
+									'onSubmit': function() { /*确认时触发事件*/
+										var theSelectData = calendar.value;
+
+									},
+									'onClose': function() { /*取消时触发事件*/ }
+								});
+							</script>
+						</a>
+					</li>
+				</ul>
+				<div class="personifo_button">
+					<button ng-click="birthday()">保存</button>
+				</div>
+
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div id="needs_head">
+				<ul class="head">
+					<li><img src="img/fh.png" ng-click="slideTo(0)" /></li>
+					<li id="needs_xq">选择头像</li>
+				</ul>
+			</div>
+			<div class="portait_conter clearfix">
+				<ol class="portait_conter_ol clearfix">
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt1.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt2.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt3.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt4.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt5.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt6.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt7.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt8.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt9.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt10.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt11.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt12.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt13.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt14.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt15.png" alt="" /></a>
+					</li>
+					<li>
+						<a><img ng-click="changeHeadImg($event)" src="../img/head/xgt16.png" alt="" /></a>
+					</li>
+				</ol>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div id="needs_head">
+				<ul class="head">
+					<li><img src="img/fh.png" ng-click="slideTo(0)" /></li>
+					<li id="needs_xq">修改昵称</li>
+					<li id="apply_bj"  ng-click="saveMemmberMessage()"><a>确定</a></li>
+				</ul>
+			</div>
+			<div>
+				<input ng-model="memberName" type="text" placeholder="请输入昵称"  class="personifo_div_input"/>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="all_bill all_bill1" style="display: none">
+	<div class="all_bill_div all_billTitle clearfix" style="display: none">
+		<ul class="all_bill_div_head">
+			<b ng-click="goBack()" >
+				取消
+			</b>
+			<a ng-click="chooseConfirm()">
+				完成
+			</a>
+		</ul>
+		<ul class="all_bill_div_ul clearfix">
+			<li ng-click="chooseTitle(1)" ng-class="{true:'chooseTitle',false:''}[titleType=='1']"> <a href="">男</a></li>
+			<li ng-click="chooseTitle(0)" ng-class="{true:'chooseTitle',false:''}[titleType=='0']"><a href="">女</a></li>
+		</ul>
+	</div>
+</div>

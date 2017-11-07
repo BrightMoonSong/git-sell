@@ -1,0 +1,183 @@
+/**
+ * 路径配置
+ *
+ */
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+	$urlRouterProvider.otherwise("/manager/index");
+
+	$ocLazyLoadProvider.config({
+		//设置为true，如果您想查看什么和什么时候动态加载
+		debug: true
+	});
+
+	$stateProvider
+		.state('manager', {
+			url: "/manager",
+			templateUrl: "views/common/content.html",
+		})
+		.state('manager.index', {
+			url: "/index",
+			templateUrl: "views/homepage/home.html",
+			data: {
+				pageTitle: '首页'
+			},
+			controller: 'HomeController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'mallApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'css/home/home.css',
+							'js/services/homepage/HomeService.js',
+							'js/controllers/homepage/HomeController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//咨讯详情
+		.state('manager.newsdetail', {
+			url: "/newsdetail/:newsId",
+			templateUrl: "views/news/newsdetail.html",
+			data: {
+				pageTitle: '咨讯详情'
+			},
+			controller: 'newsdetailController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'mallApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'css/news/newsdetail.css',
+							'js/services/news/newsdetailService.js',
+							'js/controllers/news/newsdetailController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//咨讯列表
+		.state('manager.newslist', {
+			url: "/newslist/:newsTypeId",
+			templateUrl: "views/news/newsList.html",
+			data: {
+				pageTitle: '咨讯列表'
+			},
+			controller: 'newsListController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'mallApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'css/news/newsList.css',
+							'js/services/news/newsListService.js',
+							'js/controllers/news/newsListController.js'
+						]
+					}])
+				}]
+			}
+		})
+
+		//公司概况
+		.state('manager.companydetail', {
+			url: "/companydetail",
+			templateUrl: "views/Company/Companydetail.html",
+			data: {
+				pageTitle: '公司概况'
+			},
+			controller: 'CompanydetailController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'mallApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'css/Company/Companydetail.css',
+							'js/services/Company/CompanydetailService.js',
+							'js/controllers/Company/CompanydetailController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//产品
+		.state('manager.productdetail', {
+			url: "/productdetail/:classificationId",
+			templateUrl: "views/product/ProductDetail.html",
+			data: {
+				pageTitle: '产品中心'
+			},
+			controller: 'ProductDetailController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'mallApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'css/product/ProductDetail.css',
+							'js/services/Product/ProductDetailService.js',
+							'js/controllers/Product/ProductDetailController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//留言
+		.state('manager.message', {
+			url: "/message/:messageTypeId",
+			templateUrl: "views/Message/Message.html",
+			data: {
+				pageTitle: '在线留言'
+			},
+			controller: 'MessageController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'mallApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'css/Message/Message.css',
+							'js/services/Message/MessageService.js',
+							'js/controllers/Message/MessageController.js'
+						]
+					}])
+				}]
+			}
+		})
+	//系统管理
+	/*.state('manager.sysconfig', {
+		abstract: true,
+		url: "/sysconfig",
+		template: "<ui-view/>",
+	})
+	.state('manager.sysconfig.sysuserlist', {
+		url: "/sysuserlist/:funcId",
+		templateUrl: "views/system/SysUserList.html",
+		data: {
+			pageTitle: '管理员'
+		},
+		controller: 'SysUserController',
+		resolve: {
+			deps: ['$ocLazyLoad', function($ocLazyLoad) {
+				return $ocLazyLoad.load([{
+					name: 'mallApp',
+					insertbefore: "#ng_load_plugins_before",
+					files: [
+						'js/services/system/SysUserService.js',
+						'js/controllers/system/SysUserController.js',
+						'js/controllers/system/SysUserDragData.js',
+						'js/controllers/common/drag.js'
+					]
+				}])
+			}]
+		}
+	})*/
+}
+
+app.config(config)
+	.run(function($rootScope, $state) {
+		$rootScope.$state = $state;
+	});

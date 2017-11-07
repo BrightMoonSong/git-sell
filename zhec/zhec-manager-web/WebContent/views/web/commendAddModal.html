@@ -1,0 +1,104 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+    <div class="row marLeft15">
+        <div class="col-lg-12 ">
+            <div class="ibox float-e-margins">
+                <div class="col-sm-2">
+                    <select ng-model="cateId" class="form-control" ng-options="sh.id as sh.name for sh in TypeList1" ng-change="TypeChange1(cateId)">
+                        <option value="">---一级分类检索---</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select ng-model="cateId1" class="form-control" ng-options="sh.id as sh.name for sh in TypeList2" ng-change="TypeChange2(cateId1)">
+                        <option value="">---二级分类检索---</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select ng-model="cateId2" class="form-control" ng-options="sh.id as sh.name for sh in TypeList3" ng-change="TypeChange3(cateId2)">
+                        <option value="">---三级分类检索---</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input type="text" placeholder="按照商品名搜索" class="form-control " ng-model="queryGood">
+					<span class="input-group-btn">
+						<button class="btn btn-success" type="button"
+                                ng-click="loadDataDialog(true)">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+					</span>
+                    </div>
+                </div>
+                <!--<div class="col-sm-3">
+                    <input type="text" ng-model="queryGood" placeholder="按商品名或商品种类">
+                    <button class="btn btn-success" ng-click="loadDataDialog(true)"><sapn class="glyphicon glyphicon-search"></sapn></button>
+
+                </div>-->
+                <div class="col-sm-2">
+                    <!-- 刷新按钮 -->
+                    <button type="button" class="btn btn-success pull-right" ng-click="foundGood()">
+                        <span class="glyphicon glyphicon-refresh"></span> 保存
+                    </button>
+                </div>
+                <!--<div class="col-sm-2">
+                    <button class="btn btn-success" ng-click="foundGood()">保存</button>
+                </div>-->
+            </div>
+
+                <table datatable="ng" dt-options="dtOptions"
+                       class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                    <tr>
+                        <th>商品名</th>
+                        <th>商品种类</th>
+                        <th>商品价格</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="good in goodList">
+                        <td>
+                            <div style="text-align: left">
+                                 <input type="radio" name="status" ng-click="addGood(good)"
+                                    >
+                                <strong>{{good.name1}}</strong>
+                            </div>
+                        </td>
+                        <td>{{ good.name}}</td>
+                        <td>{{ good.price}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+
+        </div>
+    </div>
+    <!--<div>分页</div>-->
+</div>
+<!--
+<div class="modal">
+    <div class="modal-header">
+        <h4>增加商品</h4>
+    </div>
+    <div class="modal-body">
+        <div ng-repeat="good in goodList" class="col-sm-4">
+            <div>
+                <input type="radio" name="status" ng-click="addGood(good)"
+                        >
+                <strong>{{good.name1}}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="foundGood()">保存</button>
+    </div>
+</div>
+
+-->
+
+
+
+
+
+
+
+<datalistpagerdialog></datalistpagerdialog>

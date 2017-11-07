@@ -1,0 +1,155 @@
+<ul class="myorder_ula">
+  <div class="myorder_ul myorder_fla clearfix">
+    <ol>
+      <li ng-click="findAllOrders() " ng-class="{blueBottom:orderState==0}">所有订单<span></span></li>
+      <li ng-click="findNotPay()" ng-class="{blueBottom:orderState==1}">待付款<span>({{ordersnum.unpaidNum==""?0:ordersnum.unpaidNum}})</span>
+      </li>
+      <!-- <li ng-click="findNotSent()" ng-class="{blueBottom:orderState==2}">待发货<span>({{ordersnum.tobeShipNum}})</span></li>-->
+      <li ng-click="findNotReceive()" ng-class="{blueBottom:orderState==3}">待收货<span>({{ordersnum.tobeReceivNum==""?0:ordersnum.tobeReceivNum}})</span>
+      </li>
+    </ol>
+  </div>
+  <!--tobeShipNum: 0, tobeReceivNum: 0, unpaidNum: 13, allNum: 0}-->
+  <!---->
+  <li class="myorde_time myorder_fla" ng-show="orderState==0">
+    <ol>
+      <li class="parentInput">
+        <!--<input id="events-api-start" placeholder="开始时间" class="flatpickr-input search-box" readonly="readonly"
+               >-->
+        <input type="text" class="workinput wicon mr25" id="inpstart" placeholder="开始时间" readonly>
+      </li>
+      <li>
+        至
+      </li>
+      <li>
+        <!-- <input id="events-api-end" placeholder="结束时间" class="flatpickr-input search-box" readonly="readonly"
+               >-->
+        <input type="text" class="workinput wicon mr25" id="inpend" placeholder="结束时间" readonly>
+      </li>
+      <li>
+        <input class="search-box" type="text" placeholder="输入商品名" name="keyword" ng-model="parmValue">
+
+        <div ng-click="searchOrders(parmValue)" class="search-button">
+          <span></span>
+        </div>
+      </li>
+
+    </ol>
+  </li>
+  <li class="goods_listorder">
+    <ol class="prsonal_list_ol">
+      <li>商品名称</li>
+      <li>单价（元）</li>
+      <li>数量</li>
+      <li>实付款</li>
+      <li>交易状态</li>
+      <li>交易操作</li>
+    </ol>
+  </li>
+
+  <ul>
+    <!--allorers是拿到的所有总订单，orderList是每一个总订单-->
+    <li ng-repeat="orderList in allOrders" class="one_order">
+      <ul>
+        <!--list 是每一个总订单的自订单-->
+        <div class="orders_dd_header clearfix" ng-if="titalFlag">
+          <div class="orders_time">
+            <span>订单号：<b ng-bind="orderList.orderSn"></b></span>
+            <span ng-bind="orderList.createTime"></span>
+            <!-- <span ng-if="orderList.payStatus != 1&&orderList.orderStatus==1"> -->
+				<span ng-if="orderList.shiped == true&&orderList.orderStatus!=2">
+              	<a href="javascript:void(0);" ng-click="cancleOrder(orderList.id,orderList.memberId)">取消订单</a>
+              </span>
+            <i ng-bind="orderList.promotionType2"></i>
+            <i ng-bind="orderList.promotionType3"></i>
+          </div>
+
+        </div>
+        <li class="clearfix treat_money_order_orli" ng-repeat="list in orderList.ordersSub track by $index"
+            ng-class="{treat_money_order_orli_margin:orderList.margin_botton}">
+          <ol class="clearfix">
+            <li ng-class="{true:'border_top',false:'order_fist_border'}[orderList.margin_botton]">订单号：<b
+              ng-bind="list.orderSn"></b><span ng-bind="list.createTime"></span></li>
+            <li class="treat_money_more clearfix">
+              <ul ng-repeat="good in list.ordersProduct track by $index" class="treat_money_more_ul clearfix">
+                <li>
+                  <a href="goods.html?id={{good.goodsId}}" target="_blank"><img lazy-src="{{good.masterImg}}"/></a>
+                </li>
+                <li>
+                  <span ng-if="good.goodsType==1"><img src="images/prescription.png">
+                  </span>
+                  <a href="goods.html?id={{good.goodsId}}" ng-bind="good.goodsName" target="_blank"></a>
+                  <p ng-bind="good.productSpecInfo"></p>
+                </li>
+                <li>￥<span ng-bind="good.salesPrice | number:2"></span></li>
+                <li>
+                  <span ng-bind="good.productNumber"></span>
+                </li>
+                <li
+                  ng-if="list.orderStatus==4&&good.returnType==1&&list.allowRefund==1&&good.refundingNumber<good.productNumber"
+                  id="personal_sh">
+                  <a href="afterSales.html?memberId={{memberId}}&orderId={{list.id}}&productId={{good.productId}}&goodsId={{good.goodsId}}"
+                    target="_blank">申请售后</a>
+                </li>
+              </ul>
+              <ol class="clearfix treat_money_pay">
+                <li id="orders_money">￥<span ng-bind="list.moneyOrder | number:2"></span></li>
+                <li>
+                  <p>{{showStatus(list.orderStatus)}}</p>
+
+                  <p>
+                    <a href="orderDetail.html?orderId={{list.id}}" target="_blank">查看订单</a>
+                  </p>
+                </li>
+                <li id="ngdifstatus">
+                  <button class="btnblue" ng-if="2<list.orderStatus&&list.orderStatus<4"
+                          ng-click="confirmOrder(list.id,list.orderSn,list.orderStatus,memberId,memberLoginId)">
+                    确认收货
+                  </button>
+                  <button class="small_button_org" ng-if="list.orderStatus>0&&list.buyagain==true"
+                          ng-click="addOrderToCar(list.ordersProduct)">
+                    再次购买
+                  </button>
+                  <!--取消已经付款但是还没有发货的订单-->
+                  <p
+                    ng-if="!orderList.promotionType2&&!orderList.promotionType3 && list.orderStatus<3 && orderList.payStatus != 2">
+                    <a href="javascript:void(0);"
+                       ng-click="cancleDialog(list.id,list.orderSn,list.orderStatus,memberId,memberLoginId,orderList.payStatus)">取消订单</a>
+                  </p>
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <div class="orders_pay" ng-hide="orderList.margin_botton">
+          <span>订单金额：<b ng-bind="orderList.moneyOrder | number:2"></b></span>
+          <span>物流费用：<b ng-bind="orderList.moneyLogistics | number:2"></b></span>
+          <span ng-if="orderList.length>1">订单已拆分</span>
+          <span ng-if="orderList.payStatus==0&&orderList.orderStatus==1&&orderList.immidiateBuy==true">
+              	<a href="payMoney.html?orderId={{orderList.id}}&&memberId={{orderList.memberId}}">
+                  <button class="btnyellow" style="float: right" target="_blank">立即付款</button>
+                </a>
+          </span>
+          <span ng-if="orderList.orderStatus==3 && orderList.payStatus==1">
+              		<i class="have_pay">已付款</i>
+          </span>
+          <span ng-if="orderList.payStatus==2&&orderList.continueBuy==true">
+              <a href="payMoney.html?orderId={{orderList.id}}&&memberId={{orderList.memberId}}">
+                <button class="btnyellow" style="float: right" target="_blank">继续付款</button>
+              </a>
+          </span>
+        </div>
+      </ul>
+    </li>
+  </ul>
+  <li ng-if="order_totalSize==0" class="order_kong">
+    <img src="images/emptyOrder.png"/>
+    <p>
+      <span>您还没有任何订单</span>
+      <span><a href="index.html" target="_blank">去购物></a></span>
+    </p>
+  </li>
+</ul>
+
+<datalistpager></datalistpager>

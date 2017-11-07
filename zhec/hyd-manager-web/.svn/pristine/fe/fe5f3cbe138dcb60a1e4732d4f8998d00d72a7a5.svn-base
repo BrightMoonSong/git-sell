@@ -1,0 +1,157 @@
+<style>
+  .bootsh {
+    padding-right: 0 !important;
+  }
+
+  .head_order {
+    padding-left: 0;
+    padding-right: 0;
+    width: 79%;
+  }
+
+  .selectcss {
+    width: 168px;
+    padding-left: 5px;
+    padding-right: 0;
+  }
+
+  .button_head {
+    padding-left: 0;
+    width: 21%;
+    padding-right: 0;
+  }
+</style>
+<div class="row wrapper border-bottom white-bg page-heading" style="height: 98px;">
+  <div class="ibox-title col-lg-12" style="height: 50px">
+    <div class="heading">
+      <!-- 搜索  -->
+      <div class="col-sm-12" style="padding-left: 0;">
+        <div class="col-sm-10 head_order">
+          <div class="col-sm-12" style="padding-left: 0;">
+            <div class="form-group col-md-2 bootsh" style="width: 133px;">
+              <div>
+                <select ng-model="platform" class="form-control" ng-options="x.id as x.name for x in platformList ">
+									<option value="">-平台-</option>
+								</select>
+              </div>
+
+            </div>
+            <div class="form-group col-md-2 bootsh" style="width: 119px;padding-left: 5px">
+              <div>
+                <select ng-model="scope" class="form-control" ng-options="x.id as x.name for x in scopeList ">
+										<option value="">-范围-</option>
+									</select>
+              </div>
+            </div>
+            <div class="form-group col-md-2 bootsh" style="width: 120px;">
+              <div>
+                <!--onkeyup="funcReplaceInteger(this)"  -->
+                <input type="text" placeholder="手机品牌" class="form-control" ng-model="phoneBrands">
+              </div>
+            </div>
+            <div class="form-group col-md-2 bootsh" style="width: 120px;">
+              <div>
+                <input type="text" placeholder="手机型号" class="form-control" ng-model="phoneModel">
+              </div>
+            </div>
+            <div class="form-group col-md-2 bootsh">
+              <div>
+                <input type="text" placeholder="版本名称" class="form-control" ng-model="versionName">
+              </div>
+            </div>
+            <div class="form-group col-md-2 bootsh" style="width: 134px;">
+              <div>
+                <input type="number" placeholder="版本号" class="form-control" ng-model="versionCode">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12" style="padding-left: 0;">
+            <div class="col-sm-6" style="width: 480px;padding-right: 0;padding-left: 10px;">
+              <div class="form-group col-md-2 bootsh" style="width: 134px;padding-left: 5px;">
+                <div>
+                  <input type="number" placeholder="使用人手机号" class="form-control" ng-model="phone">
+                </div>
+              </div>
+              <div class="col-sm-3 selectcss">
+                <input type="text" placeholder="起始时间" start-pickers class="Wdate form-control" ng-model="datapick" readonly="readonly">
+              </div>
+              <div class="col-sm-3 selectcss">
+                <input type="text" placeholder="结束时间" end-pickers class="Wdate form-control" ng-model="datapick" readonly="readonly">
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-success" ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-search"></span>
+              			  </button>
+            </div>
+            <!---->
+          </div>
+
+        </div>
+        <div class="col-sm-2 button_head">
+
+          <!--刷新按钮触发模态框-->
+          <button class="btn btn-success pull-right" style="margin-top: 0px;" ng-click="loadData(true)">
+				                <span class="glyphicon glyphicon-refresh"></span> 刷新
+				            </button>
+          <button class="btn  btn-warning pull-right" style="margin-top: 0px;" ng-click="openModal1()">
+	                 批量删除
+	            </button>
+        </div>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+
+        <div class="ibox-content">
+          <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+              <tr>
+                <th>手机平台</th>
+                <th>用户范围</th>
+                <th>手机品牌</th>
+                <th>手机型号</th>
+                <th>版本名称</th>
+                <th>版本号</th>
+                <th>用户手机号 </th>
+                <th>系统版本</th>
+                <th>创建时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="role in collList">
+                <td ng-if="role.platform==1">Android</td>
+                <td ng-if="role.platform==2">IOS</td>
+                <td ng-if="role.platform==3">WP</td>
+                <td ng-if="role.platform!=1&&role.platform!=2&&role.platform!=3"></td>
+                <td ng-if="role.scope==2">车主</td>
+                <td ng-if="role.scope==3">货主</td>
+                <td ng-if="role.scope!=2&&role.scope!=3"></td>
+                <td ng-bind="role.phoneBrands"></td>
+                <td ng-bind="role.phoneModel"></td>
+                <td ng-bind="role.versionName"></td>
+                <td ng-bind="role.versionCode"></td>
+                <td ng-bind="role.phone"></td>
+                <td ng-bind="role.systemVersion"></td>
+                  <td ng-bind="role.createTimeStr"></td>
+                <td class="action-column">
+                  <button class="btn btn-warning" ng-click="delete(role.logId)">删除</button>
+                  <button class="btn btn-warning" ng-click="openModal(role.logId)">详情</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<datalistpager></datalistpager>

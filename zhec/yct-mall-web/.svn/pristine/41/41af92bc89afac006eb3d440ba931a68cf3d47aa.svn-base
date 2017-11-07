@@ -1,0 +1,82 @@
+/**
+ * 系统用户controller定义
+ */
+function HomeController($scope, $http, $q, ProductDetailService, ngDialog, $rootScope) {
+	console.log(ProductDetailService.find());
+	$scope.images = [];
+	$scope.findImages = function() {
+		var defer = $q.defer();
+		//		ProductDetailService.find(name1, currentPaseSize, currentPageNo).then(
+		//			function(result) {
+		//				$scope.infoList = result.data;
+		//				defer.resolve(result);
+		//			},
+		//			function(result) {
+		//				defer.reject(result);
+		//			});
+		setTimeout(function() {
+			$scope.images = [{
+				"href": "http://www.baidu.com",
+				"src": "img/lunbo/1.jpg",
+				"alt": "1"
+			}, {
+				"href": "http://www.baidu.com",
+				"src": "img/lunbo/2.jpg",
+				"alt": "2"
+			}, {
+				"href": "http://www.baidu.com",
+				"src": "img/lunbo/3.jpg",
+				"alt": "3"
+			}, {
+				"href": "http://www.baidu.com",
+				"src": "img/lunbo/4.png",
+				"alt": "4"
+			}, {
+				"href": "http://www.baidu.com",
+				"src": "img/lunbo/5.png",
+				"alt": "5"
+			}];
+			defer.resolve($scope.images);
+		}, 2000)
+		return defer.promise;
+	}
+
+}
+
+app.controller('HomeController', HomeController);
+
+app.directive('lunbo', function() {
+	return {
+		restrict: 'EA',
+		templateUrl: 'lunbo.html',
+		scope: {},
+		link: function(scope, element, attr) {
+			scope.$parent.findImages()
+				.then(
+					function(result) {
+						//scope.images = scope.$parent.images;
+						scope.step = 0;
+						var imagesLength = scope.$parent.images.length;
+						scope.dataImg = scope.$parent.images[0];
+						scope.timerSetInterval = function() {
+							scope.timer = setInterval(function() { //开启定时器
+								scope.step++;
+								scope.step = scope.step % imagesLength;
+								scope.dataImg = scope.$parent.images[scope.step];
+								//强行进行脏值检查
+								scope.$apply();
+							}, 1500);
+						}
+						scope.timerSetInterval();
+						scope.focusBannerStep = function(n) {
+							scope.step = n;
+							scope.dataImg = scope.$parent.images[scope.step];
+							clearInterval(scope.timer); //清除定时器
+						}
+					},
+					function(result) {
+
+					})
+		}
+	}
+});

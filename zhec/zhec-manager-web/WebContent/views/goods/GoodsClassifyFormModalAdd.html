@@ -1,0 +1,30 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">添加归类</h1>
+    </div>
+    <div class="" name="myform" verify-scope="tipStyle: 1">
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">属性归类名(*)：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="属性归类名"
+                               ng-verify="{required:true}" maxlength="30" ng-model="dataEntity.name">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" ng-click="okModal()"
+                    ng-verify="{control:'myform'}">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+            <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,115 @@
+<style>
+	.bootsh {
+		padding-right: 0 !important;
+		padding-left: 5px;
+	}
+	
+	.head_order {
+		padding-left: 0;
+		padding-right: 0;
+		width: 76%;
+	}
+	
+	.selectcss {
+		width: 168px;
+		padding-left: 5px;
+		padding-right: 0;
+	}
+	
+	.button_head {
+		padding-left: 0;
+		width: 24%;
+		padding-right: 0;
+	}
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="ibox-title col-lg-12" style="height: 50px">
+		<div class="heading">
+			<!-- 搜索  -->
+			<div class="col-sm-12">
+				<div class="col-sm-10 head_order">
+					<div class="form-group col-md-2 bootsh" style="width: 100px;">
+						<div>
+							<input type="text" placeholder="操作人ID" class="form-control" ng-model="userId">
+						</div>
+					</div>
+					<div class="form-group col-md-2 bootsh">
+						<div>
+							<input type="text" placeholder="接口名称" class="form-control" ng-model="interfaceName">
+						</div>
+					</div>
+					<div class="col-sm-3 selectcss">
+						<input type="text" placeholder="起始时间" start-pickers class="Wdate form-control" ng-model="datapick" readonly="readonly">
+					</div>
+					<div class="col-sm-3 selectcss">
+						<input type="text" placeholder="结束时间" end-pickers class="Wdate form-control" ng-model="datapick" readonly="readonly">
+					</div>
+					<div class="form-group col-md-2 bootsh" style="width: 119px;padding-left: 5px">
+						<div>
+							<select ng-model="requestMethod" class="form-control" ng-options="x.name as x.name for x in requestMethodList ">
+								<option value="">-请求方式-</option>
+							</select>
+						</div>
+					</div>
+					<button class="btn btn-success" ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-search"></span>
+                </button>
+				</div>
+				<div class="col-sm-2 button_head">
+
+					<!--刷新按钮触发模态框-->
+					<button class="btn btn-success pull-right" style="margin-top: 0px;" ng-click="loadData(true)">
+				                <span class="glyphicon glyphicon-refresh"></span> 刷新
+				            </button>
+					<button class="btn  btn-warning pull-right" style="margin-top: 0px;" ng-click="openModal()">
+	                 批量删除
+	            </button>
+				</div>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+	</div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+
+				<div class="ibox-content">
+					<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+						<thead>
+							<tr>
+								<th>请求方式</th>
+								<th>错误码 </th>
+								<th>接口方法名称</th>
+								<th>IP地址</th>
+								<th>用户ID</th>
+								<th>访问时间</th>
+								<th>用户手机号</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="role in logList">
+								<td ng-bind="role.requestMethod"></td>
+								<td ng-bind="role.code"></td>
+								<td ng-bind="role.interfaceName"></td>
+								<td ng-bind="role.ip"></td>
+								<td ng-bind="role.time"></td>
+								<td ng-bind="role.userId"></td>
+								<td ng-bind="role.phone"></td>
+								<td class="action-column">
+									<button class="btn btn-warning" ng-click="enableId(role.id)">删除</button>
+									<button class="btn btn-warning" ng-click="openModalDetail(role.id)">详情</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<datalistpager></datalistpager>

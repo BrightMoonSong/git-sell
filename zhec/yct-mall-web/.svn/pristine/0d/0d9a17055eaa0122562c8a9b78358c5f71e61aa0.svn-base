@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="mallApp">
+
+	<head>
+		<script type="text/javascript">
+			//IE8以及以下
+			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+				alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+				window.open("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100", "_self");
+			}
+		</script>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- Page title set in pageTitle directive -->
+		<title page-title></title>
+		<!–[if IE]>
+		<!--<script src="js/plugins/html5.js"></script>-->
+		<![endif]–>
+		<link rel="stylesheet" type="text/css" href="css/ngDialog/ngDialog.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/ngDialog/ngDialog-theme-default.min.css"/>
+	</head>
+	<body ng-controller="MainCtrl as main">
+		<!-- Main view  -->
+		<div ui-view></div>
+		
+		<script src="plugins/jquery/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="plugins/angular/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="plugins/angular/angular-ui-router.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="plugins/oclazyload/ocLazyLoad.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="plugins/ngDialog/ngDialog.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public/config.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public/controllers.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public/directives.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public/router.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/controllers/common/topnavbarController.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

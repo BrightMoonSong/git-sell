@@ -1,0 +1,52 @@
+<style>
+	.hidden {
+		display: none;
+	}
+	
+	.active {
+		display: block;
+	}
+</style>
+<div>
+	<div lunbo></div>
+	<script type="text/ng-template" id="lunbo.html">
+		<div class="hidden" ng-repeat="img in images">
+			<img ng-src="{{img.src}}" width="1" height="1" />
+		</div>
+		<div class="">
+			<img src="{{dataImg.src}}" width="1200" height="605" />
+			<p>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(0)'>
+				<img ng-src="{{step!=0?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(1)'>
+				<img ng-src="{{step!=1?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(2)'>
+				<img ng-src="{{step!=2?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(3)'>
+				<img ng-src="{{step!=3?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(4)'>
+				<img ng-src="{{step!=4?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}"/>
+				</span>
+			</p>
+		</div>
+		<!--<ul>
+			<li ng-repeat="img in images track by $index" class="hidden">
+				<a href="{{img.href}}">
+					<img ng-src="{{img.src}}" alt="" width="1200" height="605" />
+				</a>
+				<p>
+					<img ng-src="{{'../../img/lunbo/Carousel/'+1+'.png'}}"/>
+					<img ng-src="../../img/lunbo/Carousel/1.png"/>
+					<img ng-src="../../img/lunbo/Carousel/1.png"/>
+					<img ng-src="../../img/lunbo/Carousel/0.png"/>
+					<img ng-src="../../img/lunbo/Carousel/1.png"/>
+				</p>
+			</li>
+		</ul>-->
+	</script>
+
+</div>

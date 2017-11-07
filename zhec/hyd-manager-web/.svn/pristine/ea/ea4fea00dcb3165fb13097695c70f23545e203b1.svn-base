@@ -1,0 +1,237 @@
+/**
+ * 路径配置
+ *
+ */
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+	$urlRouterProvider.otherwise("/manager/index");
+
+	$ocLazyLoadProvider.config({
+		// Set to true if you want to see what and when is dynamically loaded
+		debug: true
+	});
+
+	$stateProvider
+		.state('manager', {
+			url: "/manager",
+			templateUrl: "views/common/content.html",
+		})
+		.state('manager.index', {
+			url: "/index",
+			templateUrl: "views/main.html",
+			data: {
+				pageTitle: '管理首页'
+			}
+		})
+		//系统管理
+		.state('manager.sysconfig', {
+			abstract: true,
+			url: "/sysconfig",
+			template: "<ui-view/>",
+		})
+		.state('manager.sysconfig.sysuserlist', {
+			url: "/sysuserlist/:funcId",
+			templateUrl: "views/system/SysUserList.html",
+			data: {
+				pageTitle: '管理员'
+			},
+			controller: 'SysUserController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'managerApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/system/SysUserService.js',
+							'js/controllers/system/SysUserController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//平台用户管理
+		.state('manager.sysconfig.authsysuserlist', {
+			url: "/authsysuserlist/:funcId",
+			templateUrl: "views/system/AuthSysUserList.html",
+			data: {
+				pageTitle: '平台用户管理'
+			},
+			controller: 'AuthSysUserController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'managerApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/system/AuthSysUserService.js',
+							'js/controllers/system/AuthSysUserController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//角色管理
+		.state('manager.sysconfig.authrole', {
+			url: "/authrole/:funcId",
+			templateUrl: "views/system/AuthRole.html",
+			data: {
+				pageTitle: '角色管理'
+			},
+			controller: 'AuthRoleController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'managerApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/system/AuthRoleService.js',
+							'js/controllers/system/AuthRoleController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//功能点管理
+		.state('manager.sysconfig.authfunction', {
+			url: "/authfunction/:funcId",
+			templateUrl: "views/system/AuthFunction.html",
+			data: {
+				pageTitle: '功能点管理'
+			},
+			controller: 'AuthFunctionController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'managerApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/system/AuthFunctionService.js',
+							'js/controllers/system/AuthFunctionController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//车主管理
+		.state('manager.carconfig', {
+			abstract: true,
+			url: "/carconfig",
+			template: "<ui-view/>",
+		})
+		.state('manager.carconfig.carownerpendinglist', {
+			url: "/carownerpendinglist/:funcId",
+			templateUrl: "views/carowner/CarownerPendingList.html",
+			data: {
+				pageTitle: '待审核管理'
+			},
+			controller: 'CarownerPendingController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'managerApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/carowner/CarownerPendingService.js',
+							'js/controllers/carowner/CarownerPendingController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//审核未通过
+		.state('manager.carconfig.carownernotlist', {
+			url: "/carownernotlist/:funcId",
+			templateUrl: "views/carowner/CarownerNotList.html",
+			data: {
+				pageTitle: '审核未通过管理'
+			},
+			controller: 'CarownerNotController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'managerApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/carowner/CarownerNotService.js',
+							'js/controllers/carowner/CarownerNotController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//审核通过
+		.state('manager.carconfig.carowneroklist', {
+			url: "/carowneroklist/:funcId",
+			templateUrl: "views/carowner/CarownerOkList.html",
+			data: {
+				pageTitle: '审核通过管理'
+			},
+			controller: 'CarownerOkController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'managerApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/carowner/CarownerOkService.js',
+							'js/controllers/carowner/CarownerOkController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//意见反馈管理
+		.state('manager.carconfig.carownerfeedbackslist', {
+			url: "/carownerfeedbackslist/:funcId",
+			templateUrl: "views/carowner/CarownerFeedBacksList.html",
+			data: {
+				pageTitle: '意见反馈管理'
+			},
+			controller: 'CarownerFeedBacksController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'managerApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/carowner/CarownerFeedBacksService.js',
+							'js/controllers/carowner/CarownerFeedBacksController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//车型管理
+		.state('manager.carmodelconfig', {
+			abstract: true,
+			url: "/carmodelconfig",
+			template: "<ui-view/>",
+		})
+		//车型管理
+		.state('manager.carmodelconfig.carmodellist', {
+			url: "/carmodellist/:funcId",
+			templateUrl: "views/carmodel/CarModelList.html",
+			data: {
+				pageTitle: '车型管理'
+			},
+			controller: 'CarModelController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'managerApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/carmodel/CarModelService.js',
+							'js/controllers/carmodel/CarModelController.js'
+						]
+					}])
+				}]
+			}
+		})
+		
+}
+angular
+	.module('managerApp')
+	.config(config)
+	.run(function($rootScope, $state) {
+		$rootScope.$state = $state;
+	});

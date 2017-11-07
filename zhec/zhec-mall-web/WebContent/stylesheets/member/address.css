@@ -1,0 +1,210 @@
+@charset "UTF-8";
+a {
+  color: #434343;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  color: #ff9900;
+}
+
+img, button {
+  cursor: pointer;
+}
+img:hover, button:hover {
+  -webkit-filter: brightness(1.1);
+  filter: brightness(1.1);
+}
+
+i {
+  display: block;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+li {
+  float: left;
+}
+
+input:focus {
+  outline: none;
+}
+
+body {
+  font-family: "微软雅黑 Regular", "微软雅黑";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  color: #333333;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.recent_goods .recent_address {
+  width: 100%;
+  height:40px;
+
+}
+.recent_goods .recent_address > li {
+  height: 100%;
+
+}
+
+.recent_goods .recent_address > li:nth-child(2) {
+    text-indent: 20px;
+    font-family: MicrosoftYaHei;
+    font-size: 12px;
+    color: #999999;
+    letter-spacing: 1.02px;
+}
+.recent_goods .recent_address > li:nth-child(3) {
+    cursor: pointer;
+    float: right;
+    font-family: MicrosoftYaHei;
+    font-size: 12px;
+    color: #00A2D9;
+    letter-spacing: 1.02px;
+    margin-right: 20px;
+}
+
+.address_message {
+ 		width: 100%;
+    /* background: #f9f9f9; */
+    margin-bottom: 20px;
+    margin-top: 10px;
+    background: white;
+}
+.address_message > ol {
+  width: 100%;
+  .address_message > ol 100px;
+  background: white;
+}
+.address_message > ol > li {
+      width: 100%;
+    height: 100%;
+}
+.address_message > ol > li > ul {
+  width: 100%;
+  height: 100%;
+}
+.address_message > ol > li > ul > li {
+  min-height: 100px;
+ 	line-height: 100px;
+
+}
+.address_message > ol > li > ul > li:nth-child(1) {
+        width: 178px;
+    font-family: MicrosoftYaHei;
+		font-size: 12px;
+		color: #666666;
+		letter-spacing: 1.02px;
+		 	text-align: center;
+}
+.address_message > ol > li > ul > li:nth-child(2) {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    width: 336px;
+    font-family: MicrosoftYaHei;
+		font-size: 12px;
+		color: #666666;
+		letter-spacing: 1.02px;
+		line-height: 20px;
+}
+.address_message > ol > li > ul > li:nth-child(2)>b{
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+	
+}
+.address_message > ol > li > ul > li:nth-child(2)>b:first-child{
+	    margin-top: 30px;
+}
+.address_message > ol > li > ul > li:nth-child(3) {
+     width: 136px;
+    font-family: MicrosoftYaHei;
+font-size: 14px;
+color: #333333;
+letter-spacing: 1.2px;
+ 	text-align: center;
+}
+.address_message > ol > li > ul > li:nth-child(4) {
+   width: 187px;
+    font-family: MicrosoftYaHei;
+font-size: 14px;
+color: #333333;
+letter-spacing: 1.2px;
+ 	text-align: center;
+}
+.address_message > ol > li > ul > li:nth-child(5) {
+           /* margin-right: 47px; */
+    width: 143px;
+    padding-top: 18px;
+    height: 84%;
+}
+.address_message > ol > li > ul > li:nth-child(5)>span{
+    width: 100%;
+    float: left;
+    height: 21px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 21px;
+    ont-family: MicrosoftYaHei;
+font-size: 12px;
+color: #333333;
+letter-spacing: 1.02px;
+}
+#address_ono{
+color: #999999;
+}
+.address_message > ol > li > ul > li:nth-child(5)>span:hover{
+	color: #FF9900;
+}
+.address_message > ol .address_message_li {
+  border: 1px solid #E5E5E5;
+}
+.address_head_all{
+     width: 100%;
+    height: 60px;
+    background: white;
+}
+.address_head_all>ol{
+  width:100%;
+  height: 100%;
+}
+.address_head_all>ol>li{
+  height: 100%;
+  text-align: center;
+  line-height: 60px;
+  font-family: MicrosoftYaHei;
+font-size: 14px;
+color: #333333;
+letter-spacing: 1.2px;
+}
+.address_head_all>ol>li:nth-child(1){
+   margin-left: 77px;
+   margin-right: 198px;
+}
+.address_head_all>ol>li:nth-child(2){
+   margin-right: 198px;
+}
+.address_head_all>ol>li:nth-child(3){
+ margin-right: 136px;
+}
+.address_head_all>ol>li:nth-child(4){
+ margin-right: 134px;
+}
+.address_head_all>ol>li:nth-child(5){
+  margin-right: 72px;
+}

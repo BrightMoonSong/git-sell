@@ -1,0 +1,99 @@
+<!--优惠券-->
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="ibox-title col-lg-12" style="height: 50px">
+		<div class="heading">
+			<!-- 搜索  -->
+			<div class="col-sm-12">
+
+				<div class="form-group col-md-2">
+					<div><!--ng-change="loadData(true)"-->
+						<select class="form-control" ng-model="couponsSearch.couponsId" ng-options="x.promotionId as x.promotionName for x in couponsSearchList">
+							<option value="">--请选择--</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" class="form-control" ng-model="parmValue" placeholder="促销名" />
+					</div>
+				</div>
+
+				<button class="btn btn-success" type="button" ng-click="loadData(true)">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+
+				<button type="button" class="btn btn-success pull-right" style="margin-top: 0px;" ng-click="loadData(true)">
+				    <span class="glyphicon glyphicon-refresh"></span> 刷新
+				</button>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+	</div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+
+				<div class="ibox-content">
+					<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+						<thead>
+							<tr>
+								<th>优惠券名称</th>
+								<th>使用门槛</th>
+								<th>优惠额度</th>
+								<th>优惠券类型</th>
+								<th>使用平台</th>
+								<th>促销开始时间</th>
+								<th>促销结束时间</th>
+								<th>状态</th>
+								<th>创建人</th>
+								<th>审核人</th>
+								<th>持有人</th>
+								<!--<th>操作</th>-->
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="res in ordersAllList">
+								<td>{{ res.couponName}}</td>
+								<td>{{ res.threshold}}</td>
+								<td>{{ res.quota}}</td>
+								<td ng-show="res.couponType==1">满减券</td>
+								<td>
+									<span ng-show="res.applicablePlatform.split(',').contains(1)">WEB</span>
+									<span ng-show="res.applicablePlatform.split(',').contains(2)">WAP</span>
+									<span ng-show="res.applicablePlatform.split(',').contains(3)">APP</span>
+								</td>
+								<td>{{ res.startTime }}</td>
+								<td>{{ res.endTime}}</td>
+								<td ng-show="res.status==0">禁用</td>
+								<td ng-show="res.status==1">未使用</td>
+								<td ng-show="res.status==2">已使用</td>
+								<td>{{ res.createUser}}</td>
+								<td>{{ res.auditUser}}</td>
+								<td>{{ res.ownMember}}</td>
+								<!--<td>
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(1,res.id)">
+	                                    <span aria-hidden="true">启用</span>
+	                               	</button>
+
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(2,res.auditId)">
+	                                    <span aria-hidden="true">禁用</span>
+	                                </button>
+
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(3,res.id)">
+	                                    <span aria-hidden="true">发放</span>
+	                               </button>
+								</td>-->
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<datalistpager></datalistpager>

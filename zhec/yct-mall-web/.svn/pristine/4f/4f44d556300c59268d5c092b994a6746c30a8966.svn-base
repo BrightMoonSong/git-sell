@@ -1,0 +1,122 @@
+<style>
+	.hidden {
+		display: none;
+	}
+	
+	.active {
+		display: block;
+	}
+	
+	.smallImg{
+		width: 10px;
+		height: 10px;
+	}
+</style>
+<div class="content clearfix">
+	<div class="banner">
+		<div class="banner-Carousel">
+			<div class="banner-Carousel-head">
+				<span>药品推荐</span>
+				<span>DRUGS RECOMMENDEN</span>
+			</div>
+			<div class="banner-Carousel-img" lunbo>
+				
+			</div>
+		</div>
+		<div class="banner-img">
+			<a class="xcenter ycenter">
+				<img src="../img/banner.png" />
+			</a>
+		</div>
+	</div>
+	<div class="conter clearfix">
+		<div class="conter-list">
+			<div class="banner-Carousel-head" id="conter-list-head">
+				<span>药品推荐</span>
+				<span>DRUGS RECOMMENDEN</span>
+			</div>
+			<ul class="conter-list-head-ul clearfix">
+				<li>
+					<a href="index.html#/manager/productdetail">
+					<span>+</span>
+					<span>感冒用药</span>
+					<span >MORE</span>
+					</a>
+				</li>
+				<li>
+					<a>
+					<span>+</span>
+					<span>感冒用药</span>
+					<span>MORE</span>
+					</a>
+				</li>
+				<li>
+					<a>
+					<span>+</span>
+					<span>感冒用药</span>
+					<span>MORE</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="conter-Carousel">
+			<ul  class="conter-Carousel-ul">
+				<li><a>关于我们</a></li>
+				<li><a>关于我们</a></li>
+				<li><a>关于我们</a></li>
+				<li><a>关于我们</a></li>
+			</ul>
+			<div class="conter-Carousel-img">
+				<a>
+					<img src=""/>
+				</a>
+			</div>
+			<div class="conter-Carousel-word">
+				这里是文字这里是文字这里是文字这里是文文字这里是文字这里是文文字这里是文字这里是文字这里是文字这里是文 字这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字 这里是文字这里是文字这里是文字这里是文字
+			</div>
+		</div>
+		<div class="conter-img">
+			<img src="" />
+		</div>
+	</div>
+</div>
+
+	<script type="text/ng-template" id="lunbo.html">
+		<div class="hidden" ng-repeat="img in images" >
+			<img ng-src="{{img.src}}" width="1" height="1" />
+		</div>
+		<div class="" style="position:relative ;">
+			<img src="{{dataImg.src}}" width="266" height="207" />
+			<p class="lunbo-banner">
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(0)'>
+				<img ng-src="{{step!=0?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(1)'>
+				<img ng-src="{{step!=1?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(2)'>
+				<img ng-src="{{step!=2?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(3)'>
+				<img ng-src="{{step!=3?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(4)'>
+				<img ng-src="{{step!=4?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+			</p>
+		</div>
+		<!--<ul>
+			<li ng-repeat="img in images track by $index" class="hidden">
+				<a href="{{img.href}}">
+					<img ng-src="{{img.src}}" alt="" width="1200" height="605" />
+				</a>
+				<p>
+					<img ng-src="{{'../../img/lunbo/Carousel/'+1+'.png'}}"/>
+					<img ng-src="../../img/lunbo/Carousel/1.png"/>
+					<img ng-src="../../img/lunbo/Carousel/1.png"/>
+					<img ng-src="../../img/lunbo/Carousel/0.png"/>
+					<img ng-src="../../img/lunbo/Carousel/1.png"/>
+				</p>
+			</li>
+		</ul>-->
+	</script>

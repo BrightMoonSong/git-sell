@@ -1,0 +1,301 @@
+.confirmSelf {
+	position: fixed;
+	top: 10px;
+	left: 50%;
+	margin-left: -40px;
+	z-index: 99999;
+}
+
+.modal-footer {
+	border: 0;
+}
+
+.coverAll {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #000;
+	opacity: 0.3;
+	z-index: 999;
+}
+
+.ngdialog.ngdialog-theme-default.ng-scope {
+	z-index: 100001 !important
+}
+
+.page-heading {
+	height: 44px;
+}
+
+.white-bg {
+	height: 60px;
+}
+
+.footer {
+	height: 39px;
+}
+
+.ibox-title {
+	height: 48px;
+}
+
+td>.btn {
+	padding: 1px 6px;
+	margin-bottom: 0;
+}
+
+td,
+th {
+	text-align: -webkit-center;
+	text-align: center;
+}
+
+.page-heading {
+	padding: 0 10px 0px 10px;
+}
+
+.btn {
+	margin-right: 3px;
+}
+
+.ibox-title {
+	padding: 6px 15px 7px;
+}
+
+.pull-right {
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+.center-vertical {
+	padding: 5px;
+}
+
+.fixedWidth {
+	width: 100px;
+}
+
+.fixedWidth3 {
+	width: 250px;
+}
+.fixedWidth300 {
+	width: 300px;
+}
+
+ul {
+	padding-left: 0px;
+}
+
+.table>tbody>tr>td {
+	vertical-align: middle;
+}
+#table_goods_on>tbody>tr>td{
+	cursor: pointer;
+}
+.float-e-margins .btn {
+	margin-bottom: 5px;
+}
+
+.horizontal1 {
+	height: 450px;
+	/*overflow: auto;*/
+}
+
+body {
+	overflow-y: auto !important;
+	font-family: "微软雅黑" !important;
+	font-family: Microsoft YaHei !important;
+}
+
+.breadcrumb {
+	padding: 10px;
+}
+
+.nav-header {
+	padding: 32px 24px;
+}
+
+.img-circle {
+	float: left;
+	margin-right: 5px;
+}
+
+.wrapper-content {
+	padding: 7px 0px 40px;
+}
+
+.modal-dialog-width-78 {
+	width: 78%;
+}
+
+.modal-dialog-width-50 {
+	width: 50%;
+}
+
+.ngdialog-theme-default {
+	overflow: hidden;
+	clear: both;
+}
+
+.treeView {
+	border: 1px solid #ccc;
+}
+
+.wrapper-content {
+	padding-bottom: 0;
+}
+
+.operationBtn {
+	float: right
+}
+
+.pagination {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	margin-bottom: 3px;
+	margin-left: 14px;
+	z-index: 100000 !important;
+}
+
+.modal-body {
+	clear: both;
+	overflow: hidden;
+}
+
+.chooseBtn {
+	padding: 0;
+}
+
+.selectBtn {
+	color: #f8ac59;
+}
+
+.chooseBtn select {
+	height: 28px;
+	border: 1px solid #ccc;
+	border-left: 0;
+}
+
+.btnActive {
+	color: #f8ac59;
+}
+
+.toastTop {
+	border-radius: 10px;
+	background: #fff;
+	color: #bbb;
+	border-bottom: 1px solid #f8ac59;
+}
+
+#toastLoadding {
+	border: 0;
+}
+
+.ngdialog.ngdialog-theme-default {
+	padding: 0;
+}
+
+.ngdialog-content {
+	position: absolute;
+	top: 0;
+}
+
+.toast {
+	position: fixed;
+	color: #f8ac59;
+	top: 10%;
+	left: 50%;
+	border: 1px solid #f8ac59;
+	background: #fff;
+	text-align: center;
+	border-radius: 10px;
+	width: 180px;
+	z-index: 9999999999999;
+	opacity: 0;
+}
+
+.toastLoadding {
+	position: fixed;
+	top: 8%;
+	left: 50%;
+	z-index: 9999999999999;
+	opacity: 0;
+}
+
+#toastSuccess {
+	border: 1px solid #1c84c6;
+	color: #1c84c6
+}
+
+.toastTopSuccess {
+	border-bottom: 1px solid #1c84c6;
+}
+
+.loaddingGif {
+	width: 20px;
+	height: 20px;
+}
+
+@keyframes fadeInTop {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.fadeInTop {
+	animation: fadeInTop 0.5s linear both;
+}
+
+@keyframes fadeOutTop {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+.fadeOutTop {
+	animation: fadeOutTop 0.5s linear both;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.fadeIn {
+	animation: fadeIn 0.5s linear both;
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+.fadeOut {
+	animation: fadeOut 0.5s linear both;
+}
+
+.spanWrap {
+	word-break: normal;
+	width: auto;
+	display: block;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow: hidden;
+}

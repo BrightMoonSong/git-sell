@@ -1,0 +1,137 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">库存管理</h1>
+	</div>
+	<div class="modal-body">
+		<!-- 标签页start -->
+		<ul class="nav nav-tabs">
+			<!--  class="active" -->
+			<li class="active" ng-click="onClickTab('basicInformation.html')">
+				<a data-toggle="tab"> 修改库存 </a>
+			</li>
+			<li ng-click="onClickTab('updatepriceBills.html')" ng-if='dataId'>
+				<a data-toggle="tab"> 修改库存记录 </a>
+			</li>
+		</ul>
+		<div id="mainView">
+			<div ng-include="currentTab"></div>
+		</div>
+		<!-- 修改库存记录 -->
+		<script type="text/ng-template" id="updatepriceBills.html">
+			<style type="text/css">
+				.colorred {
+					color: red;
+				}
+			</style>
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="col-lg-12" style="padding-left: 0px;">
+							<div class="col-sm-7" style="padding-left: 0px;">
+								<div class="input-group">
+									<input type="text" start-pickers class="Wdate form-controls" placeholder="起始时间" readonly="readonly">
+									 
+									<input type="text" end-pickers class="Wdate form-controls" placeholder="结束时间" readonly="readonly">
+									
+									<span class="input-group-btn">
+										<button class="btn btn-success" ng-click="loadDataDialog()"><span class="glyphicon glyphicon-search"></span></button>
+									</span>
+								</div>
+							</div>
+						</div>
+						<table class="table table-striped table-bordered table-hover dataTables-example marginBottom25">
+							<thead>
+								<tr>
+									<th>原库存</th>
+									<th>新库存</th>
+									<th>修改时间</th>
+									<th>具体操作</th>
+									<th>操作员</th>
+									<th>备注</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="info in StockList" ng-click="passByValue(info.id)">
+									<td ng-class="{true: '', false: 'colorred'}[info.stockOld==info.stockNew]">{{ info.stockOld }}</td>
+									<td ng-class="{true: '', false: 'colorred'}[info.stockOld==info.stockNew]">{{ info.stockNew }}</td>
+									<td>{{ info.changeTimeStr }}</td>
+									<td>{{ changeTypeName(info.changeType) }}</td>
+									<td>{{ info.optUsr }}</td>
+									<td>{{ info.remark }}</td>
+								</tr>
+							</tbody>
+						</table>
+						<datalistpagerdialog></datalistpagerdialog>
+					</li>
+				</ul>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+		
+		<!-- 基本信息 -->
+		<script type="text/ng-template" id="basicInformation.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">原库存(*)：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.stock"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">操作类型：</label>
+
+							<div class="col-sm-10">
+								<label class="radio-inline" ng-click="activeStockClick(true)">
+	                                <input type="radio" name="activeStock" ng-checked="activeStock">&nbsp;增加库存&nbsp;
+	                            </label>
+								<label class="radio-inline" ng-click="activeStockClick(false)">
+	                                <input type="radio" name="activeStock" ng-checked="!activeStock">&nbsp;减少库存&nbsp;
+	                            </label>
+							</div>
+							<!--<div class="col-sm-2">
+								<button class="btn col-sm-12" ng-click='activeStockClick(true)' ng-class="{true: 'btn-success', false: ''}[activeStock]">增加库存</button>
+							</div>
+							<div class="col-sm-2">
+								<button class="btn col-sm-12" ng-click='activeStockClick(false)' ng-class="{true: '', false: 'btn-success'}[activeStock]">减少库存</button>								
+							</div>-->
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" ng-if="activeStock">增加(*)：</label>
+							<label class="col-sm-2 control-label" ng-if="!activeStock">减少(*)：</label>
+
+							<div class="col-sm-10">
+								<input type="number" ng-verify="{required:true}" class="form-control" ng-model="dataEntity.stockChange"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">备注：</label>
+
+							<div class="col-sm-10">
+								<input type="text" ng-if="activeStock" class="form-control" ng-model="dataEntity.remark"/>
+								<input type="text" ng-if="!activeStock" ng-verify="{required:true}" class="form-control" ng-model="dataEntity.remark"/>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" ng-click="okModalStock(dataEntity)" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                </button>
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+	</div>
+
+</div>

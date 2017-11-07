@@ -1,0 +1,77 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">字典管理</h1>
+    </div>
+    <div class="" name="myform" verify-scope="tipStyle: 1">
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">字典英文名：</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-verify ng-model="codeObj.codeType">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">字典Id：</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" ng-verify class="form-control"
+                               ng-model="codeObj.codeId">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">字典值：</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" ng-verify class="form-control"
+                               ng-model="codeObj.codeText">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">字典说明：</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"
+                               ng-model="codeObj.codeExplain">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">排序：</label>
+
+                    <div class="col-sm-9">
+                        <input type="number" ng-verify class="form-control"
+                               ng-model="codeObj.sort">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">状态（*）：</label>
+
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline"> <input type="radio"
+                                                                ng-checked="codeObj.status=='1'" name="status" value="1"
+                                                                ng-model="codeObj.status">&nbsp;启用&nbsp;
+                            </label> <label class="radio-inline"> <input type="radio" ng-verify
+                                                                         ng-checked="codeObj.status=='0'" name="status"
+                                                                         value="0" ng-model="codeObj.status">&nbsp;禁用&nbsp;
+                        </label>
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" ng-click="modify(codeObj)" ng-verify="{control:'myform'}">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+            <button type="button" class="btn btn-success" ng-click="closeModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,256 @@
+function ChainStoreUserController($scope, $q, $http, $rootScope, constPageSize, ChainStoreUserService, ngDialog, goodsReminder) {
+	$scope.chainId = localStorage.chainId; //	分店ID取登录时获得的
+	$scope.drugstoreId = localStorage.drugstoreId; //	分店ID取登录时获得的
+	$scope.userId = ""; //操作当前ID
+	$scope.realName = ""; //姓名
+	$scope.userName = ""; // 用户名
+	$scope.phone = ""; //联系电话
+
+	//搜索操作
+	$scope.find = function(currentPageNo, currentPaseSize) {
+		var defer = $q.defer();
+		if($scope.typeObj == undefined) {
+			var typeId = "";
+		} else {
+			var typeId = $scope.typeObj.id;
+		}
+		var chainsId = localStorage.chainId; //	连锁店ID取登录时获得的
+		var drugstoresId = localStorage.drugstoreId; //	分店ID取登录时获得的
+		var realsName = $scope.realName;
+		var usersName = $scope.userName;
+		var phones = $scope.phone;
+
+		ChainStoreUserService
+			.find(chainsId, drugstoresId, realsName, phones, currentPageNo, currentPaseSize)
+			.then(function(result) {
+				console.log(result)
+				$scope.userList = result.data;
+				defer.resolve(result)
+			}, function(result) {
+				defer.reject(result)
+			})
+		return defer.promise;
+	}
+
+	//弹出添加弹窗
+	$scope.openModal = function(id, boller) {
+		$scope.userId = id;
+		$scope.datared = boller;
+		$scope.dialog = ngDialog.open({
+			template: 'views/chainstore/ChainStoreUserFormModel.html',
+			className: 'ngdialog-theme-default',
+			controller: 'ChainStoreUserFormModelController',
+			scope: $scope,
+			width: 850
+		})
+	};
+
+	//s删除用操作
+	$scope.deletId = function(id) {
+		var chainstouser
+		chainstouser = goodsReminder.goodsbranddelete;
+		ngDialog.openConfirm({
+			template: '<p>' + chainstouser + '</p>' +
+				'<div class="ngdialog-buttons">' +
+				'<button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">取消' +
+				'<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">确定' +
+				'</button></div>',
+			plain: true,
+			closeByDocument: false,
+			closeByEscape: false,
+			className: 'ngdialog-theme-default'
+		}).then(function(value) {
+			ChainStoreUserService
+				.delete(id)
+				.then(function(result) {
+					$scope.loadData();
+				}),
+				function(reason) {
+
+				}
+		})
+	}
+	//启禁用
+	$scope.enableId = function(id, status) {
+		var chainstouses;
+		if(status == 1) {
+			//0禁1启
+			chainstouses = goodsReminder.goodsState.enable;
+		} else {
+			chainstouses = goodsReminder.goodsState.forbidden;
+		}
+		ngDialog.openConfirm({
+			template: '<p>' + chainstouses + '</p>' +
+				'<div class="ngdialog-buttons">' +
+				'<button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">取消' +
+				'<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">确定' +
+				'</button></div>',
+			plain: true,
+			closeByDocument: false,
+			closeByEscape: false,
+			className: 'ngdialog-theme-default'
+		}).then(function(value) {
+			ChainStoreUserService
+				.enable(id, status)
+				.then(function(result) {
+					$scope.loadData(true)
+				}),
+				function(reason) {}
+		})
+	}
+	//关闭弹窗
+	$scope.cancelModal = function() {
+		$scope.dialog.close();
+	};
+}
+
+function ChainStoreUserFormModelController($scope, ChainStoreUserService, $rootScope) {
+	$scope.rolesListdate = [];
+	//获取角色集合
+	$scope.roleInter = function() {
+		ChainStoreUserService
+			.findstoreroles()
+			.then(function(result) {
+				$scope.rolelist = result.data;
+			}, function(result) {
+
+			})
+	}
+	$scope.initlist = function() {
+		if($scope.userId) { //如果参数userId不为空，说明是修改数据
+			ChainStoreUserService
+				.detail($scope.userId)
+				.then(function(result) {
+					$scope.userEntity = result.data;
+					console.log($scope.dataEntitybirthday)
+					$scope.dataEntitybirthday = $scope.userEntity.birthday; //生日
+					//把初始化的roles遍历一遍，然后把初始化的对象存入选中的对象
+					//目的变色
+					if($scope.userEntity.roles) {
+						$scope.userEntity.roles.forEach(function(element) {
+							$scope.rolesListdate.push(element.roleId)
+						})
+					}
+
+				})
+		} else {
+			$scope.userEntity = {
+				'status': 1,
+				'sex': 1,
+				'chainId': localStorage.chainId, //连锁店ID取登录时获得的
+				'drugstoreId': localStorage.drugstoreId, //分店ID取登录时获得的
+				"birthday":$scope.dataEntitybirthday
+			}
+		}
+	} //监听生日的变化
+	$scope.unbingWatch = $scope.$watch('dataEntitybirthday', function(newVal) {
+		if(!newVal) {
+			return false;
+		}
+		$scope.userEntity.age = ages(newVal);
+	});
+	/**
+	 * 角色选择
+	 */
+	$scope.roleListSelct = function(rold) {
+		if($scope.rolesListdate.contains(rold)) {
+			$scope.rolesListdate.remove(rold);
+		} else {
+			$scope.rolesListdate.push(rold);
+		}
+	}
+	//	$scope.types = [ //用户类型：1是药店管理员，2是配送员，3是药店普通店员
+	//		{
+	//			id: 0,
+	//			"name": '0'
+	//		},
+	//		{
+	//			id: 1,
+	//			"name": '药店管理员'
+	//		},
+	//		{
+	//			id: 2,
+	//			"name": '配送员'
+	//		},
+	//		{
+	//			id: 3,
+	//			"name": '药店普通店员'
+	//		}
+	//	]
+
+	//保存
+	$scope.okModal = function() {
+		$scope.userEntity.roles = [];
+		$scope.userEntity.roles = []
+		if($scope.okModalDisabled) {
+			return false;
+		}
+		$scope.okModalDisabled = true;
+		if($scope.dataEntitybirthday) {
+			if($scope.dataEntitybirthday.comp()) {
+				$rootScope.showAlert('生日日期必须在今天之前！');
+				$scope.okModalDisabled = false;
+				return false;
+			}
+		}
+
+		if($scope.userEntity.age < 1) {
+			$rootScope.showAlert('年龄不能小于一岁！');
+			$scope.okModalDisabled = false;
+			return false;
+		}
+		$scope.userEntity.birthday = $scope.dataEntitybirthday;
+		$scope.rolelist.forEach(function(element) {
+			if($scope.rolesListdate.contains(element.roleId)) {
+				$scope.userEntity.roles.push(element)
+			}
+		})
+
+		if($scope.userId) { //修改
+			if($scope.userEntity.passwords) {
+				$scope.userEntity.password = $scope.userEntity.passwords;
+			}else{
+				$scope.userEntity.password="";
+			}
+			ChainStoreUserService
+				.edit($scope.userEntity)
+				.then(function(result) {
+					console.log(result)
+					$scope.loadData();
+					$scope.cancelModal();
+					$scope.okModalDisabled = false;
+				}, function(reson) {
+					$scope.okModalDisabled = false;
+				})
+		} else { //新增
+			ChainStoreUserService
+				.add($scope.userEntity)
+				.then(function(result) {
+					console.log("aaaaaaaaaaa")
+					console.log(result)
+					$scope.loadData();
+					$scope.cancelModal();
+					$scope.okModalDisabled = false;
+				}, function(reson) {
+					$scope.okModalDisabled = false;
+				})
+
+		}
+	}
+	/**
+	 * 状态转换
+	 */
+	$scope.check = function(n) {
+		$scope.userEntity.status = n;
+	}
+	$scope.checks = function(j) {
+		$scope.userEntity.sex = j;
+	}
+
+	$scope.initlist();
+	$scope.roleInter();
+}
+angular
+	.module("managerApp")
+	.controller('ChainStoreUserController', ChainStoreUserController)
+	.controller('ChainStoreUserFormModelController', ChainStoreUserFormModelController)

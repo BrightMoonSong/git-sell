@@ -1,0 +1,32 @@
+
+.newslist-list-conter{
+	width: 100%;
+	/*height: 420px;*/
+}
+.newslist-list-conter ul{
+	width: 100%;
+	height: 100%;
+}
+.newslist-list-conter ul li{
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	font-size:14px ;
+	color: #333333;
+	border-bottom: 1px dashed #E8E8E8;
+}
+.newslist-list-conter ul li a{
+	 cursor: pointer;
+}
+.newslist-list-conter span{
+	display: block;
+	float: left;
+}
+.newslist-list-conter span:nth-child(1){
+	margin-right: 5px;
+	font-size: 20px;
+	margin-top: 5px;
+}
+.newslist-list-conter span:last-child{
+	float: right;
+}

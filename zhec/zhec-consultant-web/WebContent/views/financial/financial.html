@@ -1,0 +1,122 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+	<div class="row marLeft15">
+		<div class="col-lg-12 ">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<div class="heading">
+						<h3 class="col-lg-6">
+							提现记录
+						</h3>
+						
+					</div>
+				</div>
+				<div class="ibox-content cancleBorder" name="myForm">
+					<div class="form-horizontal">
+						<li class="list-group-item col-sm-6 inline">
+							<div class="form-group" >
+								<label class="col-sm-3 control-label">我的可用余额：</label>
+								<h3 class="col-sm-2" style="margin-top:8px;color:#FF9900;">
+									￥<b ng-bind="balanceList.balance | number:2"></b>
+								</h3>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">申请中余额：</label>
+								<h3 class="col-sm-2" style="margin-top:8px;color:#FF9900;">
+									￥<b ng-bind="balanceList.balanceChange | number:2"></b>
+								</h3>
+							</div>
+						</li>
+						<li class="col-lg-6 inline">
+							<h4 style="margin:15px 0 20px 0;"><b style="color:#FF9900;">温馨提示：</b>每月<b ng-bind="timeMin"></b>号至<b ng-bind="timeMax"></b>号可申请提现,每月只可提现一次！</h4>
+							<div class="input-group" style="margin-top:15px;">
+								<input class="form-control " ng-model="withdrawMoney" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'');}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'');}"  type="text" placeholder="最少提现{{balanceMin}}元" name="">								<span class="input-group-btn">
+ 								<button  ng-if="allowAudit == 0" ng-disabled="okModalDisabled" ng-click="openModal()" type="button"  class="btn btn-success">
+									<span class="glyphicon glyphicon"></span> 申请提现
+								</button>
+								<button  ng-show="allowAudit != 0" disabled="disabled" type="button"  class="btn btn-success">
+									<span class="glyphicon glyphicon"></span> 目前不可提现
+								</button>
+							</div>
+							<div >
+							</div>
+						</li>
+					</div>
+					<div class="ibox-content">
+
+						<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>日期</th>
+									<th>提现金额</th>
+									<th>状态</th>
+									<th>详细说明</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="money in consultantMoneyMessage track by $index">
+									<td>{{ money.createTimeStr }}</td>
+									<td>￥<b ng-bind="money.money | number:2"></b></td>
+									<td ng-if="money.status==1">审核中</td>
+									<td ng-if="money.status==3">审核成功，请等待汇款</td>
+									<td ng-if="money.status==7">审核通过，已打款</td>
+									<td ng-if="money.status==5">审批不通过</td>
+									<td ng-if="money.status==6">已完成</td>
+									<td>{{ money.remark }}</td>
+									<td>
+										<button ng-disabled="okModalDisabled" ng-if="$index==0 && money.status==7" type="button" class="btn btn-warning" ng-click="confirmApply(money.id)" >
+								            <span class="glyphicon "></span> 确认到账
+								        </button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<datalistpager></datalistpager>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script type="text/ng-template" id="firstDialogId">
+			<div class="ngdialog-message">
+	            <h3>提示信息</h3>
+	            <p ng-show="withdrawMoney != undefined">每个月只能提现一次！</p>
+	            <p ng-show="withdrawMoney == undefined || withdrawMoney == ''">请输入正确的提现金额！</p>
+	        </div>
+	        <div class="ngdialog-buttons" ng-show="withdrawMoney != undefined">
+	            <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="consultantwithdraw()">确定</button>
+	            <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="cancleModal()">取消</button>
+	        </div>
+	        <div class="ngdialog-buttons" ng-show="withdrawMoney == undefined">
+	            <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="cancleModal()">确定</button>
+	        </div>
+			<!--<div class="inmodal">
+				<div class="modal-header">
+					<h1 class="modal-title">提示</h1>
+				</div>
+				<div class="" name="myform" verify-scope="tipStyle: 1">
+					<ul class="list-group form-horizontal">
+						<div class="form-group" ng-show="withdrawMoney != undefined">
+							<label class="col-sm-1 control-label"></label>
+							<span style="color:#FF9900;font-size:16px;">每个月只能提现一次！</span>
+						</div>
+						<div class="form-group" ng-show="withdrawMoney == undefined || withdrawMoney == ''">
+							<label class="col-sm-1 control-label"></label>
+							<span style="color:#FF9900;font-size:16px;">请先输入提现金额。每个月只能提现一次！</span>
+						</div>
+						<div class="modal-footer" ng-show="withdrawMoney != undefined">
+							<button type="button" class="btn btn-success" ng-click="consultantwithdraw()">
+                        <span class="glyphicon glyphicon-share-alt"></span> 确定
+                    </button>
+							<button type="button" class="btn btn-success" ng-click="cancleModal()">
+                        <span class="glyphicon glyphicon-share-alt"></span> 取消
+                    </button>
+						</div>
+						<div class="modal-footer" ng-show="withdrawMoney == undefined">
+							<button type="button" class="btn btn-success" ng-click="cancleModal()">
+                        <span class="glyphicon glyphicon-share-alt"></span> 确定
+                    </button>
+						</div>
+					</ul>-->
+		</script>

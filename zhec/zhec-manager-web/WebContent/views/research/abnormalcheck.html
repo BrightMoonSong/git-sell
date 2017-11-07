@@ -1,0 +1,128 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="ibox-title col-lg-12" style="height: 100px">
+		<div class="heading">
+			<!-- 搜索  -->
+			<div class="col-sm-12">
+
+				<div class="form-group col-md-2">
+					<select ng-model="optType" onchange="" class="form-control">
+						<!-- <input type="text" placeholder="按审核状态检索" class="form-control" ng-model="status"> -->
+						<option value="2">---商城后台---</option>
+						<option value="1">---商城前端---</option>
+						<option value="3">---顾问平台---</option>
+						<option value="4">---定时任务---</option>
+					 </select>
+				</div>
+				<div class="form-group col-md-2">
+					<select ng-model="requestType" onchange="" class="form-control">
+						<!-- <input type="text" placeholder="按审核状态检索" class="form-control" ng-model="status"> -->
+						<option value="">操作请求方式</option>
+						<option value="GET">---GET---</option>
+						<option value="PUT">---PUT---</option>
+						<option value="POST">---POST---</option>
+						<option value="DELETE">---DELETE---</option>
+					 </select>
+				</div>
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" placeholder="按照操作人ID搜索" class="form-control" ng-model="optId">
+					</div>
+				</div>
+				<!-- <div class="form-group col-md-2">
+					<div>
+						<input type="text" readonly="readonly" placeholder="按异常时间检索(开始)" start-picker class="Wdate form-control" ng-model="startTime">
+					</div>
+				</div>
+
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" readonly="readonly" placeholder="按异常时间检索(结束)" end-picker class="Wdate form-control" ng-model="endTime">
+					</div>
+				</div>
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" placeholder="按照接口url搜索" class="form-control" ng-model="keyword">
+					</div>
+				</div> -->
+
+				<button class="btn btn-success" type="button" ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+
+				<button type="button" class="btn btn-success pull-right" style="margin-top: 0px;" ng-click="reloadRoute()">
+				                <span class="glyphicon glyphicon-refresh"></span> 刷新
+				            </button>
+			</div>
+			<div class="col-sm-12">
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" readonly="readonly" placeholder="按异常时间检索(开始)" start-picker class="Wdate form-control" ng-model="startTime">
+					</div>
+				</div>
+
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" readonly="readonly" placeholder="按异常时间检索(结束)" end-picker class="Wdate form-control" ng-model="endTime">
+					</div>
+				</div>
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" placeholder="按照接口url搜索" class="form-control" ng-model="keyword">
+					</div>
+				</div>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+	</div>
+</div>
+
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+
+				<div class="ibox-content">
+					<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+						<thead>
+							<tr>
+								<th>id</th>
+								<!--<th>总订单编号</th>-->
+								<th>操作人ID</th>
+								<th>对象ID</th>
+
+								<th>请求方式</th>
+								<th>接口url</th>
+								<!-- <th>请求参数</th>
+								<th>请求参数</th> -->
+								<th>时间</th>
+								<th class="fixedWidth">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="abnormal in abnormalAllList">
+								<td>{{ abnormal.id}}</td>
+								<td>{{ abnormal.optId }}</td>
+								<td>{{ abnormal.objectId }}</td>
+								<!-- <td>{{ abnormal.optIp }}</td>
+								<td>{{ abnormal.optMessage }}</td> -->
+								<td>{{ abnormal.requestType }}</td>
+								<td>{{ abnormal.optUrl}}</td>
+								<!-- <td>{{ abnormal.optParameter }}</td>
+								<td>{{ abnormal.optParameterText }}</td> -->
+								<td>{{ abnormal.optTime}}</td>
+
+								<td class="action-column">
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(abnormal.id)">
+	                                    <spanaria-hidden="true">详情</span>
+	                                </button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+<datalistpager></datalistpager>

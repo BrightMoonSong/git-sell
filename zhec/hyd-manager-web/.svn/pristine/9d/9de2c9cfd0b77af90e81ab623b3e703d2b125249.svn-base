@@ -1,0 +1,102 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">用户反馈管理</h1>
+    </div>
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">用户反馈ID:</label>
+
+                    <div class="col-sm-9">
+                        <span class="form-control" ng-bind="dataEntity.feedbackId "></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">反馈内容:</label>
+
+                    <div class="col-sm-9">
+                        <textarea class="form-control" ng-bind="dataEntity.content" readonly="readonly" style="background-color: #FFFFFF; resize: none;"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">处理状态:</label>
+
+                    <div class="col-sm-9">
+                        <span class="form-control" ng-bind="handleStatusRet(dataEntity.handleStatus)"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">创建时间:</label>
+
+                    <div class="col-sm-9">
+                        <span class="form-control" ng-bind="dataEntity.createTimeStr"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">反馈处理时间:</label>
+                    <div class="col-sm-9">
+                        <span class="form-control" ng-bind="dataEntity.handleTimeStr"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">反馈处理人ID:</label>
+
+                    <div class="col-sm-9">
+                        <span class="form-control"ng-bind="dataEntity.handleUserId"></span>                   
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">反馈处理人姓名:</label>
+
+                    <div class="col-sm-9">
+                        <span class="form-control"ng-bind="dataEntity.handleUserName"></span>                   
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">状态:</label>
+
+                    <div class="col-sm-9">
+                        <span class="form-control"ng-bind="dataEntity.status==1?'正常':'删除'"></span>                   
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">用户ID:</label>
+
+                    <div class="col-sm-9">
+                        <span class="form-control"ng-bind="dataEntity.userId"></span>                   
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">用户姓名:</label>
+
+                    <div class="col-sm-9">
+                        <span class="form-control"ng-bind="dataEntity.userName"></span>                   
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">用户联系方式:</label>
+
+                    <div class="col-sm-9">
+                        <span class="form-control"ng-bind="dataEntity.userPhone"></span>                   
+                    </div>
+                </div>
+            </li>
+        </ul>
+		<div class="modal-footer">
+			
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+</div>
+

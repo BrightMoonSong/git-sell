@@ -1,0 +1,72 @@
+/**
+ * Created by shy on 2017/08/22.
+ */
+angular
+	.module('managerApp')
+	.factory('SysUserFeedBackService', function($http, $q, constMapiLocation) {
+		var baseUrl = constMapiLocation + '/userfeedback';
+		return {
+			//获取数据列表
+			findinfos: function(pageNo, pageSize, parmValue, status, startTime, endTime) {
+				var defer = $q.defer();
+				var url = baseUrl + "/findinfos?pageNo=" + pageNo + "&pageSize=" + pageSize;
+				if(status === 0) {
+					url += "&status=" + status;
+				} else {
+					if(status) {
+						url += "&status=" + status;
+					}
+				}
+				if(parmValue === 0) {
+					url += "&parmValue=" + parmValue;
+				} else {
+					if(parmValue) {
+						url += "&parmValue=" + parmValue;
+					}
+				}
+				if(startTime) {
+					url += "&startTime=" + startTime;
+				}
+				if(endTime) {
+					url += "&endTime=" + endTime;
+				}
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//根据ID获取数据详情
+			getinfo: function(id) {
+				var defer = $q.defer();
+				var url = baseUrl + "/getinfo/" + id;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//更改状态，状态值（0禁用 1正常 2已删除）
+			updatestatus: function(feedbackId, userId, status) {
+				var defer = $q.defer();
+				var url = baseUrl + "/updatestatus?feedbackId=" + feedbackId + "&userId=" + userId + "&status=" + status;
+				$http({
+					method: 'PUT',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			}
+		}
+	});

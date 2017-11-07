@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/Desktop/学习文件/angular2" />
+    <content url="file://$USER_HOME$/Desktop/学习文件/第八期正式课课件" />
+    <content url="file://$USER_HOME$/Desktop/移动端" />
+    <content url="file://D:/node" />
+    <content url="file://$MODULE_DIR$/../../zhec-mall-wap" />
+    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$/../../zhec-manager-web" />
+    <content url="file://D:/前端demo" />
+    <content url="file://E:/shaoguan" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="shaoguan node_modules" level="project" />
+  </component>
+</module>

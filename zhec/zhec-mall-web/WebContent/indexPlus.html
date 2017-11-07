@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html ng-app="indexPlusApp" ng-controller="IndexPlusController">
+
+	<head>
+		<script type="text/javascript">
+			//IE8以及以下
+			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+				alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+				window.open("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100", "_self");
+			}
+		</script>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script language="javascript">
+			if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+
+			}else{
+				var strDelete = publicUrlMall.split("/mall");
+				publicUrlMall = strDelete[0] + strDelete[1];
+			}
+			document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/index/index.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/index/IndexPlusConfig.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/jsplugin/unslider.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/jsplugin/index.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/me-lazyload/me-lazyload.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/index/IndexPlusController.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/services/index/IndexPlusService.js><\/script>");
+		</script>
+
+
+		<title>鹿医生(LYS613.COM)-用药不愁 健康无忧!</title>
+
+	</head>
+
+	<body>
+		<headerpage></headerpage>
+		<!---------------头导航条---------------------------->
+		<smallcart></smallcart>
+
+		<!---------------头导航条---------------------------->
+		<div class="banner">
+			<div class="banner_all">
+				<ul class="banner_all_ul">
+					<li class="banner_all_ul_li banner_all_ul_li_index_li" id="banner_all_li">
+						<i></i>
+						<a>全部商品</a>
+
+					</li>
+					<!-- <li class="banner_all_ul_li" ng-repeat="headsever in headsevers">
+
+				<a ng-href="{{headsever.link}}" target="_blank" ng-bind="headsever.title"></a>
+			</li> -->
+				</ul>
+			</div>
+		</div>
+		<div class="nav_index clearfix">
+			<div class="left_hide floa_l">
+				<ol class="left_hide_ol">
+					<li class="left_hide_ol_li_0  left_hide_ol_al" ng-repeat="header in headseversa">
+						<i></i>
+						<!-- 分类不可点击 -->
+						<!-- <b ng-bind="header.name"></b> -->
+						<!-- 分类可以点击 -->
+						<a ng-href="list.html?cat={{header.id}},1,0,0,0,0" target="_blank" ng-bind="header.name"></a>
+						<span>
+				</span>
+						<div class="left_hide_right">
+							<ul class="left_hide_div_ul banner_float">
+								<li class="left_hide_div_ul_li" ng-repeat="head in header.childrenList">
+									<ul class="left_hide_div_ul_li_ul">
+										<li class="left_hide_div_ul_li_ul_li">
+											<label>
+												<!-- 分类不可点击 -->
+												<!-- <b ng-bind="head.name"></b> -->
+												<!-- 分类可以点击 -->
+												<a ng-href="list.html?cat={{head.id}},1,0,0,0,0" target="_blank" ng-bind="head.name"></a>
+												<span></span>
+											</label>
+										</li>
+										<li ng-repeat="heads in head.childrenList">
+											<a ng-href="list.html?cat={{heads.id}},1,0,0,0,0" target="_blank" ng-bind="heads.name"></a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ol>
+			</div>
+
+			<div class="carousel floa_l banner" id="b04">
+				<ul>
+					<li ng-repeat="carousels in carousel">
+						<a ng-href="{{carousels.imageLink}}" target="getTarget(carousels.target)"><img ng-src="{{carousels.imageUrl}}" alt="" width="820" height="480"></a>
+					</li>
+
+				</ul>
+				<a href="javascript:void(0);" class="unslider-arrow04 prev"><img class="arrow" id="al" ng-src="images/arrowl.png" width="20" height="35"></a>
+				<a href="javascript:void(0);" class="unslider-arrow04 next"><img class="arrow" id="ar" ng-src="images/arrowr.png" width="20" height="37"></a>
+			</div>
+			<div class="consult floa_l">
+				<ul>
+					<li>
+						<a href="###">
+							<img lazy-src="images/zx.png" />
+						</a> 咨询客服</li>
+					<li>
+						<ol>
+							<li>
+								<a href="###">
+									<img lazy-src="images/z1.png">
+								</a>
+								<p>优质服务</p>
+							</li>
+							<li>
+								<a href="###">
+									<img lazy-src="images/z2.png">
+								</a>
+								<p>品牌授权</p>
+							</li>
+							<li>
+								<a href="###">
+									<img lazy-src="images/z3.png">
+								</a>
+								<p>退换无忧</p>
+							</li>
+							<li>
+								<a href="###">
+									<img lazy-src="images/z4.png">
+								</a>
+								<p>正品保证</p>
+							</li>
+							<li>
+								<a href="###">
+									<img lazy-src="images/z5.png">
+								</a>
+								<p>隐私保护</p>
+							</li>
+							<li>
+								<a href="###">
+									<img lazy-src="images/z6.png">
+								</a>
+								<p>快速发货</p>
+							</li>
+						</ol>
+					</li>
+					<li ng-repeat="services in service track by $index" ng-hide="$index>0">
+						<a ng-href="{{services.imageLink}}" target="_blank">
+							<img lazy-src="{{services.imageUrl}}" />
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="conterna">
+			<ul>
+				<li></li>
+				<li>每日推荐</li>
+				<li></li>
+			</ul>
+
+		</div>
+		<div class="tjgoods clearfix">
+			<ul>
+				<li ng-repeat="recommends in recommend">
+					<a ng-href="{{recommends.imageLink}}" target="getTarget(recommends.target)"><img lazy-src="{{recommends.imageUrl}}"></a>
+				</li>
+			</ul>
+		</div>
+		<div class="index_big">
+			<a ng-href="{{advert.imageLink}}" target="getTarget(advert.target)">
+				<img lazy-src="{{advert.imageUrl}}">
+			</a>
+		</div>
+		<div class="conter clearfix">
+			<ul class="conter_content" id="mainNav">
+				<li class="content_one">
+					<div class="content_head" id="conter_one">
+						<div class="content_icon con icontent">
+							<img lazy-src="images/floor1.png">
+						</div>
+						<div class="contnet_bt con">家庭常备</div>
+					</div>
+					<ul class="family">
+						<li class="family_one">
+							<ul class="family_htword">
+								<li ng-repeat="familys in family">
+									<a ng-href="list.html?cat={{familys.id}},1,0,0,0,0" target="_blank" ng-bind="familys.name"></a>
+								</li>
+
+							</ul>
+						</li>
+						<li class="famliy_big2 bg" ng-repeat="familyprs in familypr">
+							<a ng-href="{{familyprs.imageLink}}" target="getTarget(familyprs.target)"><img lazy-src="{{familyprs.imageUrl}}" /></a>
+						</li>
+
+						<li class="family_small">
+							<ul class="family_all">
+								<li ng-repeat="familycats in familycat">
+									<a ng-href="brandlist.html?brand=1,0,0,{{familycats.id}}" target="_blank"><img lazy-src="{{familycats.image}}"></a>
+								</li>
+
+							</ul>
+						</li>
+						<li class="family_sam">
+							<ul class="family_four">
+								<li ng-repeat="familyshs in familysh">
+									<div class="product_head">
+										<img lazy-src="images/prescription.png" ng-if="isRxShow(familyshs.goodsType)">
+										<a ng-href="goods.html?id={{familyshs.id}}" target="_blank" ng-bind="familyshs.name1"></a>
+									</div>
+
+									<div class="product_footer" ng-bind="familyshs.salesPrice | priceFormatFilter"></div>
+									<div class="product_conter">
+										<a ng-href="goods.html?id={{familyshs.id}}" target="_blank">
+											<img lazy-src="{{familyshs.masterImg}}" />
+										</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="content_one">
+					<div class="content_head" id="conter_two">
+						<div class="content_icon con icontent1">
+							<img lazy-src="images/floor2.png">
+						</div>
+						<div class="contnet_bt con">中老年专区</div>
+					</div>
+					<ul class="family">
+						<li class="family_one">
+							<ul class="family_htword">
+								<li ng-repeat="olders in older">
+									<a ng-href="list.html?cat={{olders.id}},1,0,0,0,0" target="_blank" ng-bind="olders.name"></a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="famliy_big1 bg" ng-repeat="olderprs in olderpr">
+							<a ng-href="{{olderprs.imageLink}}" target="getTarget(olderprs.target)"><img lazy-src="{{olderprs.imageUrl}}" /></a>
+						</li>
+						<li class="family_small">
+							<ul class="family_all">
+								<li ng-repeat="oldercats in oldercat">
+									<a ng-href="brandlist.html?brand=1,0,0,{{oldercats.id}}" target="_blank"><img lazy-src="{{oldercats.image}}"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="family_sam">
+							<ul class="family_four">
+								<li ng-repeat="oldershs in oldersh">
+									<div class="product_head">
+										<img lazy-src="images/prescription.png" ng-if="isRxShow(oldershs.goodsType)">
+										<a ng-href="goods.html?id={{oldershs.id}}" target="_blank" ng-bind="oldershs.name1"></a>
+									</div>
+									<div class="product_footer" ng-bind="oldershs.salesPrice | priceFormatFilter"></div>
+									<div class="product_conter">
+										<a ng-href="goods.html?id={{oldershs.id}}" target="_blank">
+											<img lazy-src="{{oldershs.masterImg}}" />
+										</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="content_one">
+					<div class="content_head" id="conter_three">
+						<div class="content_icon con icontent2">
+							<img lazy-src="images/floor3.png">
+						</div>
+						<div class="contnet_bt con">男性医馆</div>
+					</div>
+					<ul class="family">
+						<li class="family_one">
+							<ul class="family_htword">
+								<li ng-repeat="mans in man">
+									<a ng-href="list.html?cat={{mans.id}},1,0,0,0,0" target="_blank" ng-bind="mans.name"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="famliy_big2 bg" ng-repeat="manprs in manpr">
+							<a ng-href="{{manprs.imageLink}}" target="getTarget(manprs.target)"><img lazy-src="{{manprs.imageUrl}}" /></a>
+						</li>
+						<li class="family_small">
+							<ul class="family_all">
+								<li ng-repeat="mancats in mancat">
+									<a ng-href="brandlist.html?brand=1,0,0,{{mancats.id}}" target="_blank"><img lazy-src="{{mancats.image}}"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="family_sam">
+							<ul class="family_four">
+								<li ng-repeat="manshs in mansh">
+									<div class="product_head">
+										<img lazy-src="images/prescription.png" ng-if="isRxShow(manshs.goodsType)">
+										<a ng-href="goods.html?id={{manshs.id}}" target="_blank" ng-bind="manshs.name1"></a>
+									</div>
+									<div class="product_footer" ng-bind="manshs.salesPrice | priceFormatFilter"></div>
+									<div class="product_conter">
+										<a ng-href="goods.html?id={{manshs.id}}" target="_blank">
+											<img lazy-src="{{manshs.masterImg}}" />
+
+										</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="content_one">
+					<div class="content_head" id="conter_four">
+						<div class="content_icon con icontent3">
+							<img lazy-src="images/floor4.png">
+						</div>
+						<div class="contnet_bt con">女性医馆</div>
+					</div>
+					<ul class="family">
+						<li class="family_one">
+							<ul class="family_htword">
+								<li ng-repeat="womens in women">
+									<a ng-href="list.html?cat={{womens.id}},1,0,0,0,0" target="_blank" ng-bind="womens.name"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="famliy_big2 bg" ng-repeat="womenprs in womenpr">
+							<a ng-href="{{womenprs.imageLink}}" target="getTarget(womenprs.target)"><img lazy-src="{{womenprs.imageUrl}}" /></a>
+						</li>
+						<li class="family_small">
+							<ul class="family_all">
+								<li ng-repeat="womencats in womencat">
+									<a ng-href="brandlist.html?brand=1,0,0,{{womencats.id}}" target="_blank"><img lazy-src="{{womencats.image}}"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="family_sam">
+							<ul class="family_four">
+								<li ng-repeat="womenshs in womensh">
+									<div class="product_head">
+										<img lazy-src="images/prescription.png" ng-if="isRxShow(good.goodsType)">
+										<a ng-href="goods.html?id={{womenshs.id}}" target="_blank" ng-bind="womenshs.name1"></a>
+									</div>
+									<div class="product_footer" ng-bind="womenshs.salesPrice | priceFormatFilter"></div>
+									<div class="product_conter">
+										<a ng-href="goods.html?id={{womenshs.id}}" target="_blank">
+											<img lazy-src="{{womenshs.masterImg}}" />
+										</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="content_one">
+					<div class="content_head" id="conter_five">
+						<div class="content_icon con icontent4">
+							<img lazy-src="images/floor5.png">
+						</div>
+						<div class="contnet_bt con">母婴乐园</div>
+					</div>
+					<ul class="family">
+						<li class="family_one">
+							<ul class="family_htword">
+								<li ng-repeat="mothers in mother">
+									<a ng-href="list.html?cat={{mothers.id}},1,0,0,0,0" target="_blank" ng-bind="mothers.name"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="famliy_big2 bg" ng-repeat="motherprs in motherpr">
+							<a ng-href="{{motherprs.imageLink}}" target="getTarget(motherprs.target)"><img lazy-src="{{motherprs.imageUrl}}" /></a>
+						</li>
+						<li class="family_small">
+							<ul class="family_all">
+								<li ng-repeat="mothercats in mothercat">
+									<a ng-href="brandlist.html?brand=1,0,0,{{mothercats.id}}" target="_blank"><img lazy-src="{{mothercats.image}}"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="family_sam">
+							<ul class="family_four">
+								<li ng-repeat="mothershs in mothersh">
+									<div class="product_head">
+										<img lazy-src="images/prescription.png" ng-if="isRxShow(mothershs.goodsType)">
+										<a ng-href="goods.html?id={{mothershs.id}}" target="_blank" ng-bind="mothershs.name1"></a>
+									</div>
+									<div class="product_footer" ng-bind="mothershs.salesPrice | priceFormatFilter"></div>
+									<div class="product_conter">
+										<a ng-href="goods.html?id={{mothershs.id}}" target="_blank">
+											<img lazy-src="{{mothershs.masterImg}}" />
+										</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="content_one">
+					<div class="content_head" id="conter_six">
+						<div class="content_icon con icontent5">
+							<img lazy-src="images/floor6.png">
+						</div>
+						<div class="contnet_bt con">养生保健</div>
+					</div>
+					<ul class="family">
+						<li class="family_one">
+							<ul class="family_htword">
+								<li ng-repeat="lifes in life">
+									<a ng-href="list.html?cat={{lifes.id}},1,0,0,0,0" target="_blank" ng-bind="lifes.name"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="famliy_big2 bg" ng-repeat="lifeprs in lifepr">
+							<a ng-href="{{lifeprs.imageLink}}" target="getTarget(lifeprs.target)"><img lazy-src="{{lifeprs.imageUrl}}" /></a>
+						</li>
+						<li class="family_small">
+							<ul class="family_all">
+								<li ng-repeat="lifecats in lifecat">
+									<a ng-href="brandlist.html?brand=1,0,0,{{lifecats.id}}" target="_blank"><img lazy-src="{{lifecats.image}}"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="family_sam">
+							<ul class="family_four">
+								<li ng-repeat="lifeshs in lifesh">
+									<div class="product_head">
+										<img lazy-src="images/prescription.png" ng-if="isRxShow(lifeshs.goodsType)">
+										<a ng-href="goods.html?id={{lifeshs.id}}" target="_blank" ng-bind="lifeshs.name1"></a>
+									</div>
+									<div class="product_footer" ng-bind="lifeshs.salesPrice | priceFormatFilter"></div>
+									<div class="product_conter">
+										<a ng-href="goods.html?id={{lifeshs.id}}" target="_blank">
+											<img lazy-src="{{lifeshs.masterImg}}" />
+
+										</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="content_one">
+					<div class="content_head" id="conter_seven">
+						<div class="content_icon con icontent6">
+							<img lazy-src="images/floor7.png">
+						</div>
+						<div class="contnet_bt con">医疗器械</div>
+					</div>
+					<ul class="family">
+						<li class="family_one">
+							<ul class="family_htword">
+								<li ng-repeat="treatments in treatment">
+									<a ng-href="list.html?cat={{treatments.id}},1,0,0,0,0" target="_blank" ng-bind="treatments.name"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="famliy_big2 bg" ng-repeat="treatmentprs in treatmentpr">
+							<a ng-href="{{treatmentprs.imageLink}}" target="getTarget(treatmentprs.target)"><img lazy-src="{{treatmentprs.imageUrl}}" /></a>
+						</li>
+						<li class="family_small">
+							<ul class="family_all">
+								<li ng-repeat="treatmentcates in treatmentcat">
+									<a ng-href="brandlist.html?brand=1,0,0,{{treatmentcates.id}}" target="_blank"><img lazy-src="{{treatmentcates.image}}"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="family_sam">
+							<ul class="family_four">
+								<li ng-repeat="treatmentshs in treatmentsh">
+									<div class="product_head">
+										<img lazy-src="images/prescription.png" ng-if="isRxShow(treatmentshs.goodsType)">
+										<a ng-href="goods.html?id={{treatmentshs.id}}" target="_blank" ng-bind="treatmentshs.name1"></a>
+									</div>
+									<div class="product_footer" ng-bind="treatmentshs.salesPrice | priceFormatFilter"></div>
+									<div class="product_conter">
+										<a ng-href="goods.html?id={{treatmentshs.id}}" target="_blank">
+											<img lazy-src="{{treatmentshs.masterImg}}" />
+
+										</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="content_one">
+					<div class="content_head" id="conter_eight">
+						<div class="content_icon con icontent7">
+							<img lazy-src="images/floor8.png">
+						</div>
+						<div class="contnet_bt con">两性用品</div>
+					</div>
+					<ul class="family">
+						<li class="family_one">
+							<ul class="family_htword">
+								<li ng-repeat="bisexuals in bisexual">
+									<a ng-href="list.html?cat={{bisexuals.id}},1,0,0,0,0" target="_blank" ng-bind="bisexuals.name"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="famliy_big2 bg" ng-repeat="bisexualprs in bisexualpr">
+							<a ng-href="{{bisexualprs.imageLink}}" target="getTarget(bisexualprs.target)"><img lazy-src="{{bisexualprs.imageUrl}}" /></a>
+						</li>
+						<li class="family_small">
+							<ul class="family_all">
+								<li ng-repeat="bisexualcats in bisexualcat">
+									<a ng-href="brandlist.html?brand=1,0,0,{{bisexualcats.id}}" target="_blank"><img lazy-src="{{bisexualcats.image}}"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="family_sam">
+							<ul class="family_four">
+								<li ng-repeat="bisexualshs in bisexualsh">
+									<div class="product_head">
+										<img lazy-src="images/prescription.png" ng-if="isRxShow(bisexualshs.goodsType)">
+										<a ng-href="goods.html?id={{bisexualshs.id}}" target="_blank" ng-bind="bisexualshs.name1"></a>
+									</div>
+									<div class="product_footer" ng-bind="bisexualshs.salesPrice | priceFormatFilter"></div>
+									<div class="product_conter">
+										<a ng-href="goods.html?id={{bisexualshs.id}}" target="_blank">
+											<img lazy-src="{{bisexualshs.masterImg}}" />
+
+										</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="content_one">
+					<div class="content_head" id="conter_nine">
+						<div class="content_icon con icontent8">
+							<img lazy-src="images/floor9.png">
+						</div>
+						<div class="contnet_bt con">个护美妆</div>
+					</div>
+					<ul class="family">
+						<li class="family_one">
+							<ul class="family_htword">
+								<li ng-repeat="personals in personal">
+									<a ng-href="list.html?cat={{personals.id}},1,0,0,0,0" target="_blank" ng-bind="personals.name"></a>
+								</li>
+							</ul>
+						</li>
+						<li class="famliy_big2 bg" ng-repeat="personalprs in personalpr">
+							<a ng-href="{{personalprs.imageLink}}" target="getTarget(personalprs.target)"><img lazy-src="{{personalprs.imageUrl}}" /></a>
+						</li>
+						<li class="family_small">
+							<ul class="family_all">
+								<li ng-repeat="personalcats in personalcat">
+									<a ng-href="brandlist.html?brand=1,0,0,{{personalcats.id}}" target="_blank"><img lazy-src="{{personalcats.image}}"></a>
+								</li>
+
+							</ul>
+						</li>
+						<li class="family_sam">
+							<ul class="family_four">
+								<li ng-repeat="personalshs in personalsh">
+									<div class="product_head">
+										<img lazy-src="images/prescription.png" ng-if="isRxShow(personalshs.goodsType)">
+										<a ng-href="goods.html?id={{personalshs.id}}" target="_blank" ng-bind="personalshs.name1"></a>
+									</div>
+									<div class="product_footer" ng-bind="personalshs.salesPrice | priceFormatFilter"></div>
+									<div class="product_conter">
+										<a ng-href="goods.html?id={{personalshs.id}}" target="_blank">
+											<img lazy-src="{{personalshs.masterImg}}" />
+
+										</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<!--右侧固定栏-->
+		<div class="fix_right" id="LoutiNav" style="display: none;">
+			<div class="fix_log">
+				<a onclick="javascript:window.open('http://kefu.easemob.com/webim/im.html?tenantId=27794&amp;hide=false&amp;resources=&amp;ticket=true', '_blank')">
+					<img lazy-src="images/cbl.png">
+				</a>
+			</div>
+			<ul>
+				<li class="showStairs active1">
+					<a  title="家庭常备">1</a>
+				</li>
+				<li class="showStairs">
+					<a title="中老年专区">2</a>
+				</li>
+				<li class="showStairs">
+					<a title="男性医馆">3</a>
+				</li>
+				<li class="showStairs">
+					<a title="女性医馆">4</a>
+				</li>
+				<li class="showStairs">
+					<a title="母婴乐园">5</a>
+				</li>
+				<li class="showStairs">
+					<a title="养生保健">6</a>
+				</li>
+				<li class="showStairs">
+					<a title="医疗器械">7</a>
+				</li>
+				<li class="showStairs">
+					<a title="两性用品">8</a>
+				</li>
+				<li class="showStairs">
+					<a title="个护美妆">9</a>
+				</li>
+				<li>
+					<a href="cart.html" target = "_blank" title="购物车"></a>
+				</li>
+				<li>
+					<a href="member.html" target = "_blank" title="会员中心"></a>
+				</li>
+				<li class="last">
+					<a title="返回顶部">
+						<img lazy-src="images/u472.png">
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!--尾部-->
+		<footerpage></footerpage>
+
+</html>

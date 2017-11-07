@@ -1,0 +1,236 @@
+@charset "UTF-8";
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+button{
+  cursor:pointer;
+}
+.conter_logreg .conter_br {
+  width: 100%;
+  height: 60px;
+  background: #2cc4fd;
+}
+.conter_logreg .conter_div {
+  width: 867px;
+  height: 461px;
+  margin: 0 auto;
+  background: white;
+}
+.conter_logreg .conter_div .conter_head {
+  width: 100%;
+  height: 72px;
+}
+.conter_logreg .conter_div .conter_head .conter_head_ul {
+  width: 812px;
+  height: 70px;
+  margin: 0 auto;
+  border-bottom: 1px solid #ccc;
+  font-family: "微软雅黑 Regular", "微软雅黑";
+}
+.conter_logreg .conter_div .conter_head .conter_head_ul > li {
+  float: right;
+  height: 70px;
+}
+.conter_logreg .conter_div .conter_head .conter_head_ul > li:nth-child(1) {
+  float: left;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  color: #00A2D9;
+  line-height: 91px;
+  font-family: inherit;
+}
+.conter_logreg .conter_div .conter_head .conter_head_ul > li:nth-child(2) {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 109px;
+  color: #A1A1A1;
+}
+.conter_logreg .conter_div .conter_head .conter_head_ul > li:nth-child(2) > a {
+  color: #A1A1A1;
+}
+.conter_logreg .conter_div .conter_head .conter_head_ul > li:nth-child(2) > a:hover {
+  color: #ff9900;
+}
+.conter_logreg .conter_div .conter_head .conter_head_ul > li:nth-child(3) {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 109px;
+  color: #A1A1A1;
+}
+.conter_logreg .conter_div .conter_con_ul {
+  width: 100%;
+  height: 146px;
+  margin: 30px auto;
+}
+.conter_logreg .conter_div .conter_con_ul > li {
+  float: left;
+  width: 299px;
+  height: 40px;
+}
+.conter_logreg .conter_div .conter_con_ul > li:nth-child(2) > ul > li:nth-child(1) .conter_input_div > i {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background-image: url('../images/u22.png?1481593272');
+  background-repeat: no-repeat;
+  background-size:contain ;
+  margin-top: 13px;
+}
+.conter_logreg .conter_div .conter_con_ul > li:nth-child(3) > ul > li:nth-child(1) .conter_input_div > i {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background-image: url('../images/u24.png?1481593272');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.conter_logreg .conter_div .conter_con_ul > li:nth-child(4) > ul > li:nth-child(1) .conter_input_div > i {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background-image: url('../images/u24.png?1481593272');
+  background-repeat: no-repeat;
+  background-size:contain ;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one {
+  margin-top: 33px;
+  margin-left: 96px;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul {
+  width: 299px;
+  height: 40px;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li {
+  float: left;
+  height: 100%;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li:nth-child(1) {
+  width: 48px;
+  height: 40px;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li .conter_input_div {
+  width: 22px;
+  height: 22px;
+  margin: 9px auto;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li .conter_input_div > i {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background-image: url('../images/u9.png?1481593272');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li:nth-child(2) {
+  width: 249px;
+  height: 96%;
+  border: 1px solid #ccc;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li input[type=text], .conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li input[type=password] {
+  width: 99%;
+  height: 95%;
+  border: 0;
+  text-indent: 10px;
+  border: none;
+  outline: medium;
+  font-size: 14px;
+  font-family: "微软雅黑 Regular", "微软雅黑";
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li:nth-child(3) {
+  width: 27px;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-left: 0;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li:nth-child(3) > input {
+  width: 136px;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li .conter_input_span {
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin-left: 10px;
+  margin-top: 9px;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li .conter_input_span {
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin-left: 9px;
+  margin-top: 14px;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul > li .conter_input_span > i {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-image: url('../images/u12.png?1481455629');
+  background-repeat: no-repeat;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul #conter_con_ul_input_one {
+  width: 138px;
+  height: 98%;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul #conter_con_ul_input_li {
+  width: 110px;
+  height: 98%;
+}
+.conter_logreg .conter_div .conter_con_ul .conter_con_ul_li_one > ul #conter_con_ul_input_li > button {
+  width: 111px;
+  height: 100%;
+  border: none;
+  outline: medium;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  color: #FFFFFF;
+  float: rigth;
+  font-family: "微软雅黑 Regular", "微软雅黑";
+}
+.conter_logreg .conter_btn {
+  width: 100%;
+  height: 40px;
+  margin-top: 51px;
+}
+.conter_logreg .conter_btn > button {
+  width: 251px;
+  height: 40px;
+  margin-left: 308px;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  color: #FFFFFF;
+  border: 0;
+  font-family: "微软雅黑 Regular", "微软雅黑";
+}
+.conter_logreg .conter_radio {
+  width: 100%;
+  height: 20px;
+  margin-top: 10px;
+  color: #A1A1A1;
+}
+.conter_logreg .conter_radio > label {
+  width: 132px;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.conter_logreg .conter_radio > label > input[type=radio] {
+  margin-left: 358px;
+}
+.conter_logreg .conter_radio > label > span:hover > a {
+  border-bottom: 1px solid #FF9900;
+}
+.notallowClick{
+	cursor: not-allowed;
+	background-color:#ccc;
+}
+.allowClick{
+	background: #199fd7;
+}
+.forgetPasswordBtn{
+	background: #199fd7;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="mywapApp" >
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--公共静态css-->
+		<link rel="stylesheet" type="text/css" href="css/screen.css" />
+		<link rel="stylesheet" type="text/css" href="css/plugins/ngVerify/ngVerify.css" />
+		<link rel="stylesheet" type="text/css" href="css/plugins/ngDialog/ngDialog.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/plugins/ngDialog/ngDialog-theme-default.min.css" />
+		<link rel="stylesheet" type="text/css" href="vendor/jDialog/jDialog.css" />
+		<link rel="stylesheet" type="text/css" href="css/plugins/swiper/swiper-3.3.1.min.css" />
+		<!-- 公共js文件 -->
+		
+		<!--<script src="vendor/vconsole.min.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="js/zhecConfig.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
+		<script src="vendor/angular/angular.min.js"></script>
+		<script src="vendor/dataPicker/dataPicker.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/common/CommonService.js"></script>
+		<script type="text/javascript" src="js/common/CommonFilter.js"></script>
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/config.js"></script>
+		<script src="js/router.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/common/cookie.js"></script>
+		<script src="js/common/zhec.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/interceptor.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/common/directives.js"></script>
+		<script src="js/common/globalController.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 二维码 -->
+		<script src="vendor/angular-qr/bower_components/qrcode/lib/qrcode.min.js"></script>
+		<script src="vendor/angular-qr/angular-qr.min.js"></script>
+		<!--jDialog-->
+		<script src="vendor/jDialog/jDialog.js" type="text/javascript" charset="utf-8"></script>
+		<!--懒加载-->
+		<script src="vendor/oclazyload/dist/ocLazyLoad.min.js"></script>
+		<!--路由-->
+		<script src="vendor/ui-router/angular-ui-router.min.js"></script>
+		<!--swiper-->
+		<script src="vendor/swiper/swiper-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- ngDialog -->
+		<script src="vendor/ngDialog/ngDialog.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- ngVerify -->
+		<script src="vendor/ngVerify/ngVerify.js" type="text/javascript" charset="utf-8"></script>
+		<!--类似于IOS下拉框得插件-->
+		<link rel="stylesheet" type="text/css" href="vendor/iosSelect/iosSelect.css"/>
+		<script src="vendor/iosSelect/iosSelect.js" type="text/javascript" charset="utf-8"></script>
+		<script src="vendor/iosSelect/iscroll.js" type="text/javascript" charset="utf-8"></script>
+		<script src="vendor/iosSelect/submitorder.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body ng-controller="globalController as main">
+		<div ui-view></div>
+	</body>
+		
+</html>

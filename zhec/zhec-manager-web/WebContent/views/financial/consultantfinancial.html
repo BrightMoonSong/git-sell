@@ -1,0 +1,218 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+
+        <div class="col-lg-9">
+            <div class="ibox-title">
+                <div class="heading">
+                    <!-- 搜索  -->
+                    <div class="form-group col-lg-3">
+                        <select ng-model="status" ng-options="sh.id as sh.name for sh in financleList" class="col-lg-2 form-control">
+                            <option value="">---请选择---</option>
+                        </select>
+                    </div>
+
+
+                    <div class="input-group col-lg-7">
+                        <input type="text" placeholder="按顾问名称检索" class="form-control " ng-model="brandNameSearch">
+                        <span class="input-group-btn">
+									<button class="btn btn-success" type="button" ng-click="loadData(true)">
+                                        <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        </span>
+
+                    </div>
+                    <!-- /input-group -->
+                    <!-- /.col-lg-4 -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <!-- 刷新按钮 -->
+            <button type="button" class="btn btn-success pull-right" ng-click="loadData(true)">
+                <span class="glyphicon glyphicon-refresh"></span> 刷新
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>顾问名</th>
+                                <th>提现金额</th>
+                                <th>提现时间</th>
+                                <th>电话</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody style="">
+                            <tr ng-repeat="consultant in consultantMembersList">
+                                <td>{{ consultant.id }}</td>
+                                <td>{{ consultant.name}}</td>
+                                <td ng-bind="consultant.money | priceFormatFilter"></td>
+                                <td>{{ consultant.createTime }}</td>
+                                <td>{{ consultant.mobile }}</td>
+                                <td ng-show="consultant.status==1">待审核</td>
+                                <td ng-show="consultant.status==3">未到账</td>
+                                <td ng-show="consultant.status==4">已到账</td>
+                                <td ng-show="consultant.status==5">拒绝提现</td>
+                                <td ng-show="consultant.status==6">确认收款</td>
+                                <td ng-show="consultant.status==7">已打款</td>
+                                <td class="action-column">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#update" ng-click="openModal(consultant.id)">查看详情
+                                    <!--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>-->
+                                </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<datalistpager></datalistpager>
+<script type="text/ng-template" id="firstDialogId">
+    <div class="inmodal">
+        <div class="modal-header">
+            <h1 class="modal-title">顾问财务管理</h1>
+        </div>
+        <div class="">
+            <ul class="form-horizontal">
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">顾问名称：</label>
+
+                        <div class="col-sm-9">
+                            <input disabled type="text" class="form-control" ng-model="memberList.name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">性别：</label>
+
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <div class="col-sm-8" ng-if="memberList.sex==1">
+                                    <input type="text" class="form-control" value="男" readonly>
+                                </div>
+                                <div class="col-sm-8" ng-if="memberList.sex==2">
+                                    <input type="text" class="form-control" value="女" readonly>
+                                </div>
+                                <div class="col-sm-8" ng-if="memberList.sex==0">
+                                    <input type="text" class="form-control" value="保密" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">剩余余额：</label>
+
+                        <div class="col-sm-9">
+                            <span type="text" class="form-control" ng-bind="memberList.balance | priceFormatFilter" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">申请时间：</label>
+
+                        <div class="col-sm-9">
+                            <input disabled type="text" class="form-control" ng-model="memberList.createTime">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">提现金额：</label>
+
+                        <div class="col-sm-9">
+                            <span type="text" class="form-control" ng-bind="memberList.money | priceFormatFilter" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">电话：</label>
+
+                        <div class="col-sm-9">
+                            <input disabled type="text" class="form-control" ng-model="memberList.mobile">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">座机：</label>
+
+                        <div class="col-sm-9">
+                            <input disabled type="text" class="form-control" ng-model="memberList.phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-sm-3 control-label">邮箱：</label>
+
+                            <div class="col-sm-9">
+                                <input disabled type="text" class="form-control" ng-model="memberList.email">
+                            </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-sm-3 control-label">备注：</label>
+
+                            <div class="col-sm-9">
+                                <input disabled type="text" class="form-control" ng-model="memberList.remark">
+                            </div>
+                    </div>
+                    <div class="action-column" ng-show="showOption">
+                            <button type="button" class="btn btn-warning pull-right" data-toggle="modal"
+                                    data-target="#update"
+                                    ng-click="okModal(5,memberList.id,memberList.consultantId,memberList.money,memberList.remark)">
+                                禁止提现
+                                <!--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>-->
+                            </button>
+                            <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#update" ng-click="okModal(3,memberList.id,memberList.consultantId,memberList.money,memberList.remark)">
+                                允许提现
+                                <!--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>-->
+                            </button>
+
+                        </div>
+                </li>
+            </ul>
+            </div>
+        </div>
+</script>
+
+<script type="text/ng-template" id="secDialogId">
+    <div class="inmodal">
+        <div class="modal-header">
+            <h1 class="modal-title">财务审核</h1>
+        </div>
+        <div class="">
+            <ul class="form-horizontal">
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注：</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" ng-model="inputNode">
+                        </div>
+                        <div class="action-column">
+                            <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#update" ng-click="cancleModal()">取消
+                                <!--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>-->
+                            </button>
+                            <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#update" ng-click="confirmModal(inputNode)">确定
+                            </button>
+                            <!--<button type="button" ng-hide="allowSuc" class="btn btn-warning pull-right"
+                                    data-toggle="modal" data-target="#update" ng-click="banModal(inputNode)">确定
+                                &lt;!&ndash;<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&ndash;&gt;
+                            </button>-->
+
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</script>

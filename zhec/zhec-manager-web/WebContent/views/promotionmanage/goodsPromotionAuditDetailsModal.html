@@ -1,0 +1,96 @@
+<style type="text/css">
+	.singleclick {
+		background-color: #c5c5f7 !important;
+	}
+	
+	.table-striped>tbody>tr:nth-of-type(odd) {
+		background-color: #FFFFFF !important;
+	}
+	
+	tr:hover {
+		background-color: #FFFFFF !important;
+	}
+	
+	td:hover {
+		background-color: #FCFCFC !important;
+	}
+	
+	.ngdialog.ngdialog-theme-default .ngdialog-content {
+		background: #FFFFFF !important;
+	}
+	.cursorPointer {
+		cursor: pointer;
+	}
+</style>
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">促销详情</h1>
+	</div>
+	<div class="" name="myform">
+		<div ng-show="entity.goodsSelectType==2">
+			<h4 class="h4">所选分类：</h4>
+			<ul class="form-horizontal">
+				<li class="list-group-item inline cursorPointer" ng-repeat="cate in entity.promotionCateList track by $index" ng-click="cateclick(cate.id,$index)" ng-class="{active:$index==cateIndex}" style="padding: 5px;">
+					{{cate.name}}
+				</li>
+			</ul>
+		</div>
+		<div ng-show="entity.goodsSelectType==3">
+			<h4 class="h4">所选品牌：</h4>
+			<ul class="form-horizontal">
+				<li class="list-group-item inline cursorPointer" ng-repeat="brand in entity.promotionBrandsList track by $index" ng-click="brandclick(brand.id,$index)" ng-class="{active:$index==brandIndex}">
+					{{brand.name}}
+				</li>
+			</ul>
+		</div>
+		<div style="overflow: auto;max-height: 365px;width: 1132px;" id="margintop1">
+            <div class="col-sm-3" style="margin: 10px;">
+                <input type="text" class="form-control" placeholder="关键词搜索"
+                       ng-model="goodsNameSearch">
+            </div>
+			<table class="table table-striped table-bordered table-hover dataTables-example">
+				<thead>
+					<tr>
+						<th rowspan="2">商品图片</th>
+						<th rowspan="2">商品名称</th>
+						<th rowspan="2">品牌</th>
+						<th rowspan="2">分类</th>
+						<th colspan="7">货品信息</th>
+					</tr>
+					<tr>
+						<th>规格</th>
+						<th>销售底价</th>
+						<th ng-if="ifshowtype.split(',').contains(1)">WEB售价</th>
+						<th ng-if="ifshowtype.split(',').contains(1)">WEB促销价格</th>
+						<th ng-if="ifshowtype.split(',').contains(2)">WAP售价</th>
+						<th ng-if="ifshowtype.split(',').contains(2)">WAP促销价格</th>
+						<th ng-if="ifshowtype.split(',').contains(3)">APP售价</th>
+						<th ng-if="ifshowtype.split(',').contains(3)">APP促销价格</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="info in selectedGoods | filter:goodsNameSearch" ng-show="info.goodsCateId==cateId||info.goodsBrandId==brandId||entity.goodsSelectType==1||entity.goodsSelectType==4">
+					<!-- ng-click="salesPromotion(info.id,$index)"-->
+					<tr ng-repeat="pro in info.productlists track by $index">
+						<td rowspan="{{info.productlists.length}}" ng-if="$index==0"><img ng-src="{{ info.masterImg}}" onerror="javascript:this.src='../../img/loadding.gif';" alt="努力加载中..." style="width: 50px" /></td>
+						<td rowspan="{{info.productlists.length}}" ng-if="$index==0">{{ info.name1 }}</td>
+						<td rowspan="{{info.productlists.length}}" ng-if="$index==0">{{ info.goodsBrandName }}</td>
+						<td rowspan="{{info.productlists.length}}" ng-if="$index==0">{{ info.goodsCateName }}</td>
+						<td>{{ pro.attrInfo }}</td>
+						<td>{{ pro.basePrice | priceFormatFilter}}</td>
+						<td ng-if="ifshowtype.split(',').contains(1)">{{ pro.salesWebPrice | priceFormatFilter}}</td>
+						<td ng-if="ifshowtype.split(',').contains(1)">{{ pro.promotionWebPrice | priceFormatFilter}}</td>
+						<td ng-if="ifshowtype.split(',').contains(2)">{{ pro.salesWapPrice | priceFormatFilter}}</td>
+						<td ng-if="ifshowtype.split(',').contains(2)">{{ pro.promotionWapPrice | priceFormatFilter}}</td>
+						<td ng-if="ifshowtype.split(',').contains(3)">{{ pro.salesAppPrice | priceFormatFilter}}</td>
+						<td ng-if="ifshowtype.split(',').contains(3)">{{ pro.promotionAppPrice | priceFormatFilter}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+</div>

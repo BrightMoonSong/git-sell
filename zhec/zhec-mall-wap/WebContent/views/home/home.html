@@ -1,0 +1,180 @@
+<style>
+	.swiper-container {
+		width: 100%;
+		height: 100%;
+	}
+
+	.swiper-slide-width {
+		width: 40%;
+	}
+</style>
+<div class="swiper-container swiper-container-fvp">
+	<div class="swiper-wrapper">
+		<!-- 分类列表页 -->
+		<div class="swiper-slide">
+			<div class="index_head">
+				<ul class="head">
+					<li><img src="img/code.png" /></li>
+					<li class="seach_header_input ycenter" ng-click="gotoSearch()">
+						<input type="text" placeholder="高血压" />
+					</li>
+					<li class="seach_header_button" ng-click="gotoLogin()" ng-if="!isLogin">
+						<a>登录</a>
+					</li>
+					<li class="seach_header_button" ng-click="gotoMine()" ng-if="isLogin">
+						<img src="img/mine_white.png" />
+					</li>
+				</ul>
+			</div>
+			<div class="banner">
+				<div class="swiper-container  swiper-container-swiper">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" ng-repeat="banner in bannerList" repeatdone="layoutDone()" ng-cloak>
+							<a ng-href="{{banner.imageLink}}" style="display: block;width: 100%;height: 100%;">
+								<img ng-src="{{banner.imageUrl}}" style="display: block;width: 100%;height: 100%;" />
+							</a>
+						</div>
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination swiper-pagination-swiper"></div>
+				</div>
+			</div>
+			<ul class="nav">
+				<li><img src="img/fl.png" /></li>
+				<li><img src="img/wl.png" /></li>
+				<li><img src="img/kf.png" /></li>
+				<li><img src="img/ss.png" /></li>
+				<li><img src="img/wd.png" /></li>
+			</ul>
+			<!-- 专题 -->
+			<div class="nav_product">
+				<a ng-href="{{topic.imageLink}}" ng-repeat="topic in topicList"><img src="{{topic.imageUrl}}" /></a>
+			</div>
+			<div class="conter_header">
+				每日推荐
+			</div>
+			<ul class="conter">
+				<div class="swiper-container swiper-container-scroll-h">
+					<div class="swiper-wrapper">
+						<a ng-href="{{recommend.imageLink}}" class="swiper-slide swiper-slide-width" ng-repeat="recommend in recommendList" style="display: block;width: 42%;height: 100%;"><img src="{{recommend.imageUrl}}" style="display: block;width: 100%;height: 100%;"></a>
+					</div>
+					<!-- <div class="swiper-scrollbar"></div> -->
+				</div>
+			</ul>
+			<div class="conter_product">
+				<ul class="conter_product_ul">
+					<li>品牌推荐</li>
+					<li ng-click="findBrands(10, 2, 6)"><b>换一组</b></li>
+				</ul>
+				<ol class="conter_product_ol">
+					<li ng-repeat="brand in brandsList">
+						<a><img ng-src="{{brand.image}}"></a>
+					</li>
+				</ol>
+			</div>
+			<div class="conter_family clearfix">
+				<ul class="conter_product_ul" id="conter_family_head">
+					<li>家庭常备</li>
+					<li>
+						<!-- <a ng-href="####">更多</a> -->
+					</li>
+				</ul>
+				<div class="conter_family_lunbo">
+					<div class="swiper-container swiper-container-goods-ad">
+						<div class="swiper-wrapper">
+							<a ng-href="{{f1ad.imageLink}}" class="swiper-slide swiper-slide-width" ng-repeat="f1ad in f1adList" style="display: block;width: 100%;height: 100%;"><img src="{{f1ad.imageUrl}}" style="display: block;width: 100%;height: 100%;"></a>
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination swiper-pagination-swiper"></div>
+					</div>
+				</div>
+				<ol class="conter_family_ol">
+					<li ng-repeat="f1good in f1goodsList track by $index" ng-if="$index<2">
+						<ul class="conter_family_ol_ul">
+							<li>
+								<a ui-sref="info.goods({id:{{f1good.id}}})">
+									<img ng-src="{{f1good.masterImg}}" />
+								</a>
+							</li>
+							<li>
+								<a ui-sref="info.goods({id:{{f1good.id}}})" ng-bind="f1good.name1"></a>
+							</li>
+							<li ng-bind="f1good.salesPrice | priceFormatFilter"></li>
+							<li class="conter_family_ol_ul_rx" ng-if="isRxShow(f1good.goodsType)">
+								<img src="img/rxpc.png" />
+							</li>
+						</ul>
+					</li>
+				</ol>
+				<ul class="conter_family_ul clearfix">
+					<li ng-repeat="f1good in f1goodsList track by $index" ng-if="$index>=2">
+						<ol class="conter_family_ul_ol">
+							<li>
+								<a ui-sref="info.goods({id:{{f1good.id}}})" ng-bind="f1good.name1"></a>
+							</li>
+							<li>
+								<a ui-sref="info.goods({id:{{f1good.id}}})">
+									<img ng-src="{{f1good.masterImg}}" />
+								</a>
+							</li>
+							<li ng-bind="f1good.salesPrice | priceFormatFilter"></li>
+						</ol>
+					</li>
+				</ul>
+			</div>
+			<div class="conter_header">
+				猜你喜欢
+			</div>
+			<ol class="clearfix" id="conter_cnxh">
+				<li ng-repeat="commendGood in commendGoodsList">
+					<ul class="conter_family_ol_ul">
+						<li>
+							<a ui-sref="info.goods({id:commendGood.id})">
+								<img ng-src="{{commendGood.masterImg}}" />
+							</a>
+						</li>
+						<li>
+							<a ui-sref="info.goods({id:commendGood.id})" ng-bind="commendGood.name1"></a>
+						</li>
+						<li ng-bind="commendGood.salesPrice | priceFormatFilter"></li>
+						<li class="conter_family_ol_ul_rx" ng-if="isRxShow(commendGood.goodsType)">
+							<img src="img/rxpc.png" />
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<div class="foot clearfix">
+				<div class="footer">
+					客服电话： 400-333-6790
+				</div>
+				<div class="foot_div">
+					<ol class="foot_ol">
+						<li>
+							<div></div>
+							<p>ios</p>
+						</li>
+						<li>
+							<div></div>
+							<p>安卓</p>
+						</li>
+						<li>
+							<div></div>
+							<p>pc</p>
+						</li>
+					</ol>
+				</div>
+
+				<div class="foot_copy">
+					<div class="foot_copy_div">
+						<p>Copyright @ 2000-2016 </p>
+						<p>北京众会技术有限公司-众会技术网上药店版权所有 </p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 搜索中页面 -->
+		<div class="swiper-slide">
+			<searching></searching>
+		</div>
+	</div>
+</div>

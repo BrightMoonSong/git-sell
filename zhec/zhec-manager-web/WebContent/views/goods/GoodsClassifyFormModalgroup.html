@@ -1,0 +1,31 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">属性管理</h1>
+	</div>
+	<div class="modal-body" name="myform" verify-scope="tipStyle: 1">	
+		<ul class="list-group form-horizontal">
+			<li class="list-group-item" ng-repeat="updata in updataPropertiesAttr track by $index">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">分组名(*)：</label>
+
+					<div class="col-sm-9">
+						<input type="text" class="form-control" placeholder="分组名" ng-model="updata.name" ng-verify="{required:true}">
+					</div>
+					<a class="col-sm-1" ng-click="updataPropertiesAttr.splice($index,1)"><span class="glyphicon glyphicon-remove"></span></a>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-success" ng-click="add_li()">
+                <span class="glyphicon glyphicon glyphicon-plus"></span>增加一行
+            </button>
+			<button type="button" class="btn btn-warning" ng-click="okModalGroup(updataPropertiesAttr)" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span>取消
+            </button>
+		</div>
+	</div>
+
+</div>

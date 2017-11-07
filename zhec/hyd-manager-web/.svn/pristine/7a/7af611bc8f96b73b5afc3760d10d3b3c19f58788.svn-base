@@ -1,0 +1,140 @@
+<style type="text/css">
+	.btn.active,
+	.btn:active {
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+	}
+	
+	.spanin {
+		display: inline-block;
+		float: left;
+		margin-top: 5px;
+	}
+	
+	.innputy {
+		margin-top: 9px !important;
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">车型管理</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车型名称 (*)</label>
+					<div class="col-sm-9">
+						<input ng-readonly="datared" ng-verify="{min:2 ,max:30,required:true}" type="text" class="form-control" ng-model="carmodelEntiy.modelName ">
+					</div>
+				</div>
+				<div class="form-group" ng-if="!chainId">
+					<label class="col-sm-3 control-label">车型规格(*)</label>
+					<div class="col-sm-9">
+						<input ng-readonly="datared" ng-verify="{min:2 ,max:16,required:true}" type="text" class="form-control" ng-model="carmodelEntiy.modelSpec ">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">载重量(*)</label>
+					<div class="col-sm-9">
+						<input ng-readonly="datared" ng-verify="{required:true}" type="text" class="form-control" ng-model="carmodelEntiy.loadCapacity ">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车型选中图标 (*)</label>
+					<div class="col-sm-9">
+						<!--<img my-img ng-src="{{carmodelEntiy.modelImgUrlSelected}}" alt="" width="50" style="max-height: 38px;" />-->
+						<!--OSS-start -->
+						<form name="theform" style="display: none;">
+							<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+							<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+						</form>
+						<input style="display: none;" type="text" id="dirname2" value="{{idData}}" placeholder="如果不填，默认是上传到根目录" size=50>
+
+						<div id="ossfile2">
+							你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系管理员)
+						</div>
+
+						<div id="container2" style="width: 100%;clear: both;">
+							<a id="selectfiles2" href="javascript:void(0);" >
+								<button ng-if="!carmodelEntiy.modelImgUrlSelected"  style="border: 0;outline: medium;background: white;width: 50px;height: 50px">
+									<img src="../../img/plus.png" style="width: 50px;"/>
+								</button>
+								<img ng-if="carmodelEntiy.modelImgUrlSelected" style="width: 50px;" ng-src="{{carmodelEntiy.modelImgUrlSelected}}" />
+							</a>
+							<a id="postfiles2" href="javascript:void(0);" class="btn btn-warning" style="display: none;position: absolute;top: -37px;left: 179px;padding: 3px 6px;">开始上传</a>
+						</div>
+						<pre id="console2" style="display: none;"></pre>
+						<!--OSS-end -->
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车型未选中图标 (*)</label>
+					<div class="col-sm-9">
+						<!--<img my-img ng-src="{{carmodelEntiy.modelImgUrlUnselected}}" alt="" width="50" style="max-height: 38px;" />-->
+						<!--OSS-start -->
+						<input style="display: none;" type="text" id="dirname" value="{{idData}}" placeholder="如果不填，默认是上传到根目录" size=50>
+
+						<div id="ossfile">
+							你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系管理员)
+						</div>
+
+						<div id="container" style="width: 100%;clear: both;">
+							<a id="selectfiles" href="javascript:void(0);">
+								<button ng-if="!carmodelEntiy.modelImgUrlUnselected"  style="border: 0;outline: medium;background: white;width: 50px;height: 50px">
+									<img src="../../img/plus.png" style="width: 50px;"/>
+								</button>
+								<img ng-if="carmodelEntiy.modelImgUrlUnselected" style="width: 50px;" ng-src="{{carmodelEntiy.modelImgUrlUnselected}}" />
+							</a>
+							<a id="postfiles" href="javascript:void(0);" class="btn btn-warning" style="display: none;position: absolute;top: -44px;left: 179px">开始上传</a>
+						</div>
+						<pre id="console" style="display: none;"></pre>
+						<!--OSS-end -->
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">起步价 (*)</label>
+					<div class="col-sm-9">
+						<input ng-readonly="datared" ng-verify="{min:2 ,max:30,required:true}" type="text" class="form-control" ng-model="carmodelEntiy.referStartPrice ">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">排序号 (*)</label>
+					<div class="col-sm-9">
+						<input ng-readonly="datared" ng-verify="{min:1 ,max:10,required:true}" type="number" class="form-control" ng-model="carmodelEntiy.sort">
+					</div>
+				</div>
+				<!--<div class="form-group">
+					<label class="col-sm-3 control-label">状态</label>
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+
+							<input class="spanin innputy" type="radio" ng-click="check(1)" ng-checked="carmodelEntiy.status ==1" name=status value="1" ng-disabled="datared"><span class="spanin">&nbsp;启用&nbsp;</span>
+
+							<input class="spanin innputy" type="radio" ng-click="check(2)" ng-verify ng-checked="carmodelEntiy.status ==2" ng-disabled="datared" name=status value="0"><span class="spanin">&nbsp;禁用&nbsp;</span>
+						</div>
+					</div>
+				</div>-->
+
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/base64.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/upload.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/upload2.js"></script>

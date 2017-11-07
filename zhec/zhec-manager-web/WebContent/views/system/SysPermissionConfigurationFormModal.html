@@ -1,0 +1,120 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">权限配置</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<div class="col-sm-12" style="text-align: center;">
+						<div class="form-group">
+							<label class="radio-inline">
+                                <input type="radio"
+                                       ng-checked="dataEntity.parentId==0" name="parentId">&nbsp;一级目录&nbsp;
+                            </label>
+							<label class="radio-inline">
+                                <input ng-verify type="radio"
+                                       ng-checked="dataEntity.parentId!=0" name="parentId">&nbsp;二级目录&nbsp;
+                            </label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">请选择其父级目录(*)：</label>
+					<div class="col-sm-9">
+						<select class="form-control" ng-model="parentId" ng-options="x.id as x.name for x in permissionOneList" ng-change="change()">
+										<option value="">请选择所属一级目录</option>
+									</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">菜单URL(*)：</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="{min:1 ,max:30}" type="text" placeholder="菜单URL" class="form-control" ng-model="dataEntity.menuUrl">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">功能名称：</label>
+
+					<div class="col-sm-9">
+						<input ng-verify type="text" class="form-control" ng-model="dataEntity.name">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">应用范围(*)：</label>
+
+					<div class="col-sm-9">
+						<div class="form-group">
+							<label class="radio-inline"> <input type="radio"
+                                                                ng-checked="dataEntity.scope=='1'" name="scope"
+                                                                value="1" ng-model="dataEntity.scope">&nbsp;平台&nbsp;
+                            </label> <label class="radio-inline"> <input type="radio" ng-verify
+                                                                         ng-checked="dataEntity.scope=='2'"
+                                                                         name="scope" value="2"
+                                                                         ng-model="dataEntity.scope">&nbsp;顾问&nbsp;
+                        </label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">排序号(*)：</label>
+
+					<div class="col-sm-9">
+						<input type="text" class="form-control" ng-model="dataEntity.sort">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">状态(*)：</label>
+
+					<div class="col-sm-9">
+						<div class="form-group">
+							<label class="radio-inline"> <input type="radio"
+                                                                ng-checked="dataEntity.status=='1'" name="status"
+                                                                value="1" ng-model="dataEntity.status">&nbsp;正常&nbsp;
+                            </label>
+                            <label class="radio-inline"> <input type="radio" ng-verify
+                                                                     ng-checked="dataEntity.status=='0'"
+                                                                     name="status" value="0"
+                                                                     ng-model="dataEntity.status">&nbsp;禁用&nbsp;
+                        	</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">资源URL(*)：</label>
+
+					<ul class="list-group form-horizontal">
+						<li class="list-group-item" ng-repeat="updata in dataEntity.functionUrl.split(',') track by $index">
+							<div class="form-group">
+								<div class="col-sm-11">
+									<input type="text" class="form-control" placeholder="资源URL" ng-model="updata" ng-verify="{required:true}">
+								</div>
+								<a class="col-sm-1" ng-click="dataEntity.functionUrl.split(',').splice($index,1)"><span class="glyphicon glyphicon-remove"></span></a>
+							</div>
+						</li>
+					</ul>
+					<button type="button" class="btn btn-success" ng-click="add_li()">
+		                <span class="glyphicon glyphicon-floppy-disk"></span>新增
+		            </button>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+
+</div>

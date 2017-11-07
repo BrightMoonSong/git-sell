@@ -1,0 +1,201 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">修改</h1>
+    </div>
+    <div class="modal-body" name="myform" verify-scope="tipStyle: 2">
+        <!-- 标签页start -->
+        <ul class="nav nav-tabs">
+            <li ng-click="onClickTab('brand.html')">
+                <a data-toggle="tab">品牌修改</a>
+            </li>
+            <li ng-click="onClickTab('cate.html')">
+                <a data-toggle="tab">分类修改</a>
+            </li>
+
+
+        </ul>
+        <div id="mainView">
+            <div ng-include="currentTab"></div>
+        </div>
+        <!-- 订单详情 -->
+        <script type="text/ng-template" id="brand.html">
+            <style type="text/css">
+                .table-striped>tbody>tr:nth-of-type(odd) {
+                    background-color: #f9f9f9;
+                }
+
+                .table-striped>tbody>tr {
+                    background-color: #f9f9f9;
+                }
+
+                .singleclick {
+                    background-color: #c5c5f7 !important;
+                }
+
+                .dbclick {
+                    background-color: #7e9ec8 !important;
+                }
+            </style>
+            <div class="inmodal">
+                <div name="myform" style="height: 480px;">
+                    <!-- 搜索  -->
+                    <div class="col-sm-12" style="margin:10px 0;">
+                        <div class="col-sm-4">
+                            <div class="col-sm-7">
+                                <input class="form-control" type="text" placeholder="按品牌名称检索" ng-model="brandName">
+                            </div>
+                            <button class="btn btn-success col-sm-3" type="button" ng-click="initEntity(brandName)">
+        		                <span class="glyphicon glyphicon-search"></span>
+        		           </button>
+                        </div>
+                    </div>
+                    <div style="width: 300px;float: left;">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>品牌首字母</th>
+                                    <th>品牌ID</th>
+                                    <th>品牌名称</th>
+                                    <th>品牌图片</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="overflow: auto;height: 336px;width: 555px;">
+                                <tr style="width:300px" ng-repeat="info in dataEntity" ng-dblclick="selected(info)" ng-click="selected1(info)" ng-class="{'singleclick':selectedGoodsClickid.contains(info.id),'dbclick':selectedGoodsid.contains(info.id)}">
+                                    <td>{{info.firstLetter}}</td>
+                                    <td>{{info.id}}</td>
+                                    <td>{{info.name}}</td>
+                                    <td><img ng-src="{{info.image}}" style="width: 60px" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="width: 51px;float: left;padding-top: 175px;padding-left: 20px;">
+                        <span class="glyphicon glyphicon-arrow-right" style="cursor:pointer" ng-click="allChecked()"></span>
+                        <br /><br /><br />
+                        <span class="glyphicon glyphicon-arrow-left" style="cursor:pointer" ng-click="allRemove()"></span>
+                        <br />
+                    </div>
+
+                    <div style="width: 300px;float: left;">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>品牌首字母</th>
+                                    <th>品牌ID</th>
+                                    <th>品牌名称</th>
+                                    <th>品牌图片</th>
+                                </tr>
+                            </thead>
+                            <tbody style="overflow: auto;max-height: 336px;">
+                                <tr style="width:300px" ng-repeat="info in selectedGoods track by $index" ng-dblclick="remove(info)" ng-click="remove1(info)">
+                                    <td ng-if="info.id == undefined || info.id == null || info.id == ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid.contains(info.id)]">{{info.firstLetter}}</td>
+                                    <td ng-if="info.id != undefined && info.id != null && info.id != ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid.contains(info.id)]">{{info.firstLetter}}</td>
+
+                                    <td ng-if="info.id == undefined || info.id == null || info.id == ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid.contains(info.id)]">{{info.id}}</td>
+                                    <td ng-if="info.id != undefined && info.id != null && info.id != ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid.contains(info.id)]">{{info.id}}</td>
+
+                                    <td ng-if="info.id == undefined || info.id == null || info.id == ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid.contains(info.id)]">{{info.name}}</td>
+                                    <td ng-if="info.id != undefined && info.id != null && info.id != ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid.contains(info.id)]">{{info.name}}</td>
+
+                                    <td ng-if="info.id == undefined || info.id == null || info.id == ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid.contains(info.id)]" ><img ng-src="{{info.image}}" style="width: 60px" /></td>
+                                    <td ng-if="info.id != undefined && info.id != null && info.id != ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid.contains(info.id)]" ><img ng-src="{{info.image}}" style="width: 60px" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="clear: both;"></div>
+                    <div class="modal-footer" style="position: absolute;bottom: 1px;right: 1px;z-index: 999999999999;">
+                        <span ng-show="selectedGoods.length>0">（已经选中</span>
+                        <span ng-show="selectedGoods.length>0" style="color: #003EFF;">{{selectedGoods.length}}</span>
+                        <span ng-show="selectedGoods.length>0">个品牌）</span>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </script>
+
+        <script type="text/ng-template" id="cate.html">
+            <style type="text/css">
+                .table-striped>tbody>tr:nth-of-type(odd) {
+                    background-color: #f9f9f9;
+                }
+
+                .table-striped>tbody>tr {
+                    background-color: #f9f9f9;
+                }
+
+                .singleclick {
+                    background-color: #c5c5f7 !important;
+                }
+
+                .dbclick {
+                    background-color: #7e9ec8 !important;
+                }
+            </style>
+            <div class="col-sm-12" style="margin:10px 0;">
+                <div class="col-sm-2">
+                    <select ng-model="cateId" class="form-control" ng-options="sh.id as sh.name for sh in TypeList1" ng-change="TypeChange1(cateId)">
+			<option value="">---请选择商品一级分类检索---</option>
+				</select>
+                </div>
+                <div class="col-sm-2">
+                    <select ng-model="cateId1" class="form-control" ng-options="sh.id as sh.name for sh in TypeList2" ng-change="TypeChange2(cateId1)">
+            <option value="">---请选择商品二级分类检索---</option>
+                </select>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+            <div style="width: 300px;float: left;">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+                            <th>分类</th>
+                        </tr>
+                    </thead>
+                    <tbody style="overflow: auto;height: 336px;width: 555px;">
+                        <tr style="width:300px" ng-repeat="info in type" ng-dblclick="selected2(info)" ng-click="selected3(info)" ng-class="{'singleclick':selectedGoodsClickid1.contains(info.id),'dbclick':selectedGoodsid1.contains(info.id)}">
+                            <td>{{info.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="width: 51px;float: left;padding-top: 175px;padding-left: 20px;">
+                <span class="glyphicon glyphicon-arrow-right" style="cursor:pointer" ng-click="allChecked1()"></span>
+                <br /><br /><br />
+                <span class="glyphicon glyphicon-arrow-left" style="cursor:pointer" ng-click="allRemove1()"></span>
+                <br />
+            </div>
+            <div style="width: 300px;float: left;">
+                <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                        <tr>
+                            <th>分类</th>
+                        </tr>
+                    </thead>
+                    <tbody style="overflow: auto;max-height: 336px;">
+                        <tr style="width:300px" ng-repeat="info in selectedGoods1 track by $index" ng-dblclick="remove2(info)" ng-click="remove3(info)">
+                            <td ng-if="info.id == undefined || info.id == null || info.id == ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid1.contains(info.id)]">{{info.name}}</td>
+                            <td ng-if="info.id != undefined && info.id != null && info.id != ''" ng-class="{true: 'singleclick', false: ''}[removeGoodsClickid1.contains(info.id)]">{{info.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </script>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" ng-click="selectGoodsOkModal()" ng-disabled='okmodaldis'>
+        <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+    </button>
+        <button type="button" class="btn btn-success" ng-click="cancelModal()">
+        <span class="glyphicon glyphicon-share-alt"></span> 取消
+    </button>
+    </div>
+
+
+</div>

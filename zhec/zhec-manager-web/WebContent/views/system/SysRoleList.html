@@ -1,0 +1,80 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+    <div class="row marLeft15">
+        <div class="col-lg-12 ">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="heading">
+                        <!-- 搜索  -->
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" placeholder="按名称检索" class="form-control"
+                                       ng-model="nameSearch"> <span
+                                    class="input-group-btn">
+									<button class="btn btn-success" type="button"
+                                            ng-click="loadData(true)">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+								</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+				            <!-- 刷新按钮 -->
+				            <button type="button" class="btn btn-success operationBtn"
+				                    ng-click="loadData(true)">
+				                <span class="glyphicon glyphicon-refresh"></span> 刷新
+				            </button>
+				            <!-- 添加按钮触发模态框 -->
+				            <button type="button" class="btn btn-warning operationBtn"
+				                    data-toggle="modal" ng-click="openModal()">
+				                <span class="glyphicon glyphicon-plus"></span> 添加
+				            </button>
+				        </div>
+                    </div>
+                </div>
+
+                <div class="hideScroll">
+                    <div class="ibox-content showContent">
+                        <table datatable="ng" dt-options="dtOptions"
+                               class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>名称</th>
+                                <th>所属类型</th>
+                                <th>状态</th>
+                                <th class="fixedWidth300">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="role in roleList">
+                                <td>{{ role.roleId }}</td>
+                                <td>{{ role.name }}</td>
+                                <td ng-if="role.scope==1">平台</td>
+                                <td ng-if="role.scope==2">顾问</td>
+                                <td ng-if="role.status==1">正常</td>
+                                <td ng-if="role.status==0">禁用</td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            ng-click="openModal(role.roleId)">修改
+                                    </button>
+                                    <button type="button" class="btn btn-warning"
+                                            ng-click="deleteById(role.roleId)">删除
+                                    </button>
+                                    <button type="button" class="btn btn-warning"
+                                            ng-click="openPermissionModal(role.roleId,role.scope)">设置权限
+                                    </button>
+                                    <button type="button" class="btn btn-warning"
+                                            ng-click="openFindroleusersList(role.roleId,role.scope)">包含的用户
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<datalistpager></datalistpager>

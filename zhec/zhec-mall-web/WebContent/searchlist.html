@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html ng-app="searchListApp" ng-controller="SearchListController">
+	<head>
+		<script type="text/javascript">
+		    //IE8以及以下
+		    if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0")
+		    	        {
+	            alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+	           			 window.open("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100","_self");
+	                    }
+
+	    </script>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script language="javascript">
+			if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+
+			}else{
+				var strDelete = publicUrlMall.split("/mall");
+				publicUrlMall = strDelete[0] + strDelete[1];
+			}
+			document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/list/list.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/searchList/SearchListConfig.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/me-lazyload/me-lazyload.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/searchList/SearchListController.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/services/searchList/SearchListService.js><\/script>");
+		</script>
+
+		<title ng-bind="paramsKeyWord+' - 搜索商品'+' - 鹿医生'"></title>
+	</head>
+	<body>
+		<headerpage></headerpage>
+		<!---------------头导航条---------------------------->
+		<smallcart></smallcart>
+
+		<navigation-bar></navigation-bar>
+		<!----------------------居中conter--------------------------------->
+
+<!--三级菜单------------------------------------------------------------------------------>
+<div class="nav_header">
+	<!-- 首页以及后续菜单 -->
+	<a ng-href="index.html">首页<span>></span></a>
+	<a ng-href="searchlist.html?search={{paramsCategoryId}},1,0,0,0,0,{{paramsKeyWord}}" ng-bind="paramsKeyWord"></a>
+	<!-- 选择的分类 -->
+	<ul class="a_tag" ng-if="selCategoryStr != '' && selCategoryStr != undefined && selCategoryStr != null && selCategoryStr != '{}'">
+		<li>
+			<a ng-href="searchlist.html?search=0,1,{{paramsOrderid}},{{paramsInstock}},0,0,{{paramsKeyWord}}">分类:<b ng-bind="selCategory"></b><span> ×</span></a>
+		</li>
+	</ul>
+	<!-- 选择的品牌 -->
+	<ul class="a_tag" ng-if="selBrandStr != '' && selBrandStr != undefined && selBrandStr != null && selBrandStr != '{}'">
+		<li>
+			<a ng-href="searchlist.html?search={{paramsCategoryId}},1,{{paramsOrderid}},{{paramsInstock}},0,{{paramsFilterId}},{{paramsKeyWord}}" ng-repeat="(key,val) in selBrand">品牌:<b ng-bind="val"></b><span> ×</span></a>
+		</li>
+	</ul>
+	<!-- 选择的过滤属性 -->
+	<ul class="a_tag" ng-repeat="(key,val) in selFilter">
+		<li>
+			<a ng-href="searchlist.html?search={{paramsCategoryId}},1,{{paramsOrderid}},{{paramsInstock}},{{paramsBrandId}},{{val | delSelFilter:key:paramsFilterId}},{{paramsKeyWord}}"><b ng-bind="val | selFilterFormat"></b><span> ×</span></a>
+		</li>
+	</ul>
+
+	<div class="cleat" ng-if="(selCategoryStr != '' && selCategoryStr != undefined && selCategoryStr != null && selCategoryStr != '{}') || (selBrandStr != '' && selBrandStr != undefined && selBrandStr != null && selBrandStr != '{}') || (selFilterStr != '' && selFilterStr != undefined && selFilterStr != null && selFilterStr != '{}')">
+		<a ng-href="searchlist.html?search=0,1,{{paramsOrderid}},{{paramsInstock}},0,0,{{paramsKeyWord}}">清除全部&nbsp;×</a>
+	</div>
+</div>
+<div class="nav_conter clearfix showHide"  ng-show="isFilterShow()" style="display: none;">
+	<ul class="nav_ul clearfix">
+		<li class="nav_li nav-resa" ng-if="displayCateStr != '' && displayCateStr != undefined && displayCateStr != null && displayCateStr != '{}'">
+			<ul class="nav_ul_li nac">
+				<li>
+					<b>分类：</b>
+				</li>
+				<li>
+					<ul>
+						<li ng-repeat="cate in displayCate track by $index" ng-class="{sss:$index>5}">
+							<a ng-href="searchlist.html?search={{cate | getIdSplitColon}},1,{{paramsOrderid}},{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}" ng-bind="cate | getValueSplitColon"></a>
+						</li>
+					</ul>
+				</li>
+				<!-- 一行显示超过6个显示更多 -->
+				<li ng-if="displayBrand.length > 6">
+					<a href="javascript:void(0)" onclick="funct(this)">+更多</a>
+				</li>
+			</ul>
+		</li>
+		<li class="nav_li nav-resa" ng-if="isplayBrandStr != '' && displayBrandStr != undefined && displayBrandStr != null && displayBrandStr != '{}'">
+			<ul class="nav_ul_li nac">
+				<li>
+					<b>品牌：</b>
+				</li>
+				<li>
+					<ul>
+						<li ng-repeat="brand in displayBrand track by $index" ng-class="{sss:$index>5}">
+							<a ng-href="searchlist.html?search={{paramsCategoryId}},1,{{paramsOrderid}},{{paramsInstock}},{{brand | getIdSplitColon}},{{paramsFilterId}},{{paramsKeyWord}}" ng-bind="brand | getValueSplitColon"></a>
+						</li>
+					</ul>
+				</li>
+				<!-- 一行显示超过6个显示更多 -->
+				<li ng-if="displayBrand.length > 6">
+					<a href="javascript:void(0)" onclick="funct(this)">+更多</a>
+				</li>
+			</ul>
+		</li>
+		<li  ng-if="paramsCategoryId!=0" class="nav_li nav-res" ng-repeat="(key,value) in displayFilter">
+			<ul class="nav_ul_li">
+				<li>
+					<b><b ng-bind="key | getValueSplitColon"></b>：</b>
+				</li>
+				<li>
+					<ul>
+						<li ng-repeat="filter in value track by $index" ng-class="{sss:$index>5}">
+							<a ng-href="searchlist.html?search={{paramsCategoryId}},1,{{paramsOrderid}},{{paramsInstock}},{{paramsBrandId}},{{filter | addSelFilter:key:paramsFilterId}},{{paramsKeyWord}}" ng-bind="filter | getValueSplitColon"></a>
+							<!-- (paramsFilterid === '0' ? '' : paramsFilterid+'__') + filterkeyid + "_" + filteritem -->
+						</li>
+					</ul>
+				</li>
+				<li ng-if="value.length>6">
+					<a href="javascript:void(0)" onclick="funct(this)">+更多</a>
+				</li>
+
+			</ul>
+		</li>
+
+	</ul>
+</div>
+<div class="conter clearfix">
+		<ul class="conter_ul clearfix">
+			<li class="conter_left conter_li">
+				<ul class="conter_left_ul clearfix">
+					<li class="conter_tj">为您推荐</li>
+
+					<li class="conter_left_ul_li" ng-repeat="recommend in recommendList">
+						<ul class="conter_left_ul_li_ul">
+							<li class="conter_left_img">
+								<a ng-href="goods.html?id={{recommend.id}}" target="_blank">
+									<img lazy-src="{{recommend.masterImg}}" />
+								</a>
+								<span class="recipe list_tj_rx" ng-if = "isRxShow(recommend.goodsType)">
+									<img lazy-src="images/prescription.png">
+						        </span>
+							</li>
+							<li>
+								<p><a ng-href="goods.html?id={{recommend.id}}" target="_blank" ng-bind="recommend.name1"></a></p>
+							</li>
+							<li id="conter_left_ul_li_ul">
+								<p><b ng-bind="recommend.salesPrice | priceFormatFilter"></b><span ng-bind="recommend.marketPrice | priceFormatFilter"></span></p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="conter_right conter_li">
+				<ul class="conter_right_ul_list clearfix">
+					<li ng-if="!isGoodsListEmpty">
+						<ul class="conter_right_ul_ul showHide" style="display: none;">
+							<!-- 排序按钮 -->
+							<li class="color" ng-if="paramsOrderid==0"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,0,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">综合排序</a></li>
+							<li ng-if="paramsOrderid==0"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,3,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">销量</a></li>
+							<li ng-if="paramsOrderid==0"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,1,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">价格</a></li>
+
+							<li ng-if="paramsOrderid==1"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,0,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">综合排序</a></li>
+							<li ng-if="paramsOrderid==1"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,3,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">销量</a></li>
+							<li class="color" ng-if="paramsOrderid==1"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,2,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">价格<img ng-src="images/priceup.png"/></a></li>
+
+							<li ng-if="paramsOrderid==2"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,0,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">综合排序</a></li>
+							<li ng-if="paramsOrderid==2"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,3,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">销量</a></li>
+							<li class="color" ng-if="paramsOrderid==2"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,1,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">价格<img id="list_img_jt" ng-src="images/pricedown.png"/></a></li>
+
+							<li ng-if="paramsOrderid==3"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,0,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">综合排序</a></li>
+							<li class="color" ng-if="paramsOrderid ==3"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,3,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">销量</a></li>
+							<li ng-if="paramsOrderid == 3"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,1,{{paramsInstock}},{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}">价格</a></li>
+
+							<li ng-if="paramsInstock == 0"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,{{paramsOrderid}},1,{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}"><span></span>仅显示有货</a></li>
+							<li ng-if="paramsInstock == 1"><a ng-href="searchlist.html?search={{paramsCategoryId}},1,{{paramsOrderid}},0,{{paramsBrandId}},{{paramsFilterId}},{{paramsKeyWord}}"><span class="span_ys"></span>仅显示有货</a></li>
+
+							<li></li>
+							<li class="conter_right_ul_ul_right">共<span ng-bind="list.totalSize"></span>件商品</li>
+						</ul>
+					</li>
+					<div ng-if="isGoodsListEmpty" class=" conter_right_ul_ul_if_div">
+						<ul class=" conter_right_ul_ul_if">
+							<li>
+								<img src="images/scbd.png" />
+							</li>
+							<li ng-bind="'抱歉，没有找到与“'+paramsKeyWord+'”相关的商品，看一下我们为您推荐的商品吧！'">
+							</li>
+						</ul>
+					</div>
+					<li class="conter_right_ul_li"  ng-repeat="good in goodsList">
+						<ul class="conter_right_ul_li_ul">
+							<li class="conter_right_ul_li_ul_li">
+									<div class="div">
+										<a ng-href="goods.html?id={{good.id}}" target="_blank">
+											<img lazy-src="{{good.masterImg}}" />
+										</a>
+										<span class="recipe" ng-if = "isRxShow(good.goodsType)">
+											<img lazy-src="images/prescription.png">
+										</span>
+									</div>
+							</li>
+							<li class="conter_ul_li_p conter_ul_li_p_ma">
+								<p><a ng-href="goods.html?id={{good.id}}" target="_blank" ng-bind="good.name1"></a></p>
+							</li>
+							<li class="conter_ul_li_p">
+								<p ng-if="!isGoodsListEmpty"><span>规格:</span><span ng-bind="good.specification"></span></p>
+							</li>
+							<li class="conter_ul_li_p conter_ul_li_p_num">
+								<p><b ng-bind="good.salesPrice | priceFormatFilter"></b><span></span></p>
+							</li>
+							<li class="list_sp_wh" ng-if = "good.isInstock == 0">
+									无货
+							</li>
+						</ul>
+
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<datalistpager><datalistpager>
+	</div>
+</div>
+<footerpage></footerpage>
+	</body>
+</html>

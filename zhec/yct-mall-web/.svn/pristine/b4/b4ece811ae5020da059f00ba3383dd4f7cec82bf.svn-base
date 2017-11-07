@@ -1,0 +1,58 @@
+<div class="content">
+	<div class="banner">
+		<a class="detail-img ycenter xcenter">
+			<img src="../img/banner.png">
+		</a>
+	</div>
+	<div class="conter clearfix">
+		<div class="conter-list">
+			<div class="banner-Carousel-head" id="detail-left-head">
+				<span>新闻动态</span>
+			</div>
+			<ol class="detail-left-ol clearfix">
+				<li class="detail-left-ol-li-click" ng-cilck="findnews(newdetail.type)"  ng-class="{true: 'detail-left-ol-li-click', false: ''}[isActiveId==1]">
+					<a>
+						<span>*</span>
+						<span>公司公告</span>
+					</a>
+				</li>
+				<li>
+					<a>
+						<span>*</span>
+						<span>公司新闻</span>
+					</a>
+				</li>
+				<li>
+					<a>
+						<span>*</span>
+						<span>行业新闻</span>
+					</a>
+				</li>
+			</ol>
+
+		</div>
+		<div class="detail-right clearfix">
+			<div class="detail-right-head">
+				<div class="detail-right-head-left">
+					<span>*</span>
+					<span>公司公告</span>
+				</div>
+				<ul class="detail-right-head-right">
+					<li>
+						<span>您所在的位置</span>
+						<span>></span>
+					</li>
+					<li>
+						<span>行业新闻</span>
+						<span>></span>
+					</li>
+					<li>
+						公司公告
+					</li>
+				</ul>
+			</div>
+			<div class="detail-right-conter" id="detail-conyer" >
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Document</title>
+    <script src="../js/zhecConfig.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../vendor/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/plugins/swiper/swiper.min.css">
+    <script src="../vendor/swiper/swiper-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+      <div class="swiper-container" id="mainContent">  
+        <div class="swiper-wrapper">  
+          <div class="swiper-slide">
+              <form name=theform ng-hide="true">
+              <input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+              <input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+              <br/> 上传到指定目录：
+              <input type="text" value="123" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+            </form>
+            <!--<img id="imgPreview" style="max-width： 150px;" />-->
+
+            <div id="ossfile">
+              你的浏览器不支持flash,Silverlight或者HTML5
+            </div>
+            <div id="container" class="prescripiton_button pop_img_button">
+              <a id="selectfiles" href="javascript:void(0);" class="btn"><img class="showPosition"  src="../img/tjtpjh.png" /></a>
+              <!--<img class="showPosition" src="../../images/xnjj.png" />
+                      <img class="showPosition" src="../../images/xnjj.png" />
+                      <img class="showPosition" src="../../images/xnjj.png" />
+                      <img class="showPosition" src="../../images/xnjj.png" />-->
+
+              <!--<span>(最多上传五张)</span>-->
+            </div>
+            <div class="pop_img_com clearfix">
+              <a id="postfiles" style="display: none;" href="javascript:void(0);" class="btn">开始上传</a>
+            </div>
+
+            <pre id="console" ></pre>
+            <!--OSS结束 -->
+          </div>
+        </div>
+      </div>
+ <script type="text/javascript" src="../vendor/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="../vendor/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="../vendor/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="../vendor/oss/lib/base64.js"></script>
+<script type="text/javascript" src="../vendor/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="../vendor/oss/upload.js"></script>
+ <script>  
+        // var windowHeight = $(window).height(),
+        // $body = $("body");
+        // $body.css("height", windowHeight);
+        // var startX, startY, moveEndX, moveEndY, X, Y;
+     
+        // $("body").on("touchstart", function(e) {
+        //     e.preventDefault();
+        //     startX = e.originalEvent.changedTouches[0].pageX,
+        //     startY = e.originalEvent.changedTouches[0].pageY;
+        // });
+        // $("body").on("touchmove", function(e) {
+        //     e.preventDefault();
+        //     moveEndX = e.originalEvent.changedTouches[0].pageX,
+        //     moveEndY = e.originalEvent.changedTouches[0].pageY,
+        //     X = moveEndX - startX,
+        //     Y = moveEndY - startY;
+     
+        //     // if ( Math.abs(X) > Math.abs(Y) && X > 0 ) {
+        //     //     alert("left 2 right");
+        //     // }
+        //     // else if ( Math.abs(X) > Math.abs(Y) && X < 0 ) {
+        //     //     alert("right 2 left");
+        //     // }
+        //     // else if ( Math.abs(Y) > Math.abs(X) && Y > 0) {
+        //     //     alert("top 2 bottom");
+        //     // }
+        //     // else if ( Math.abs(Y) > Math.abs(X) && Y < 0 ) {
+        //     //     alert("bottom 2 top");
+        //     // }
+        //     // else{
+        //     //     alert("just touch");
+        //     // }
+        // });
+          
+        //   //滑动处理  
+        //   var startX, startY;  
+        //   document.addEventListener('touchstart',function (ev) {  
+        //       startX = ev.touches[0].pageX;  
+        //       startY = ev.touches[0].pageY;    
+        //   }, false);  
+        //   document.addEventListener('touchend',function (ev) {  
+        //       var endX, endY;  
+        //       endX = ev.changedTouches[0].pageX;  
+        //       endY = ev.changedTouches[0].pageY;
+        //       console.log(endY-startY)  
+        //       // var direction = GetSlideDirection(startX, startY, endX, endY);  
+        //       // switch(direction) {  
+        //       //     case 0:  
+        //       //         alert("没滑动");  
+        //       //         break;  
+        //       //     case 1:  
+        //       //         alert("向上");  
+        //       //         break;  
+        //       //     case 2:  
+        //       //         alert("向下");  
+        //       //         break;  
+        //       //     case 3:  
+        //       //         alert("向左");  
+        //       //         alert("!");  
+        //       //         break;  
+        //       //     case 4:  
+        //       //         alert("向右");  
+        //       //         break;  
+        //       //     default:             
+        //       // }  
+        //   }, false);  
+     
+            
+      </script>  
+</body>
+</html>

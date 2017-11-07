@@ -1,0 +1,47 @@
+<div  id="carte_head">
+	<ul class="head">
+		<li ><img src="img/fficon.png"   onclick="goback()" /></li>
+		<li class="shopping_tit">注册</li>
+		<li id="shopping_bj"><a ng-href="index.html#/info/login">登录</a></li>
+	</ul>
+</div>
+<div class="login_banner">
+	<a><img src="img/logo.png"></a>
+</div>
+<div class="login_conter clearfix">
+	<ul class="login_conter_ul clearfix">
+		<li>
+			<p>请输入手机号</p>
+			<input type="text" ng-model="userPhone" ng-blur="ifmobile()" placeholder="请输入手机号"/>
+			<span ng-click="clearInput(1)"><img src="img/scsr.png" /></span>
+		</li>
+		<li id="login_conter_ul_li">
+			<p>请输入验证码</p>
+			<input ng-model="phoneCode" type="text" placeholder="请输入验证码"/>
+			<span ng-click="clearInput(2)"><img src="img/scsr.png" /></span>
+		</li>
+		<li id="login_conter_ul_div">
+			<button  ng-bind="btnMessage" ng-disabled="paraclass == false && okModalDisabled" ng-click="getPhoneCode()"></button >
+		</li>
+		<li>
+			<p></p>
+			<input type="password" ng-model="userPassword" placeholder="请输入密码"/>
+			<span ng-click="clearInput(3)"><img src="img/scsr.png" /></span>
+		</li>
+		<li>
+			<p></p>
+			<input type="password" ng-model="confirmParssword" placeholder="请再次输入密码"/>
+			<span ng-click="clearInput(4)"><img src="img/scsr.png" /></span>
+		</li>
+		
+	</ul>
+</div>
+<div class="login_conter_button">
+	<button ng-class="{true: 'notallowClick', false: 'allowClick'}[checks == false]" ng-disabled="checks==false" ng-click="registerMember()">注册</button>
+</div>
+<div class="login_conter_foot clearfix">
+		<label class="clearfix">
+			<input ng-click="clickBox()" value="checkbox" ng-model="checkes" type="checkbox" />
+			<span>鹿医生协议</span>
+		</label>
+</div>

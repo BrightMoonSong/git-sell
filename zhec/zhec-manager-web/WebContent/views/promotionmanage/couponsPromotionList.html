@@ -1,0 +1,124 @@
+<!--优惠券-->
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="ibox-title col-lg-12" style="height: 50px">
+		<div class="heading">
+			<!-- 搜索  -->
+			<div class="col-sm-12">
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" placeholder="按名称检索" class="form-control" ng-model="parmValue">
+					</div>
+				</div>
+
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" readonly="readonly" placeholder="按下单时间检索(开始)" start-picker class="Wdate form-control" ng-model="startTime">
+					</div>
+				</div>
+
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" readonly="readonly" placeholder="按下单时间检索(结束)" end-picker class="Wdate form-control" ng-model="endTime">
+					</div>
+				</div>
+
+				<button class="btn btn-success" type="button" ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+
+				<button type="button" class="btn btn-success pull-right" style="margin-top: 0px;" ng-click="loadData(true)">
+				                <span class="glyphicon glyphicon-refresh"></span> 刷新
+				           </button>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+	</div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+
+				<div class="ibox-content">
+					<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+						<thead>
+							<tr>
+								<th>促销名称</th>
+								<th>使用平台</th>
+								<th>优惠券数量</th>
+								<th>参与商品选择类型</th>
+								<th>促销开始时间</th>
+								<th>促销结束时间</th>
+								<th>审核人</th>
+								<th>提交人</th>
+								<th style="width: 270px;">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="res in ordersAllList">
+								<td>{{ res.promotionName}}</td>
+								<td>
+									<span ng-show="res.applicablePlatform.split(',').contains(1)">WEB </span>
+									<span ng-show="res.applicablePlatform.split(',').contains(2)"> WAP </span>
+									<span ng-show="res.applicablePlatform.split(',').contains(3)"> APP</span>
+								</td>
+								<td>{{ res.couponNum}}</td>
+								<!--1 按个别商品  2 按分类  3 按品牌 4 全站-->
+								<td ng-show="res.goodsSelectType==1">按个别商品</td>
+								<td ng-show="res.goodsSelectType==2">按分类</td>
+								<td ng-show="res.goodsSelectType==3">按品牌</td>
+								<td ng-show="res.goodsSelectType==4">全站</td>
+								<td>{{ res.startTime }}</td>
+								<td>{{ res.endTime }}</td>
+								<td>{{ res.auditUser }}</td>
+								<td>{{ res.createUser}}</td>
+								<!--<td>
+									<div style="width: 100px;margin: 0 auto;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+										{{ res.remark}}
+									</div>
+								</td>-->
+								<!--auditStatus==2 通过
+								auditStatus==1 待审核-->
+								<td ng-if="res.status==1&&res.endTime.comp()">
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(1,res.id)">
+	                                    <span aria-hidden="true">维护</span>
+	                               	</button>
+	                               	
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="disable(res.id)">
+	                                    <span aria-hidden="true">禁用</span>
+	                                </button>
+	                               	
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(5,res.auditId)">
+	                                    <span aria-hidden="true">基本信息</span>
+	                                </button>
+	                               	
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(2,res.auditId)">
+	                                    <span aria-hidden="true">商品列表</span>
+	                                </button>
+	                                
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(3,res.id)">
+	                                    <span aria-hidden="true">批量发放</span>
+	                                </button>
+	                                
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(4,res.id)">
+	                                    <span aria-hidden="true">单独发放</span>
+	                                </button>
+								</td>
+								<td ng-if="res.status==0||!(res.endTime.comp())">
+									<input ng-if="res.endTime.comp()" type="text" class="btn btn-warning" style="width: 65px;" value="已禁用" />
+									<input ng-if="!(res.endTime.comp())" type="text" class="btn btn-warning" style="width: 65px;" value="已结束" />
+									<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(2,res.auditId)">
+	                                    <span aria-hidden="true">详情</span>
+	                                </button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<datalistpager></datalistpager>

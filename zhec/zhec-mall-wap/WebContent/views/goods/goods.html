@@ -1,0 +1,545 @@
+<div class="coverBody" style="background-color: #fff;opacity: 0.5;width: 100%;height: 100%;position: fixed;left: 0;top:0;z-index:15 !important">
+ 	<img style="width: 100%;height:auto;position: absolute;top:30%;left:0" src="../../img/loadding.gif"/>
+ </div>
+ <div class="detaily_sc" style="z-index: 15 !important;display: none;">
+	<span ng-bind="goodsCurrentStatus"></span>
+	<!--<a><img src="img/gb.png" /></a>-->
+</div>
+
+<!--图片放大-->
+<div class="showBigPic" style="display: none;position: fixed;width: 100%;height:100%;z-index:16;background-color: #3F3F3F;opacity: 0.6;">
+	<div class="bigImgContainer" style="width: 80%;height: auto;margin-left: 10%;">
+		<div class="swiper-container details_banner_lunbo" id="detailBanner">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" ng-repeat="imgList in bigImgList">
+					<img ng-src="{{imgList.imagePath}}" class=" details_banner_lunbo_img">
+				</div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+</div>
+ <div class="swiper-container" id="mainContent" style="background-color: #fff;">  
+ 	<div class="swiper-wrapper">  
+ 		<!-- 商品展示0 -->
+ 		<div class="swiper-slide">
+			<div  class="detail_head oneHead">
+				<ul>
+					<li ng-click="goBack()"><a><img src="img/fh.png"  /></a></li>
+					<li ng-click="goToShare(goodsId)"><a><img src="img/fx.png"  /></a></li>
+				</ul>
+			</div>
+			<div class="detaily_banner oneBanner">
+				<a>
+					<div class="swiper-container details_banner_lunbo" id="detailBanner">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" ng-repeat="imgList in goodsDetail.imagesList">
+								<img ng-src="{{imgList.imagePath}}" class=" details_banner_lunbo_img">
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</a>
+			</div>
+			<ul class="detaily_conter oneContent clearfix">
+				<li class="detaily_conter_one">
+					<a>
+						<img ng-if="goodsDetail.goodsType ==1" src="../../img/rxpc.png">
+						<b ng-bind="goodsDetail.name1"></b>
+					</a>
+				</li>
+				<li class="detaily_conter_two">
+					<p ng-bind="goodsDetail.name2"></p>
+				</li>
+				<li class="detaily_conter_three" ng-if="goodsPromotionList.length==0">
+					<span ng-bind="zhPrice | priceFormatFilter">￥39.00</span><span ng-bind="goodsDetail.marketPrice | priceFormatFilter">¥ 50.00</span>
+				</li>
+				<li class="detaily_conter_three" ng-if="goodsPromotionList.length>0">
+					<span ng-bind="promptionPrice | priceFormatFilter">￥39.00</span><span ng-bind="zhPrice | priceFormatFilter">¥ 50.00</span>
+				</li>
+				<li class="detaily_conter_four showHide" ng-if="ordersPromotionList.length!=0&&couponsPromotionList.length!=0" style="display: none;" id="details_nav_li_sc">
+					<label>
+						促 销:
+					</label>
+					<div>
+						<p class="detaily_conter_p_one clearfix" ng-if="ordersPromotionList.length!=0" ng-repeat="ordersPromotion in ordersPromotionList">
+							<span>满减</span>
+							<b ng-bind="'满'+ordersPromotion.threshold+'减'+ordersPromotion.quota"></b>
+						</p>
+						<p ng-if="couponsPromotionList.length!=0" ng-repeat="couponsPromotion in couponsPromotionList" class="detaily_conter_p_two clearfix" >
+							<span>
+								<b>优惠券</b>
+								<span ng-bind="couponsPromotion.quota">20</span>
+							</span>
+							<b ng-bind="'满'+couponsPromotion.threshold+'减'+couponsPromotion.quota">满200减20</b>
+						</p>
+					</div>
+				</li>
+				<li class="detaily_conter_five">
+					<ol>
+						<li>
+							<div>
+								<img src="img/zpbz.png" />
+								<span>正品保证</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="img/ysbh.png" />
+								<span>隐私保护</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="img/sdfh.png" />
+								<span>快速发货</span>
+							</div>
+						</li>
+					</ol>
+				</li>
+				<li class="detaily_conter_six" ng-click="openSelect()">
+					<a>
+						<label>已选:</label>
+						<span ng-bind="specInfoName"> </span>
+						<span ng-if="specInfoName==''||specInfoName==null||specInfoName==undefined" ng-bind="goodsDetail.specification"></span>
+						<img src="img/ljjt.png" />
+					</a>
+				</li>
+				<li  class="detaily_conter_seven">
+					<div ng-click="showDetail(1)">
+						<img src="img/Triangle.png" />
+						<span>点击 加载图文详情</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- 商品详情1 -->
+		<div class="swiper-slide" id="showDetail" >
+			<div  style="background-color: #fff">
+				<ol class="detaily_conter_ol">
+					<li ng-click="changeMessage(0)" ng-class="{true: 'detaily_conter_ol_li', false: ''}[currentShowMessage == 0]"><a>商品介绍</a></li>
+					<li ng-click="changeMessage(1)" ng-class="{true: 'detaily_conter_ol_li', false: ''}[currentShowMessage == 1]"><a>说明书</a></li>
+					<li ng-click="changeMessage(2)" ng-class="{true: 'detaily_conter_ol_li', false: ''}[currentShowMessage == 2]"><a>关于售后</a></li>
+					<li ng-repeat="(key,value) in propsInfo" ng-if="key!='默认分组'" ng-click="changeMessage(3)" ng-class="{true: 'detaily_conter_ol_li', false: ''}[currentShowMessage == 3]"><a>规格与包装</a></li>
+				</ol>
+				<li  id="upTouch" style="width:100%;">
+					<div>
+						<img src="img/Triangle.png"/>
+						<span >下拉回到商品详情</span>
+						<span ng-if="showUpMessage == false">下拉释放回到商品详情</span>
+					</div>
+				</li>
+				<!-- 商品介绍 说明书 关于售后 -->
+				 <div class="swiper-container" id="detailUpTouch" style="background-color: #fff">
+ 					<div class="swiper-wrapper">  
+ 						<!-- 商品介绍-->
+ 						<div class="swiper-slide" >
+							<ol  class="clearfix showDetailMessage">
+								<li ng-repeat="(key,value) in propsInfo" ng-if="key=='默认分组'" class="clearfix">
+									<ul class="clearfix">
+										<li ng-repeat="propsInfoList in value" class="clearfix goods_shop_xx">
+											<p ng-repeat="(key1,value1) in propsInfoList">
+												<label  for="" ng-bind="key1+'：'"></label>
+												<span  ng-bind="value1"></span>
+											</p>
+										</li>
+									</ul>
+								</li>
+								<ul class="clearfix description"></ul>
+							</ol>
+						</div>
+						<!--说明书-->
+						<div class="swiper-slide" style="width:100%;overflow-x: hidden;">
+							<ol class="clearfix showDetailMessage" >
+								<li class="instruction" ></li>
+							</ol>
+						</div>
+						<!--关于售后 -->
+						<div class="swiper-slide" style="width:100%;overflow-x: hidden;">
+							<ol class="clearfix showDetailMessage" >
+								<li>关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后关于售后</li>
+							</ol>
+						</div>
+						<!-- 属性 -->
+						<div  class="swiper-slide "  style="width:100%;overflow-x: hidden;">
+							<ol class="clearfix showDetailMessage" ng-if="key!='默认分组' && currentShowMessage == 3">
+								<li id="conter_product_gg_bz"  ng-repeat="(key,value) in propsInfo">
+									<label for="" ng-bind="key"></label>
+									<span ng-repeat="propsInfoList in  value">
+										<p ng-repeat="(key1,value1) in propsInfoList">
+											<label  for="" ng-bind="key1+'：'"></label>
+											<span  ng-bind="value1"></span>
+										</p>
+						
+									</span>
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+ 		<!-- 处方申请2 -->
+		<div class="swiper-slide" name="myForm" verify-scope="tipStyle: 1" >
+			<div class="prescripitonApply">
+				<div id="needs_head">
+					<ul class="head">
+						<li ng-click="showDetail(0)"><img src="img/fh.png"  /></li>
+						<li id="needs_xq">需求申请</li>
+					</ul>
+				</div>
+				<div class="needs_sm">
+					<label>温馨提示:</label>
+					<span>请填写完整信息，并上传医生处方单，审核通过则为您生成订单。</span>
+				</div>
+				<ul class="needs_baner clearfix">
+					<li  class="needs_conter_four" ng-if="ordersPromotionList.length!=0&&couponsPromotionList.length!=0">
+						<label>
+							促 销:
+						</label>
+						<div id="needs_baner_div">
+							<p class="needs_p"><span>¥ 39.00</span><span>¥ 50.00</span></p>
+							<p ng-if="ordersPromotionList.length!=0" ng-repeat="ordersPromotion in ordersPromotionList" class="needs_conter_p_one clearfix">
+								<span>满减</span>
+								<b  ng-bind="'满'+ordersPromotion.threshold+'减'+ordersPromotion.quota">满200减20</b>
+							</p>
+							<p ng-if="couponsPromotionList.length!=0" ng-repeat="couponsPromotion in couponsPromotionList" class="needs_conter_p_two clearfix"><span><b>优惠券</b><span ng-bind="couponsPromotion.quota">20</span></span><b ng-bind="'满'+couponsPromotion.threshold+'减'+couponsPromotion.quota">满200减20</b></p>
+						</div>
+					</li>
+					<li class="needs_conter_gg">
+						<label>规格:</label>
+						<p>
+							<span ng-bind="specInfoName"></span>
+							<span ng-if="specInfoName==''||specInfoName==null||specInfoName==undefined" ng-bind="goodsDetail.specification"></span>
+						</p>
+					</li>
+					<li  class="needs_conter_num">
+						<label>数量:</label>
+						<ol>
+							<li>
+								<button ng-click="goodsNum=goodsNum-1;" ng-disabled="goodsNum<=1 || goodsStatus != 6">
+									<img ng-if="goodsNum <= 1" src="img/downNum.png">
+									<img ng-if="goodsNum > 1" src="img/downNum1.png">
+								</button>
+							</li>
+							<li><input ng-model="goodsNum" type="text" placeholder="1"></li>
+							<li>
+								<button ng-click="goodsNum=goodsNum+1" ng-disabled="goodsNum>=200 || goodsStatus != 6 || goodsNum > initStock">
+									<img ng-if="initStock >1 && goodsNum>=1" src="img/addNum1.png">
+									<img ng-if="goodsNum<=1 || initStock <1" src="img/addNum.png" />
+								</button>
+							</li>
+						</ol>
+					</li>
+				</ul>
+				<ol class="needs_conter_ol clearfix">
+					<li>
+						<label><b>*</b>姓名:</label>
+						<input ng-verify="{min:2,max:8}" ng-model="getMemberMessage.consigneeName" type="text" placeholder="请输入姓名" />
+					</li>
+					<li>
+						<label><b>*</b>电话:</label>
+						<input ng-verify="pattern:/^0?1[3|4|5|7|8][0-9]\d{8}$/,errmsg:'手机号格式不正确'" ng-model="getMemberMessage.consigneeMobile" type="text" placeholder="请输入收货人号码 " />
+					</li>
+					<li ng-click="showDetail(4)">
+						<label><b>*</b>地址:</label>
+						<input type="text" ng-model="consigneePca" placeholder="请选择地址" readonly="true" class="needs_baner_input" />
+						<a><img src="img/ljjt.png"></a>
+					</li>
+					<li>
+						<label><b>*</b>详细地址:</label>
+						<input type="text" ng-model="consigneeAddress" placeholder="街道、楼牌号等详细地址" class="needs_baner_input" />
+					</li>
+				</ol>
+				<div class="needs_oss clearfix">
+					<div class="needs_oss_head">
+						<label><span>*</span><b>上传处方</b></label>
+						<span>最多上传5张</span>
+					</div>
+					<div  class="needs_oss_img clearfix">
+
+						<!--<ol class="needs_oss_img_ol clearfix">-->
+							
+							<!--OSS start-->
+							<!--<form name=theform ng-hide="true">
+								<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+								<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+								<br/> 上传到指定目录：
+								<input type="text" value="{{prescriptionUrl}}/{{memberId}}" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+							</form>
+
+							<div id="ossfile" >
+								你的浏览器不支持flash,Silverlight或者HTML5
+							</div>
+							
+							<li id="container" class="prescripiton_button pop_img_button">
+								<a id="selectfiles" href="javascript:void(0);" class="btn"><img class="showPosition" ng-click="selectOssPic()" src="img/tjtpjh.png" /></a>
+							</li>-->
+							<!--OSS结束 -->
+							<!--OSS start-->
+						<div name="theform" style="display: none;">
+							<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+							<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+							<br/> 上传到指定目录:
+							<input type="text" value="{{prescriptionUrl}}/{{memberId}}" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+						</div>
+						<div id="container" class="clearfix">
+							<div id="ossfile" class="clearfix">
+								你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系XXX)
+							</div>
+							<div id="selectfiles" class="btn"><img src="img/tjtpjh.png"></div>
+							<!--<img src="img/xnjj.png" />
+							<img src="img/xnjj.png" />
+							<img src="img/xnjj.png" />
+							<img src="img/xnjj.png" />-->
+						</div>
+						<div class="clearfix after_oss_div">
+							<a id="postfiles" href="javascript:void(0);" class="btn" style="display: none;">开始上传</a>
+						</div>
+						<pre id="console" style="display: none;"></pre>
+						<!--OSS结束-->
+							<!--<li>
+								<a>
+								</a>
+							</li>
+							<li>
+								<a>
+								</a>
+							</li>
+							<li>
+								<a>
+								</a>
+							</li>
+							<li>
+								<a>
+								</a>
+							</li>
+						</ol>-->
+					</div>
+					<div class="needs_oss_but ycenter">
+						<button  id="postfiles" href="javascript:void(0);" class="btn">上传图片</button>
+					</div>
+					<pre id="console" ng-hide="true"></pre>
+					<!-- <div class="needs_oss_but ycenter">
+						<button >上传图片</button>
+					</div> -->
+				</div>
+				<div class="needs_texra">
+					<div>留言</div>
+					<textarea placeholder="可以在这里留言哦" class="xcenter"></textarea>
+				</div>
+				<div class="needs_fapiao ">
+					<a ng-click="openInvoiceModal(2)">
+						<label><b>发票信息</b></label>
+						<img src="img/ljjt.png" />
+						<span ng-if="confirmType == 0">无需发票</span>
+						<span ng-if="confirmType == 1">普通发票</span>
+						<span ng-if="confirmType == 2">电子发票</span>
+					</a>
+				</div>
+				<button ng-click="submitInputMessage(2)" ng-disabled = "okModalDisabled1" class="needs_foot_but">提交需求</button>
+			</div>
+		</div>
+		<!-- 发票选择3 -->
+		<div class="swiper-slide">
+
+			<div  id="bill_head">
+				<ul class="head">
+					<li ng-click="invoiceGoBack()"><img src="img/fh.png"/></li>
+					<li id="bill_xq">
+						<ol>
+							<li><a ng-class="{true:'bill_a',false:''}[invoiceTitleTab=='1']" ng-click="changeInvoiceType(1)">普通发票</a></li>
+							<li><a ng-class="{true:'bill_a',false:''}[invoiceTitleTab=='2']" ng-click="changeInvoiceType(2)">电子发票</a></li>
+						</ol>
+					</li>
+				</ul>
+			</div>
+			 <!-- <div class="swiper-container" id="invoiceDetail">  
+			 	<div class="swiper-wrapper">  --> 
+			 		<!-- 普通发票 -->
+			 		<div > 
+			 			<div class="invoiceTitleTab">
+							<ul class="bill_ul clearfix">
+								<li class="bill_fapiao ">
+									<a>
+										<label><b>发票抬头</b></label>
+										<img src="img/ljjt.png" />
+										<input type="hidden" name="titleType_Id" id="titleTypeId1" style="display: none;" value="">
+										<span id="titleType1" >个人</span>
+										<!-- <span ng-bind="currentTitle">个人</span> -->
+									</a>
+								</li>
+								<li style="display: none" class="bill_fapiao " id="bill_input">
+									<input  type="text" ng-model="inputTitle" placeholder="请输入单位发票抬头" />
+								</li>
+								<li class="bill_fapiao ">
+									<a ng-click="openInvoiceDetail()">
+										<label><b>发票内容</b></label>
+										<img src="img/ljjt.png" />
+										<input type="hidden" name="bank_id" id="bankId1" style="display: none;" value="">
+										<span id="showBank1">明细</span>
+									</a>
+								</li>
+							</ul>
+							<ol class="bill_conter_ol clearfix" ng-show="invoiceTitleTab=='2'">
+								<li>
+									<label><b>*</b>收件人邮箱:</label>
+									<input  ng-model="orderEmail" placeholder="请输入邮箱" />
+								</li>
+								<li>
+									<label><b>*</b>收件人电话:</label>
+									<input ng-model="orderMobile" type="text" placeholder="请输入电话号码" />
+								</li>
+							</ol>
+							<button class="bill_but_bc"  ng-click="saveInvoice()">保存提交</button>
+							<button ng-click="changeInvoiceType(0)" class="bill_but_no">无需发票</button>
+						</div>
+					</div>
+					
+					
+				<!-- </div>
+
+			</div> -->
+			
+		</div>
+
+		<!-- 地址管理4 -->
+		<div class="swiper-slide" >
+			<areachoose></areachoose>
+		</div>
+	</div>
+</div>
+
+<div class="fix_fot">
+	<ul class="fix_fot_ul">
+		<li class="fix_fot_ul_lione">
+			<ol>
+				<li>
+					<a onclick="javascript:window.open('http://kefu.easemob.com/webim/im.html?tenantId=27794&amp;hide=false&amp;resources=&amp;ticket=true', '_blank')">
+						<img src="img/lxkfd.png" />
+						<p>资询</p>
+					</a>
+				</li>
+				<li>
+					<a ng-click="joinCollection()">
+						<img ng-src="{{collectPic}}" />
+						<p>收藏</p>
+					</a>
+				</li>
+				<li>
+					<a href="#/main/cart">
+						<img src="img/jrgwc.png" />
+						<p>购物车</p>
+					</a>
+				</li>
+			</ol>
+		</li>
+		<li class="fix_fot_ul_litwo">
+			<ol style="display: none;" class="showHide">
+				<li ng-if="goodsDetail.goodsType != 1" class="details_foot_button" >
+					<button ng-disabled="flag1==true || flag==true || goodsDetail.state != 6 || okModalDisabled" ng-class="{true: 'notAllow', false: 'allowClick details_foot_button'}[flag1==true ||flag == true || goodsDetail.state == 2]" ng-click="joinCart()">加入购物车</button>
+				</li>
+				<li ng-if="goodsDetail.goodsType != 1">
+					<button ng-disabled="flag1==true || flag==true || goodsDetail.state != 6 || okModalDisabled" ng-class="{true: 'notAllow', false: 'allowClick details_foot_button details_foot_button_click'}[flag1==true ||flag == true || goodsDetail.state == 2]" ng-click="nowBuy()">立即购买</button>
+				</li>
+				<li ng-if="goodsDetail.goodsType ==1">
+					<button ng-disabled="flag1==true || flag==true || goodsDetail.state != 6 || okModalDisabled" ng-class="{true: 'notAllow', false: 'allowClick details_foot_button'}[flag1==true ||flag == true || goodsDetail.state == 2]" ng-click="showPhoneCall()">提交电话</button>
+				</li>
+				<li ng-if="goodsDetail.goodsType == 1">
+					<button ng-disabled="flag1==true || flag==true || goodsDetail.state != 6 || okModalDisabled" ng-class="{true: 'notAllow', false: 'allowClick details_foot_button details_foot_button_click'}[flag1==true ||flag == true || goodsDetail.state == 2]" ng-click="showDetail(2)">需求登记</button>
+				</li>
+			</ol>
+		</li>
+	</ul>
+</div>
+
+<div class="all_detail phoneCallBack" style="display: none;">
+	<div class="all_detail_div phoneCallBack1 clearfix" style="display: none;">
+		<!--处方回拨电话-->
+		<div class="all_detail_div_head">
+			<span>
+				电话回拨
+			</span>
+			<a ng-click="chooseConfirm(3)">
+				完成
+			</a>
+		</div>
+		<ul class="all_detail_rx_ul clearfix">
+			<li>您购买的是处方药，请输入手机号，我站客服将回电给您。</li>
+			<li><input type="text" ng-model="myMobile" placeholder="输入手机号"></li>
+			<li><button ng-click="submitInputMessage1(1)">确定</button></li>
+		</ul>
+	</div>
+</div>
+<div class="all_detail selectSpcInfo"   style="display: none;">
+	<div class="all_detail_div clearfix selectSpcInfo1" style="display: none;">
+		<div class="all_detail_div_head">
+			<span><img style="max-width: 70px;" src="{{masterImg}}" alt=""></span>
+			<a ng-click="chooseConfirm(4)">完成</a>
+		</div>
+		<ul class="all_detail_div_ul clearfix">
+			<li id="all_detail_div_ul_num">
+				<label>数  量:</label>
+				<ul>
+					<li>
+						<button ng-click="goodsNum=goodsNum-1;" ng-disabled="goodsNum<=1 || goodsStatus != 6">
+							<img ng-if="goodsNum <= 1" src="img/downNum.png">
+							<img ng-if="goodsNum > 1" src="img/downNum1.png">
+						</button>
+					</li>
+					<li><input readonly="readonly" ng-model="goodsNum" type="text" placeholder="1"></li>
+					<li>
+						<button ng-click="goodsNum=goodsNum+1" ng-disabled="goodsNum>=200 || goodsStatus != 6 || goodsNum > initStock">
+							<img ng-if="initStock >1 && goodsNum>=1" src="img/addNum1.png">
+							<img ng-if="goodsNum<=1 || initStock <1" src="img/addNum.png" />
+						</button>
+					</li>
+				</ul>
+			</li>
+			<li class="clearfix" id="detail_ol_bzhuang" ng-if="spcInfoLen>0" ng-repeat="(key,value) in spcInfo">
+				<label ng-bind="key+'：'"></label>
+				<ol id="slectSpe" class="clearfix" ng-if="value!=''&&value!=null&&value!=undefined">
+					<li  ng-class="{true: 'all_detail_div_ul_gg  slectSpe', false: 'slectSpe'}[specAttrIds.contains(spcMessage.split(':')[0])]" ng-repeat="spcMessage in value">
+						<a ng-click="changeType(1,spcMessage.split(':')[0],$event,key)" ng-bind="spcMessage.split(':')[1]"></a>
+						<!-- <a ng-if="spcMessage==''||spcMessage==null||spcMessage==undefined" ng-bind="goodsDetail.specification"></a> -->
+					</li>
+				</ol>
+			</li>
+			<li ng-if="spcInfoLen==0">
+				<label>商品规格：</label>
+				<ol>
+					<li class="all_detail_div_ul_gg slectSpe">
+						<a ng-bind="goodsDetail.specification" ></a>
+					</li>
+				</ol>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<style type="text/css">
+	.chooseTitle {
+		border-top: 1px solid #22A2FF;
+		border-bottom: 1px solid #22A2FF;
+	}
+	.containerSubmitOrder li{
+		float: initial;
+	}
+	.containerSubmitOrderTitle li{
+		float: initial;
+	}
+</style>
+
+<div class="containerSubmitOrderTitle"></div>
+<div class="containerSubmitOrder"></div>
+<!--<link rel="stylesheet" type="text/css" href="../../vendor/iosSelect/iosSelect.css"/>
+<script src="../../vendor/iosSelect/iosSelect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../vendor/iosSelect/iscroll.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="../../js/controllers/goods/slideControll.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript" src="../../vendor/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="../../vendor/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="../../vendor/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="../../vendor/oss/lib/base64.js"></script>
+<script type="text/javascript" src="../../vendor/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="../../vendor/oss/upload.js"></script>

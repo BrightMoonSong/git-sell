@@ -1,0 +1,1433 @@
+/**
+ * 指令定义
+ */
+function pageTitle($rootScope, $timeout) {
+  return {
+    link: function(scope, element) {
+      var listener = function(event, toState, toParams, fromState, fromParams) {
+        // Default title - load on Dashboard 1
+        var title = '货易达 | 平台管理';
+        // Create your own title pattern
+        if (toState.data && toState.data.pageTitle) title = '货易达 | ' + toState.data.pageTitle;
+        $timeout(function() {
+          element.text(title);
+        });
+      };
+      $rootScope.$on('$stateChangeStart', listener);
+    }
+  }
+}
+
+function isContains(str, substr) {
+  return str.indexOf(substr) >= 0;
+}
+// 只能输入整数
+function funcReplaceInteger(obj) {
+  var r = /^-?\d*?\d*$/;
+  if (!r.test(obj.value)) {
+    obj.value = "";
+  }
+}
+
+/**
+ * sideNavigation - Directive for run metsiMenu on sidebar navigation
+ */
+function sideNavigation($timeout) {
+  return {
+    restrict: 'A',
+    link: function(scope, element) {
+      // Call the metsiMenu plugin and plug it to sidebar navigation
+      $timeout(function() {
+        element.metisMenu();
+      });
+    }
+  };
+}
+
+/**
+ * iboxTools - Directive for iBox tools elements in right corner of ibox
+ */
+function iboxTools($timeout) {
+  return {
+    restrict: 'A',
+    scope: true,
+    templateUrl: 'views/common/ibox_tools.html',
+    controller: function($scope, $element) {
+      // Function for collapse ibox
+      $scope.showhide = function() {
+          var ibox = $element.closest('div.ibox');
+          var icon = $element.find('i:first');
+          var content = ibox.find('div.ibox-content');
+          content.slideToggle(200);
+          // Toggle icon from up to down
+          icon.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+          ibox.toggleClass('').toggleClass('border-bottom');
+          $timeout(function() {
+            ibox.resize();
+            ibox.find('[id^=map-]').resize();
+          }, 50);
+        },
+        // Function for close ibox
+        $scope.closebox = function() {
+          var ibox = $element.closest('div.ibox');
+          ibox.remove();
+        }
+    }
+  };
+}
+
+/**
+ * iboxTools with full screen - Directive for iBox tools elements in right corner of ibox with full screen option
+ */
+function iboxToolsFullScreen($timeout) {
+  return {
+    restrict: 'A',
+    scope: true,
+    templateUrl: 'views/common/ibox_tools_full_screen.html',
+    controller: function($scope, $element) {
+      // Function for collapse ibox
+      $scope.showhide = function() {
+        var ibox = $element.closest('div.ibox');
+        var icon = $element.find('i:first');
+        var content = ibox.find('div.ibox-content');
+        content.slideToggle(200);
+        // Toggle icon from up to down
+        icon.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+        ibox.toggleClass('').toggleClass('border-bottom');
+        $timeout(function() {
+          ibox.resize();
+          ibox.find('[id^=map-]').resize();
+        }, 50);
+      };
+      // Function for close ibox
+      $scope.closebox = function() {
+        var ibox = $element.closest('div.ibox');
+        ibox.remove();
+      };
+      // Function for full screen
+      $scope.fullscreen = function() {
+        var ibox = $element.closest('div.ibox');
+        var button = $element.find('i.fa-expand');
+        $('body').toggleClass('fullscreen-ibox-mode');
+        button.toggleClass('fa-expand').toggleClass('fa-compress');
+        ibox.toggleClass('fullscreen');
+        setTimeout(function() {
+          $(window).trigger('resize');
+        }, 100);
+      }
+    }
+  };
+}
+
+/**
+ * minimalizaSidebar - Directive for minimalize sidebar
+ */
+function minimalizaSidebar($timeout) {
+  return {
+    restrict: 'A',
+    template: '<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="" ng-click="minimalize()"><i class="fa fa-bars"></i></a>',
+    controller: function($scope, $element) {
+      $scope.minimalize = function() {
+        $("body").toggleClass("mini-navbar");
+        if (!$('body').hasClass('mini-navbar') || $('body').hasClass('body-small')) {
+          // Hide menu in order to smoothly turn on when maximize menu
+          $('#side-menu').hide();
+          // For smoothly turn on menu
+          setTimeout(
+            function() {
+              $('#side-menu').fadeIn(400);
+            }, 200);
+        } else if ($('body').hasClass('fixed-sidebar')) {
+          $('#side-menu').hide();
+          setTimeout(
+            function() {
+              $('#side-menu').fadeIn(400);
+            }, 100);
+        } else {
+          // Remove all inline style from jquery fadeIn function to reset menu state
+          $('#side-menu').removeAttr('style');
+        }
+      }
+    }
+  };
+}
+
+/**
+ * datalistpager 分页指令
+ */
+function datalistpager() {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: "views/directive/dataPager.html",
+    scope: {},
+    controller: function($scope, $element, constPageSize) {
+      $scope.currentPageNo = 1; // 当前页码
+      $scope.currentPaseSize = constPageSize; // 每页显示条数
+      $scope.isShowPage1 = false; // 是否显示页码前面"..."
+      $scope.isShowPage2 = false; // 是否显示页码后面"..."
+      $scope.allDataCount = 0; // 所有记录数量
+
+      //为父scope（controller）定义加载数据方法，参数ifRefresh：是否返回第一页
+      $scope.$parent.loadData = function(ifRefresh) {
+        if (ifRefresh)
+          $scope.currentPageNo = 1;
+        $scope.$parent.find($scope.currentPageNo, $scope.currentPaseSize)
+          .then(
+            function(result) {
+              $('html, body').animate({
+                scrollTop: 0
+              }, 'slow');
+              $scope.allDataCount = result.totalSize; //获取所有记录数量
+              $scope.allPage = Math.ceil(result.totalSize / $scope.currentPaseSize) //获取所有页数并向上取整
+              $scope.arr = [];
+              //定义一个数组存放页码
+              if ($scope.allPage <= 5) { //如果当前页数小于5并且总页数小于5
+                angular.element(".btnLeft").removeClass("active");
+                $scope.isShowPage1 = false;
+                $scope.isShowPage2 = false;
+                if ($scope.currentPageNo == 1) { //为第一页时向左不可点击
+                  angular.element(".btnLeft").addClass("active");
+                  if ($scope.allPage == 1) {
+                    angular.element(".btnRight").addClass("active");
+                  }
+                } else if ($scope.currentPageNo == $scope.allPage) { //为最后一页时向右不可点击
+                  angular.element(".btnRight").addClass("active");
+                } else { //否则向右向左都可点击
+                  angular.element(".btnLeft").removeClass("active");
+                  angular.element(".btnRight").removeClass("active");
+                }
+                for (var i = 0; i < $scope.allPage; i++) {
+                  $scope.arr.push(i + 1);
+                }
+              } else {
+                if ($scope.currentPageNo <= 3) { //如果 当前页数小于3，但是总页数大于5
+                  $scope.isShowPage1 = false;
+                  $scope.isShowPage2 = true;
+                  angular.element(".btnRight").removeClass("active");
+                  if ($scope.currentPageNo != 1) { //不为第一页时向前按钮可以点击
+                    angular.element(".btnLeft").removeClass("active");
+                  } else { //否则 不可以进行点击
+                    angular.element(".btnLeft").addClass("active");
+                  }
+                  for (var n = 0; n < 5; n++) {
+                    $scope.arr.push(n + 1);
+                  }
+                  $scope.behindPage = "...";
+                } else if ($scope.currentPageNo > 3) { //如果当前页码大于3，并且总页数大于5
+                  if ($scope.currentPageNo >= $scope.allPage - 2) { //判断当前页码在3以内时，隐藏右侧...
+                    $scope.isShowPage2 = false;
+                  } else {
+                    $scope.isShowPage2 = true;
+                  }
+                  $scope.isShowPage1 = true;
+                  $scope.providerPage = "...";
+                  if ($scope.currentPageNo < $scope.allPage - 1) { //当前页数小于最后两页的页码，以当前页为中心加载5条数据
+                    angular.element(".btnRight").removeClass("active");
+                    $scope.arr = [];
+                    for (var i = Number($scope.currentPageNo) - 2; i <= Number($scope.currentPageNo) + 2 && i <= $scope.allPage; i++) {
+                      $scope.arr.push(i);
+                    }
+                    $scope.behindPage = "...";
+                  } else if ($scope.currentPageNo >= $scope.allPage - 1) { //当前页数为最后两页
+                    if ($scope.currentPageNo == $scope.allPage - 1) { //倒数第二页时显示最后五页，以当前页数-3为中心加载
+                      angular.element(".btnRight").removeClass("active");
+                      for (var i = $scope.currentPageNo - 3; i <= $scope.allPage; i++) {
+                        $scope.arr.push(i);
+                      }
+                    } else if ($scope.currentPageNo == $scope.allPage) { //最后一页时显示最后五页，以当前页数-4为中心加载
+                      angular.element(".btnRight").addClass("active"); //最后一页时向右不可点击
+                      angular.element(".btnLeft").removeClass("active");
+                      for (var i = $scope.currentPageNo - 4; i <= $scope.allPage; i++) {
+                        $scope.arr.push(i);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          )
+
+      }
+      //点击页码跳转到指定页
+      $scope.choosePageNum = function(index) {
+        $scope.currentPageNo = Number($scope.arr[index]); //获取数组中对应下标的数值复制给$scope.currentPageNo
+        $scope.$parent.loadData(false);
+      }
+      //跳转到首页
+      $scope.jumpFirst = function() {
+        if ($scope.currentPageNo != 1) {
+          $scope.currentPageNo = 1;
+          $scope.$parent.loadData(false);
+        }
+      }
+      //跳转到尾页
+      $scope.jumpLast = function() {
+        if ($scope.currentPageNo != $scope.allPage) {
+          $scope.currentPageNo = $scope.allPage;
+          $scope.$parent.loadData(false);
+        }
+      }
+      //显示上一页
+      $scope.upPage = function() {
+        if ($scope.currentPageNo > 1) {
+          $scope.currentPageNo--;
+          $scope.$parent.loadData(false);
+        }
+      }
+      //显示下一页
+      $scope.downPage = function() {
+        if ($scope.currentPageNo < $scope.allPage) { //小于总页数时才向服务器提交请求
+          $scope.currentPageNo++;
+          $scope.$parent.loadData(false);
+        }
+      }
+      //手动修改显示条数
+      $scope.changePage = function(index) {
+        $scope.currentPaseSize = index;
+        $scope.currentPageNo = 1;
+        $scope.$parent.loadData(false);
+      }
+
+      //初始化数据
+      $scope.$parent.loadData(true);
+    }
+  };
+}
+//为弹窗服务的分页
+function datalistpagerdialog() {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: "views/directive/dataPager.html",
+    scope: {},
+    controller: function($scope, $element, constPageSize) {
+      $scope.currentPageNo = 1; // 当前页码
+      $scope.currentPaseSize = constPageSize; // 每页显示条数
+      $scope.isShowPage1 = false; // 是否显示页码前面"..."
+      $scope.isShowPage2 = false; // 是否显示页码后面"..."
+      $scope.allDataCount = 0; // 所有记录数量
+      //为父scope（controller）定义加载数据方法，参数ifRefresh：是否返回第一页
+      $scope.$parent.loadDataDialog = function(ifRefresh) {
+        if (ifRefresh)
+          $scope.currentPageNo = 1;
+        $scope.$parent.search($scope.currentPageNo, $scope.currentPaseSize)
+          .then(
+            function(result) {
+              $scope.allDataCount = result.totalSize; //获取所有记录数量
+              $scope.allPage = Math.ceil(result.totalSize / $scope.currentPaseSize) //获取所有页数并向上取整
+              $scope.arr = []; //定义一个数组存放页码
+              if ($scope.currentPageNo <= 5 && $scope.allPage <= 5) { //如果当前页数小于5并且总页数小于5
+                angular.element(".btnLeft").removeClass("active");
+                $scope.isShowPage1 = false;
+                $scope.isShowPage2 = false;
+                if ($scope.currentPageNo == 1) { //为第一页时向左不可点击
+                  angular.element(".btnLeft").addClass("active");
+                } else if ($scope.currentPageNo == $scope.allPage) { //为最后一页时向右不可点击
+                  angular.element(".btnRight").addClass("active");
+                } else { //否则向右向左都可点击
+                  angular.element(".btnLeft").removeClass("active");
+                  angular.element(".btnRight").removeClass("active");
+                }
+                for (var i = 0; i < $scope.allPage; i++) {
+                  $scope.arr.push(i + 1);
+
+                }
+              } else {
+                if ($scope.currentPageNo <= 3 && $scope.allPage > 5) { //如果 当前页数小于3，但是总页数大于5
+                  $scope.isShowPage1 = false;
+                  $scope.isShowPage2 = true;
+                  angular.element(".btnRight").removeClass("active");
+                  if ($scope.currentPageNo != 1) { //不为第一页时向前按钮可以点击
+                    angular.element(".btnLeft").removeClass("active");
+                  } else { //否则 不可以进行点击
+                    angular.element(".btnLeft").addClass("active");
+                  }
+                  for (var n = 0; n < 5; n++) {
+                    $scope.arr.push(n + 1);
+                  }
+                  $scope.behindPage = "...";
+                } else if ($scope.currentPageNo > 3 && $scope.allPage > 5) { //如果当前页码大于3，并且总页数大于5
+                  if ($scope.currentPageNo >= $scope.allPage - 2) { //判断当前页码在3以内时，隐藏右侧...
+                    $scope.isShowPage2 = false;
+                  } else {
+                    $scope.isShowPage2 = true;
+                  }
+                  $scope.isShowPage1 = true;
+                  $scope.providerPage = "...";
+                  if ($scope.currentPageNo < $scope.allPage - 1) { //当前页数小于最后两页的页码，以当前页为中心加载5条数据
+                    angular.element(".btnRight").removeClass("active");
+                    $scope.arr = [];
+                    for (var i = Number($scope.currentPageNo) - 2; i <= Number($scope.currentPageNo) + 2 && i <= $scope.allPage; i++) {
+                      $scope.arr.push(i);
+                    }
+                    $scope.behindPage = "...";
+                  } else if ($scope.currentPageNo >= $scope.allPage - 1) { //当前页数为最后两页
+                    if ($scope.currentPageNo == $scope.allPage - 1) { //倒数第二页时显示最后五页，以当前页数-3为中心加载
+                      angular.element(".btnRight").removeClass("active");
+                      for (var i = $scope.currentPageNo - 3; i <= $scope.allPage; i++) {
+                        $scope.arr.push(i);
+                      }
+                    } else if ($scope.currentPageNo == $scope.allPage) { //最后一页时显示最后五页，以当前页数-4为中心加载
+                      angular.element(".btnRight").addClass("active"); //最后一页时向右不可点击
+                      angular.element(".btnLeft").removeClass("active");
+                      for (var i = $scope.currentPageNo - 4; i <= $scope.allPage; i++) {
+                        $scope.arr.push(i);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          )
+
+      }
+      //点击页码跳转到指定页
+      $scope.choosePageNum = function(index) {
+        $scope.currentPageNo = Number($scope.arr[index]); //获取数组中对应下标的数值复制给$scope.currentPageNo
+        $scope.$parent.loadDataDialog(false);
+      }
+      //跳转到首页
+      $scope.jumpFirst = function() {
+        if ($scope.currentPageNo != 1) {
+          $scope.currentPageNo = 1;
+          $scope.$parent.loadDataDialog(false);
+        }
+      }
+      //跳转到尾页
+      $scope.jumpLast = function() {
+        if ($scope.currentPageNo != $scope.allPage) {
+          $scope.currentPageNo = $scope.allPage;
+          $scope.$parent.loadDataDialog(false);
+        }
+      }
+      //显示上一页
+      $scope.upPage = function() {
+        if ($scope.currentPageNo > 1) {
+          $scope.currentPageNo--;
+          $scope.$parent.loadDataDialog(false);
+        }
+      }
+      //显示下一页
+      $scope.downPage = function() {
+        if ($scope.currentPageNo < $scope.allPage) { //小于总页数时才向服务器提交请求
+          $scope.currentPageNo++;
+          $scope.$parent.loadDataDialog(false);
+        }
+      }
+      //手动修改显示条数
+      $scope.changePage = function(index) {
+        $scope.currentPaseSize = index;
+        $scope.currentPageNo = 1;
+        $scope.$parent.loadDataDialog(false);
+      }
+
+      //初始化数据
+      $scope.$parent.loadDataDialog(true);
+    }
+  };
+}
+
+/**
+ * datapicker 普通日期指令
+ */
+function datapicker() {
+  return {
+    restrict: "A",
+    scope: false,
+    link: function(scope, element, attr) {
+      element.bind('click', function() {
+        window.WdatePicker({
+          onpicked: function() {
+            scope.$apply(function() {
+              //scope.WdatePicker.dataTime = element.val();
+              scope[attr['datapicker']] = element.val();
+            })
+          },
+          oncleared: function() {
+            scope.$apply(function() {
+              //scope.WdatePicker.dataTime = element.val();
+              scope[attr['datapicker']] = element.val();
+            })
+          },
+          dateFmt: 'yyyy-MM-dd HH:mm:ss'
+        })
+      })
+      scope.$watch(attr['datapicker'], function(newVal) {
+        element.val(newVal);
+      });
+    }
+  };
+}
+/**
+ * startPicker 开始日期指令
+ */
+function startPicker() {
+  return {
+    restrict: "A",
+    scope: false,
+    link: function(scope, element, attr) {
+      element.bind('click', function() {
+        window.WdatePicker({
+          onpicked: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTime = element.val();
+            })
+          },
+          oncleared: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTime = element.val();
+            })
+          },
+          dateFmt: 'yyyy-MM-dd HH:mm:ss',
+          maxDate: scope.WdatePicker.endTime
+        })
+      })
+    }
+  };
+}
+/**
+ * endPicker 结束日期指令
+ */
+function endPicker() {
+  return {
+    restrict: "A",
+    scope: false,
+    link: function(scope, element, attr) {
+      element.bind('click', function() {
+        window.WdatePicker({
+          onpicked: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.endTime = element.val();
+            })
+          },
+          oncleared: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.endTime = element.val();
+            })
+          },
+          dateFmt: 'yyyy-MM-dd HH:mm:ss',
+          minDate: scope.WdatePicker.startTime
+        })
+      })
+    }
+  };
+}
+/**
+ * startPickers 开始日期指令
+ */
+function startPickers() {
+  return {
+    restrict: "A",
+    scope: false,
+    link: function(scope, element, attr) {
+      element.bind('click', function() {
+        window.WdatePicker({
+          onpicked: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTimes = element.val();
+            })
+          },
+          oncleared: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTimes = element.val();
+            })
+          },
+          dateFmt: 'yyyy-MM-dd HH:mm:ss',
+          maxDate: scope.WdatePicker.endTimes
+        })
+      })
+    }
+  };
+}
+/**
+ * startPickers 开始日期指令
+ */
+function startPickers() {
+  return {
+    restrict: "A",
+    scope: false,
+    link: function(scope, element, attr) {
+      element.bind('click', function() {
+        window.WdatePicker({
+          onpicked: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTimes = element.val();
+            })
+          },
+          oncleared: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTimes = element.val();
+            })
+          },
+          dateFmt: 'yyyy-MM-dd HH:mm:ss',
+          maxDate: scope.WdatePicker.endTimes
+        })
+      })
+    }
+  };
+}
+/**
+ * startPickeres 开始日期指令
+ */
+function startPickeres() {
+  return {
+    restrict: "A",
+    scope: false,
+    link: function(scope, element, attr) {
+      element.bind('click', function() {
+        window.WdatePicker({
+          onpicked: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTimese = element.val();
+            })
+          },
+          oncleared: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTimese = element.val();
+            })
+          },
+          dateFmt: 'yyyy-MM-dd HH:mm:ss',
+          maxDate: scope.WdatePicker.endTimes
+        })
+      })
+    }
+  };
+}
+/**
+ * startPickeress 开始日期指令
+ */
+function startPickeress() {
+  return {
+    restrict: "A",
+    scope: false,
+    link: function(scope, element, attr) {
+      element.bind('click', function() {
+        window.WdatePicker({
+          onpicked: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTimess = element.val();
+            })
+          },
+          oncleared: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.startTimess = element.val();
+            })
+          },
+          dateFmt: 'yyyy-MM-dd HH:mm:ss',
+          maxDate: scope.WdatePicker.endTimes
+        })
+      })
+    }
+  };
+}
+/**
+ * endPickers 结束日期指令
+ */
+function endPickers() {
+  return {
+    restrict: "A",
+    scope: false,
+    link: function(scope, element, attr) {
+      element.bind('click', function() {
+        window.WdatePicker({
+          onpicked: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.endTimes = element.val();
+            })
+          },
+          oncleared: function() {
+            scope.$apply(function() {
+              scope.WdatePicker.endTimes = element.val();
+            })
+          },
+          dateFmt: 'yyyy-MM-dd HH:mm:ss',
+          minDate: scope.WdatePicker.startTimes
+        })
+      })
+    }
+  };
+}
+/**
+ * minDate:newDate() 设置今天为最小日期  指令
+ */
+function minpicker() {
+  return {
+    restrict: "A",
+    scope: false,
+    link: function(scope, element, attr) {
+      element.bind('click', function() {
+        window.WdatePicker({
+          onpicked: function() {
+            scope.$apply(function() {
+              //scope.WdatePicker.minDateTime = element.val();
+              scope[attr['minpicker']] = element.val();
+            })
+          },
+          oncleared: function() {
+            scope.$apply(function() {
+              //scope.WdatePicker.minDateTime = element.val();
+              scope[attr['minpicker']] = element.val();
+            })
+          },
+          dateFmt: 'yyyy-MM-dd HH:mm:ss',
+          minDate: newDate()
+        })
+      })
+      scope.$watch(attr['minpicker'], function(newVal) {
+        element.val(newVal);
+      });
+    }
+  };
+}
+
+function newDate() {
+  var myDate = new Date();
+  myDate.getYear(); //获取当前年份(2位)
+  myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+  myDate.getMonth(); //获取当前月份(0-11,0代表1月)
+  myDate.getDate(); //获取当前日(1-31)
+  myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+  myDate.getTime(); //获取当前时间(从1970.1.1开始的毫秒数)
+  myDate.getHours(); //获取当前小时数(0-23)
+  myDate.getMinutes(); //获取当前分钟数(0-59)
+  myDate.getSeconds(); //获取当前秒数(0-59)
+  myDate.getMilliseconds(); //获取当前毫秒数(0-999)
+  myDate.toLocaleDateString(); //获取当前日期
+  var mytime = myDate.toLocaleTimeString(); //获取当前时间
+  myDate.toLocaleString(); //获取日期与时间
+  return myDate.toLocaleString();
+}
+//实现和angular的交互  将直接选中的时间赋值给ngModal
+function newPicker() {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    scope: {
+      minDate: '@'
+    },
+    link: function(scope, element, attr, ngModel) {
+
+      element.val(ngModel.$viewValue);
+
+      function onpicking(dp) {
+        var date = dp.cal.getNewDateStr();
+        scope.$apply(function() {
+          ngModel.$setViewValue(date);
+        });
+      }
+
+      element.bind('click', function() {
+        WdatePicker({
+          onpicking: onpicking,
+          dateFmt: 'yyyy-MM-dd HH:mm:ss',
+          minDate: (scope.minDate || '%y-%M-%d'),
+        })
+      });
+    }
+  };
+}
+//滚动条回到顶部
+function myScroll() {
+  //前边是获取chrome等一般浏览器 如果获取不到就是ie了 就用ie的办法获取
+  var x = document.body.scrollTop || document.documentElement.scrollTop;
+  var timer = setInterval(function() {
+    x = x - 100;
+    if (x < 100) {
+      x = 0;
+      window.scrollTo(x, x);
+      clearInterval(timer);
+    }
+    window.scrollTo(x, x);
+  }, "250");
+
+  $('#ngdialog1').animate({
+    scrollTop: 0
+  }, 1); //回到顶端
+}
+
+Array.prototype.indexOf = function(val) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] == val) return i;
+  }
+  return -1;
+};
+//删除数组指定的某个元素
+Array.prototype.remove = function(val) {
+  var index = this.indexOf(val);
+  if (index > -1) {
+    this.splice(index, 1);
+  }
+};
+//string转换num
+String.prototype.numbian = function() {
+  var a = this;
+  var b;
+  b = Number(a);
+  return b;
+};
+//判断数组是否包含指定元素的方法
+Array.prototype.contains = function(needle) {
+  for (i in this) {
+    if (this[i] == needle) return true;
+  }
+  return false;
+};
+
+/**
+ * 价格过滤器
+ */
+String.prototype.priceFilter = function() {
+  price = this;
+  price = price.toString();
+  var re = /\d+\.[0-9]/g; //判断数字是否为小数
+  if (!re.test(price)) {
+    price = price + ".00";
+  } else {
+    if (price.toString().split(".")[1].length == 1) {
+      price = price + "0";
+    } else if (price.toString().split(".")[1].length > 2) {
+      price = Math.round(parseFloat(price) * 100) / 100;
+    }
+  }
+  return price;
+};
+Number.prototype.priceFilternum = function() {
+  price = this;
+  price = price.toString();
+  var re = /\d+\.[0-9]/g; //判断数字是否为小数
+  if (!re.test(price)) {
+    price = price + ".00";
+  } else {
+    if (price.toString().split(".")[1].length == 1) {
+      price = price + "0";
+    } else if (price.toString().split(".")[1].length > 2) {
+      price = Math.round(parseFloat(price) * 100) / 100;
+    }
+  }
+  return price;
+};
+//比较时间JS：//str.comp()比较与今天的时间对比
+String.prototype.comp = function() {
+  var date = this;
+  var now = new Date;
+  var d = new Date(date);
+  if (now > d) {
+    //alert("之前的日期");
+    return false;
+  } else if (now < d) {
+    //alert("之后的日期");
+    return true;
+  } else {
+    //alert("一样的日期");
+    return false;
+  }
+}
+//比较时间JS：//str.comp()     加半小时 比较与当前时间对比
+String.prototype.comphalfhour = function() {
+  var date = this;
+  var now = new Date;
+  var d = new Date(date);
+  d = d.getTime() + 1000 * 60 * 30;
+  if (now > d) {
+    //alert("之前的日期");
+    return false;
+  } else if (now < d) {
+    //alert("之后的日期");
+    return true;
+  } else {
+    //alert("一样的日期");
+    return false;
+  }
+}
+
+//比较俩个时间JS：
+String.prototype.comps = function(time) {
+  var date = this;
+  var now = new Date(time);
+  var d = new Date(date);
+  if (now > d) {
+    return false;
+  } else if (now < d) {
+    return true;
+  } else {
+    return false;
+  }
+}
+String.prototype.compshelves = function(time) {
+  var date = this;
+  var now = new Date(time);
+  var d = new Date(date);
+  if (now > d) {
+    return false;
+  } else if (now < d) {
+    return true;
+  } else {
+    return true;
+  }
+}
+
+//js数组去重的算法实现   思路：获取没重复的最右一值放入新数组
+function unique(array) {
+  var r = [];
+  for (var i = 0, l = array.length; i < l; i++) {
+    for (var j = i + 1; j < l; j++)
+      if (array[i] === array[j]) j = ++i;
+    r.push(array[i]);
+  }
+  return r;
+}
+
+//针对引用数据类型    克隆
+function clone(obj) {
+  var o, i, j, k;
+  if (typeof(obj) != "object" || obj === null) return obj;
+  if (obj instanceof(Array)) {
+    o = [];
+    i = 0;
+    j = obj.length;
+    for (; i < j; i++) {
+      if (typeof(obj[i]) == "object" && obj[i] != null) {
+        o[i] = arguments.callee(obj[i]);
+      } else {
+        o[i] = obj[i];
+      }
+    }
+  } else {
+    o = {};
+    for (i in obj) {
+      if (typeof(obj[i]) == "object" && obj[i] != null) {
+        o[i] = arguments.callee(obj[i]);
+      } else {
+        o[i] = obj[i];
+      }
+    }
+  }
+  return o;
+}
+
+function gaodeMap() {
+  return {
+    restrict: 'E',
+    replace: true,
+    template: '<div id="container"></div>',
+    scope: {},
+    controller: function($scope, $element, constPageSize) {
+      $scope.$parent.loadDataGaode = function() {
+        var map = new AMap.Map("container", {
+          resizeEnable: true,
+          center: [$scope.$parent.chainEntity.lon, $scope.$parent.chainEntity.lat]
+        });
+        var marker = new AMap.Marker({
+          map: map,
+          bubble: true,
+          content: '<div class="marker-route marker-marker-bus-from"></div>' //自定义点标记覆盖物内容,
+        });
+        //设置城市
+        AMap.event.addDomListener(document.getElementById('query'), 'click', function() {
+          var cityName = document.getElementById('cityName').value;
+          if (!cityName) {
+            cityName = '北京市';
+          }
+          map.setCity(cityName);
+        });
+        //为地图注册click事件获取鼠标点击出的经纬度坐标
+        var clickEventListener = map.on('click', function(e) {
+          document.getElementById("lnglat").value = e.lnglat.getLng()
+          document.getElementById("lngla").value = e.lnglat.getLat()
+          //脏值检查
+          $scope.$apply(function() {
+            $scope.$parent.chainEntity.lat = e.lnglat.getLat();
+            $scope.$parent.chainEntity.lon = e.lnglat.getLng();
+            marker.setMap(null);
+            marker = new AMap.Marker({
+              map: map,
+              icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+              position: [e.lnglat.getLng(), e.lnglat.getLat()],
+              offset: new AMap.Pixel(-12, -36)
+            });
+          })
+        });
+        var mapsed;
+        $scope.$parent.inner()
+          .then(function(res) {
+            if (res == 1) {
+              return 0;
+            }
+            mapsed = res.data;
+            // 添加一些分布不均的点到地图上,地图上添加标记，作为参照
+            marker = new AMap.Marker({
+              map: map,
+              icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+              position: [mapsed.lon, mapsed.lat],
+              offset: new AMap.Pixel(-12, -36)
+            });
+          }, function(res) {})
+      }
+    }
+  }
+}
+/**
+ * 加载JS
+ * @param  {[type]} file [description]
+ * @return {[type]}      [description]
+ */
+function loadJs(file) {
+  var head = $("head").remove("script[role='reload']");
+  $("<scri" + "pt>" + "</scr" + "ipt>").attr({
+    role: 'reload',
+    src: file,
+    type: 'text/javascript'
+  }).appendTo(head);
+}
+
+/**
+ * 单张图片上传
+ * @return {[type]} [description]
+ */
+function singleImgUpload() {
+  return {
+    restrict: 'E',
+    replace: true,
+    // template: '<div id="container"></div>',
+    templateUrl: '../views/directive/singleImgUpload.html',
+    //true：继承父作用域且创建独立作用域；
+    // false：继承父作用域；
+    // {}：不继承父作用域且创建独立作用域；
+    scope: true,
+    controller: function($scope, $element) {
+			// $scope.idData = imgPathCarModel;
+      loadJs('../../js/plugins/oss/lib/crypto1/crypto/crypto.js');
+      loadJs('../../js/plugins/oss/lib/crypto1/hmac/hmac.js');
+      loadJs('../../js/plugins/oss/lib/crypto1/sha1/sha1.js');
+      loadJs('../../js/plugins/oss/lib/base64.js');
+      loadJs('../../js/plugins/oss/plupload.full.min.js');
+      loadJs('../../js/plugins/oss/upload.js');
+			if(!angular.imgUplodList){
+				angular.imgUplodList = [];
+			}
+			window.singleImgUploadFun = function(url){
+				angular.imgUplodList.push(url);
+			}
+    }
+  }
+}
+//根据生日计算年龄
+function ages(str) {
+  if (!str) {
+    return '';
+  }
+  str = str.substr(0, 10);
+  var r = str.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+  if (r == null) return false;
+  var d = new Date(r[1], r[3] - 1, r[4]);
+  if (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4]) {
+    var Y = new Date().getFullYear();
+    return (Y - r[1]);
+  }
+  return false;
+}
+//追加HTML //所有IE都支持--
+function insertAfter(m, n) {
+  m.innerHTML += n;
+}
+//图片放大指令
+function myImg() {
+  return {
+    scope: {}, // 创建指令自己的独立作用域，与父级毫无关系
+    // controller: function($scope, $element, $attrs, $transclude) {},
+    //restrict: 'AE', // E = Element, A = Attribute, C = Class, M = Comment
+    //链接函数
+    //element-->jQ的对象;attr-->元素上属性的集合
+    link: function(scope, element, attr) {
+      element.on('click', function() {
+        if (attr.src) {
+          if (attr.src.indexOf('http') < 0) {
+            return;
+          }
+          var elesrc = '<div id="myImgBigBackElementFirst"><div class="black-top-img" style="max-height: 82%;overflow: hidden;" id="myImgBigElement"><img src="' +
+            attr.src +
+            '" style="width:700px;max-width: 700px;max-height: 600px;" onmousewheel="return bbimg(this)" alt="..." /></div><div id="myImgBigBackElement" class="black-background"></div></div>'
+          //insertAfter(document.body, elesrc);
+          $("#bigimgbody").after(elesrc);
+          $("#myImgBigElement").on('click', function() {
+            $("#myImgBigBackElementFirst").remove();
+          });
+        }
+      });
+    }
+  };
+}
+//根据传过来的图片路径放大图片
+function imgChangeBig(src) {
+  var elesrc = '<div id="myImgBigBackElementFirst"><div class="black-top-img" style="max-height: 82%;overflow: hidden;" id="myImgBigElement"><img src="' +
+    src +
+    '" style="width:700px;max-width: 700px;max-height: 600px;" onmousewheel="return bbimg(this)" alt="..." /></div><div id="myImgBigBackElement" class="black-background"></div></div>'
+  //insertAfter(document.body, elesrc);
+  $("#bigimgbody").after(elesrc);
+  $("#myImgBigElement").on('click', function() {
+    $("#myImgBigBackElementFirst").remove();
+  });
+}
+/**
+ * 非Firefox的主流浏览器    滚轮 图片放大缩小
+ * @param {Object} o
+ */
+function bbimg(o) {
+  var zoom = parseInt(o.style.zoom, 10) || 100;
+  zoom += event.wheelDelta / 12;
+  if (zoom < 30) { //图片缩小倍数最小30%
+    zoom = 30;
+  }
+  if (zoom > 200) { //图片最大倍数最大300%
+    zoom = 200;
+  }
+  if (zoom > 0) o.style.zoom = zoom + '%';
+  return false;
+}
+//根据图片路径下载图片
+function downloadimgforsrc() {
+  return {
+    link: function(scope, element, attr) {
+      var img_src = attr.ngHref;
+      if (browserIsIe()) { //假如是ie浏览器
+        element.on('click', function() {
+          img_src = element.src;
+          DownLoadReportIMG(img_src);
+        });
+      } else {
+        element.attr('download', img_src);
+        element.attr('href', img_src);
+      }
+    }
+  };
+}
+////假如是ie浏览器  的图片下载
+function DownLoadReportIMG(imgPathURL) {
+  //如果隐藏IFRAME不存在，则添加
+  if (!document.getElementById("IframeReportImg"))
+    $('<iframe style="display:none;" id="IframeReportImg" name="IframeReportImg" onload="DoSaveAsIMG();" width="0" height="0" src="about:blank"></iframe>').appendTo("body");
+  if (document.all.IframeReportImg.src != imgPathURL) {
+    //加载图片
+    document.all.IframeReportImg.src = imgPathURL;
+  } else {
+    //图片直接另存为
+    DoSaveAsIMG();
+  }
+}
+
+function DoSaveAsIMG() {
+  if (document.all.IframeReportImg.src != "about:blank")
+    window.frames["IframeReportImg"].document.execCommand("SaveAs");
+}
+//判断是否为ie浏览器
+function browserIsIe() {
+  if (!!window.ActiveXObject || "ActiveXObject" in window)
+    return true;
+  else
+    return false;
+}
+
+/**
+ * 用JS显示输入的字符个数
+ * @param {Object} obj
+ * @param {Object} show_id
+ */
+function CountWords(obj, show_id) {
+  var fullStr = obj.value;
+  var charCount = fullStr.length;
+  var rExp = /[^A-Za-z0-9]/gi;
+  var spacesStr = fullStr.replace(rExp, ' ');
+  var cleanedStr = spacesStr + ' ';
+  do {
+    var old_str = cleanedStr;
+    cleanedStr = cleanedStr.replace('  ', ' ');
+  } while (old_str != cleanedStr);
+  var splitString = cleanedStr.split(' ');
+  document.getElementById(show_id).innerHTML = ",已输入" + charCount + "个字";
+}
+
+//table 拖拽排序
+function tableDrag() {
+  return {
+    restrict: 'E',
+    scope: false, //默认值，与父级scope是同一个scope
+    templateUrl: "views/directive/tableDrag.html",
+    replace: true, //在指令被编译之后，生成的模板内容替换掉了 <tableDrag></tableDrag>
+    controller: function($scope, $element, $attrs, ngDialog) {
+      $scope.ToExcel = function() {
+        var obj = clone($scope.userList);
+        if ($scope.tableDragExcelName) {
+          JSONToExcelConvertor($scope.userList, $scope.tableDragExcelName, $scope.tableDragHeadList); //第二个参数是Excel文件名字
+        } else {
+          JSONToExcelConvertor($scope.userList, null, $scope.tableDragHeadList);
+        }
+      }
+      $scope.ToPdf = function() {
+        if ($scope.tableDragPdfName) {
+          htmlToPdf('userListToPdf', $scope.tableDragPdfName);
+        } else {
+          htmlToPdf('userListToPdf');
+        }
+      }
+      //echarts
+      $scope.ToEcharts = function() {
+        $scope.dialog = ngDialog.open({
+          template: 'views/directive/echerts.html',
+          className: 'ngdialog-theme-default',
+          controller: 'EchartsFormModalController',
+          scope: $scope,
+          width: 850
+        })
+      }
+    }
+  };
+}
+//编译HTML
+function dyCompile($compile) {
+  return {
+    replace: true,
+    restrict: 'EA',
+    link: function(scope, elm, iAttrs) {
+      var DUMMY_SCOPE = {
+          $destroy: angular.noop
+        },
+        root = elm,
+        childScope,
+        destroyChildScope = function() {
+          (childScope || DUMMY_SCOPE).$destroy();
+        };
+
+      iAttrs.$observe("html", function(html) {
+        if (html) {
+          destroyChildScope();
+          childScope = scope.$new(false);
+          var content = $compile(html)(childScope);
+          root.replaceWith(content);
+          root = content;
+        }
+
+        scope.$on("$destroy", destroyChildScope);
+      });
+    }
+  };
+}
+
+function baiduMap() {
+  return {
+    restrict: 'E',
+    replace: true,
+    template: '<div><div id="r-result" class="col-sm-12" style="padding-left:0px;"><div class="optionpanel col-sm-4" style="padding-left:0px;width:24%;"><label class="control-label" style="float:left;">选择主题</label><div class="col-sm-7" style="width:170px;"><select class="form-control" id="stylelist" onchange="changeMapStyle(this.value)"></select></div><div style="clear: both;"></div></div></div><div class="container_baidu_map" id="dituContent"></div></div>',
+    controller: function($scope, $element, constPageSize) {
+      $scope.baiduMapDataShow = false;
+      $scope.$watch('orderallEntiy', function(newVal, oldVal) {
+        if (newVal) {
+          if (newVal.orderTracks.length > 0) {
+            $scope.baiduMapDataShow = true;
+            //标注线数组
+            window.attrline = [];
+            window.attrlineAll = [];
+            try {
+              window.clearTimeout(idsetTimeout);
+            } catch (e) {
+              //TODO handle the exception
+            }
+            newVal.orderTracks.forEach(function(val, index) {
+              if (val.lon) {
+                if (val.lat) {
+                  var str = val.lon + '|' + val.lat;
+                  attrlineAll.push(str);
+                }
+              }
+            });
+            //attrlineAll = ['105.694114|29.976536', '106.054808|29.248569', '106.694114|29.976536', '107.694114|30.676536', '106.634114|29.976536', '107.595114|30.676536', '108.586161|31.19519'];
+            if (attrlineAll.length > 0) {
+              //attrlineAll = chuliLonLat(attrlineAll);
+              window.attrline = window.attrlineAll;
+              initMap();
+              initselect();
+              var html = $('#r-result').html();
+              if (html.indexOf('开始播放') < 0) {
+                var clearDiv = '<div style="clear: both;"></div>';
+                $('#r-result').html(html + controShow + clearDiv);
+                $('#btn-continue-play').hide();
+                $('#btn-pause-play').hide();
+                $('#btn-start-play-starts').hide();
+              }
+              window.carMk = '';
+              runCarLine(1);
+            } else {
+              $scope.baiduMapDataShow = false;
+            }
+          }
+        }
+      }, true);
+    }
+  }
+}
+//是否存在指定变量
+function isExitsVariable(variableName) {
+  try {
+    if (typeof(variableName) == "undefined") {
+      //alert("value is undefined");
+      return false;
+    } else {
+      //alert("value is true");
+      return true;
+    }
+  } catch (e) {}
+  return false;
+}
+//两数相减除以10保留
+function subtractTen(num1, num2) {
+  var a = '';
+  if (num1 > num2) {
+
+  } else if (num1 < num2) {
+    a = num1;
+    num1 = num2;
+    num2 = a;
+  } else if (num1 == num2) {
+    return 0;
+  }
+  var diff = num1 - num2;
+  return toDecimal6(diff / 10);
+}
+//subtractTen(106.694114, 106.054808);
+
+//保留7位小数
+//功能：将浮点数四舍五入，取小数点后7位
+function toDecimal6(x) {
+  var f = parseFloat(x);
+  if (isNaN(f)) {
+    return;
+  }
+  f = Math.round(x * 10000000) / 10000000;
+  return f;
+}
+//参数：var ar = ['106.694114|29.976536', '106.054808|29.248569', '108.586161|31.19519'];
+//返回每两个数中间的坐标点
+function chuliLonLat(ar) {
+  var cunlon, cunlat;
+  var arry22 = [];
+  ar.forEach(function(val, index) {
+    var data = val.split('|');
+    if (cunlon) {
+      var cunlonLast = Number(data[0]);
+      var cunlatLast = Number(data[1]);
+      var diffLon = Number(subtractTen(cunlon, cunlonLast));
+      var diffLat = Number(subtractTen(cunlat, cunlatLast));
+      var arr = [(cunlon + '|' + cunlat)];
+      var cunlonfor = cunlon;
+      var cunlatfor = cunlat;
+      for (var i = 0; i < 9; i++) {
+        if (i == 8) {
+          arr.push(val);
+        } else {
+          if (cunlonLast > cunlon && cunlatLast > cunlat) {
+            arr.push(toDecimal6(cunlonfor + diffLon) + '|' + toDecimal6(cunlatfor + diffLat));
+            cunlonfor = toDecimal6(cunlonfor + diffLon);
+            cunlatfor = toDecimal6(cunlatfor + diffLat);
+          } else if (cunlonLast > cunlon && cunlatLast < cunlat) {
+            arr.push(toDecimal6(cunlonfor + diffLon) + '|' + toDecimal6(cunlatfor - diffLat));
+            cunlonfor = toDecimal6(cunlonfor + diffLon);
+            cunlatfor = toDecimal6(cunlatfor - diffLat);
+          } else if (cunlonLast > cunlon && cunlatLast == cunlat) {
+            arr.push(toDecimal6(cunlonfor + diffLon) + '|' + cunlat);
+            cunlonfor = toDecimal6(cunlonfor + diffLon);
+          } else if (cunlonLast < cunlon && cunlatLast > cunlat) {
+            arr.push(toDecimal6(cunlonfor - diffLon) + '|' + toDecimal6(cunlatfor + diffLat));
+            cunlonfor = toDecimal6(cunlonfor - diffLon);
+            cunlatfor = toDecimal6(cunlatfor + diffLat);
+          } else if (cunlonLast < cunlon && cunlatLast < cunlat) {
+            arr.push(toDecimal6(cunlonfor - diffLon) + '|' + toDecimal6(cunlatfor - diffLat));
+            cunlonfor = toDecimal6(cunlonfor - diffLon);
+            cunlatfor = toDecimal6(cunlatfor - diffLat);
+          } else if (cunlonLast < cunlon && cunlatLast == cunlat) {
+            arr.push(toDecimal6(cunlonfor - diffLon) + '|' + cunlat);
+            cunlonfor = toDecimal6(cunlonfor - diffLon);
+          } else if (cunlonLast == cunlon && cunlatLast > cunlat) {
+            arr.push(cunlon + '|' + toDecimal6(cunlatfor + diffLat));
+            cunlatfor = toDecimal6(cunlatfor + diffLat);
+          } else if (cunlonLast == cunlon && cunlatLast < cunlat) {
+            arr.push(cunlon + '|' + toDecimal6(cunlatfor - diffLat));
+            cunlatfor = toDecimal6(cunlatfor - diffLat);
+          } else if (cunlonLast == cunlon && cunlatLast == cunlat) {
+            arr.push(cunlon + '|' + cunlat);
+          }
+          cunlonLast = toDecimal6(cunlonLast + diffLon);
+          cunlatLast = toDecimal6(cunlatLast + diffLat);
+        }
+      }
+      arry22 = arry22.concat(arr);
+      cunlon = Number(data[0]);
+      cunlat = Number(data[1]);
+    } else {
+      cunlon = Number(data[0]);
+      cunlat = Number(data[1]);
+    }
+  })
+  return arry22;
+}
+
+/**
+ *
+ * Pass all functions into module
+ */
+angular
+  .module('managerApp')
+  .directive('pageTitle', pageTitle)
+  .directive('sideNavigation', sideNavigation)
+  .directive('iboxTools', iboxTools)
+  .directive('minimalizaSidebar', minimalizaSidebar)
+  .directive('iboxToolsFullScreen', iboxToolsFullScreen)
+  .directive('datalistpager', datalistpager)
+  //.directive('myoperationbtn', myoperationbtn)
+  .directive('datalistpagerdialog', datalistpagerdialog)
+  .directive('startPicker', startPicker)
+  .directive('startPickers', startPickers)
+  .directive('startPickeres', startPickeres)
+  .directive('startPickeress', startPickeress)
+  .directive('datapicker', datapicker)
+  .directive('minpicker', minpicker)
+  .directive('endPickers', endPickers)
+  .directive('endPicker', endPicker)
+  .directive('newPicker', newPicker)
+  .directive('downloadimgforsrc', downloadimgforsrc)
+  //.directive('gaodeMap', gaodeMap)
+  .directive('baiduMap', baiduMap)
+  .directive('singleImgUpload', singleImgUpload)
+  .directive('myImg', myImg)
+  .directive('tableDrag', tableDrag)
+  .factory('echarts', function() {
+    return echarts;
+  })
+  .factory('AMap', function() {
+    return AMap;
+  })
+  //字数截取添加省略号
+  .filter('cut', function() {
+    return function(value, wordwise, max, tail) {
+      if (!value) return '';
+
+      max = parseInt(max, 10);
+      if (!max) return value;
+      if (value.length <= max) return value;
+
+      value = value.substr(0, max);
+      if (wordwise) {
+        var lastspace = value.lastIndexOf(' ');
+        if (lastspace != -1) {
+          value = value.substr(0, lastspace);
+        }
+      }
+
+      return value + (tail || ' …');
+    };
+  })
+  .filter('trust2Html', ['$sce', function($sce) {
+    return function(val) {
+      return $sce.trustAsHtml(val);
+    };
+  }])
+  .directive('dyCompile', dyCompile);

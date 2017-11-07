@@ -1,0 +1,265 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">类型管理</h1>
+    </div>
+    <div class="modal-body" name="myform" verify-scope="tipStyle: 1">
+        <!-- 标签页start -->
+        <ul class="nav nav-tabs"><!--  class="active" -->
+            <li class="active" ng-click="onClickTab('basicInformation.html')">
+                <a data-toggle="tab">基本信息</a>
+            </li>
+            <li ng-click="onClickTab('goodsSpecIds.html')" ng-hide="tabadd">
+                <a data-toggle="tab">关联规格</a>
+            </li>
+            <li ng-click="onClickTab('goodsBrandIds.html')" ng-hide="tabadd">
+                <a data-toggle="tab">关联品牌</a>
+            </li>
+            <li ng-click="onClickTab('filterType.html')" ng-hide="tabadd">
+                <a data-toggle="tab">过滤属性</a>
+            </li>
+            <li ng-click="onClickTab('customType.html')" ng-hide="tabadd">
+                <a data-toggle="tab">自定义属性</a>
+            </li>
+        </ul>
+        <div id="mainView">
+            <div ng-include="currentTab"></div>
+        </div>
+        <!-- 基本信息 -->
+        <script type="text/ng-template" id="basicInformation.html">
+            <ul class="form-horizontal">
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">名称：</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="名称"
+                                   ng-model="dataEntity.name" ng-verify="{required:true}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">排序：</label>
+
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" placeholder="排序号(请输入数字)"
+                                   ng-model="dataEntity.sort" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <!-- 标签页end -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="okModal(dataEntity,1)"
+                        ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                </button>
+                <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+            </div>
+        </script>
+        <!-- 关联规格 -->
+        <script type="text/ng-template" id="goodsSpecIds.html">
+            <ul class="form-horizontal">
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <h3 class="col-sm-5">规格列表(未选中的)</h3>
+                            <div class="col-sm-6">
+	                            <input type="text" class="form-control" placeholder="关键词搜索"
+	                                   ng-model="goodsTypeSpecSearch">
+	                        </div>
+                            <ul class="form-horizontal horizontal1 col-sm-12" style="max-height: 300px;overflow: auto;">
+                                <li class="list-group-item" ng-repeat="show in SpecificationsArray | filter:goodsTypeSpecSearch | orderBy:'id'"
+                                    ng-hide="isSelected(show.id)">
+                                    <label class="radio-inline">
+                                        <input style="max-width: 0px;" type="checkbox" id={{show.id}}
+                                               ng-checked="isSelected(show.id)"
+                                               ng-click="updateSelection($event,show.id,show.name)"
+                                               name="SpecificationsArray" ng-hide="true">
+                                        &nbsp;{{show.name}}&nbsp;
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>已选中的</h3>
+                            <ul class="form-horizontal horizontal1" style="max-height: 300px;overflow: auto;">
+                                <li class="list-group-item" ng-repeat="shows in SpecificationsArray"
+                                    ng-show="isSelected(shows.id)"
+                                    ng-click="updateSelection($event,shows.id,shows.name)" name="SpecificationsArray">
+                                    <label class="radio-inline">&nbsp;{{shows.name}}&nbsp;
+                                        <span style="color: red;font-size: small"
+                                              ng-if="!(specIds.indexOf(shows.id+'')<0)"> * 已关联商品不可更改</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <!-- 标签页end -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="okModal(dataEntity,2)"
+                        ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                </button>
+                <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+            </div>
+        </script>
+        <!-- 关联品牌 -->
+        <script type="text/ng-template" id="goodsBrandIds.html">
+            <ul class="form-horizontal">
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <h3 class="col-sm-5">品牌列表(未选中的)</h3>
+                            <div class="col-sm-6">
+	                            <input type="text" class="form-control" placeholder="关键词搜索"
+	                                   ng-model="goodsTypeSearch">
+	                        </div>
+                            <ul class="form-horizontal horizontal1 col-sm-12" style="max-height: 300px;overflow: auto;">
+                                <li class="list-group-item" ng-repeat="show2 in GoodsbrandsArray | filter:goodsTypeSearch | orderBy:'id'"
+                                    ng-hide="isSelected2(show2.id)">
+                                    <label class="radio-inline">
+                                        <input style="max-width: 0px;" type="checkbox" id={{show2.id}}
+                                               ng-checked="isSelected2(show2.id)"  ng-hide="true"
+                                               ng-click="updateSelection2($event,show2.id,show2.name)"
+                                               name="GoodsbrandsArray">&nbsp;{{show2.name}}&nbsp;
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>已选中的</h3>
+                            <ul class="form-horizontal horizontal1" style="max-height: 300px;overflow: auto;">
+                                <li class="list-group-item" ng-repeat="show4 in GoodsbrandsArray"
+                                    ng-show="isSelected2(show4.id)"
+                                    ng-click="updateSelection2($event,show4.id,show4.name)" name="GoodsbrandsArray">
+                                    <label class="radio-inline">&nbsp;{{show4.name}}&nbsp;
+                                        <span style="color: red;font-size: small"
+                                              ng-if="!(brandIds.indexOf(show4.id+'')<0)"> * 已关联商品不可更改</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <!-- 标签页end -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="okModal(dataEntity,3)"
+                        ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                </button>
+                <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+            </div>
+        </script>
+        <!-- 过滤属性 res.type=1 -->
+        <script type="text/ng-template" id="filterType.html">
+            <ul class="list-group form-horizontal">
+                <li class="list-group-item"  ng-repeat="res in goodsTypeAttrs1 track by $index"
+                    style="padding-bottom: 10px">
+                    <div class="form-group" style="margin-bottom: 0px">
+                        <div>
+                            <label class="col-sm-1 control-label">属性名称:</label>
+
+                            <div class="col-sm-2" style='white-space: nowrap;'>
+                                <input type="text" class="form-control" placeholder="属性名称"
+                                       ng-model="res.name" ng-verify="{required:true}"
+                                       ng-disabled="!(attrIds.indexOf(res.id)<0)">
+                                <span ng-if="!(attrIds.indexOf(res.id)<0)" style="color: red">* 该属性已关联商品无法更改</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-sm-1 control-label">属性值：</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" placeholder="多属性值以英文‘,’分割"
+                                       ng-model="res.value" ng-verify="{required:true}"
+                                       ng-disabled="!(attrIds.indexOf(res.id)<0)">
+                            </div>
+                        </div>
+                        <div ng-hide="attrIds.indexOf(res.id)<0">
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" placeholder="新增属性值"
+                                       ng-model="res.value2">
+                            </div>
+                        </div>
+                        <label class="col-sm-1 control-label">排序号：</label>
+
+                        <div class="col-sm-1">
+                            <input type="number" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" class="form-control"
+                                   placeholder="排序号(请输入数字)"
+                                   ng-model="res.sort" ng-disabled="!(attrIds.indexOf(res.id)<0)">
+                        </div>
+                        <a ng-show="isDel1(res.id)" class="col-sm-1" ng-click="goodsTypeAttrs1.splice($index,1)"><span
+                                class="glyphicon glyphicon-remove"></span></a>
+                    </div>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-success" ng-click="add_li(1)">
+                <span class="glyphicon glyphicon-plus"></span> 新增一条过滤属性
+            </button>
+            <!-- 标签页end -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="okModal(dataEntity,4)"
+                        ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                </button>
+                <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+            </div>
+        </script>
+        <!-- 自定义属性 res.type=2 -->
+        <script type="text/ng-template" id="customType.html">
+            <ul class="list-group form-horizontal">
+                <li class="list-group-item" ng-repeat="res in goodsTypeAttrs2 track by $index"
+                    style="padding-bottom: 10px">
+                    <div class="form-group" style="margin-bottom: 0px">
+                        <div>
+                            <label class="col-sm-1 control-label">属性名称:</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" placeholder="属性名称"
+                                       ng-model="res.name" ng-verify="{required:true}"
+                                       ng-disabled="!(attrIds.indexOf(res.id)<0)">
+                                <span ng-if="!(attrIds.indexOf(res.id)<0)" style="color: red">* 该属性已关联商品无法更改</span>
+                            </div>
+                        </div>
+                        <label class="col-sm-1 control-label">排序号：</label>
+
+                        <div class="col-sm-2">
+                            <input type="number" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" class="form-control"
+                                   placeholder="排序号(请输入数字)"
+                                   ng-model="res.sort" ng-disabled="!(attrIds.indexOf(res.id)<0)">
+                        </div>
+                        <a ng-show="isDel1(res.id)" class="col-sm-1" ng-click="goodsTypeAttrs2.splice($index,1)"><span
+                                class="glyphicon glyphicon-remove"></span></a>
+                    </div>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-success" ng-click="add_li(2)">
+                <span class="glyphicon glyphicon-plus"></span> 新增一条自定义属性
+            </button>
+            <!-- 标签页end -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="okModal(dataEntity,5)"
+                        ng-verify="{control:'myform'}">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                </button>
+                <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+            </div>
+        </script>
+
+    </div>
+
+</div>
+

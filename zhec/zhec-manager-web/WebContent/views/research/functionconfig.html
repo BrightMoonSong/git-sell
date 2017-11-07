@@ -1,0 +1,87 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+	<div class="row marLeft15">
+		<div class="col-lg-12 ">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<div class="heading">
+						<!-- 搜索  -->
+						<div class="col-sm-3">
+							<div class="input-group">
+								<input type="text" placeholder="按姓名检索" class="form-control "
+									ng-model="userNameSearch"> <span
+									class="input-group-btn">
+									<button class="btn btn-success" type="button"
+										ng-click="loadData()">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-lg-9">
+							<!-- 刷新按钮 -->
+							<button type="button" class="btn btn-success operationBtn"
+								ng-click="loadData(true)">
+								<span class="glyphicon glyphicon-refresh"></span> 刷新
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="hideScroll">
+					<div class="ibox-content ">
+						<table datatable="ng" dt-options="dtOptions"
+							class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>name</th>
+									<th>menuUrl</th>
+									<th>parentId</th>
+									<th>scope</th>
+									<!-- <th>排序</th>
+									<th>status</th>
+									<th>scope</th> -->
+									<th class="col-lg-2">操作</th>
+								</tr>
+							</thead>
+							<tbody style="">
+								<tr ng-repeat="config in configList">
+									<td>{{ config.id }}</td>
+									<td>{{ config.name }}</td>
+									<td>{{ config.menuUrl }}</td>
+									<td>{{ config.parentId }}</td>
+									<td>{{ config.scope }}</td>
+									
+									<td class="action-column">
+										<button type="button" class="btn btn-warning"
+											data-toggle="modal" data-target="#update"
+											ng-click="openModal(0,config.id)">
+											<!--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>-->查看
+										</button>
+										<button ng-if="config.parentId == 0" type="button" class="btn btn-warning"
+                                            ng-click="openModal(1,config.id)">
+	                                        <!--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>--> 增加子功能点
+	                                    </button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<datalistpager></datalistpager>
+
+<script type="text/ng-template" id="firstDialogId">
+	<div class="ngdialog-message">
+        <h3>确定{{currentStatus}}？</h3>
+        <!--<p>The <code>.openConfirm()</code> function returns a promise that is resolved when confirmed and rejected when otherwise closed. Modal dialogs by default do not close when clicked outside the dialog or when hitting escape. This can ofcourse be overridden when opening the dialog.</p>
+        <p>Confirm can take a value. Enter one here for example and see the console output: <input ng-model="confirmValue" /></p>-->
+    </div>
+    <div class="ngdialog-buttons">
+        <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirmClick()">确定</button>
+        <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="cancleClick()">取消</button>
+    </div>
+</script>

@@ -1,0 +1,40 @@
+<div ng-controller="topnavbarController">
+	<div class="head">
+		<div class="header">
+			<div  class="header-navigation clearfix">
+				<ol  class="clearfix">
+					<li class="header-navigation-first">
+						<a href="index.html#/manager/index" class="index-font">网站首页</a>
+					</li>
+					<li>
+						<a href="index.html#/manager/companydetail">公司概况</a>
+					</li>
+					<li >
+						<a href="index.html#/manager/newslist">资讯中心</a>
+					</li>
+					<li>
+						<a href="index.html#/manager/productdetail">产品中心</a>
+					</li>
+					<li>
+						<a>营销网络</a>
+					</li>
+					<li>
+						<a>人才招聘</a>
+					</li>
+					<li class="header-navigation-last">
+						<a href="index.html#/manager/message">在线留言</a>
+					</li>
+				</ol>
+			</div>
+			<div class="logo">
+				<a>
+					<img src="" />
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--<div id="toastLoadding" >
+    <div style="padding: 0;"><img src="../../img/loadding.gif" /></div>
+</div>-->

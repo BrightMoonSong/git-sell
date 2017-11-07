@@ -1,0 +1,64 @@
+<div id="needs_head">
+	<ul class="head">
+		<li>
+			<a ng-href="/index.html#/main/mine"><img src="img/fh.png" /></a>
+		</li>
+		<li class="collect_rx">
+			<span>
+					<a class="collect_rx_xz" ng-click="Drugs(2,$event)" ng-class="{true:'collect_rx_xz',false:''}[collectchoose]">非处方药</a>
+					<a ng-click="Prescription(1,$event)" ng-class="{true:'',false:'collect_rx_xz'}[collectchoose]">处方药</a>
+				</span>
+		</li>
+		<li id="apply_bj"><a ng-click="showBtn()" ng-hide="showHideBtn">编辑</a><a ng-click="closeBtn()" ng-show="showHideBtn">完成</a></li>
+	</ul>
+
+</div>
+
+<div class="apply_head ycenter collect_div" ng-repeat="collectList in collectList" ng-show="cellectIfGoods">
+	<input ng-show="showHideBtn" ng-click="selectChange()" ng-model="collectList.status" type="checkbox" name="1" value="1" />
+
+	<a ng-href="/index.html#/info/goods-{{collectList.goodsId}}">
+		<img src="{{collectList.masterImg}}" alt="" />
+	</a>
+	<ol class="clearfix">
+		<li class="prescripiton_a_rx">
+			<img src="img/prescription.png" ng-if="collectList.goodsType==1">
+		</li>
+		<li>
+			<a ng-href="/index.html#/info/goods-{{collectList.goodsId}}" class="words" ng-bind="collectList.name1"></a>
+		</li>
+		<!-- <li class="apply_head_li_two"></li> -->
+		<li class="apply_head_li_two" ng-if="collectList.stock >0">有货</li>
+		<li class="apply_head_li_two" ng-if="collectList.stock <1">无货</li>
+		<li class="apply_head_li_three">
+			<b ng-bind="collectList.salesPrice | priceFormatFilter"></b>
+		</li>
+	</ol>
+</div>
+<div class="shopping_js" id="collection_bottom" ng-show="showHideBtn">
+	<ul class="shopping_js_ul">
+		<li>
+			<label>
+						<input ng-show="showHideBtn"  ng-click="selectAll()" ng-model="allSelect" type="checkbox" name="1" value="1" />
+						<span ng-show="showHideBtn" >全选</span>
+					</label>
+		</li>
+		<li class="shopping_js_ul_three" ng-click="collectDeldata()" ng-show="showHideBtn">
+			<button>删除</button>
+		</li>
+		<li ng-show="collectchoose" class="shopping_js_ul_but" ng-show="showHideBtn">
+			<button ng-click="membercart(1)">移入购物车</button>
+		</li>
+	</ul>
+</div>
+
+<div class="cart_img" ng-hide="cellectIfGoods">
+	<div class="coupon_img_conter">
+		<span class="xcenter">
+					<img src="../../img/wsc.png" />
+				</span>
+		<p>收藏夹是空的</p>
+	</div>
+</div>
+<!-- <div ng-if="scrollFoot == false"><img src="../../img/fdddb.png" alt=""></div>
+		<div  class="all_lode_img"><img src="../../img/loadding.gif" alt="" /></div> -->

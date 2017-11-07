@@ -1,0 +1,31 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title" ng-if="openModalType==1">确认订单</h1>
+		<h1 class="modal-title" ng-if="openModalType==2">拒绝接单</h1>
+		<h1 class="modal-title" ng-if="openModalType==3">分配配送员</h1>
+		<h1 class="modal-title" ng-if="openModalType==4">订单派送中</h1>
+		<h1 class="modal-title" ng-if="openModalType==5">完成订单</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-2 control-label" ng-if="openModalType!=2">备注:</label>
+					<label class="col-sm-2 control-label" ng-if="openModalType==2">备注 (*):</label>
+					<div class="col-sm-9">
+						<textarea class="form-control" ng-model="remark"></textarea>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn btn-warning" ng-click="okModal()" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+       </button>
+		<button class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

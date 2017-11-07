@@ -1,0 +1,203 @@
+<form name="myform" verify-scope="tipStyle: 1">
+	<div id="needs_head">
+		<ul class="head">
+			<li>
+				<a onclick="history.back()"><img src="img/fh.png" /></a>
+			</li>
+			<li id="apply_xq">申请售后</li>
+			<li id="apply_bj"><button ng-click=" resfun()" ng-verify="{control:'myform'}" ng-disabled="dataDisabled">完成</button></li>
+		</ul>
+	</div>
+	
+	<div class="apply_head ycenter">
+		<a ui-sref="info.goods({id:goodsId})">
+			<img ng-src="{{applyData.goodsImage}}" alt="" />
+		</a>
+		<ol class="clearfix">
+			<li id="apply_rx_li">
+				<span ng-if="applyData.goodsType==1" id="apply_rx_img"><img src="../../img/lc.png"></span>
+				<a ui-sref="info.goods({id:goodsId})" class="words" ng-bind="applyData.goodsName"></a>
+			</li>
+			<li class="apply_head_li_two" ng-bind="applyData.specInfo"></li>
+			<li class="apply_head_li_three">
+				<b ng-bind="applyData.moneyRefund | priceFormatFilter:2"></b>
+				<span>x<b ng-bind="applyData.productNum"></b></span>
+			</li>
+		</ol>
+	</div>
+	<ul class="clearfix apply_conter_ul">
+		<li class="bill_fapiao apply_conter_ul_li">
+			<a>
+				<label><b>*</b>服务类型</label>
+				<span>退货</span>
+			</a>
+		</li>
+		<li class="bill_fapiao">
+			<label><b>*</b>退货数量</label>
+			<ul class="apply_ul_number">
+				<li>
+					<button ng-click="goods_applynum=goods_applynum-1" ng-disabled="goods_applynum<=1">
+						<img ng-if="goods_applynum<=1" src="img/downNum.png" />
+						<img ng-if="goods_applynum>1" src="img/downNum1.png"/>
+					</button>
+				</li>
+				<li>
+					<input  type="text" readonly="readonly" placeholder="1" ng-model="goods_applynum"/>
+				</li>
+				<li>
+					<button ng-click="goods_applynum=goods_applynum+1" ng-disabled="goods_applynum>=applyData.maxReturnNum">
+						<img ng-if="goods_applynum<=applyData.maxReturnNum"  src="img/addNum.png"/>
+						<img ng-if="goods_applynum>1" src="img/addNum1.png"/>
+					</button>
+				</li>
+			</ul>
+		</li>
+		<li class="bill_fapiao ">
+			<input type="hidden" name="titleType_Id" id="apply-show-yc" style="display: none;" value="">
+			<a >
+				<label><b>*</b>退货原因</label>
+				<img src="img/ljjt.png" />
+				<span ng-bind="refundReason" id="apply-show-th"></span>
+			</a>
+		</li>
+		<li class="bill_fapiao apply_conter_ul_li_marg">
+			<a>
+				<label><b>*</b>退款方式</label>
+				<span>退回余额</span>
+			</a>
+		</li>
+		<li class="apply_conter_ul_if ">
+			如果收到商品时有发票，退货时必须返还所有发票，否则不予退货。
+		</li>
+		<li class="bill_fapiao ">
+			<a>
+				<label><b>*</b>退回方式</label>
+				<span>快递至平台</span>
+			</a>
+		</li>
+		<li class="apply_conter_ul_if ">
+			商品返回地址将在服务单审核通过后在“退货订单”中查询。
+		</li>
+		<li class=" apply_conter_ul_li apply_adress">
+			<a>
+				<label><b>*</b>收货地址</label>
+				<div>
+					<span ng-bind="applyData.refundAddress"></span>
+				</div>
+			</a>
+		</li>
+		<li class="clearfix bill_fapiao">
+			<a>
+				<label><b>*</b>手机号</label>
+				<input type="text" ng-model="contactInformation" value="157****5184" />
+			</a>
+		</li>
+
+		<li class="apply_conter_ul_if ">
+			提交服务单后，售后专员可能与您电话沟通，请保持手机畅通
+		</li>
+	</ul>
+	<div class="needs_texra ">
+		<div class="apply_textarea">问题描述</div>
+		<textarea placeholder="在这里描述问题" class="xcenter" rows="5" cols="100" maxlength="200" ng-model="remark"></textarea>
+	</div>
+	<div class="needs_oss clearfix">
+		<div class="needs_oss_head">
+			<label><span>*</span><b>上传图片</b></label>
+			<span>最多上传5张</span>
+		</div>
+		<div class="needs_oss_img clearfix">
+					<!--OSS-->
+						<div name="theform" style="display: none;">
+							<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+							<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+							<br/> 上传到指定目录:
+							<input type="text" value="{{submitBillmemberId}}" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+						</div>
+						<div id="container" class="clearfix">
+							<div id="ossfile" class="clearfix">
+								你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系XXX)
+							</div>
+							<div id="selectfiles" class="btn"><img src="img/tjtpjh.png"></div>
+							<!--<img src="img/xnjj.png" />
+							<img src="img/xnjj.png" />
+							<img src="img/xnjj.png" />
+							<img src="img/xnjj.png" />-->
+						</div>
+						<div class="clearfix after_oss_div">
+							<a id="postfiles" href="javascript:void(0);" class="btn" style="display: none;">开始上传</a>
+						</div>
+						<pre id="console" style="display: none;"></pre>
+						<!--OSS-->
+				<ol class="needs_oss_img_ol clearfix">			
+				<li>
+					<a  class="btn"><img src="img/tjtpjh.png"></a>
+			</li>
+				<li>
+					<a>
+					</a>
+				</li>
+				<li>
+					<a>
+					</a>
+				</li>
+				<li>
+					<a>
+					</a>
+				</li>
+				<li>
+					<a>
+					</a>
+				</li>
+			</ol>
+		</div>
+		<div class="needs_oss_but ycenter">
+			<button onclick="returnBigImgList()">上传图片</button>
+		</div>
+	</div>
+	<div class="detaily_sc" style="display: none;">
+		<span>还未填写完</span>
+		<a><img src="img/gb.png" /></a>
+	</div>
+	<div class="all_bill" ng-show="popup" id="apply_yy">
+		<div class="all_bill_div clearfix" style="display: none;">
+			<ul class="all_bill_div_head">
+				<b>
+						取消原因
+					</b>
+				<a ng-click="slideot()">
+					完成
+				</a>
+			</ul>
+			<ul class="all_bill_div_ul clearfix">
+				<li ng-repeat="x in applyJson" ng-class="{true:'all-wap_click',false:''}[refundReason==x.name]">
+					<a ng-bind="x.name" ng-click="getName(x.name)"></a>
+				</li>
+				<!--class="all-wap_click"-->
+			</ul>
+		</div>
+	</div>
+</form>
+<style type="text/css">
+	.chooseTitle {
+		border-top: 1px solid #22A2FF;
+		border-bottom: 1px solid #22A2FF;
+	}
+	.containerSubmitOrder li{
+		float: initial;
+	}
+	.containerSubmitOrderTitle li{
+		float: initial;
+	}
+</style>
+
+<div class="containerSubmitOrderTitle"></div>
+<div class="containerSubmitOrder"></div> 
+<script src="../../js/controllers/apply/applyslideControll.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../../vendor/oss/lib/crypto1/crypto/crypto.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../vendor/oss/lib/crypto1/hmac/hmac.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../vendor/oss/lib/crypto1/sha1/sha1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../vendor/oss/lib/base64.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../vendor/oss/plupload.full.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../vendor/oss/upload.js" type="text/javascript" charset="utf-8"></script>

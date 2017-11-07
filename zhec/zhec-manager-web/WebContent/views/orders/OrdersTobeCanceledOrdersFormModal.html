@@ -1,0 +1,28 @@
+<div class="inmodal" name="myform" verify-scope="tipStyle: 2">
+    <div class="modal-header">
+        <h1 class="modal-title">订单管理</h1>
+    </div>
+    <div class="modal-body">
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">备注：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"
+                               ng-model="remark">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}">
+            <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+        </button>
+        <button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span> 取消
+        </button>
+    </div>
+</div>
+

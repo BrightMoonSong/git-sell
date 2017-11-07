@@ -1,0 +1,82 @@
+angular
+	.module("managerApp")
+	.factory("SysSearchHotService", function($q, $http, constMapiLocation) {
+		var baseUrl = constMapiLocation + "/searchhot";
+		return {
+			//热门搜索条件查询分页列表
+			find: function(pageSize, pageNo, content) {
+				var defer = $q.defer();
+				var url = baseUrl + "/find?pageSize=" + pageSize + "&pageNo=" + pageNo;
+				if(content) {
+					url += "&content=" + content;
+				}
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//新增热门搜索
+			add: function(res) {
+				var defer = $q.defer();
+				var url = baseUrl + "/add";
+				$http({
+					method: 'post',
+					url: url,
+					data: res
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//逻辑删除热门搜索
+			delete: function(hotId) {
+				var defer = $q.defer();
+				var url = baseUrl + "/delete/" + hotId;
+				$http({
+					method: 'delete',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//修改热门搜索
+			update: function(res) {
+				var defer = $q.defer();
+				var url = baseUrl + "/update";
+				$http({
+					method: 'put',
+					url: url,
+					data: res
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//启用禁用热门搜索
+			updatestatus: function(hotId, status) {
+				var defer = $q.defer();
+				var url = baseUrl + "/updatestatus/" + hotId + "?status=" + status;
+				$http({
+					method: 'put',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			}
+		}
+	})

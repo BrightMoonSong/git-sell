@@ -1,0 +1,32 @@
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">热门搜索</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group" >
+					<label class="col-sm-3 control-label">热门搜索内容:</label>
+					<div class="col-sm-9">
+						<input type="text" ng-verify="{min:1 ,max:30,required:true}" class="form-control" ng-model="dataEntity.content">
+					</div>
+				</div>
+				<div class="form-group" >
+					<label class="col-sm-3 control-label">排序号:</label>
+					<div class="col-sm-9">
+						<input type="number" ng-verify="{min:1 ,max:20,required:true}" class="form-control" ng-model="dataEntity.sort">
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

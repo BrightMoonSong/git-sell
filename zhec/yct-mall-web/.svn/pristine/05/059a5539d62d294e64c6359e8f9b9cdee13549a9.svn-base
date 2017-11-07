@@ -1,0 +1,54 @@
+<div class="content">
+	<div class="banner">
+		<a class="detail-img ycenter xcenter">
+			<img src="../img/banner.png">
+		</a>
+	</div>
+	<div class="conter clearfix">
+		<div class="conter-list">
+			<div class="banner-Carousel-head" id="detail-left-head">
+				<span>产品中心</span>
+			</div>
+			<ol class="detail-left-ol clearfix">
+				<li ng-repeat="res in detailList" 
+					ng-click="classificationId(res.classificationId)"
+					ng-class="{true: 'detail-left-ol-li-click', false: ''}[isActiveId==res.classificationId]">
+					<a>
+						<span>*</span>
+						<span ng-bind="res.name">·感冒用药</span>
+					</a>
+				</li>
+			</ol>
+
+		</div>
+		<div class="detail-right clearfix">
+			<div class="detail-right-head">
+				<div class="detail-right-head-left">
+					<span>*</span>
+					<span>公司公告</span>
+				</div>
+				<ul class="detail-right-head-right">
+					<li>
+						<span>您所在的位置</span>
+						<span>></span>
+					</li>
+					<li>
+						<span>产品中心</span>
+						<span>></span>
+					</li>
+					<li>
+						感冒用药
+					</li>
+				</ul>
+			</div>
+			<div class="detail-right-conter">
+				<ul class="product-conter-list clearfix">
+					<li class="clearfix" ng-repeat="res in classificationList">
+						<a><img ng-src="{{res.drugImg}}"></a>
+						<p ng-bind='res.drugName'>风寒感冒颗粒</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

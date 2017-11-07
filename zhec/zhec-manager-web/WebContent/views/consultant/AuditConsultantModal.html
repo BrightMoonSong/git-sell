@@ -1,0 +1,42 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">顾问资质审核</h1>
+    </div>
+
+    <div class="form-group col-sm-12" style="padding-top: 15px;">
+        <div style="overflow: auto;max-height: 400px;width: 100%;">
+            <ul class="form-horizontal">
+                <li class="list-group-item col-sm-12" ng-repeat="res in consultantAuditList" style="background-color: white;padding-top: 5px;">
+                        <label class="col-sm-2 text-left fontweight5">
+                    上传时间: <span class="text-left" >{{res.addTime}}</span>
+                </label>
+                        <div>
+                            <label class="col-sm-2 text-left fontweight5">图片:</label>
+                            <div class="col-sm-4 text-left fontweight5">
+                                <a ng-click="showBigImg(res.filePath)"><img ng-src="{{res.filePath}}" style="width: 80px;cursor:url('../../../img/big32.ico'),auto" alt="图片加载中" /></a>
+                            </div>
+                        </div>
+
+                </li>
+                <div style="clear: both;"></div>
+            </ul>
+
+        </div>
+
+        <script type="text/ng-template" id="firstDialogId">
+            <div style="width:auto;margin:0 auto">
+                <div ng-click="closeModal()" style="cursor:url('../../../img/small32.ico'),auto" id="showImg" style="width:auto"><img style="max-width: 750px; display: block;margin:0 auto" ng-click="closeModal()" ng-src="{{currentImg}}" /></div>
+            </div>
+        </script>
+    </div>
+
+
+    <div class="modal-footer">
+        <button ng-show="auditstatus==1" type="button" class="btn btn-warning" ng-click="cancelAudit(2)">
+            <span class="glyphicon glyphicon-floppy-disk"></span> 通过
+        </button>
+        <button ng-show="auditstatus==1" type="button" class="btn btn-success" ng-click="cancelAudit(3)">
+            <span class="glyphicon glyphicon-share-alt"></span> 不通过
+        </button>
+    </div>
+    </div>

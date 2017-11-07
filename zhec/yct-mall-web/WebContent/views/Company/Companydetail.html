@@ -1,0 +1,87 @@
+<div class="content">
+	<div class="banner">
+		<a class="detail-img ycenter xcenter">
+			<img src="../../img/banner.jpg">
+		</a>
+	</div>
+	<div class="conter clearfix">
+		<div class="conter-list">
+			<div class="banner-Carousel-head" id="detail-left-head">
+				<span>公司概括</span>
+			</div>
+			<ol class="detail-left-ol clearfix">
+				<li ng-click="checkCompany(1)" ng-class="{true: 'detail-left-ol-li-click', false: ''}[isActiveId==1]">
+					<a>
+						<span>*</span>
+						<span>公司介绍</span>
+					</a>
+				</li>
+				<li ng-click="checkCompany(2)" ng-class="{true: 'detail-left-ol-li-click', false: ''}[isActiveId==2]">
+					<a>
+						<span>*</span>
+						<span>企业文化</span>
+					</a>
+				</li>
+				<li ng-click="checkCompany(3)" ng-class="{true: 'detail-left-ol-li-click', false: ''}[isActiveId==3]">
+					<a>
+						<span>*</span>
+						<span>资质荣誉</span>
+					</a>
+				</li>
+
+			</ol>
+
+		</div>
+		<div class="detail-right clearfix">
+			<div class="detail-right-head">
+				<div class="detail-right-head-left">
+					<span>*</span>
+					<span ng-bind="newTitle">公司介绍</span>
+				</div>
+				<ul class="detail-right-head-right">
+					<li>
+						<span>您所在的位置</span>
+						<span>></span>
+					</li>
+					<li>
+						<span>公司概括</span>
+						<span>></span>
+					</li>
+					<li ng-bind="newTitle">
+
+					</li>
+				</ul>
+			</div>
+			<div class="detail-right-conter clearfix">
+				<div class="company-conter-js clearfix" ng-if="isActiveId==1">
+					<!--<div class="companyconter-js" >
+						<a>
+							<img src="">
+						</a>
+					</div>-->
+					<div class="companyconter-js-word">
+						<p>天津御草堂药品销售有限公司 成立于2015年09月30日，注册地址在天津市河北区金纬路379号，主要从事药品：中成药；化学药制剂；抗生素制剂；生化药品；生化制品（除疫苗、血液制品）、医疗器械、保健食品（片剂、胶囊、软胶囊、丸剂、粉剂、颗粒剂、茶剂、膏剂、口服液、饼干、麦片、乳饮料、饮料、酒、醋、其他形态）、化妆品、日用百货零售。（依法须经批准的项目，经相关部门批准后方可开展经营活动） 。 </p>
+						<p>我公司拥有一支充满朝气的团队，药师有着丰富的药学知识与用药指导经验。公司致力于打造“高品质，低药价”的优良药房，作为年轻的充满活力的药房，我们不断探索药品零售经营的新思路，并继续拓展门店，在天津市场上精耕细作，立志打造天津最好的专业药房，成为广大市民的健康好邻居。</p>
+						
+					</div>
+				</div>
+				<div class="company-conter-wh clearfix" ng-if="isActiveId==2">
+					<div class="companyconter-js-word">
+						<p class="clearfix"><span>公司使命：</span><span>满足顾客药学服务需求，让更多的人享有健康。</span> </p>
+						<p class="clearfix"><span>公司定位：</span><span>以品种齐全，质优价廉，专业服务与贴心服务为核心竞争力。</span></p>
+						<p class="clearfix"><span>企业精神：</span><span> 诚信经营，回报社会。 经营宗旨：做最好的健康药房。</span></p>
+						<p class="clearfix"><span> 质量观：</span> <span>质量就是生命，质量就是品牌，质量就是信誉，质量就是形象。</span> </p>
+						<p class="clearfix"><span>诚信观：</span> <span>荐药有效，就是最大的诚信。</span></p>
+						<p class="clearfix"><span class="clearfix"> 公司梦想：</span><span style="width: 600px;">为顾客提供专业的服务和超值的商品，成为顾客信赖、社会尊重的药店，让员工在快乐工作中获得超越同行的 职业发展和物质回报。</span></p>
+						<p class="clearfix"><span>  公司愿景：</span><span>让国人更健康更美丽。</span></p>
+					</div>
+				</div>
+				<div class="company-conter-zz clearfix" ng-if="isActiveId==3">
+					<img src="../../img/yjyxkz.jpg" alt="" />
+					<img src="../../img/yjyzlgl.jpg" alt="" />
+					<img src="../../img/yyzz.JPG" alt="" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

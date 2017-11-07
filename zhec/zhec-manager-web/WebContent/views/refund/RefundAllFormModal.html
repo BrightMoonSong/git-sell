@@ -1,0 +1,371 @@
+<div class="inmodal" ng-show="model">
+	<div class="modal-header">
+		<h1 class="modal-title">退单管理</h1>
+	</div>
+	<div class="modal-body" name="myform" verify-scope="tipStyle: 2">
+		<!-- 标签页start -->
+		<ul class="nav nav-tabs">
+			<li class="active" ng-click="onClickTab('ordersGoods.html')">
+				<a data-toggle="tab">退单商品</a>
+			</li>
+			<li ng-click="onClickTab('ordersDetails.html')">
+				<a data-toggle="tab">退单详情</a>
+			</li>
+			<li ng-click="onClickTab('leaveMessage.html')">
+				<a data-toggle="tab">问题描述</a>
+			</li>
+			<li ng-click="onClickTab('receivingMessage.html')">
+				<a data-toggle="tab">留言板</a>
+			</li>
+			<li ng-click="onClickTab('logisticsMessage.html')">
+				<a data-toggle="tab">物流信息</a>
+			</li>
+			<li ng-click="onClickTab('operationRecord.html')">
+				<a data-toggle="tab">操作日志</a>
+			</li>
+			<!--<li ng-click="onClickTab('logisticsMessage.html')">
+				<a data-toggle="tab">物流信息</a>
+			</li>
+			<li ng-click="onClickTab('evaluateMessage.html')">
+				<a data-toggle="tab">评价信息</a>
+			</li>-->
+		</ul>
+		<div id="mainView">
+			<!-- style="overflow: auto;max-height: 600px;width: 100%;"-->
+			<!--OSS-->
+			<div style="width: 100%;clear: both;" ng-hide="showOss||dataEntity.orderStatusValue=='退单已中止'||dataEntity.orderStatusValue=='退单完成退款'">
+				<form name=theform ng-hide="true">
+					<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+					<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+					<br/> 上传到指定目录:
+					<input type="text" id="dirname" value="{{dataIdoss}}" placeholder="如果不填，默认是上传到根目录" size=50>
+				</form>
+				<h4 ng-hide="true">您所选择的文件列表：</h4>
+
+				<div id="ossfile">
+					你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系XXX)
+				</div>
+				<br/>
+
+				<div id="container" style="width: 100%;clear: both;">
+					<a id="selectfiles" href="javascript:void(0);" class="btn btn-success">选择图片</a>
+					<a id="postfiles" href="javascript:void(0);" class="btn btn-success">开始上传</a>
+				</div>
+				<pre id="console" ng-hide="true"></pre>
+			</div>
+			<!--oss-->
+			<div ng-include="currentTab"></div>
+		</div>
+
+		<!-- 退单商品 -->
+		<script type="text/ng-template" id="ordersGoods.html">
+			<table class="table table-striped table-bordered table-hover dataTables-example">
+				<thead>
+					<tr>
+						<th>商品图片</th>
+						<th>商品名称</th>
+						<th>商品规格</th>
+						<th>数量</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><img style="width: 66px;" ng-src="{{dataEntity.goodsImage}}" /></td>
+						<td>{{ dataEntity.goodsName}}</td>
+						<td>{{ dataEntity.specInfo }}</td>
+						<td>{{ dataEntity.productNum}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</script>
+		<!-- 退单详情 -->
+		<script type="text/ng-template" id="ordersDetails.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">退单编号:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.orderRefundSn" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">订单编号:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.orderSn" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">下单时间:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.orderCreateTime" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">退单时间:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.refundCreateTime" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">物流承担:</label>
+						<div class="col-sm-8" ng-show="dataEntity.moneyLogisticsBear==1">
+							<input type="text" class="form-control" value="平台承担" readonly>
+						</div>
+						<div class="col-sm-8" ng-show="dataEntity.moneyLogisticsBear==2">
+							<input type="text" class="form-control" value="买家承担" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">退款方式:</label>
+
+						<div class="col-sm-8" ng-show="dataEntity.moneyRefundWay==1">
+							<input type="text" class="form-control" value="原支付方式退回" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">退货方式:</label>
+
+						<div class="col-sm-8" ng-show="dataEntity.returnMethod==1">
+							<input type="text" class="form-control" value="退回平台" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">退货原因:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.refundReason" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">退单状态:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.orderStatusValue" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">物流费用:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.moneyLogistics | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					
+				</li>
+				<li class="list-group-item col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">会员姓名:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.memberLoginId" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">联系方式:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.contactInformation" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">退第三方:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.moneyRefund | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">退回余额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.balanceRefund | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-4 control-label">完成时间:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.refundTime" readonly>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<!-- 留言标记 -->
+		<script type="text/ng-template" id="leaveMessage.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">问题描述:</label>
+
+						<div class="col-sm-10">
+							<textarea class="form-control" ng-bind="dataEntity.remark" readonly>
+							</textarea>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<!-- 留言板 -->
+		<script type="text/ng-template" id="receivingMessage.html">
+			<div class="form-group col-sm-12" style="padding-top: 15px;" ng-hide="dataEntity.orderStatusValue=='退单已中止'||dataEntity.orderStatusValue=='退单完成退款'">
+				<label class="col-sm-1 control-label">回复:</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" maxlength="200" ng-model="data.message" onkeyup="this.value=this.value.substring(0, 200);CountWords(this,'wordNum')" onchange="this.value=this.value.substring(0, 200)" onkeydown="this.value=this.value.substring(0, 200)"></textarea>
+					<span>字数最多不超过200个</span><span id="wordNum"></span>
+				</div>
+
+				<button type="button" class="btn btn-success pull-right" ng-click="sendMessage()">
+		            <span class="glyphicon glyphicon-share-alt"></span> 发送
+		        </button>
+
+			</div>
+			<div class="form-group col-sm-12" style="overflow: auto;max-height: 400px;">
+				<ul class="form-horizontal">
+					<li class="list-group-item col-sm-12" ng-repeat="res in dataEntity.message" style="background-color: white;padding-top: 5px;">
+						<div class="form-group col-sm-12 text-left" style="padding-top: 10px;">
+							<label class="col-sm-2 text-left fontweight5">
+							消息来源:<span class="text-left" style="color: #4169e3;" ng-if="res.source==1">客服</span><span class="text-left" style="color: #4169e3;" ng-if="res.source==2">买家</span>
+						</label>
+
+							<label class="col-sm-2 text-left fontweight5">退单ID:{{res.refundOrderId}}</label>
+
+							<label class="col-sm-4 text-left fontweight5">留言时间:{{res.createTime}}</label>
+
+						</div>
+						<div class="form-group" style="padding: 10px;">
+							<label class="col-sm-2 text-right fontweight5">留言信息:</label>
+
+							<div class="col-sm-5">
+								<span class="text-left fontweight5 spanWrap" ng-bind="res.message"></span>
+							</div>
+
+							<div class="col-sm-5 text-left fontweight5" ng-hide="res.imgUrl==''||res.imgUrl==undefined||res.imgUrl==null">
+								<img ng-repeat="imgsrc in res.imgUrl.split(',')" ng-src="{{imgsrc}}" ng-click="showBigImg(imgsrc)" style="width: 80px;cursor:url('../../../img/big32.ico'),auto" alt="图片加载中..." />
+							</div>
+						</div>
+					</li>
+					<div style="clear: both;"></div>
+				</ul>
+			</div>
+		</script>
+		<!-- 物流信息 -->
+		<script type="text/ng-template" id="logisticsMessage.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">物流单号:</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.logisticsNumber" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">物流公司:</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.logisticsName" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item" ng-repeat="logistics in logisticsAttr.reverse()">
+					<div class="form-group">
+						<span class="col-sm-12 pull-left">{{logistics.AcceptTime}}</span>
+						<span class="col-sm-12 pull-left">{{logistics.AcceptStation}}</span>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<!-- 评价信息 -->
+		<script type="text/ng-template" id="evaluateMessage.html">
+			<span class="control-label">暂无评价！！！</span>
+		</script>
+		<!-- 操作日志 -->
+		<script type="text/ng-template" id="operationRecord.html">
+			<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+				<thead>
+					<tr>
+						<th>操作人名称</th>
+						<th>操作人身份</th>
+						<th>操作后状态</th>
+						<th>操作前状态</th>
+						<th>操作时间</th>
+						<th class="fixedWidth">备注</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="res in dataEntity.ordersFlow">
+						<td>{{ res.handleName}}</td>
+						<td ng-show="res.handleType!=2">后台管理员</td>
+						<td ng-show="res.handleType==2">会员</td>
+						<td>{{ res.newStatus }}</td>
+						<td>{{ res.oldStatus}}</td>
+						<td>{{res.optTime}}</td>
+						<td>
+							<div style="width: 100px;margin: 0 auto;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+								{{ res.remark}}
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</script>
+	</div>
+	<div class="modal-footer">
+		<button type="button" ng-show="position=='RefundReceivedList'" class="btn btn-warning" data-toggle="modal" ng-click="openModal(dataId,orderSn,orderStatus,1,2)">
+			退款
+		</button>
+		<button type="button" ng-show="position=='RefundPendingReviewList'" class="btn btn-warning" data-toggle="modal" ng-click="openModal(dataId,orderSn,orderStatus,1,2)">
+			通过
+		</button>
+		<button type="button" ng-show="position=='RefundPendingReviewList'" class="btn btn-warning" data-toggle="modal" ng-click="openModal(dataId,orderSn,orderStatus,2,2)">
+			拒绝
+		</button>
+		<button type="button" ng-show="position=='RefundDeliveredList'" class="btn btn-warning" data-toggle="modal" ng-click="openModal(dataId,orderSn,orderStatus,1,2)">
+			收货
+		</button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span> 取消
+        </button>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/base64.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/upload.js"></script>
+
+<style type="text/css">
+	.modelbigimgdiv{
+		width: 100%;
+		overflow: hidden;
+		text-align: center;
+		cursor:url(../../../img/small32.ico),auto
+	}
+	.modelbigimg{
+		max-width: 1025px;
+		cursor:url(../../../img/small32.ico),auto
+	}
+</style>
+<div ng-hide="model" class="modelbigimgdiv" ng-click="clickBigImg()">
+	<img ng-src="{{bigimgsrc}}" onmousewheel="return bbimg(this)" 
+		  class="modelbigimg" alt="" />
+</div>

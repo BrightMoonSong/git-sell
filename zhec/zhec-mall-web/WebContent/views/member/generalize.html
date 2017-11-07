@@ -1,0 +1,134 @@
+<ul>
+	<li class="recent_goods recent_goods_border">
+		<ul class="recent_address">
+			<li>
+				会员推广：
+			</li>
+		</ul>
+
+	</li>
+	<li class="recent_gene_erweim clearfix">
+		<div class="memberCode">
+			<qr text="string"></qr>
+		</div>
+		<ul class="recent_gene_tg">
+			<li class="recent_gene_tgli">
+				<ul class="recent_gene_tgul">
+					<li>
+						<label>推广链接</label>
+						<a href="{{string}}" ng-bind="string"></a>
+					</li>
+					<li>
+						<img ng-click="goToShare(string)" src="../../images/hytg.png" />
+
+					</li>
+
+				</ul>
+
+			</li>
+
+		</ul>
+		<ul class="generalize_ul">
+			<li>
+				<ol>
+					<li>
+						<label>推荐会员数</label> <span ng-bind="generalizeInfo.memberCount"></span>
+					</li>
+					<li>
+						<label>累计收益</label><span ng-bind="generalizeInfo.totalIncome | priceFormatFilter"></span>
+					</li>
+					<!-- <li>
+						<label>预收益</label><span ng-bind="generalizeInfo.preIncome | priceFormatFilter"></span>
+					</li> -->
+				</ol>
+			</li>
+
+		</ul>
+		<div class="generalize_div">
+			<label>温馨提示：</label><span>将二维码或推广链接发送给你要推荐的会员，该会员通过该二维码或链接注册后即为你所推荐的会员</span>
+
+		</div>
+	</li>
+	<!--<li>
+					<ol>
+						<li>
+							推荐会员数：{{generalizeInfo.memberCount}}
+						</li>
+						<li>
+							累计收益：{{generalizeInfo.totalIncome}}
+						</li>
+						<li>
+							预收益：{{generalizeInfo.preIncome}}
+						</li>
+					</ol>
+				</li>-->
+	<div id="shareCover" style="display: none;">
+		<div id="showShare" class="share_div_head">
+			<h1><b>分享</b><img src="images/errow_05.png" ng-click="cancleShare()" alt=""  class="share_div_img"/></h1>
+			<ul class="bdsharebuttonbox clearfix">
+				<li>
+					<a data-string="{{string}}" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+					<p>QQ好友</p>
+				</li>
+				<li>
+					<a data-string="{{string}}" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+					<p>新浪微博</p>
+				</li>
+				<li>
+					<a data-string="{{string}}" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+					<p>腾讯微博</p>
+				</li>
+				<li>
+					<a data-string="{{string}}" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+					<p>人人网</p>
+				</li>
+				<li>
+					<a data-string="{{string}}" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+					<p>复制网址</p>
+				</li>
+			</ul>
+			<div class="share_button">
+				<button ng-click="cancleShare()">取消</button>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//全局变量，动态的文章ID
+		var goodsId = ""
+		//绑定所有分享按钮所在A标签的鼠标移入事件，从而获取动态ID
+
+		$(function() {
+			$(".bdsharebuttonbox a").mouseover(function() {
+				goodsId = $(this).attr("data-string");
+			});
+		});
+
+		/*
+		 * 动态设置百度分享URL的函数,具体参数
+		 * cmd为分享目标id,此id指的是插件中分析按钮的ID
+		 *，我们自己的文章ID要通过全局变量获取
+		 * config为当前设置，返回值为更新后的设置。
+		 */
+		function SetShareUrl(cmd, config) {
+			config.bdUrl = goodsId;
+			return config;
+		}
+		//插件的配置部分，注意要记得设置onBeforeClick事件，主要用于获取动态的文章ID
+		window._bd_share_config = {
+			"common": {
+				onBeforeClick: SetShareUrl,
+				"bdSnsKey": {},
+				"bdMini": "2",
+				"bdMiniList": false,
+				"bdStyle": "0",
+				"bdSize": "24",
+				'bdText': '',
+				'searchPic': "1"
+			},
+			"share": {}
+		};
+		//插件的JS加载部分
+		with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+	</script>
+
+</ul>

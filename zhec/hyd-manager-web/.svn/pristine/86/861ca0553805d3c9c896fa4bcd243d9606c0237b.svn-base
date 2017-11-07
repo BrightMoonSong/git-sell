@@ -1,0 +1,30 @@
+<div class="row border-bottom" ng-controller = "topnavbarController">
+	<nav class="navbar navbar-static-top white-bg" role="navigation"
+		style="margin-bottom: 0">
+		<div class="navbar-header">
+			<span minimaliza-sidebar></span>
+			<span style="font-size: 20px;position: relative;top: 12px;">货易达——平台管理</span>
+		</div>
+		<ul class="nav navbar-top-links navbar-right">
+			<li><a href="" ng-click="quitLogin()"> <i class="fa fa-sign-out"></i> 退出</a></li>
+		</ul>
+	</nav>
+</div>
+
+<div  class="{{rootPromptLoaddingClass}}" id="toastLoadding" >
+    <div class="modal-body" style="padding: 0;"><img class="loaddingGif" src="../../img/loadding.gif" /></div>
+</div>
+<div ng-class="{true: 'shadeMask', false: ''}[rootPromptLoaddingClass=='toastLoadding fadeInTop']">
+	
+</div>
+<style type="text/css">
+	.shadeMask{
+		background-color: rgba(89,87,87,0.3);;
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 9999999;
+	}
+</style>

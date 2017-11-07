@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../../zhec-mall-wap/WebContent/css/coupon.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zhec-mall-wap/WebContent/js/services/mine/propertyService.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/controllers/member/memberConfig.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/services/member/centerService.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/services/member/myOrderService.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/stylesheets/member/coupon.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zhec-manager-web/WebContent/js/controllers/research/consultantcheckController.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zhec-manager-web/WebContent/js/controllers/research/consultantlistController.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zhec-manager-web/WebContent/js/controllers/research/membercheckController.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zhec-manager-web/WebContent/js/controllers/research/memberlistController.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zhec-manager-web/WebContent/js/controllers/research/stockcheckController.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zhec-manager-web/WebContent/js/controllers/research/stocklistController.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zhec-manager-web/WebContent/js/services/research/consultantcheckService.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../zhec-manager-web/WebContent/js/services/research/consultantlistService.js" charset="UTF-8" />
+    <file url="file://D:/前端demo/京东菜单栏/JS.js" charset="UTF-8" />
+    <file url="file://D:/前端demo/京东菜单栏/index.html" charset="UTF-8" />
+    <file url="file://E:/shaoguan/routes/articles.js" charset="UTF-8" />
+    <file url="file://E:/shaoguan/routes/index.js" charset="UTF-8" />
+    <file url="file://E:/shaoguan/routes/users.js" charset="UTF-8" />
+    <file url="file://E:/shaoguan/views/index.html" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,123 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+	<div class="row marLeft15">
+		<div class="col-lg-12 ">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<div class="heading">
+						<div class="col-sm-2">
+							<select ng-model="cateId" class="form-control" ng-options="sh.id as sh.name for sh in TypeList1" ng-change="TypeChange1(cateId)">
+						<option value="">---请选择商品一级分类检索---</option>
+							</select>
+						</div>
+						<div class="col-sm-2">
+							<select ng-model="cateId1" class="form-control" ng-options="sh.id as sh.name for sh in TypeList2" ng-change="TypeChange2(cateId1)">
+						<option value="">---请选择商品二级分类检索---</option>
+							</select>
+							</div>
+							<div class="col-sm-2">
+							<select ng-model="cateId2" class="form-control" ng-options="sh.id as sh.name for sh in TypeList3" ng-change="TypeChange3(cateId2)">
+						<option value="">---请选择商品三级分类检索---</option>
+							</select>
+						</div>
+						<!-- 搜索  -->
+						<div class="col-sm-3">
+							<div class="input-group">
+								<input type="text" placeholder="按照商品名搜索" class="form-control " ng-model="infoName">
+								<span class="input-group-btn">
+									<button class="btn btn-success" type="button"
+										ng-click="loadData(true)">
+										<span class="glyphicon glyphicon-search"></span>
+								</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<!-- 刷新按钮 -->
+							<button type="button" class="btn btn-success pull-right" ng-click="loadData(true)">
+								<span class="glyphicon glyphicon-refresh"></span> 刷新
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="hideScroll">
+					<div class="ibox-content ">
+						<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>图片</th>
+									<th>名称</th>
+									<th>分类</th>
+									<th>品牌名</th>
+									<th>价格</th>
+									<th>商品二维码</th>
+									<th>分享</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="goods in goodsList">
+									<td><img class="showImg" ng-src="{{goods.masterImg}}"></td>
+									<td>{{ goods.name1 }}</td>
+									<td>{{ goods.cateName }}</td>
+									<td>{{goods.brandName}}</td>
+									<td>￥{{goods.price}}</td>
+									<td ><qr class="carvas" text="goods.string"></qr></td>
+									<td>
+										<div class="bdsharebuttonbox" data="{'url':'http://www.baidu.com','title':'商品推荐'}">
+											
+												<a  data-id="{{goods.id}}" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+											
+												<a  data-id="{{goods.id}}" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+											
+												<a  data-id="{{goods.id}}" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+											
+												<a  data-id="{{goods.id}}" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+											
+												<a href="#" data-id="{{goods.id}}" class="bds_more" data-cmd="more"></a>
+											
+										</div>
+										<script type="text/javascript">
+									        //全局变量，动态的文章ID
+									        var ShareId = "";
+									        //绑定所有分享按钮所在A标签的鼠标移入事件，从而获取动态ID
+									        $(function () {
+									            $(".bdsharebuttonbox a").mouseover(function () {
+									                ShareId = $(this).attr("data-id");
+									                console.log(ShareId)
+									            });
+									        });
+									
+									        /* 
+									        * 动态设置百度分享URL的函数,具体参数
+									        * cmd为分享目标id,此id指的是插件中分析按钮的ID
+									        *，我们自己的文章ID要通过全局变量获取
+									        * config为当前设置，返回值为更新后的设置。
+									        */
+									        function SetShareUrl(cmd, config) {            
+									            if (ShareId) {
+									                config.bdUrl = constMallLocation+ "/goods.html?id="+ShareId;    
+									            	console.log(config.bdUrl)
+									            }
+									            return config;
+									        }
+									
+									        //插件的配置部分，注意要记得设置onBeforeClick事件，主要用于获取动态的文章ID
+									        window._bd_share_config = {
+									            "common": {
+									                onBeforeClick:SetShareUrl,"bdSnsKey":{},"bdText":"","bdMini":"2"
+									                ,"bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"
+									            }, "share": {}
+									        };
+									        //插件的JS加载部分
+									        with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+ ~(-new Date() / 36e5)];
+									    </script>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<datalistpager></datalistpager>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

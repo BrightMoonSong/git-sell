@@ -1,0 +1,15 @@
+<div ng-controller = "topnavbarController">
+	<nav role="navigation" style="margin-bottom: 0">
+		<div>
+			<span minimaliza-sidebar></span>
+			<span style="font-size: 20px;position: relative;top: 12px;">御草堂——首页</span>
+		</div>
+		<ul >
+			<li><a href="" ng-click="quitLogin()">退出</a></li>
+		</ul>
+	</nav>
+</div>
+
+<div id="toastLoadding" >
+    <div style="padding: 0;"><img src="../../img/loadding.gif" /></div>
+</div>

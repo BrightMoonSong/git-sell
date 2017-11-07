@@ -1,0 +1,94 @@
+<style type="text/css">
+	.btn.active,
+	.btn:active {
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+	}
+	
+	.spanin {
+		display: inline-block;
+		float: left;
+		margin-top: 5px;
+	}
+	
+	.innputy {
+		margin-top: 9px !important;
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">用户字典管理</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label"> 用户字典名称 (*) :</label>
+					<div class="col-sm-9">
+						<input ng-disabled="dataBoolea" ng-verify="{min:1 ,max:30,required:true}" type="text" class="form-control" ng-model="DictionaryEntiy.content">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label"> 排序号(*) :</label>
+					<div class="col-sm-9">
+						<input ng-disabled="dataBoolea" ng-verify="{min:1 ,max:3,required:true}" type="number" class="form-control" ng-model="DictionaryEntiy.sort">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label"> 字典类型(*) :</label>
+					<div class="col-sm-9">
+						<select ng-disabled="dataBoolea" ng-model="DictionaryEntiy.type" ng-verify="option:0" class="form-control" ng-options="x.id as x.name for x in typeList">
+							<option value="">--请选择--</option>
+						</select>
+					</div>
+				</div>
+				<!--<div class="form-group" ng-if="dataBoolea==true">
+					<label class="col-sm-3 control-label"> 操作人ID :</label>
+					<div class="col-sm-9">
+						<span ng-disabled="true" class="form-control" ng-bind="DictionaryEntiy.userId"></span>
+					</div>
+				</div>-->
+				<div class="form-group" ng-if="dataBoolea==true">
+					<label class="col-sm-3 control-label"> 操作人姓名 :</label>
+					<div class="col-sm-9">
+						<span ng-disabled="true" class="form-control" ng-bind="DictionaryEntiy.user.userName"></span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="dataBoolea==true">
+					<label class="col-sm-3 control-label"> 操作人电话 :</label>
+					<div class="col-sm-9">
+						<span ng-disabled="true" class="form-control" ng-bind="DictionaryEntiy.user.phone"></span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="dataBoolea==true">
+					<label class="col-sm-3 control-label"> 创建时间 :</label>
+					<div class="col-sm-9">
+						<span ng-disabled="true" class="form-control" ng-bind="DictionaryEntiy.createTimeStr"></span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="dataBoolea==true">
+					<label class="col-sm-3 control-label"> 修改时间 :</label>
+					<div class="col-sm-9">
+						<span ng-disabled="true" class="form-control" ng-bind="DictionaryEntiy.updateTimeStr"></span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="dataBoolea==true">
+					<label class="col-sm-3 control-label"> 状态 :</label>
+					<div class="col-sm-9">
+						<span ng-disabled="true" class="form-control" ng-if="DictionaryEntiy.status==1">启用</span>
+						<span ng-disabled="true" class="form-control" ng-if="DictionaryEntiy.status==2">禁用</span>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-if="disableBoolea">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

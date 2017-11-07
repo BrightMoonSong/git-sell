@@ -1,0 +1,102 @@
+<style type="text/css">
+	.btn.active,
+	.btn:active {
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+	}
+	
+	.spanin {
+		display: inline-block;
+		float: left;
+		margin-top: 5px;
+	}
+	
+	.innputy {
+		margin-top: 9px !important;
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title" ng-show="dataBoolea==false">意见反馈管理</h1>
+		<h1 class="modal-title" ng-if="dataBoolea">意见审核管理</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group" ng-show="dataBoolea==false">
+					<label class="col-sm-3 control-label">用户电话 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.userPhone"></span>
+					</div>
+				</div>
+				<div class="form-group" ng-show="dataBoolea==false">
+					<label class="col-sm-3 control-label">意见反馈内容 :</label>
+					<div class="col-sm-9">
+						<textarea class="form-control" ng-bind="carOwnerEntiy.content"></textarea>
+					</div>
+				</div>
+				<div class="form-group" ng-show="dataBoolea==false">
+					<label class="col-sm-3 control-label">处理状态 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-if="carOwnerEntiy.handleStatus==1" ng-class="{true: 'enabok', false: 'enabno'}[carOwnerEntiy.handleStatus==3]">提交未处理</span>
+						<span class="form-control" ng-if="carOwnerEntiy.handleStatus==3" ng-class="{true: 'enabok', false: 'enabno'}[carOwnerEntiy.handleStatus==3]">提交已处理</span>
+					</div>
+				</div>
+				<div class="form-group" ng-show="dataBoolea==false">
+					<label class="col-sm-3 control-label">范围 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-if="carOwnerEntiy.scope==1">平台</span>
+						<span class="form-control" ng-if="carOwnerEntiy.scope==2">车主</span>
+						<span class="form-control" ng-if="carOwnerEntiy.scope==3">货主</span>
+					</div>
+				</div>
+				<div class="form-group" ng-show="dataBoolea==false">
+					<label class="col-sm-3 control-label">处理人姓名 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.user.userName"></span>
+					</div>
+				</div>
+				<div class="form-group" ng-show="dataBoolea==false">
+					<label class="col-sm-3 control-label">处理人电话 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.user.phone"></span>
+					</div>
+				</div>
+				<div class="form-group" ng-show="dataBoolea==false">
+					<label class="col-sm-3 control-label">创建时间 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.createTimeStr"></span>
+					</div>
+				</div>
+				<div class="form-group" ng-show="dataBoolea==false">
+					<label class="col-sm-3 control-label">处理时间 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.handleTimeStr"></span>
+					</div>
+				</div>
+				<!--<div class="form-group" ng-show="dataBoolea==false">
+					<label class="col-sm-3 control-label">状态</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-if="carOwnerEntiy.status==2" ng-class="{true: 'enabok', false: 'enabno'}[carOwnerEntiy.status==1]">禁用</span>
+						<span class="form-control" ng-if="carOwnerEntiy.status==1" ng-class="{true: 'enabok', false: 'enabno'}[carOwnerEntiy.status==1]">启用</span>
+					</div>
+				</div>-->
+				<div class="form-group" ng-if="dataBoolea">
+					<label class="col-sm-3 control-label">处理备注(*) :</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" ng-model="carOwnerEntiy.handleRemark" ng-verify="{min:1 ,max:30,required:true}"></input>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-if="dataBoolea">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

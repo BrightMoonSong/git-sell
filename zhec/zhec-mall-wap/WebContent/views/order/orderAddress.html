@@ -1,0 +1,149 @@
+<style>
+	.swiper-container-fvp {
+		height: 100%;
+		height: auto;
+	}
+</style>
+<div class="swiper-container swiper-container-fvp">
+	<div class="swiper-wrapper">
+		<!-- 地址列表页 -->
+		<div class="swiper-slide">
+			<div id="needs_head">
+				<ul class="head" ng-click="goback()">
+					<li><img src="img/fh.png" /></li>
+					<li id="needs_xq">收货地址</li>
+				</ul>
+			</div>
+			<div class="address_conter clearfix">
+				<div class="address_conter_head">
+					默认收货地址
+				</div>
+				<div class="orderd_head clearfix address_conter_div" ng-repeat="address in addressList" ng-if="address.isDefault==1">
+					<ul class="orderd_head_ul clearfix">
+						<li ng-click="addressThisUse(address)"><span ng-bind="address.consigneeName"></span><span ng-bind="address.consigneeMobile"></span></li>
+						<li ng-click="addressThisUse(address)"><span class="address_colr"><b ng-bind="address.consigneePca"></b> <b ng-bind="address.consigneeAddress"></b></span></li>
+						<li id="address_head_li">
+							<a ng-click="detail(address.id)">
+								<img src="img/bj2.png">
+								<p>编辑</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="address_conter clearfix">
+				<div class="address_conter_head">
+					其他收货地址
+				</div>
+				<div class="orderd_head clearfix address_conter_div " ng-repeat="address in addressList" ng-if="address.isDefault==0">
+					<ul class="orderd_head_ul clearfix">
+						<!--setDefaultAddress(address.id,address.memberId);-->
+						<li ng-click="addressThisUse(address)"><span ng-bind="address.consigneeName"></span><span ng-bind="address.consigneeMobile"></span></li>
+						<!--setDefaultAddress(address.id,address.memberId);-->
+						<li ng-click="addressThisUse(address)"><span class="address_colr"><b ng-bind="address.consigneePca"></b> <b ng-bind="address.consigneeAddress"></b></span></li>
+						<li id="address_head_li">
+							<a ng-click="detail(address.id)">
+								<img src="img/bj2.png">
+								<p>编辑</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="addres_button">
+				<button ng-click="detail(-1)">添加新地址</button>
+			</div>
+		</div>
+		<!-- 地址编辑页 -->
+		<div class="swiper-slide">
+			<div id="needs_head">
+				<ul class="head">
+					<li><img src="img/fh.png" ng-click="slideTo(0)" /></li>
+					<li id="needs_xq">编辑地址</li>
+					<li id="apply_bj" ng-if="dataEntity.id!=''&&dataEntity.id!=null&&dataEntity.id!=undefined">
+						<a ng-click="deleteAddress(dataEntity.id)">删除</a>
+					</li>
+				</ul>
+			</div>
+			<div class="edita_conter clearfix">
+				<ul>
+					<li>
+						<label>收件人:</label>
+					</li>
+					<li>
+						<input type="text" placeholder="请输入收件人姓名" ng-model="dataEntity.consigneeName" />
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<label>联系电话:</label>
+					</li>
+					<li>
+						<input type="text" placeholder="请输入联系电话" ng-model="dataEntity.consigneeMobile" />
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<label>所在地区:</label>
+					</li>
+					<li>
+						<input type="text" placeholder="请选择所在地区" ng-click="chooseArea()" readonly="true" ng-model="dataEntity.consigneePca" />
+					</li>
+					<li id="edita_li_img">
+						<a class="ycenter">
+							<img src="img/ljjt.png" />
+						</a>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<label>详细地址:</label>
+					</li>
+					<li>
+						<input type="text" placeholder="请输入详细地址" ng-model="dataEntity.consigneeAddress" />
+					</li>
+				</ul>
+			</div>
+			<div class="edita_button">
+				<button ng-click="commit()">确认</button>
+			</div>
+		</div>
+		<!-- 省市区选择框 -->
+		<div class="swiper-slide">
+			<areachoose></areachoose>
+			<!-- <div>
+				<div id="needs_head">
+					<ul class="head">
+						<li>
+							<a ng-click="slideTo(1)"><img src="img/fh.png" /></a>
+						</li>
+						<li id="needs_xq">选择地址</li>
+					</ul>
+				</div>
+				<div class="addresscate_head">
+					<ul>
+						<li class="addresscate_head_li" ng-if="areaFlag>=1" ng-bind="province.name==undefined||province.name==null||province.name==''?tip:province.name" ng-click="clickTab(1)">
+
+						</li>
+						<li ng-if="areaFlag>=2" ng-bind="city.name==undefined||city.name==null||city.name==''?tip:city.name" ng-click="clickTab(2)">
+
+						</li>
+						<li ng-if="areaFlag>=3" ng-bind="area.name==undefined||area.name==null||area.name==''?tip:area.name" ng-click="clickTab(3)">
+
+						</li>
+					</ul>
+				</div>
+				<div class="addresscate_conter clearfix">
+					<ol class="clearfix">
+						<li class="clearfix">
+							<ul class="clearfix">
+								<li ng-repeat="area in areaList" ng-bind="area.name" ng-click="selectItem(area.name,area.id,area.zipCode)">
+								</li>
+							</ul>
+						</li>
+					</ol>
+				</div>
+			</div> -->
+		</div>
+	</div>
+</div>

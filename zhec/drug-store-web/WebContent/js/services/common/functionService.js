@@ -1,0 +1,62 @@
+angular
+  .module('managerApp')
+  .factory('functionService', function($q, $http, constMapiLocation) {
+		var baseUrl = constMapiLocation + '/shiro/';
+    var baseUrlNotice = constMapiLocation + '/ordernotice/';
+    return {
+      //查询数据
+      find: function(userToken) {
+        var defer = $q.defer();
+        var url = baseUrl + "userfunctions?userToken=" + userToken;
+        $http({
+          method: 'get',
+          url: url
+        }).success(function(data) {
+          defer.resolve(data);
+        }).error(function(data) {
+          defer.reject(data)
+        })
+        return defer.promise;
+      },
+      // 订单通知接口
+      getnotice: function(userToken) {
+        var defer = $q.defer();
+        var url = baseUrlNotice + "getnotice?userToken=" + userToken;
+        $http({
+          method: 'get',
+          url: url
+        }).success(function(data) {
+          defer.resolve(data);
+        }).error(function(data) {
+          defer.reject(data)
+        })
+        return defer.promise;
+      },
+      logout: function(userToken) {
+        var defer = $q.defer();
+        var url = baseUrl + "/logout?userToken=" + userToken;
+        $http({
+          method: 'delete',
+          url: url
+        }).success(function(data) {
+          defer.resolve(data);
+        }).error(function(data) {
+          defer.reject(data)
+        })
+        return defer.promise;
+      },
+      changepwd: function(userToken, oldPwd, newPwd) {
+        var defer = $q.defer();
+        var url = constMapiLocation + "/shiro/changepwd?userToken=" + userToken + "&oldPassword=" + oldPwd + "&newPassword=" + newPwd;
+        $http({
+          method: 'put',
+          url: url
+        }).success(function(data) {
+          defer.resolve(data);
+        }).error(function(data) {
+          defer.reject(data)
+        })
+        return defer.promise;
+      }
+    }
+  })

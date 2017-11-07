@@ -1,0 +1,100 @@
+<div ng-controller="loginPageController">
+  <div class="head_logreg">
+    <div class="header_logreg">
+      <div class="head_log_logreg">
+        <i onclick="javascript:self.location='index.html'"><img src="images/u1884.png"></i>
+      </div>
+    </div>
+  </div>
+  <div class="conter_logreg">
+    <div class="conter_backimg">
+      <ul class="conter_ul">
+        <li class="conter_left">
+          <i></i>
+        </li>
+        <li class="conter_right">
+          <ul class="conter_right_ul">
+            <li class="conter_right_ul_li_one">
+              <ul id="conter_right_ul_ul">
+                <li>登录鹿医生</li>
+                <li></li>
+                <li class="conter_right_ul_ul_a"><a href="register.html">立即注册</a></li>
+              </ul>
+
+            </li>
+            <li class="conter_right_ul_li_two">
+              <ul class="conter_input">
+                <li>
+                  <div class="conter_input_div">
+                    <i></i>
+                  </div>
+                </li>
+                <li>
+                  <input type="text" ng-model="userName" placeholder="手机号或用户名" maxlength="22" onchange="this.value=this.value.substring(0, 22)" autofocus="autofocus">
+                </li>
+                <li>
+
+                </li>
+                <li class="conter_input_p" ng-show="userNameError">
+                  <p>该手机号或用户名还没有注册哦~</p>
+                </li>
+
+              </ul>
+
+            </li>
+            <li class="conter_right_ul_li_two conter_right_three">
+              <ul class="conter_input">
+                <li>
+                  <div class="conter_input_div">
+                    <i></i>
+                  </div>
+                </li>
+                <li>
+                  <input type="password" ng-model="password" maxlength="12" onchange="this.value=this.value.substring(0, 12)" placeholder="密码" ng-keyup="myKeyup($event)">
+                </li>
+
+              </ul>
+
+            </li><!--
+            <li class="conter_right_ul_li_four" ng-hide="true">
+              <label ng-click="check(chk)"><input type="checkbox" ng-model="chk" checked="checked"
+                                                  name="chicked"><span>记住密码</span></label>
+            </li>-->
+            <li class="conter_input_p " id="conter_right_ul_li_eight" ng-show="pwdyzmError">
+              <p ng-if="pwdError">密码错误~</p>
+              <p ng-if="yzmError">验证码错误~</p>
+            </li>
+             <li class="conter_right_ul_li_seven">
+              	<ol>
+              		<li id="conter_con_ul_input_one">
+                  <input ng-model="captcha" type="text" maxlength="6" onchange="this.value=this.value.substring(0, 6)" placeholder="验证码" ng-keyup="myKeyup($event)" id="conter_con_ul_input_one_loginput">
+                </li>
+                <li id="conter_con_ul_input_li" ng-click="yzmcli()">
+                	<!--<iframe ng-src="{{pathCaptcha}}" width="100" height="50"></iframe>-->
+                </li>
+              	</ol>
+              </li>
+            <li class="conter_right_ul_li_five">
+              <button ng-click="login()">登&nbsp;&nbsp;录</button>
+            </li>
+            <li class="conter_right_ul_li_six">
+              <span><a href="#/forgetpwd" onclick="javascript:document.title=titleManage.ForgetPwd;">忘记密码</a></span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="foot-bottom_logreg">
+    <div class="footer_first_logreg">
+      <ul class="footer_ul_logreg">
+
+        <li>互联网药品信息服务资格证书:（京）-非经营性-2014-0014</li>
+        <li>2000-2016 北京众会技术有限公司版权所有</li>
+      </ul>
+    </div>
+  </div>
+
+</div>

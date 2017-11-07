@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>鹿医生</title>
+    <link rel="stylesheet" href="css/screen.css" />
+    <link rel="stylesheet" href="css/set.css" />
+	</head>
+	<body>
+		<div  id="needs_head">
+			<ul class="head">
+				<li ><a href="#/main/mine"><img src="img/fh.png"  /></a></li>
+				<li id="needs_xq">设置</li>
+			</ul>
+		</div>
+		<ul class="set_conter clearfix">
+			<li class="bill_fapiao ">
+				<a>
+					<label class="bill_fapiao_label">安全设置</label>
+					<img src="img/ljjt.png" />
+				</a>
+			</li>
+			<li class="bill_fapiao ">
+				<a href="#info/forgetpwd">
+					<label class="bill_fapiao_label">修改密码</label>
+					<img src="img/ljjt.png" />
+				</a>
+			</li>
+		</ul>
+		<div class="set_button">
+			<button onclick="javascript:delCookie('formToken');window.location.replace('index.html#/info/login','_self')">退出登录</button>
+		</div>
+	</body>
+</html>

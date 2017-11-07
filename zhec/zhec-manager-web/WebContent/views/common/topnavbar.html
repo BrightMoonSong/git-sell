@@ -1,0 +1,16 @@
+<div class="row border-bottom" ng-controller = "topnavbarController">
+	<nav class="navbar navbar-static-top white-bg" role="navigation"
+		style="margin-bottom: 0">
+		<div class="navbar-header">
+			<span minimaliza-sidebar></span>
+			<span style="font-size: 20px;position: relative;top: 12px;">鹿医生——平台管理</span>
+		</div>
+		<ul class="nav navbar-top-links navbar-right">
+			<li><a href="" ng-click="quitLogin()"> <i class="fa fa-sign-out"></i> 退出</a></li>
+		</ul>
+	</nav>
+</div>
+
+<div  class="{{rootPromptLoaddingClass}}" id="toastLoadding" >
+    <div class="modal-body" style="padding: 0;"><img class="loaddingGif" src="../../img/loadding.gif" /></div>
+</div>

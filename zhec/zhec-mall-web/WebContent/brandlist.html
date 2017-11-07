@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html ng-app="brandlistApp" ng-controller="BrandlistController">
+	<head>
+		<script type="text/javascript">
+		    //IE8以及以下
+		    if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0")
+		    	        {
+	            alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+	           			 window.open("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100","_self");
+	                    }
+
+	    </script>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script language="javascript">
+			if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+
+			}else{
+				var strDelete = publicUrlMall.split("/mall");
+				publicUrlMall = strDelete[0] + strDelete[1];
+			}
+			document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/list/list_brand.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/brandlist/brandlistConfig.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/me-lazyload/me-lazyload.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/brandlist/BrandlistController.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/services/brandlist/BrandlistService.js><\/script>");
+		</script>
+
+		<title ng-bind="product.name+' - 鹿医生'"></title>
+	</head>
+	<body>
+		<headerpage></headerpage>
+		<!---------------头导航条---------------------------->
+		<smallcart></smallcart>
+
+		<navigation-bar></navigation-bar>
+		<!----------------------居中conter--------------------------------->
+<!--三级菜单------------------------------------------------------------------------------>
+<div class="nav_header">
+	<a ng-href="index.html">首页<span>></span></a>
+	<a ng-href="brandlist.html?brand=1,0,0,{{product.id}}" ng-bind="product.name"></a>
+</div>
+<div class="nav_conter clearfix">
+	<div class="nav_brand clearfix">
+		<ul>
+			<li class="brand_head_one">
+				<img lazy-src="{{product.image}}" />
+			</li>
+			<li class="brand_wen">
+				<p ng-bind="product.name"></p>
+				<p ng-bind="product.introduction"></p>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="conter clearfix">
+		<ul class="conter_ul clearfix">
+			<li class="conter_left conter_li">
+				<ul class="conter_left_ul clearfix">
+					<li class="conter_tj">为您推荐</li>
+					<li class="conter_left_ul_li" ng-repeat="brandlist in goodsinleft">
+						<ul class="conter_left_ul_li_ul">
+
+							<div class="conter_left_img">
+								<a ng-href="goods.html?id={{brandlist.id}}" target="_blank">
+									<img lazy-src="{{brandlist.masterImg}}"/>
+								</a>
+								<span class="recipe list_tj_rx" ng-if = "isRxShow(brandlist.goodsType)">
+									<img lazy-src="images/prescription.png">
+								</span>
+							</div>
+							<li>
+								<p><a ng-href="goods.html?id={{brandlist.id}}" target="_blank" ng-bind="brandlist.name1"></a></p>
+							</li>
+							<li id="conter_left_ul_li_ul">
+								<p><b ng-bind="brandlist.salesPrice | priceFormatFilter"></b><span ng-bind="brandlist.marketPrice | priceFormatFilter"></span></p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="conter_right conter_li">
+				<ul class="conter_right_ul_list clearfix">
+					<li ng-if="!isGoodsListEmpty">
+						<ul class="conter_right_ul_ul showHide" style="display: none;">
+							<li class="color" ng-if="paramsOrderid==0"><a ng-href="brandlist.html?brand=1,0,{{paramsInstock}},{{paramsBrandId}}">综合排序</a></li>
+							<li ng-if="paramsOrderid==0"><a ng-href="brandlist.html?brand=1,3,{{paramsInstock}},{{paramsBrandId}}">销量</a></li>
+							<li ng-if="paramsOrderid==0"><a ng-href="brandlist.html?brand=1,1,{{paramsInstock}},{{paramsBrandId}}">价格</a></li>
+
+							<li ng-if="paramsOrderid==1"><a ng-href="brandlist.html?brand=1,0,{{paramsInstock}},{{paramsBrandId}}">综合排序</a></li>
+							<li ng-if="paramsOrderid==1"><a ng-href="brandlist.html?brand=1,3,{{paramsInstock}},{{paramsBrandId}}">销量</a></li>
+							<li class="color" ng-if="paramsOrderid==1"><a ng-href="brandlist.html?brand=1,2,{{paramsInstock}},{{paramsBrandId}}">价格<img ng-src="images/priceup.png"/></a></li>
+
+							<li ng-if="paramsOrderid==2"><a ng-href="brandlist.html?brand=1,0,{{paramsInstock}},{{paramsBrandId}}">综合排序</a></li>
+							<li ng-if="paramsOrderid==2"><a ng-href="brandlist.html?brand=1,3,{{paramsInstock}},{{paramsBrandId}}">销量</a></li>
+							<li class="color" ng-if="paramsOrderid==2"><a ng-href="brandlist.html?brand=1,1,{{paramsInstock}},{{paramsBrandId}}">价格<img ng-src="images/pricedown.png" id="list_img_jt"/></a></li>
+
+							<li ng-if="paramsOrderid==3"><a ng-href="brandlist.html?brand=1,0,{{paramsInstock}},{{paramsBrandId}}">综合排序</a></li>
+							<li class="color" ng-if="paramsOrderid ==3"><a ng-href="brandlist.html?brand=1,3,{{paramsInstock}},{{paramsBrandId}}">销量</a></li>
+							<li ng-if="paramsOrderid == 3"><a ng-href="brandlist.html?brand=1,1,{{paramsInstock}},{{paramsBrandId}}">价格</a></li>
+
+							<li ng-if="paramsInstock == 0"><a ng-href="brandlist.html?brand=1,{{paramsOrderid}},1,{{paramsBrandId}}"><span></span>仅显示有货</a></li>
+							<li ng-if="paramsInstock == 1"><a ng-href="brandlist.html?brand=1,{{paramsOrderid}},0,{{paramsBrandId}}"><span class="span_ys"></span>仅显示有货</a></li>
+							<li></li>
+							<li class="conter_right_ul_ul_right">共<span ng-bind="goodsinrights.totalSize"></span>件商品</li>
+						</ul>
+					</li>
+					<div ng-if="isGoodsListEmpty" class=" conter_right_ul_ul_if_div">
+						<ul class=" conter_right_ul_ul_if">
+							<li>
+								<img src="images/scbd.png" />
+							</li>
+							<li ng-bind="'抱歉，没有找到与“'+product.name+'”相关的商品,看一下我们为您推荐的商品吧！'">
+							</li>
+						</ul>
+					</div>
+					<li class="conter_right_ul_li" ng-repeat=" goodlist in goodsinright">
+						<ul class="conter_right_ul_li_ul">
+							<li class="conter_right_ul_li_ul_li">
+									<div class="div">
+										<a ng-href="goods.html?id={{goodlist.id}}" target="_blank">
+											<img ng-src="{{goodlist.masterImg}}" />
+										</a>
+										<span class="recipe" ng-if = "isRxShow(goodlist.goodsType)">
+											<img lazy-src="images/prescription.png">
+										</span>
+									</div>
+							</li>
+							<li class="conter_ul_li_p conter_ul_li_p_ma">
+								<p><a ng-href="goods.html?id={{goodlist.id}}" target="_blank" ng-bind="goodlist.name1"></a></p>
+							</li>
+							<li class="conter_ul_li_p">
+								<p ng-if="!isGoodsListEmpty"><span>规格:</span><span ng-bind="goodlist.specification"></span></p>
+
+							</li>
+							<li class="conter_ul_li_p conter_ul_li_p_num">
+								<p ng-bind="goodlist.salesPrice | priceFormatFilter"></p>
+							</li>
+							<li class="list_sp_wh" ng-if = "goodlist.isInstock == 0">
+						        	无货
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<datalistpager></datalistpager>
+	</div>
+<footerpage></footerpage>
+	</body>
+</html>

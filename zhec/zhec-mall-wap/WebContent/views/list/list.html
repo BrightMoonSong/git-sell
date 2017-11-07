@@ -1,0 +1,123 @@
+<style>
+	.swiper-container-fvp {
+		width: 100%;
+		height: 100%;
+	}
+</style>
+<div class="swiper-container swiper-container-fvp">
+	<div class="swiper-wrapper">
+		<!-- 分类列表页 -->
+		<div class="swiper-slide">
+			<div id="needs_head">
+				<ul class="head">
+					<li class="seach_header_img">
+						<a ui-sref="main.list">
+							<img src="img/fh.png" />
+						</a>
+					</li>
+					<li class="seach_header_input ycenter" ng-click="gotoSearch()">
+						<input type="text" placeholder="高血压" />
+					</li>
+					<li class="seach_header_button">
+						<a ui-sref="main.index">首页</a>
+					</li>
+				</ul>
+			</div>
+			<div class="list_conter">
+				<ul class="list_conter_head">
+					<li ng-if="paramsOrderid==0"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:0,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})" class="list_conter_head_a">综合</a></li>
+					<li ng-if="paramsOrderid==0"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:3,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})" style="text-indent: 20%;">销量</a></li>
+					<li ng-if="paramsOrderid==0"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:1,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})"><span>价格</span><button class="list_conter_button_xs"><img src="img/xsjth.png"></button><button class="list_conter_button_xx"><img src="img/xxjth.png"></button></a></li>
+
+					<li ng-if="paramsOrderid==1"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:0,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})" class="list_conter_head_a">综合</a></li>
+					<li ng-if="paramsOrderid==1"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:3,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})" style="text-indent: 20%;">销量</a></li>
+					<li ng-if="paramsOrderid==1"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:2,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})"><span>价格</span><button class="list_conter_button_xs"><img src="img/xsjt.png"></button><button class="list_conter_button_xx"><img src="img/xxjth.png"></button></a></li>
+
+					<li ng-if="paramsOrderid==2"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:0,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})" class="list_conter_head_a">综合</a></li>
+					<li ng-if="paramsOrderid==2"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:3,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})" style="text-indent: 20%;">销量</a></li>
+					<li ng-if="paramsOrderid==2"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:1,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})"><span>价格</span><button class="list_conter_button_xs"><img src="img/xsjth.png"></button><button class="list_conter_button_xx"><img src="img/xxjt.png"></button></a></li>
+
+					<li ng-if="paramsOrderid==3"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:0,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})" class="list_conter_head_a">综合</a></li>
+					<li ng-if="paramsOrderid==3"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:3,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})" style="text-indent: 20%;">销量</a></li>
+					<li ng-if="paramsOrderid==3"><a ui-sref="info.list({paramsCategoryId:{{paramsCategoryId}},paramsOrderid:1,paramsInstock:{{paramsInstock}},paramsBrandId:{{paramsBrandId}},paramsFilterId:'{{paramsFilterId}}'})"><span>价格</span><button class="list_conter_button_xs"><img src="img/xsjth.png"></button><button class="list_conter_button_xx"><img src="img/xxjth.png"></button></a></li>
+
+					<li><a ng-click="slideTo(1)"><span>筛选</span><img src="img/sx.png" /></a></li>
+				</ul>
+
+
+			</div>
+			<div class="clearfix orderd_conter_div_ul" ng-if="totalSize!=0">
+				<ul class="orderd_conter_ul" ng-repeat="good in goodsList" repeatdone="initSwiper()">
+					<li class="orderd_conter_ul_img">
+						<a ui-sref="info.goods({id:{{good.id}}})"><img src="{{good.masterImg}}" /></a>
+					</li>
+					<li class="orderd_conter_ul_name words">
+						<img src="img/prescription.png" ng-if="isRxShow(good.goodsType)">
+						<a ui-sref="info.goods({id:{{good.id}}})" class="orderd_conter_ul_name_img_a" ng-bind="good.name1"></a>
+					</li>
+					<li class="orderd_conter_ul_bz" ng-bind="good.specification"></li>
+					<li class="orderd_conter_ul_mon">
+						<label>价格:</label>
+						<span class="orderd_conter_ul_mon_mey" ng-bind="good.salesPrice | priceFormatFilter"></span>
+						<!-- <span style="text-decoration: line-through;" ng-bind="good.marketPrice | priceFormatFilter"></span> -->
+						<span class="orderd_conter_ul_mon_rig"><a ng-click="joinCart(good.productId)" ng-if="!isRxShow(good.goodsType)"><img src="../../img/gwcxz.png"/></a></span>
+					</li>
+				</ul>
+			</div>
+			<div class="coupon_img" ng-if="totalSize==0">
+				<div class="coupon_img_conter">
+					<span class="xcenter">
+						<img src="img/wssd.png" />
+					</span>
+					<p>未搜索到此商品</p>
+				</div>
+			</div>
+		</div>
+		<!-- 筛选页 -->
+		<div class="swiper-slide">
+			<div class="list_model_all">
+				<div id="needs_head">
+					<ul class="head">
+						<li id="list_leb">
+							<b ng-if="displayBrandStr">品牌</b>
+						</li>
+						<li id="list_leb_img" ng-click="slideTo(0)"><img src="img/scsr.png" /></li>
+					</ul>
+				</div>
+				<div class="clearfix list_leb_a">
+					<div ng-repeat="brand in displayBrand">
+						<a ng-bind="brand | getValueSplitColon" ng-class="{true: 'list_leb_a_background', false: ''}[isBrandSelected(brand)]" ng-click="selectBrand(brand)"></a>
+					</div>
+				</div>
+				<div class="list_model_mak clearfix">
+					<div ng-repeat="(key,value) in displayFilter">
+						<div class="list_leb_mak">
+							<ul class="list_leb_mak_ul">
+								<li ng-bind="key | getValueSplitColon"></li>
+								<li>
+									<a ng-click="showMore(key)" ng-if="value.length>6">
+										<span>更多</span>
+										<img src="img/xxjt.png" ng-if="!isShowMore(key)" />
+										<img src="img/xsjt.png" ng-if="isShowMore(key)" />
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="clearfix list_leb_a">
+							<a ng-repeat="filter in value track by $index" ng-bind="filter | getValueSplitColon" ng-if="$index<6" ng-class="{true: 'list_leb_a_background', false: ''}[isFilterSelected(key,filter)]" ng-click="selectFliter(key,filter)"></a>
+							<a ng-repeat="filter in value track by $index" ng-bind="filter | getValueSplitColon" ng-if="$index>=6&&isShowMore(key)" ng-class="{true: 'list_leb_a_background', false: ''}[isFilterSelected(key,filter)]" ng-click="selectFliter(key,filter)"></a>
+						</div>
+					</div>
+					<div class="list_foot_button">
+						<button ng-click="resetFiter()">重  置</button>
+						<button ng-click="commitFiter()">确  定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 搜索中页 -->
+		<div class="swiper-slide">
+			<searching></searching>
+		</div>
+	</div>
+</div>

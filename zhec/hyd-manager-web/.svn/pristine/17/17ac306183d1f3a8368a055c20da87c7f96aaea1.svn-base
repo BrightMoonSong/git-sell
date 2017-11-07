@@ -1,0 +1,703 @@
+<style type="text/css">
+	.table-striped>tbody>tr:nth-of-type(odd) {
+		background-color: #f9f9f9;
+	}
+	
+	.table-striped>tbody>tr {
+		background-color: #f9f9f9;
+	}
+	
+	.singleclick {
+		background-color: #c5c5f7 !important;
+	}
+	
+	.dbclick {
+		background-color: #7e9ec8 !important;
+	}
+	
+	.zhende {
+		background-color: #cdcdcd !important;
+		color: #9d9a9a !important;
+	}
+</style>
+
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">订单管理</h1>
+	</div>
+	<div class="modal-body">
+		<!-- 标签页start -->
+		<ul class="nav nav-tabs">
+			<!--  class="active" -->
+			<li class="active" ng-click="onClickTab('order.html')">
+				<a data-toggle="tab"> 订单信息 </a>
+			</li>
+			<li  ng-click="onClickTab('orderEvaluation.html')">
+				<a data-toggle="tab"> 订单评价 </a>
+			</li>
+			<li ng-click="onClickTab('shipper.html')" ng-if='orderId'>
+				<a data-toggle="tab"> 货主信息</a>
+			</li>
+			<li ng-click="onClickTab('carOwner.html')" ng-if='orderId'>
+				<a data-toggle="tab"> 车主信息</a>
+			</li>
+			<li ng-click="onClickTab('carmodel.html')" ng-if='orderId'>
+				<a data-toggle="tab"> 车型信息</a>
+			</li>
+			<li ng-click="onClickTab('orderSignReceive.html')" ng-if='orderId'>
+				<a data-toggle="tab"> 签收单信息</a>
+			</li>
+			<li ng-click="onClickTab('orderStatusChanges.html')" ng-if='orderId'>
+				<a data-toggle="tab"> 订单状态改变记录</a>
+			</li>
+			<li ng-click="onClickTab('orderTracks.html')" ng-if='orderId'>
+				<a data-toggle="tab"> 订单轨迹</a>
+			</li>
+		</ul>
+		<div id="mainView">
+			<div ng-include="currentTab"></div>
+		</div>
+		<!-- 订单信息 -->
+		<script type="text/ng-template" id="order.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">订单ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.orderId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">订单编号：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.orderNo" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">订单距离：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.orderDistance" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">订单评价：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.orderEvaluation" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">订单金额：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.orderPrice" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">订单状态：</label>
+							<div class="col-sm-10">
+								<span  class="form-control" ng-bind="orderStatus(orderallEntiy.orderStatus)" readonly></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">订单备注：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.remark" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车主电话：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.carOwner.phone" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">货主ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.shipperId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车主ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.carOwnerId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车型ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.carModelId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车牌号：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.carLicenseNo" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车主名：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.carOwnerName" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">开始时间：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.startTimeStr" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">结束时间：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.endTimeStr" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">起始地址：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.startPlace" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">终点地址：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.endPlace" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">收货人姓名：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.receiveName" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">收货人联系方式：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.receivePhone" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">更新时间：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.updateTimeStr" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">支付方式：</label>
+							<div class="col-sm-10">
+								<span class="form-control" ng-if="orderallEntiy.payType==1">支付宝</span>
+								<span class="form-control" ng-if="orderallEntiy.payType==2">微信</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">支付状态：</label>
+							<div class="col-sm-10">
+								<span class="form-control" ng-if="orderallEntiy.payType==0">未支付</span>
+								<span class="form-control" ng-if="orderallEntiy.payType==1">已支付</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+		<!-- 订单评价 -->
+		<script type="text/ng-template" id="orderEvaluation.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">订单评价：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="orderallEntiy.orderEvaluation" readonly>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+
+		<!-- 货主信息 -->
+		<script type="text/ng-template" id="shipper.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">货主ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.shipper.shipperId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">货主经营类型：</label>
+							<div class="col-sm-10">
+								<span class="form-control" ng-if="orderallEntiy.shipper.businessType==1"  ng-disabled="true">个人</span>
+								<span class="form-control" ng-if="orderallEntiy.shipper.businessType==2"  ng-disabled="true">企业</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车主签约类型：</label>
+							<div class="col-sm-10">
+								<span class="form-control" ng-if="orderallEntiy.shipper.contractType==1"  ng-disabled="true">未签约</span>
+								<span class="form-control" ng-if="orderallEntiy.shipper.contractType==2"  ng-disabled="true">签约</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">手机号：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.shipper.phone" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">真实姓名：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.shipper.realName" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">性别：</label>
+							<div class="col-sm-10">
+								<span class="form-control" ng-if="orderallEntiy.shipper.sex==1"  ng-disabled="true">男</span>
+								<span class="form-control" ng-if="orderallEntiy.shipper.sex==2"  ng-disabled="true">女</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">身份证号码：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.shipper.idCardNo" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">头像：</label>
+							<div class="col-sm-10">
+								<img ng-src="{{orderallEntiy.shipper.headImg}}" my-img onerror="this.src='img/loadding.gif'"  style="width: 50px; max-height: 38px;" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">昵称：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.shipper.nickName" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">公司名称：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.shipper.companyName" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">公司性质：</label>
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="companyNature(orderallEntiy.shipper.companyNature)"  ng-disabled="true" ></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">审核状态：</label>
+							<div class="col-sm-10">
+								<span  class="form-control"  ng-bind="checkStatus(orderallEntiy.shipper.checkStatus)"   ng-disabled="true"></span>
+							</div>
+						</div>
+
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+		<!-- 车主信息 -->
+		<script type="text/ng-template" id="carOwner.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车主ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.carOwnerId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车主经营类型：</label>
+							<div class="col-sm-10">
+									<span class="form-control" ng-if="orderallEntiy.carOwner.businessType==1"  ng-disabled="true">个人</span>
+								<span class="form-control" ng-if="orderallEntiy.carOwner.businessType==2"  ng-disabled="true">企业</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车主签约类型：</label>
+							<div class="col-sm-10">
+									<span class="form-control" ng-if="orderallEntiy.carOwner.contractType==1"  ng-disabled="true">未签约</span>
+								<span class="form-control" ng-if="orderallEntiy.carOwner.contractType==2"  ng-disabled="true">签约</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">手机号：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.phone" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车牌号：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.carLicenseNo" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车型ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.carModelId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">真实姓名：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.realName" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">身份证号码：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.idCardNo" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">头像：</label>
+							<div class="col-sm-10">
+							<img ng-src="{{orderallEntiy.carOwner.orderallEntiy.carOwner.idCardNo}}"  style="width: 50px;max-height: 38px;"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">昵称：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.nickName" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">性别：</label>
+							<div class="col-sm-10">
+								<span class="form-control" ng-if="orderallEntiy.carOwner.contractType==1"  ng-disabled="true">男</span>
+								<span class="form-control" ng-if="orderallEntiy.carOwner.contractType==2"  ng-disabled="true">女</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">公司名称：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.公司名称" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">公司性质：</label>
+							<div class="col-sm-10">
+								<span class="form-control"  ng-bind="companyNature(orderallEntiy.carOwner.companyNature)"  ng-disabled="true" ></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">审核状态：</label>
+							<div class="col-sm-10">
+								<span class="form-control"  ng-bind="checkStatus(orderallEntiy.carOwner.checkStatus)" ng-disabled="true">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">创建时间：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.createTimeStr" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">修改时间：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carOwner.updateTimeStr" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">状态：</label>
+							<div class="col-sm-10">
+								<span class="form-control"  ng-bind="status(orderallEntiy.carOwner.status)" ng-disabled="true">
+							</div>
+						</div>
+						<div class="form-group" ng-repeat="res in orderallEntiy.carOwner.paperworks">
+					<label class="col-sm-3 control-label" ng-if="res.type==1">身份证正面图 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==2">身份证反面图 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==3">手持身份证 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==4">驾驶本 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==5">驾驶本副页 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==6">行驶本 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==7">带牌车辆45°照片 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==8">企业营业执照 :</label>
+					<div class="col-sm-9">
+						<img my-img ng-src="{{res.imgUrl}}"  onerror="this.src='img/loadding.gif'"  alt="" width="50" style="max-height: 38px;" />
+					</div>
+				</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label">车型：</label>
+							<div class="col-sm-10">
+								<span class="form-control"  ng-bind="status(orderallEntiy.carOwner.carModel)" ng-disabled="true">
+							</div>
+						</div>
+
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+		<!-- 车型信息 -->
+		<script type="text/ng-template" id="carmodel.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车型ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carModel.modelId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车型名称：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carModel.modelName" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车型规格：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carModel.modelSpec" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">载重量：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carModel.loadCapacity" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">起步价：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.carModel.referStartPrice" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车型选中图标：</label>
+							<div class="col-sm-10">
+								<img my-img onerror="this.src='img/loadding.gif'" ng-src="{{orderallEntiy.carModel.modelImgUrlSelected}}" style="width: 50px;max-height: 38px;" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">车型未选中图标：</label>
+							<div class="col-sm-10">
+								<img my-img onerror="this.src='img/loadding.gif'" ng-src="{{orderallEntiy.carModel.modelImgUrlUnselected}}" style="width: 50px;max-height: 38px;" />
+							</div>
+						</div>
+
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+		<!-- 签收单信息 -->
+		<script type="text/ng-template" id="orderSignReceive.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">签收单ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.orderSignReceive.signReceiveId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">订单ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.orderSignReceive.orderId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">用户ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.orderSignReceive.userId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">用户范围：</label>
+							<div class="col-sm-10">
+								<span  class="form-control"  ng-if="orderallEntiy.orderSignReceive.scope==1"  ng-disabled="true">平台</span>
+								<span  class="form-control"  ng-if="orderallEntiy.orderSignReceive.scope==2"  ng-disabled="true">车主</span>
+								<span  class="form-control"  ng-if="orderallEntiy.orderSignReceive.scope==3"  ng-disabled="true">货主</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">签收状态：</label>
+								
+							<div class="col-sm-10">
+									<span class="form-control" ng-if="orderallEntiy.orderSignReceive.signStatus!=1&&orderallEntiy.orderSignReceive.signStatus!=2" ng-disabled="true">未签收</span>
+								<span  class="form-control"  ng-if="orderallEntiy.orderSignReceive.signStatus==1"  ng-disabled="true">正常签收</span>
+								<span  class="form-control"  ng-if="orderallEntiy.orderSignReceive.signStatus==2"  ng-disabled="true">异常签收</span>
+							</div>
+						</div>
+						<div class="form-group" >
+							<label class="col-sm-2 control-label">签收单图片路径：</label>
+							<div class="col-sm-10">
+							<img my-img onerror="this.src='img/loadding.gif'" ng-src="{{orderallEntiy.orderSignReceive.signImgUrl}}" alt="..." style="max-width: 40px;max-height: 40px;" /></td>
+							<a href="http://imgsrc.baidu.com/image/c0%3Dshijue1%2C0%2C0%2C294%2C40/sign=3d2175db3cd3d539d530078052ee8325/b7003af33a87e950c1e1a6491a385343fbf2b425.jpg">下载</a>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">是否已读：</label>
+							<div class="col-sm-10">
+							<span class="form-control"  ng-if="orderallEntiy.orderSignReceive.isRead==1" ng-disabled="true">未读</span>
+									<span class="form-control" ng-if="orderallEntiy.orderSignReceive.isRead==2" ng-disabled="true">已读</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">创建时间：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.orderSignReceive.createTimeStr" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">修改时间：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.orderSignReceive.updateTimeStr" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">状态：</label>
+							<div class="col-sm-10">
+								<span class="form-control" ng-if="orderallEntiy.orderSignReceive.status==1" ng-disabled="true">正常</span>
+								<span class="form-control" ng-if="orderallEntiy.orderSignReceive.status==2"  ng-disabled="true">禁止</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">处理状态：</label>
+							<div class="col-sm-10">
+								<span class="form-control" ng-if="orderallEntiy.orderSignReceive.handleStatus==1" ng-disabled="true">正常签收无需处理</span>
+									<span class="form-control" ng-if="orderallEntiy.orderSignReceive.handleStatus==2" ng-disabled="true">异常签收待处理</span>
+									<span class="form-control" ng-if="orderallEntiy.orderSignReceive.handleStatus==3" ng-disabled="true">异常签收处理完成</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">处理人ID：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.orderSignReceive.handleUserId" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">处理时间：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.orderSignReceive.handleTimeStr" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">处理备注：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"  ng-model="orderallEntiy.orderSignReceive.handleRemark" readonly>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+				<!-- 订单状态信息 -->
+		<script type="text/ng-template" id="orderStatusChanges.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<table class="table table-striped table-bordered table-hover dataTables-example marginBottom25">
+							<thead>
+								<tr>
+									<th>主键ID</th>
+									<th>订单状态</th>
+									<th>创建时间</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="res in orderallEntiy.orderStatusChanges">
+									<td ng-bind="res.statusChangeId"></td>
+									<td ng-if="res.scope!=1&&res.scope!=2&&res.scope!=3"></td>
+									<td ng-bind="orderStatus(res.orderStatus)"></td>
+									<td ng-bind="res.createTimeStr"></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+			<!-- 订单轨迹信息 -->
+		<script type="text/ng-template" id="orderTracks.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<table class="table table-striped table-bordered table-hover dataTables-example marginBottom25">
+							<thead>
+								<tr>
+									<th>轨迹ID</th>
+									<th>订单ID</th>
+									<th>车主ID </th>
+									<th>车牌号 </th>
+									<th>经度</th>
+									<th>纬度</th>
+									<th>上报时间</th>
+									<th>状态 </th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="res in orderallEntiy.orderTracks">
+									<td ng-bind="res.trackId"></td>
+									<td ng-bind="res.orderId"></td>
+									<td ng-bind="res.carOwnerId"></td>
+									<td ng-bind="res.carLicenseNo"></td>
+									<td ng-bind="res.lon"></td>
+									<td ng-bind="res.lat"></td>
+									<td ng-bind="res.uploadTimeStr"></td>
+									<td ng-if="res.status==1">正常</td>
+									<td ng-if="res.status==2">禁用</td>
+									<td ng-if="res.status!=1&&res.status!=2"></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+
+		<!--尾部-->
+	</div>
+
+</div>

@@ -1,0 +1,147 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">属性管理</h1>
+	</div>
+	<div class="modal-body" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal" style="height: auto;">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">属性类型(*)：</label>
+
+					<div class="col-sm-9">
+						<div class="form-group" style="padding-left: 20px;padding-top: 5px;">
+							<label class="radio-inline">
+                                <input type="radio" ng-click="check(1,'attrType')" ng-checked="dataEntity.attrType=='1'" name="attrType">&nbsp;筛选属性&nbsp;
+                            </label>
+							<label class="radio-inline">
+                                <input type="radio" ng-click="check(2,'attrType')" ng-checked="dataEntity.attrType=='2'" name="attrType">&nbsp;自定义属性&nbsp;
+                            </label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">输入类型(*)：</label>
+
+					<div class="col-sm-9">
+						<!--输入类型：1 单选输入、2 多选输入、3 单行输入、4 多行输入、5 数字输入、6 日期输入、7 金额输入-->
+						<div class="form-group" style="padding-left: 20px;padding-top: 5px;">
+							<label class="radio-inline">
+                                <input type="radio" ng-click="check(1,'inputType')" ng-checked="dataEntity.inputType=='1'" name="inputType">&nbsp;单选输入&nbsp;
+                            </label>
+							<label class="radio-inline">
+                                <input type="radio" ng-click="check(2,'inputType')" ng-checked="dataEntity.inputType=='2'" name="inputType">&nbsp;多选输入&nbsp;
+                            </label>
+							<label class="radio-inline" ng-hide="filter1">
+                                <input type="radio" ng-click="check(3,'inputType')" ng-checked="dataEntity.inputType=='3'" name="inputType">&nbsp;单行输入&nbsp;
+                            </label>
+							<label class="radio-inline" ng-hide="filter1">
+                                <input type="radio" ng-click="check(4,'inputType')" ng-checked="dataEntity.inputType=='4'" name="inputType">&nbsp;多行输入&nbsp;
+                            </label>
+							<label class="radio-inline" ng-hide="filter1">
+                                <input type="radio" ng-click="check(5,'inputType')" ng-checked="dataEntity.inputType=='5'" name="inputType">&nbsp;数字输入&nbsp;
+                            </label>
+							<!--<label class="radio-inline" ng-hide="filter1">
+                                <input type="radio" ng-click="check(6,'inputType')" ng-checked="dataEntity.inputType=='6'" name="inputType">&nbsp;日期输入&nbsp;
+                            </label>-->
+							<label class="radio-inline" ng-hide="filter1">
+                                <input type="radio" ng-click="check(7,'inputType')" ng-checked="dataEntity.inputType=='7'" name="inputType">&nbsp;金额输入&nbsp;
+                            </label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">后台显示名称(*)：</label>
+
+					<div class="col-sm-9">
+						<input type="text" ng-verify="{required:true}" class="form-control" placeholder="后台显示名称" ng-model="dataEntity.editName">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">前台显示名称(*)：</label>
+
+					<div class="col-sm-9">
+						<input type="text" ng-verify="{required:true}" class="form-control" placeholder="前台显示名称" ng-model="dataEntity.viewName">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">排序号(*)：</label>
+
+					<div class="col-sm-9">
+						<input type="number" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" class="form-control" ng-model="dataEntity.sort" placeholder="排序号(请输入数字)">
+					</div>
+				</div>
+			</li>
+		</ul>
+		<ul class="list-group form-horizontal" ng-show="showResfly">
+			<li class="list-group-item" ng-repeat="res in resfly track by $index" style="padding-bottom: 10px">
+				<div class="form-group" style="margin-bottom: 0px">
+					<label class="col-sm-2 control-label">属性值(*)：</label>
+
+					<div class="col-sm-2">
+						<input ng-verify="{required:true}" type="text" class="form-control" placeholder="属性值" ng-model="res.name">
+					</div>
+
+					<label class="col-sm-2 control-label">排序号(*)：</label>
+
+					<div class="col-sm-2">
+						<input type="number" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" class="form-control" placeholder="排序号(请输入数字)" ng-model="res.sort">
+					</div>
+					<label class="col-sm-1 control-label">状态(*)：</label>
+
+					<div class="col-sm-2">
+						<label class="radio-inline">
+                                <input type="radio" ng-click="check(1,'status',$index,0)" ng-checked="res.status=='1'" name="{{'status0'+$index}}">&nbsp;正常&nbsp;
+                            </label>
+						<label class="radio-inline">
+                                <input type="radio" ng-click="check(0,'status',$index,0)" ng-checked="res.status=='0'" name="{{'status0'+$index}}">&nbsp;禁用&nbsp;
+                            </label>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<ul class="list-group form-horizontal">
+			<li class="list-group-item" ng-repeat="updata in updataPropertiesAttr track by $index">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">属性值(*)：</label>
+
+					<div class="col-sm-2">
+						<input type="text" class="form-control" placeholder="属性值" ng-model="updata.name" ng-verify="{required:true}">
+					</div>
+
+					<label class="col-sm-2 control-label">排序号(*)：</label>
+
+					<div class="col-sm-2">
+						<input type="number" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" class="form-control" placeholder="排序号(请输入数字)" ng-model="updata.sort" ng-verify="{required:true}">
+					</div>
+					<label class="col-sm-1 control-label">状态(*)：</label>
+
+					<div class="col-sm-2">
+						<label class="radio-inline">
+                                <input type="radio" ng-click="check(1,'status',$index,1)" ng-checked="updata.status=='1'" name="{{'status'+$index}}">&nbsp;正常&nbsp;
+                            </label>
+						<label class="radio-inline">
+                                <input type="radio" ng-click="check(0,'status',$index,1)" ng-checked="updata.status=='0'" name="{{'status'+$index}}">&nbsp;禁用&nbsp;
+                            </label>
+					</div>
+					<a class="col-sm-1" ng-click="updataPropertiesAttr.splice($index,1)"><span class="glyphicon glyphicon-remove"></span></a>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-success" ng-click="add_li()" ng-show="inputType12">
+                <span class="glyphicon glyphicon-floppy-disk"></span>新增属性值
+            </button>
+			<button type="button" class="btn btn-warning" ng-click="okModal(updataPropertiesAttr,resfly)" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span>取消
+            </button>
+		</div>
+	</div>
+
+</div>

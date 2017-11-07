@@ -1,0 +1,220 @@
+<div  id="carte_head">
+	<ul class="head">
+		<li ng-click="goBack()"><img src="img/fh.png"  /></li>
+		<li class="shopping_tit">购物车</li>
+		<li id="shopping_bj"  ng-show="hasGoods"><a ng-click="showBtn()" ng-hide="showHideBtn">编辑</a><a ng-click="closeBtn()" ng-show="showHideBtn">完成</a></li>
+	</ul>
+</div>
+<div class="shopping_conter clearfix">
+	<!--<div infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='1'>-->
+		<ol class="shopping_conter_ol clearfix">
+			<li ng-repeat="goods in goodsList" class="clearfix cart_goods_tm">
+				<ul class="shopping_ul clearfix" >
+				<li class="shop_ul_product">
+				<ol class="shop_ul_product_ol">
+					<li>
+						<ol  class="shopping_ul_li_ol ">
+							<li><input ng-click="selectChange()" type="checkbox" ng-disabled="goods.stock == 0 || goods.goodsState != 6" ng-model="goods.status"></li>
+							<li>
+								<a ui-sref="info.goods({id:{{goods.goodsId}}})">
+									<img ng-src="{{goods.masterImg}}" />
+								</a>
+							</li>
+							<li>
+								<a ui-sref="info.goods({id:{{goods.goodsId}}})" ng-bind="goods.goodsName"></a>
+							</li>
+							<li ng-bind="goods.specInfo"></li>
+							<li ng-bind="goods.salesPrice | priceFormatFilter"></li>
+							<li>
+								<ul class="shopping_li_ul">
+									<li>
+										<button ng-click="goods.count=goods.count-1;changeNum(goods.id,goods.count,goods.productId,goods.stock)" ng-disabled="goods.count<=1 || goods.goodsState != 6">
+											<img ng-if="goods.count <= 1" src="img/downNum.png">
+											<img ng-if="goods.count > 1" src="img/downNum1.png">
+										</button>
+									</li>
+									<li><input ng-model="goods.count" ng-readonly="true" type="text" placeholder="1" /></li>
+									<li>
+										<button ng-click="goods.count=goods.count+1;changeNum(goods.id,goods.count,goods.productId,goods.stock)" ng-disabled="goods.goodsState != 6 || goods.count>=200">
+											<img ng-if="goods.count<=goods.stock&&goods.goodsState == 6&&goods.stock>1" src="img/addNum1.png">
+											<img ng-if="goods.count>goods.stock || goods.stock <= 1 || goods.count>=200 || goods.goodsState != 6" src="img/addNum.png">
+										</button>
+									</li>
+								</ul>
+								<div class="shopping_div_wh"><b ng-show="goods.stock >= 1 && goods.goodsState == 6">有货</b><b style="color: red;" ng-show="goods.stock < 1 && goods.goodsState == 6">无货</b><b style="color: red;" ng-show="goods.goodsState != 6">已下架</b></div>
+							</li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+			
+		</ul>
+
+	</div>
+	<div ng-show="scrollFoot == true && allPage <= 1" ><img src="../../img/fdddb.png" alt=""></div>
+	<div ng-show='loadding'  class="all_lode_img"><img src="../../img/loadding.gif" alt="" /></div>
+</div>
+<!--如果没有商品时显现这个--> 
+
+<div class="coupon_img_conter" ng-show="hasGoods == false">
+	<span class="xcenter">
+		<img src="img/wsp.png" />
+	</span>
+	<p>购物车是空的</p>
+</div>
+
+<div class="cart_like clearfix" ng-show="hasGoods == false">
+		<div class="conter_header">
+		猜你喜欢
+	</div>
+	<ol  class="clearfix detailord_ol" id="conter_cnxh">
+	<li>
+		<ul  class="conter_family_ol_ul">
+			<li>
+				<a href="####">
+					<img src="../../img/Bitmap.png" />
+				</a>
+			</li>
+			<li>
+				<a href="###">
+					小本地平空释片小本地平空小本地平空释片小本地平空
+				</a>
+			</li>
+			<li>
+				￥36
+			</li>
+			<li class="conter_family_ol_ul_rx">
+				<img src="../../img/rxpc.png" />
+			</li>
+		</ul>
+	</li>
+	<li>
+		<ul  class="conter_family_ol_ul">
+			<li>
+				<a href="####">
+					<img src="../../img/Bitmap.png" />
+				</a>
+			</li>
+			<li>
+				<a href="###">
+					小本地平空释片小本地平空小本地平空释片小本地平空
+				</a>
+			</li>
+			<li>
+				￥36
+			</li>
+		</ul>
+	</li>
+	<li>
+		<ul  class="conter_family_ol_ul">
+			<li>
+				<a href="####">
+					<img src="../../img/Bitmap.png" />
+				</a>
+			</li>
+			<li>
+				<a href="###">
+					小本地平空释片小本地平空小本地平空释片小本地平空
+				</a>
+			</li>
+			<li>
+				￥36
+			</li>
+		</ul>
+	</li>
+	<li>
+		<ul  class="conter_family_ol_ul">
+			<li>
+				<a href="####">
+					<img src="../../img/Bitmap.png" />
+				</a>
+			</li>
+			<li>
+				<a href="###">
+					小本地平空释片小本地平空小本地平空释片小本地平空
+				</a>
+			</li>
+			<li>
+				￥36
+			</li>
+		</ul>
+	</li>
+	<li>
+		<ul  class="conter_family_ol_ul">
+			<li>
+				<a href="####">
+					<img src="../../img/Bitmap.png" />
+				</a>
+			</li>
+			<li>
+				<a href="###">
+					小本地平空释片小本地平空小本地平空释片小本地平空
+				</a>
+			</li>
+			<li>
+				￥36
+			</li>
+		</ul>
+	</li>
+	<li>
+		<ul  class="conter_family_ol_ul">
+			<li>
+				<a href="####">
+					<img src="../../img/Bitmap.png" />
+				</a>
+			</li>
+			<li>
+				<a href="###">
+					小本地平空释片小本地平空小本地平空释片小本地平空
+				</a>
+			</li>
+			<li>
+				￥36
+			</li>
+		</ul>
+	</li>
+	
+</ol>
+</div>
+<div class="shopping_js" ng-show="hasGoods">
+	<!--点击编辑时出现的放法-->
+	<ul class="shopping_js_ul showHide" style="display: none;" ng-show="showHideBtn">
+		<li>
+			<label ng-click="selectAll()">
+				<input type="checkbox" ng-model="allSelect" name="1" value="1" />
+				<span>全选</span>
+			</label>
+		</li>
+		<li  class="shopping_js_ul_three">
+			<button ng-click="delete(1,2,3)">删除</button>
+		</li>
+		<li class="shopping_js_ul_but shopping_js_ul_but_cart">
+			<button ng-click="membercollection(1,cartId,arr)">移入收藏夹</button>
+		</li>
+	</ul>
+	<ul class="shopping_js_ul" ng-hide="showHideBtn">
+		<li>
+			<label ng-click="selectAll()">
+				<input type="checkbox" ng-model="allSelect" name="1" value="1" />
+				<span>全选</span>
+			</label>
+		</li>
+		<li  class="shopping_js_ul_three">
+			<button ng-click="payCart()">结算</button>
+		</li>
+		<li class="shopping_js_ul_two">
+			<p><label>合计：</label><span ng-bind="totalPrice() | priceFormatFilter">39.00</span></p>
+			<p>不包含运费</p>
+		</li>
+	</ul>
+</div>
+
+<script type="text/ng-template" id="modalDialogId">
+    <div class="ngdialog-message">
+        <h3>提示信息</h3>
+        <p >123</p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">确定</button>
+    </div>
+</script>

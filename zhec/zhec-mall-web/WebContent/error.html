@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="errorApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="stylesheets/screen.css" />
+	</head>
+
+	<body ng-controller="errorController">
+		<headerpage></headerpage>
+		<div class="nav_details clearfix" style="width: 1200px;margin: 0 auto;padding-top:100px;height: 300px;background-color: #fff;">
+			<img src="images/404.png" alt="" style="margin:0 auto;display:block;" />
+		</div>
+		<footerpage></footerpage>
+	</body>
+
+	<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+	
+	<!-- End Piwik Code -->
+	<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="js/common/cookie.js"></script>
+	<script type="text/javascript" src="js/common/zhec.js"></script>
+	<!-- Piwik -->
+	<script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/angular/angular.min.js"></script>
+	<script type="text/javascript" src="js/common/CommonService.js"></script>
+	<script type="text/javascript" src="js/common/directives.js"></script>
+	<script type="text/javascript">
+		angular
+			.module('errorApp', [])
+			//			.factory('goodsService', function($http, $q, constBaseLocation) {
+			//				var baseUrl = constBaseLocation + '/goods';
+			//				return {
+			//
+			//				}
+			//			})
+			.controller("errorController", errorController)
+			.directive("headerpage", headerpage)
+			.directive("footerpage", footerpage)
+			.factory('CommonService', CommonService)
+
+		function errorController($scope, $q) {
+
+		}
+	</script>
+
+</html>

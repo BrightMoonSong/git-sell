@@ -1,0 +1,44 @@
+<div ng-controller="topnavbarController">
+	<div class="head">
+		<div class="header">
+			<div  class="header-navigation clearfix">
+				<ol  class="clearfix">
+					<li class="header-navigation-first">
+						<a href="index.html#/manager/index"
+							ng-class="{true: 'index-font', false: ''}[rootIsActiveId==1]">网站首页</a>
+					</li>
+					<li>
+						<a href="index.html#/manager/companydetail" 
+							ng-class="{true: 'index-font', false: ''}[rootIsActiveId==2]">公司概况</a>
+					</li>
+					<li >
+						<a href="index.html#/manager/newslist/1"
+							ng-class="{true: 'index-font', false: ''}[rootIsActiveId==3]">资讯中心</a>
+					</li>
+					<li>
+						<a href="index.html#/manager/productdetail/1"
+							ng-class="{true: 'index-font', false: ''}[rootIsActiveId==4]">产品中心</a>
+					</li>
+					<li class="header-navigation-last">
+						<a href="index.html#/manager/message/1"
+							ng-class="{true: 'index-font', false: ''}[rootIsActiveId==5]">在线留言</a>
+					</li>
+				</ol>
+			</div>
+			<div class="logo">
+				<a>
+					<div>
+						<span style="font-size: 45px;color: #ffffff;font-weight: 900;">YCT</span>
+						<span style="font-size: 17px;color: #fff;">天津御草堂药品销售有限公司</span>
+					</div>
+					
+					
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--<div id="toastLoadding" >
+    <div style="padding: 0;"><img src="../../img/loadding.gif" /></div>
+</div>-->

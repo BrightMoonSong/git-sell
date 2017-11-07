@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html ng-app="messageApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>留言板 - 鹿医生</title>
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script language="javascript">
+			if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+				
+			}else{
+				var strDelete = publicUrlMall.split("/mall");
+				publicUrlMall = strDelete[0] + strDelete[1];
+			}
+			document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/messageBoard/message.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/jDialog/jDialog.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog.min.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngVerify/ngVerify.css>");
+			
+			document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+			
+			document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/ngDialog/ngDialog.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/ngVerify/ngVerify.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/interceptor.js><\/script>");
+			
+			
+			document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/messageBoard/messageBoardConfig.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jDialog/jDialog.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/messageBoard/messageBoardController.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/services/messageBoard/messageBoardService.js><\/script>");
+			
+		</script>
+		<!--<link rel="stylesheet" href="stylesheets/messageBoard/message.css" />-->
+		<!--<link rel="stylesheet" href="stylesheets/screen.css" />-->
+		<!--<link rel="stylesheet" href="stylesheets/test.css" />-->
+		<!--<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>-->
+		<!-- jDialog -->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/jDialog/jDialog.css" type="text/css">-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog.min.css" type="text/css">-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css" type="text/css">-->
+		<!--<script src="js/plugins/angular/angular.min.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/CommonService.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/directives.js"></script>-->
+		<!--<script type="text/javascript" src="js/controllers/messageBoard/directive.js"></script>-->
+		<!--<script src="js/common/CommonFilter.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script type="text/javascript" src="js/common/zhecConfig.js"></script>-->
+		
+		<!-- End Piwik Code -->
+		<!--<script src="js/controllers/messageBoard/messageBoardConfig.js"></script>-->
+		<!-- ngDialog -->
+		<!--<script src="js/plugins/ngDialog/ngDialog.min.js"></script>-->
+		<!-- cookie -->
+		<!--<script type="text/javascript" src="js/common/cookie.js"></script>
+		<script type="text/javascript" src="js/common/zhec.js"></script>-->
+		<!-- Piwik -->
+		<!--<script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script type="text/javascript" src="js/plugins/jDialog/jDialog.js"></script>-->
+		<!--<script src="js/common/interceptor.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script type="text/javascript" src="js/controllers/messageBoard/messageBoardController.js"></script>
+		<script type="text/javascript" src="js/services/messageBoard/messageBoardService.js"></script>-->
+
+	</head>
+
+	<body ng-controller="messageBoardController">
+		<headerpage></headerpage>
+		<smallcart></smallcart>
+		<ul class="clearfix messagea_conter">
+			<li  class="messagea_conter_header"><label>申请订单详情</label><span ng-if="recipeApply.status == 0">正在审批</span><span ng-if="recipeApply.status == 1">审批通过</span><span ng-if="recipeApply.status == 2">审批未通过</span></li>
+			<li class="messagea_conter_head">
+				<ol>
+					<li>商品名称</li>
+					<li>金额(元)</li>
+					<li>数量</li>
+					<li>规格</li>
+					<li>审核状态</li>
+					<li>操作</li>
+				</ol>
+			</li>
+			<li class="messagea_conter_conter">
+				<ul class="messagea_conter_con_ul">
+					<li>
+						<a ng-href="goods.html?id={{recipeApply.goodsId}}" target="_blank" >
+							<img width="80px" height="80px" ng-src="{{recipeApply[0].goodsImageUrl}}" alt="" />
+						</a>
+					</li>
+					<li style="display: none;" class="showHide">
+						<b ng-if="recipeApply.goodsType == 1">
+							<img src="images/prescription.png" alt="" />
+						</b>
+						<a ng-href="goods.html?id={{recipeApply[0].goodsId}}" target="_blank" ng-bind="recipeApply[0].goodsName"></a>
+					</li>
+					<li>
+						<b ng-bind="recipeApply[0].goodsPrice | priceFormatFilter"></b>
+					</li>
+					<li><b ng-bind="recipeApply[0].productNumber"></b></li>
+					<li><b ng-bind="recipeApply[0].specInfo"></b></li>
+					<li ng-if="recipeApply[0].status == 0" class="message_conter_li_ng">正在审批</li>
+					<li ng-if="recipeApply[0].status == 1" class="message_conter_li_yes">审批通过</li>
+					<li ng-if="recipeApply[0].status == 2" class="message_conter_li">审批未通过</li>
+					<li>暂无操作</li>
+				</ul>
+			</li>
+		</ul>
+
+		<div class="conter clearfix">
+			<div id="messageLeft">
+				<ul>
+					<li><p>信息</p></li>
+				</ul>
+				<ul class="clearfix message_ul">
+					<li>
+						<lable>姓名:</lable>
+						<b ng-bind="recipeApply[0].orderName"></b>
+					</li>
+					<li>
+						<lable>电话:</lable>
+						<b ng-bind="recipeApply[0].orderMobile"></b>
+					</li>
+					<li>
+						<lable>收货地址:</lable>
+						<div class="messgae_div">
+							<b ng-bind="recipeApply[0].orderProvinceName+','+recipeApply[0].orderCityName+','+recipeApply[0].orderAreaName"></b><br />
+							<span ng-bind="recipeApply[0].orderAddress"></span>
+						</div>
+					</li>
+					<li>
+						<lable>发票信息:</lable>
+						<b ng-if="recipeApply[0].invoiceType != 0" ng-bind="recipeApply[0].invoiceTitle+','+recipeApply[0].invoiceDetail"></b>
+						<b ng-if="recipeApply[0].invoiceType == 0">不要发票</b>
+					</li>
+					<li>
+						<lable id="message_img_cf">处方图片:</lable>
+						<a href="" ng-click="showBigImg(img)" style="cursor:url('images/big32.ico'),auto;" ng-repeat="img in recipeGoodsList">
+							<img ng-src="{{img}}" alt=""/>
+						</a>
+
+
+					</li>
+					<li>
+						<lable>买家留言:</lable>
+						<b ng-if="recipeGoods[0].message!=''" ng-bind="recipeGoods[0].message"></b>
+						<b ng-if="recipeGoods[0].message==''">暂无留言信息</b>
+					</li>
+					<!--<li>
+						<lable>发&ensp;&ensp;&ensp;票:</lable>
+						<b ng-bind="recipeApply.productNumber"></b>
+					</li>-->
+				</ul>
+			</div>
+			<div id="messageRight" class="clearfix">
+				<ul  class="clearfix message_spoke">
+					<h3>留言板</h3>
+					<li class="message_spoke_pj">
+					<label>留言：</label>
+						<textarea placeholder="请输入内容..." ng-model="messageMemInput"></textarea>
+				    </li>
+					<li class="message_spoke_sc clearfix">
+						<form name=theform ng-hide="true" style="display: none;">
+						<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+						<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+						<br/> 上传到指定目录:
+						<input type="text" value="{{prescriptionUrl}}/{{memberId}}" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+					  </form>
+					  <div id="ossfile" class="showHide" style="display: none;"  class="clearfix">
+							你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系XXX)
+						</div>
+						<br/>
+						<div id="container" class="clearfix" >
+							<a  id="selectfiles" href="javascript:void(0);" class="btn"><img src="images/xnjh.png"></a>
+							<!--<img src="images/xnjj.png" />
+							<img src="images/xnjj.png" />
+							<img src="images/xnjj.png" />
+							<img src="images/xnjj.png" />-->
+						</div>
+						<div class="clearfix message_oss_div">
+							<a  id="postfiles" href="javascript:void(0);" style="display: none;" class="btn">开始上传</a>
+						</div>
+						<pre id="console" ng-hide="true"></pre>
+						<div id="message_click">
+							<button ng-click="addMessage()">发表留言</button>
+						</div>
+					</li>
+					<li class="clearfix message_pl">
+						<ul ng-repeat="message in messageList">
+							<li>
+								<span ng-if="message.source==2"><img width="40px" height="40px" ng-src="{{memberImg}}"/></span>
+								<span ng-if="message.source==1"><img width="40px" height="40px" src="images/customerService.png"/></span>
+							</li>
+							<li>
+								<p ng-if="message.source==2"><b ng-bind="loginId"></b>-买家</p>
+								<p ng-if="message.source==1">客服</p>
+							</li>
+							<li><b ng-bind="message.time"></b></li>
+							<li>
+								<p style="cursor: auto;"  title="{{message.message}}" ng-bind="message.message1"></p>
+							</li>
+							<li>
+								<ul>
+									<li ng-repeat="messageImg in message.messageImgList">
+										<a ng-click="showBigImg(messageImg)" ><img style="cursor:url('images/big32.ico'),default"  class="smallImg" ng-src="{{messageImg}}" /></a>
+									</li>
+								</ul>
+							</li>
+							
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--<datalistpager></datalistpager>-->
+		<footerpage></footerpage>
+	<script type="text/ng-template" id="firstDialogId">
+		<div style="width:auto;margin:0 auto">
+			<div ng-click="closeModal()" style="cursor:url('images/small32.ico'),auto;" id="showImg" style="width:auto"><img style="max-width: 750px;display: block;margin:0 auto" ng-click="closeModal()" ng-src="{{currentImg}}"/></div>
+		</div>
+	</script>
+	</body>
+	<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+	<script language="javascript">
+		if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+			
+		}else{
+			var strDelete = publicUrlMall.split("/mall");
+			publicUrlMall = strDelete[0] + strDelete[1];
+		}
+		document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/crypto1/crypto/crypto.js><\/script>");
+		document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/crypto1/hmac/hmac.js><\/script>");
+		document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/crypto1/sha1/sha1.js><\/script>");
+		document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/base64.js><\/script>");
+		document.write("<script src="+publicUrlMall+"js/plugins/oss/plupload.full.min.js><\/script>");
+		document.write("<script src="+publicUrlMall+"js/plugins/oss/upload.js><\/script>");
+	</script>
+
+</html>

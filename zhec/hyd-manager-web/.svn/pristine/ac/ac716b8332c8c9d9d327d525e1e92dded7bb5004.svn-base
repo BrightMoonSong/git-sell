@@ -1,0 +1,140 @@
+function OrderAllController($scope, $q, $http, $rootScope, OrderAllService, constPageSize, ngDialog, goodsReminder) {
+$scope.WdatePicker = {}; //日期
+	$scope.orderStatusList = [{
+			'id': 1,
+			"name": "订单创建"
+		},
+		{
+			'id': 2,
+			"name": "货主接受报价"
+		},
+		{
+			'id': 3,
+			"name": "司机到达货物所在地"
+		},
+		{
+			'id': 4,
+			"name": "司机到达货物所在地"
+		},
+		{
+			'id': 5,
+			"name": "司机达到目的地"
+		},
+		{
+			'id': 6,
+			"name": "卸货完成"
+		},
+		{
+			'id': 7,
+			"name": "订单已完成"
+		},
+		{
+			'id': 8,
+			"name": "已评价"
+		},
+		{
+			'id': 9,
+			"name": "订单已取消"
+		}
+	]
+
+	$scope.payStatusList = [{
+			'id': 0,
+			'name': '未支付'
+		},
+		{
+			'id': 1,
+			'name': '已支付'
+		}
+	]
+	$scope.orderStatus=function(n){
+		switch (n){
+			case 1:
+			return"订单创建"
+				break;
+			case 2:
+			return"货主接受报价"
+				break;
+				case 3:
+			return"司机到达货物所在地"
+				break;
+				case 4:
+			return"装货完成"
+				break;
+				case 5:
+			return"司机达到目的地"
+				break;
+				case 6:
+			return"卸货完成"
+				break;
+				case 7:
+			return"订单已完成"
+				break;
+				case 8:
+			return"已评价"
+				break;
+					case 9:
+			return"订单已取消"
+				break;
+		}
+	}
+
+	//全部订单列表
+	$scope.find = function(currentPageNo, currentPaseSize) {
+		var defer = $q.defer();
+		var orderNo = $scope.orderNo;
+		$scope.startTimeStr = $scope.WdatePicker.startTimes;
+		$scope.endTimeStr = $scope.WdatePicker.endTimes;
+		if(!$scope.orderStatusObj) {
+			var orderStatusId = '';
+		} else {
+			var orderStatusId = $scope.orderStatusObj;
+		}
+		if(!$scope.payStatusObj) {
+			var payStatusId = '';
+		} else {
+			var payStatusId = $scope.payStatusObj;
+		}
+		OrderAllService
+			.find(orderNo, orderStatusId, payStatusId, $scope.startTimeStr, $scope.endTimeStr, currentPageNo, currentPaseSize)
+			.then(function(result) {
+				console.log(result)
+				$scope.orderallList = result.data;
+				defer.resolve(result);
+			}, function(reault) {
+				defer.reject(result);
+			})
+		return defer.promise;
+	}
+	
+	
+		//取消订单操作
+	$scope.enableId = function(id) {
+		var chainstouses;
+		chainstouses = goodsReminder.ordersCancel;
+		ngDialog.openConfirm({
+			template: '<p>' + chainstouses + '</p>' +
+				'<div class="ngdialog-buttons">' +
+				'<button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">取消' +
+				'<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">确定' +
+				'</button></div>',
+			plain: true,
+			closeByDocument: false,
+			closeByEscape: false,
+			className: 'ngdialog-theme-default'
+		}).then(function(value) {
+			OrderAllService
+				.cancel(id)
+				.then(function(result) {
+					$scope.loadData()
+				}),
+				function(reason) {}
+		})
+	}
+}
+
+
+
+angular
+	.module("managerApp")
+	.controller("OrderAllController",OrderAllController)

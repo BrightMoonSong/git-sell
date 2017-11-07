@@ -1,0 +1,339 @@
+.needs_sm{
+	width: 100%;
+	height: 5rem;
+}
+.needs_sm>label,.needs_sm>span{
+	float: left;
+	display: block;
+	margin-top: 1.083rem;
+}
+.needs_sm>label{
+	margin-left: 0.833rem;
+	width:18.26%;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #999999;
+	letter-spacing: 1px;
+	text-align: center;
+}
+.needs_sm>span{
+	width:77.06%;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #999999;
+	letter-spacing: 1px;
+	margin-left: 0.416rem;
+}
+.needs_baner{
+	width: 100%;
+	background: #FFFFFF;
+}
+.needs_baner>li{
+	width: 100%;
+}
+.needs_baner>li>label{
+	margin-right:1.25rem ;
+	display: block;
+	width:4rem;
+	margin-left: 0.833rem;
+	font-family: MicrosoftYaHei;
+	font-size: 1.083rem;
+	color:#333333;
+	letter-spacing: 1.08px;
+	margin-top: 1.666rem;
+}
+.needs_p{
+	width: 100%;
+	margin-top: 1.666rem;
+	line-height: 1.5rem;
+    height: 1.5rem;
+}
+.needs_p>span{
+	display: block;
+	float: left;
+
+}
+.needs_p>span:nth-child(1){
+	font-family: MicrosoftYaHei;
+	font-size: 1.5rem;
+	color: #FF3F39;
+	letter-spacing: 1.5px;
+}
+.needs_p>span:nth-child(2){
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #999999;
+	letter-spacing: 0;
+	text-decoration: line-through;
+}
+.needs_conter_four{
+	min-height: 5rem;
+	background: #FFFFFF;
+}
+.needs_conter_four>label{
+	display: block;
+	width:4rem;
+	margin-left: 0.833rem;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #999999;
+	letter-spacing: 3px;
+	margin-top: 0.833rem;
+	
+}
+.needs_conter_four>label,.needs_conter_four>div{
+	float: left;
+	height: 100%;
+}
+.needs_conter_four>div{
+	width: 77%;
+	
+}
+.needs_conter_four>div>p{
+	width: 100%;
+	
+}
+.needs_conter_four>div>p>span,.needs_conter_four>div>p>b{
+	display: block;
+	float: left;
+}
+.needs_conter_four>div>p:last-child{
+	margin-bottom: 1rem;
+}
+.needs_conter_p_one{
+	    margin-top: 0.583rem;
+}
+
+.needs_conter_p_two{
+	margin-top: 0.583rem;
+}
+.needs_conter_p_one>span{
+	width:2.75rem;
+	height: 1.2rem;
+	background: #FF3F39;
+	font-family: MicrosoftYaHei;
+	font-size: 0.833rem;
+	color: #FFFFFF;
+	letter-spacing: 1px;
+	line-height: 1.1rem;
+	text-align: center;
+}
+.needs_conter_p_one>b{
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #FF3F39;
+	letter-spacing: 0;
+	line-height: 0.875rem;
+	margin-left: 0.833rem;
+}
+.needs_conter_p_two>span{
+	min-width:4.083rem ;
+	height:1.2rem ;
+	border: 1px solid #FF3F39;
+	
+}
+.needs_conter_p_two>span>b,.needs_conter_p_two>span>span{
+	display: block;
+	float: left;
+}
+.needs_conter_p_two>span>b{
+	width:3.625rem;
+	height: 100%;
+	font-family: MicrosoftYaHei;
+	font-size: 0.833rem;
+	color: #FFFFFF;
+	letter-spacing: 1px;
+	line-height:1.1rem;
+	background: #FF3F39;
+	text-align: center;
+}
+.needs_conter_p_two>span>span{
+	min-width: 1.458rem;
+	height: 100%;
+	text-align: center;
+	font-family: MicrosoftYaHei;
+	font-size: 0.833rem;
+	color: #FF3F39;
+	letter-spacing: 0;
+	line-height:1.1rem;
+}
+.needs_conter_p_two>b{
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #FF3F39;
+	letter-spacing: 0;
+	line-height:0.958rem;
+	margin-left: 0.833rem;
+}
+.needs_conter_gg>label{
+	margin-top: 0.833rem !important;
+}
+.needs_conter_gg>label,.needs_conter_gg>p{
+	float: left;
+}
+.needs_conter_gg>p{
+	width:77%;
+	margin-top: 0.833rem;
+}
+.needs_conter_gg>p>span{
+	font-family: MicrosoftYaHei;
+	font-size: 1.083rem;
+	color: #333333;
+	letter-spacing: 1.08px;
+}
+.needs_conter_num{
+	
+	margin-bottom: 1.666rem;
+}
+.needs_conter_num>label,.needs_conter_num>ol{
+	float: left;
+}
+.needs_conter_num>label{
+	    margin-top: 2rem !important;
+}
+.needs_conter_num>ol{
+		width: 77%;
+	height: 2.083rem;
+	margin-top: 1.666rem;
+}
+.needs_conter_num>ol>li{
+	height: 100%;
+}
+.needs_conter_num>ol>li>button{
+	width: 2.083rem;
+	height: 2.083rem;
+	border: 0;
+	outline: medium;
+	position: relative;
+		background: white;
+}
+.needs_conter_num>ol>li>button>img{
+	width: 2.083rem;
+	height: 2.083rem;
+	position: absolute;
+	left: 0;
+	top: 0;
+
+}
+.needs_conter_num>ol>li>input{
+	width: 3.333rem;
+	    height: 92%;
+    border: 0;
+	border-top: 1px solid #eee;
+	border-bottom:1px solid #eee;
+	outline: medium;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #666666;
+	letter-spacing: 1px;
+	text-align: center;
+}
+.needs_conter_ol{
+	width: 100%;
+	margin-top: 0.416rem;
+}
+.needs_conter_ol>li{
+	width: 100%;
+	height:4.541rem ;
+	background: #FFFFFF;
+	border-bottom: 1px solid #eee;
+}
+.needs_conter_ol>li:last-child{
+	border: 0;
+}
+.needs_conter_ol>li>label,.needs_conter_ol>li>input,.needs_conter_ol>li>a{
+	float: left;
+}
+.needs_conter_ol>li>label{
+	display: block;
+	margin-left: 0.833rem;
+	height: 100%;
+	line-height: 4.541rem;
+	font-family: MicrosoftYaHei;
+	font-size:1.083rem;
+	color: #151515;
+	letter-spacing: 1.08px;
+}
+.needs_conter_ol>li>label>b{
+	color: #FF3F39;
+}
+.needs_conter_ol>li>input{
+	width: 77%;
+	height: 96%;
+	margin-left: 1.25rem;
+	border: 0;
+	outline: medium;
+}
+.needs_conter_ol>li>a{
+	display: block;
+	float: right;
+	height: 100%;
+	width: 1.5rem;
+	text-align: center;
+}
+.needs_conter_ol>li>a>img{
+	width: 0.675rem;
+	margin-top: 1.666rem;
+}
+.needs_baner_input{
+	width: 70% !important;
+}
+
+
+.needs_fapiao{
+	width: 100%;
+	height:4.583rem;
+	background: #FFFFFF;
+	margin-top: 0.416rem;
+	line-height: 4.583rem;
+}
+.needs_fapiao>a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.needs_fapiao>a>label,.needs_fapiao>a>img,.needs_fapiao>a>span{
+	float: left;
+}
+.needs_fapiao>a>label{
+	display: block;
+	height:4.583rem;
+	line-height: 4.583rem;
+	margin-left: 0.8333rem;
+}
+.needs_fapiao>a>label>b{
+	font-family: MicrosoftYaHei;
+	font-size: 1.083rem;
+	color: #333333;
+	letter-spacing: 1.08px;
+}
+.needs_fapiao>a>img{
+	float: right;
+	width: 0.675rem;
+	margin-right:0.675rem;
+	margin-top: 1.65rem;
+}
+.needs_fapiao>a>span{
+	float: right;
+	font-family: MicrosoftYaHei;
+	font-size: 0.833rem;
+	color: #999999;
+	letter-spacing: 0.92px;
+	display: block;
+	margin-right:0.416rem ;
+}
+.needs_foot_but{
+	width:82.9%;
+	height:3.666rem;
+	border: 0;
+	background-image: linear-gradient(-90deg, #1ACEFF 0%, #22A2FF 100%);
+border-radius: 4px;
+	display: block;
+	margin: 0;
+	outline: medium;
+	margin: 2.5rem auto;
+	font-family: MicrosoftYaHei;
+	font-size:1.166rem;
+	color: #FFFFFF;
+	letter-spacing: 1.17px;
+}

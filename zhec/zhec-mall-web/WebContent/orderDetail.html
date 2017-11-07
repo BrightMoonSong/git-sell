@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html ng-app="oderDetailApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script language="javascript">
+			if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+				
+			}else{
+				var strDelete = publicUrlMall.split("/mall");
+				publicUrlMall = strDelete[0] + strDelete[1];
+			}
+			document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/order/examineOrders.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/jDialog/jDialog.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog.min.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngVerify/ngVerify.css>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/ngDialog/ngDialog.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/ngVerify/ngVerify.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/interceptor.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/order/orderDetailConfig.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jDialog/jDialog.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/order/oderDetailController.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/services/order/oderDetailService.js><\/script>");
+			
+		</script>
+		<!--<link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+		<link rel="stylesheet" href="stylesheets/screen.css" />-->
+		<!--<link rel="stylesheet" href="stylesheets/order/examineOrders.css" />-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/jDialog/jDialog.css" type="text/css">-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog.min.css" type="text/css">
+		<link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css" type="text/css">-->
+	
+		<!--<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="js/plugins/angular/angular.min.js"></script>
+		<script type="text/javascript" src="js/common/CommonService.js"></script>
+		<script type="text/javascript" src="js/common/directives.js"></script>
+		<script src="js/common/CommonFilter.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>-->
+		
+		<!-- End Piwik Code -->
+		<!--<script type="text/javascript" src="js/common/cookie.js"></script>
+		<script type="text/javascript" src="js/common/zhec.js"></script>-->
+		<!-- Piwik -->
+		<!--<script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/plugins/ngDialog/ngDialog.min.js"></script>-->
+		<!--<script type="text/javascript" src="js/plugins/jDialog/jDialog.js"></script>-->
+		<!--<script type="text/javascript" src="js/controllers/order/orderDetailConfig.js"></script>
+		<script src="js/common/interceptor.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script type="text/javascript" src="js/controllers/order/oderDetailController.js"></script>
+		<script type="text/javascript" src="js/services/order/oderDetailService.js"></script>-->
+		<title>订单详情 - 鹿医生</title>
+	</head>
+
+	<body ng-controller="oderDetailController">
+		<headerpage></headerpage>
+		<div class="head_navagiton">
+			<div class="head_conter">
+				<ul class="head_ul">
+					<li class="head_li">
+						<div class="head_log">
+							<a href="index.html">
+								<div class="head_log-img">
+									<img src="images/u1884.png" >
+								</div>
+							</a>
+							</div>
+					</li>
+					<li>
+						<ol class="showLogistic" ng-if="memberOrder.orderStatus != 7 && memberOrder.orderStatus != 6" style="display: none;">
+							<li>
+								<!--<p ng-bind="memberOrder.createTime"></p>-->
+								<p>
+									<img ng-src="images/jdt.png" />
+								</p>
+					
+								<p>拍下商品</p>
+							</li>
+							<li >
+								<!--<p ng-bind="paidTime"></p>-->
+								<p ng-if="memberOrder.payStatus != 0">
+									<img ng-src="images/jdt.png" />
+								</p>
+								<p ng-if="memberOrder.payStatus == 0">
+									<img ng-src="images/jdt1.png" />
+								</p>
+								<p>在线付款</p>
+							</li>
+							<li >
+								<!--<p><span ng-bind="sendTime"></span></p>-->
+								<p ng-if="memberOrder.orderStatus==3 || memberOrder.orderStatus ==4||memberOrder.orderStatus==8||memberOrder.orderStatus==9||memberOrder.orderStatus==10">
+									<img ng-src="images/jdt.png" />
+								</p>
+								<p ng-if="memberOrder.orderStatus!=3 && memberOrder.orderStatus !=4&&memberOrder.orderStatus!=8&&memberOrder.orderStatus!=9&&memberOrder.orderStatus!=10">
+									<img ng-src="images/jdt1.png" />
+								</p>
+								<p>厂家发货</p>
+							</li>
+							<li >
+								<!--<p ng-bind="receivedStime"></p>-->
+								<p ng-if="memberOrder.orderStatus==8 || memberOrder.orderStatus==10 || memberOrder.orderStatus==4">
+									<img ng-src="images/jdt.png" />
+								</p>
+								<p ng-if="memberOrder.orderStatus!=8 && memberOrder.orderStatus!=10 && memberOrder.orderStatus!=4">
+									<img ng-src="images/jdt1.png" />
+								</p>
+								<p>确认收货</p>
+							</li>
+						</ol>
+					</li>
+				</ul>
+				</div>
+			</div>
+			<div class="conter clearfix">
+				<ul>
+					<li>
+						<div class="conter_header">
+							<p>订单信息</p>
+						</div>
+						<ol>
+							<li>
+								<label>收货人信息：</label>
+								<span><b ng-bind="memberOrder.consigneeName"></b><b ng-bind="memberOrder.consigneeMobile"></b></span>
+							</li>
+							<li>
+								<label>订单编号：</label>
+								<span ng-bind="memberOrder.orderSn"></span>
+							</li>
+							<li>
+								<label>收货地址：</label>
+								<span><b ng-bind="memberOrder.consigneePca"></b><br/><b title="{{memberOrder.consigneeAddress}}" ng-bind="memberOrder.consigneeAddress"></b></span>
+							</li>
+							<li>
+								<label>发票信息：</label>
+								<span ng-if="memberOrder.invoiceTitle!=''"><b ng-bind="memberOrder.invoiceTitle"></b><b ng-if="memberOrder.invoiceTitle!=''&&memberOrder.invoiceTitle!=null&&memberOrder.invoiceTitle!=undefined">,</b><b ng-bind="memberOrder.invoiceDetail"></b></span>
+								<span class="showLogistic" ng-if="memberOrder.invoiceTitle==''">无</span>
+							</li>
+							<li>
+								<label>买家留言：</label>
+								<span ng-if="memberOrder.remark!=''" title="{{memberOrder.remark}}" ng-bind="memberOrder.remark"></span>
+								<span class="showLogistic" ng-if="memberOrder.remark==''">无</span>
+							</li>
+
+						</ol>
+					</li>
+					<li>
+						<ol>
+							<li>
+								订单状态: <b ng-bind="memberOrderStatus"></b>
+							</li>
+							<div class="showLogistic" style="display: none;">
+								<li ng-if="logisticsNumber != null">物流公司：<b ng-bind="memberOrder.logisticsName"></b></li>
+								<li  ng-if="logisticsNumber != null">物流单号：<b ng-if="logisticsMessage.Success == true" ng-bind="logisticsMessage.LogisticCode"></b><b ng-if="logisticsMessage.Success == false">暂无物流信息！</b></li>
+								<li  ng-if="logisticsNumber != null">最新物流详情：
+									<b ng-if="logisticsMessage.Success == true" ng-bind="logisticsMessage.Traces[logisticsMessage.Traces.length-1].AcceptStation"></b>
+									<b ng-if="logisticsMessage.Success == false">暂无物流信息！</b>
+								</li>
+							</div>
+						</ol>
+					</li>
+					<li>
+						<div class="out_right">
+							<div>
+								<p>物流详情</p>
+							</div>
+							<ul>
+								<li>
+									<ol>
+										<li ng-repeat="address in addressMessageArr.slice().reverse()" ng-if="logisticsMessage.Success == true">
+											<p><span ng-bind="address.AcceptTime"></span><span ng-bind="address.AcceptStation"></span></p>
+										</li>
+										<li ng-if="logisticsMessage.Success == false" class="order_del_text">
+											<p>暂无物流信息！</p>
+										</li>
+									</ol>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="orders_message_all clearfix">
+				<div class=" orders_message clearfix">
+					<ul>
+						<li>商品名称</li>
+						<!--<li>规格</li>-->
+						<li>单价（元）</li>
+						<li>数量</li>
+						<li>金额</li>
+						<li>优惠活动</li>
+					</ul>
+					<ul class="clearfix showLogistic" style="display: none;">
+						<li class="clearfix" ng-repeat="order in orderList" >
+							<ol>
+								<li>
+									<a ng-href="goods.html?id={{order.goodsId}}" target="_blank"><img ng-src="{{order.masterImg}}"></a>
+								</li>
+								<li >
+									<a ng-href="goods.html?id={{order.goodsId}}" target="_blank">
+										<img  src="images/prescription.png" alt="" ng-if="order.goodsType == 1" class="order_derl_img"/>
+										<b ng-bind="order.goodsName" class="order_derl_name"></b>
+										
+									</a>
+									<p class="order_derl_gg"><b ng-if="order.productSpecInfo!=''" ng-bind="order.productSpecInfo"></b><b ng-if="order.productSpecInfo==''">无</b></p>
+								</li>
+	
+								<li>
+									<span ng-if="discountList.length == 0 || ifGoodsPromptionFlag">
+										<b ng-bind="'市场价:'+order.marketPrice" class="orderD-hx"></b>
+										<b ng-bind="'商城价:'+order.salesPrice" ></b>
+									</span>
+									<span ng-if="discountList.length != 0 && discount.promotionType == 1 && order.productId != discount.productIds" ng-repeat="discount in discountList">
+										<b ng-bind="'市场价:'+order.marketPrice" class="orderD-hx"></b>
+										<b ng-bind="'商城价:'+order.salesPrice" ></b>
+									</span>
+									<span ng-repeat="discount in discountList" ng-if="order.productId == discount.productIds && discount.promotionType == 1">
+										<b  ng-bind="'原    价:'+order.productPrice" class="orderD-hx"></b>
+										<b  ng-bind="'促销价:'+order.salesPrice"></b>
+									</span>
+								</li>
+								<li>
+									<b ng-bind="order.productNumber"></b>
+									<b ng-if="memberOrder.orderStatus==4&&order.returnType==1&&memberOrder.allowRefund==1&&memberOrder.refundingNumber<memberOrder.productNumber" id="personal_sh_ex">	
+					                    <a href="afterSales.html?memberId={{memberId}}&orderId={{order.ordersId}}&productId={{order.productId}}&goodsId={{order.goodsId}}">申请售后</a>
+					                </b>
+								</li>
+								<li><b ng-bind="order.productNumber*order.salesPrice | priceFormatFilter"></b></li>
+								<li>
+									<b ng-if="ifOrderPromptionFlag">无</b>
+									<b ng-if="discount.promotionType == 2 || discount.promotionType == 3" ng-repeat="discount in discountList">
+										<b ng-if="discount.promotionType == 2" class="order_del_yh_mj">
+											<b>订单满减 &nbsp;满<b ng-bind="discount.threshold"></b>减<b ng-bind="discount.quota"></b></b>
+										</b>
+										<b ng-if="discount.promotionType == 3" class="order_del_yh_mj">
+											<b>优惠券 &nbsp;满<b ng-bind="discount.threshold"></b>减<b ng-bind="discount.quota"></b></b>
+										</b>
+									</b>
+								</li>
+							</ol>
+						</li>
+					</ul>
+				</div>
+				<!--<div class="conter_ul_foot" ng-show="memberOrder.payStatus==1">
+				<ul>
+					<li>
+						<p><label>商品总额：</label><span>￥<b ng-bind="moneyOrder.toString().priceFilter()">79.00</b></span></p>
+						<p><label>优惠金额：</label><span>￥<b ng-bind="moneyDiscount.toString().priceFilter()"></b></span></p>
+						<p><label>实付款：</label><span>￥<b ng-bind="moneyOrder.toString().priceFilter()"></b></span></p>
+					</li>
+				</ul>
+			</div>-->
+			</div>
+			<footerpage></footerpage>
+	</body>
+
+</html>

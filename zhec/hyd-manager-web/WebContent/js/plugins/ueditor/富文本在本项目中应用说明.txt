@@ -1,0 +1,28 @@
+1.---setContent(isAppendTo,value)；
+	isAppendTo=true时--追加内容，不传时--写入内容
+	value --追加（写入）的内容
+	例如：回显时应该setContent(false,result.data);
+	
+2.---getContent()--获取富文本内容
+	返回的是String
+	
+3.---由于富文本要结合OSS上传图片，所以需要传入上传路径，在这里由于Ueditor的弹窗是 iframe,所以借用 localStorage 处理传值；
+	所以在 controller 里调用富文本时需要这样：
+	//富文本
+	var ue = UE.getEditor('editor');-->初始化富文本--> editor 是ID--->见说明（5）
+	localStorage.setItem("ueditorUploadDirName", 'dev/brand/1/rotation');-->设置富文本图片上传路径
+	ueditorUploadDirName 此名字不可更改，后面的路径自定义
+	
+4.---富文本结合OSS时--->upload 上传图片“完成”时需要-->
+		eg: 
+			if(g_dirname.split("/")[1] == 'brand') { //shy
+				localStorage.setItem("ueDialogUploadImgSrc", aa);-->给富文本弹窗的确定用的
+			}
+			ueDialogUploadImgSrc 此名字不可更改，后面的路径自定义
+
+5.---HTML
+	eg:
+		<div>
+			<h1>富文本标题</h1>
+			<script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+		</div>

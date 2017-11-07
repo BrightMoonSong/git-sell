@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app="payMoneyApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>支付页面-众会商城</title>
+  <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+  <link rel="stylesheet" href="../../stylesheets/payMoney.css" />
+  <link rel="stylesheet" href="../../stylesheets/screen.css" />
+</head>
+
+<body ng-controller="payMoneyController">
+<headerpage></headerpage>
+<!---------------头导航条---------------------------->
+<search></search>
+
+<navigation-bar></navigation-bar>
+
+<div class="conter clearfix">
+  <div class="conter_pay_head">
+    收银台
+  </div>
+  <div class="conter_pay_nav">
+    <ul>
+      <li>订单编号：<span>zxxxxx</span></li>
+      <li>订单类行：<span>zxxxxx</span></li>
+      <li>应付金额：<span>￥78.40</span></li>
+    </ul>
+  </div>
+  <div class="conter_pay_conter clearfix">
+    <ul class="conter_pay_conter_all clearfix">
+      <li>
+        <ul class="conter_pay_conter_head getHeight">
+          <li class="pay_hover">
+            <a href="#" ng-click="WeChat()">微信支付</a><i></i></li>
+          <li>
+            <a href="#" ng-click="SavingsDepositCard()">储蓄卡</a><i></i></li>
+          <li>
+            <a href="#" ng-click="Credit()">信用卡</a><i></i></li>
+          <li>
+            <a href="#" ng-click="ThirdPartyPayment()">第三方支付</a><i></i></li>
+        </ul>
+      </li>
+      <li class="pay_clickShow clearfix">
+        <ul class="pay_conter_product" ng-show="ifShowWeChat">
+          <li>微信支付</li>
+          <li>
+            <!--<p><img src="images/all.png" /></p>-->
+            <!-- 二维码 -->
+            <!--<button id="iWantOnlineConsulting" onclick="javascript:window.open('http://kefu.easemob.com/webim/im.html?tenantId=27794&amp;hide=false&amp;resources=&amp;ticket=true', '_blank')">客服</button>-->
+            <!--<input id="textvalue" ng-hide="true" type="text" ng-model="textvalue" value="{{textvalue}}" style="width:80%" /><br />-->
+            <div id="qrcode" style="width:300px; height:300px; margin-top:15px;"></div>
+          </li>
+        </ul>
+        <ul class="pay_direction" ng-show="ifShowSavingsDepositCard">
+          <li>储蓄卡</li>
+        </ul>
+        <ul class="pay_Aftermarket" ng-show="ifShowCredit">
+          <li>信用卡</li>
+        </ul>
+        <ul class="pay_regarding" ng-show="ifShowThirdPartyPayment">
+          <li>第三方支付</li>
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+<!--尾部-->
+<footerpage></footerpage>
+
+<script type="text/javascript" src="../../js/common/zhecConfig.js"></script>
+<script type="text/javascript" src="../../vendor/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="../../vendor/angular/angular.min.js"></script>
+<script type="text/javascript" src="../../js/common/cookie.js"></script>
+<script type="text/javascript" src="../../js/common/directives.js"></script>
+<script type="text/javascript" src="../../js/controllers/pay/payController.js"></script>
+<!-- 二维码 -->
+<script type="text/javascript" src="../../js/plugins/qrcode/qrcode.min.js"></script>
+<script type="text/javascript">
+  var qrcode = new QRCode(document.getElementById("qrcode"), {
+    width: 300,
+    height: 300,
+    colorDark: "#000000",
+    colorLight: "#eeeeee",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  function makeCode(res) {
+    //var elText = document.getElementById("textvalue");
+
+    if(!res) { /*elText.value*/
+      //alert("Input a text");
+      //elText.focus();
+      return;
+    }
+
+    qrcode.makeCode(res);
+  }
+
+  //makeCode();
+
+  $("#textvalue").on("blur", function() {
+    makeCode();
+  }).on("keydown", function(e) {
+    if(e.keyCode == 13) {
+      makeCode();
+    }
+  });
+
+</script>
+</body>
+
+</html>

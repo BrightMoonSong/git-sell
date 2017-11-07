@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="orderApp" ng-controller="orderController">
+
+<head>
+	<!-- <meta charset="UTF-8"> -->
+	<!--<script type="text/javascript">
+			alert(document.referrer)
+			if(/pay.html/g.test(document.referrer)){
+				window.open("order.html","_self")
+			}
+		</script>-->
+	<script type="text/javascript">
+		//IE8以及以下
+		if (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") ==
+			"MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+			alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+			window.open(
+				"https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100",
+				"_self");
+		}
+	</script>
+
+
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+	<script language="javascript">
+		if (/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)) {
+
+		} else {
+			var strDelete = publicUrlMall.split("/mall");
+			publicUrlMall = strDelete[0] + strDelete[1];
+		}
+		document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href=" + publicUrlMall + "favicon.ico>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/order/order.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/screen.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/order/order_morder.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngVerify/ngVerify.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/jDialog/jDialog.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog.min.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/jquery/dist/jquery.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/angular/angular.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/CommonService.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/directives.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/CommonFilter.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/controllers/order/orderConfig.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/ngDialog/ngDialog.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/cookie.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/zhec.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/Piwik.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/jDialog/jDialog.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/interceptor.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/controllers/order/orderController.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/services/order/orderService.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/ngVerify/ngVerify.js><\/script>");
+	</script>
+	<title ng-bind="title"></title>
+
+
+	<!-- <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+		<title ng-bind="title"></title>
+		<link rel="stylesheet" href="stylesheets/screen.css" />
+		<link rel="stylesheet" href="stylesheets/order/order.css" />
+		<link rel="stylesheet" href="stylesheets/order/order_morder.css" /> -->
+	<!--ngVerify-->
+	<!-- <link href="stylesheets/plugins/ngVerify/ngVerify.css" rel="stylesheet"> -->
+	<!-- ngDialog -->
+	<!-- <link href="stylesheets/plugins/ngDialog/ngDialog.min.css" rel="stylesheet">
+		<link href="stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css" rel="stylesheet">
+
+		<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script type="text/javascript" src="js/common/cookie.js"></script>
+		<script type="text/javascript" src="js/common/zhec.js"></script> -->
+	<!-- Piwik -->
+	<!-- <script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script> -->
+	<!-- End Piwik Code -->
+	<!-- Piwik -->
+		<script type="text/javascript">
+		  /*提交订单操作*/
+		  _paq.push(['trackGoal', 3, 00000]);
+		</script>
+		<!-- End Piwik Code -->
+</head>
+
+<body style="display: none;">
+	<headerpage></headerpage>
+	<div class="head_navagiton" id="order_header_navag">
+		<div class="head_conter">
+			<ul class="head_ul">
+				<li class="head_li">
+					<div class="head_log">
+						<div class="head_log-img" onclick="javascript:self.location='index.html'" style="cursor:pointer;"><img src="images/u1884.png"></div>
+
+					</div>
+				</li>
+				<li>
+					<ol>
+						<li>
+							<p></p>
+							<p>拍下商品</p>
+							<p>
+								<!--<span ng-hide="true">2016-10-09 10:29:00&nbsp; </span>--></p>
+						</li>
+						<li>
+							<p></p>
+							<p>在线付款</p>
+							<p></p>
+						</li>
+						<li>
+							<p></p>
+
+							<p>厂家发货</p>
+
+							<p></p>
+						</li>
+						<li>
+							<p></p>
+
+							<p>确认收货</p>
+
+							<p></p>
+						</li>
+					</ol>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="conter" name="Invoicewai" verify-scope="tipStyle: 1">
+		<div class="conter_head">
+			<p>收货人信息：</p>
+			<div class="goods_all ">
+				<p>
+					<span>
+				<a ng-click="ifallClick()" ng-bind="showOrHidden" ng-hide="showOrHiddenAll">显示全部地址</a>
+					</span>
+					<span>
+				<a ng-click="update()">新增收货地址</a>
+			</span>
+				</p>
+			</div>
+		</div>
+		<style type="text/css">
+			.overflowAuto {
+				overflow: auto;
+				height: 425px;
+			}
+
+			.displaynone {
+				display: none;
+			}
+
+			.ellipsis {
+				min-width: 150px;
+				margin: 0 auto;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		</style>
+		<ul class="clearfix" id="addressGoods" ng-class="{true:'overflowAuto',false:''}[ifShippingAddressLen4]">
+			<li class="clearfix" ng-repeat="res in shippingAddress track by $index" ng-class="{'goods':$index==ifgoods,'displaynone':!(displaynone||$index<4)}" ng-if="shippingAddress.length!=0" ng-mouseenter="ifDefaultShow = true" ng-mouseleave="ifDefaultShow = false"
+							ng-click="ifclickremoveclass(res,$index)" style="cursor:pointer;">
+				<ol class="goods_order_location clearfix">
+					<li>
+						<label>地址:</label>
+						<p title="{{res.consigneePca}}" class="ellipsis" ng-bind="res.consigneePca"></p>
+					</li>
+					<li>
+						<label>详细地址:</label>
+						<p title="{{res.consigneeAddress}}" class="ellipsis" ng-bind="res.consigneeAddress"></p>
+					</li>
+					<li>
+						<label>收货人:</label>
+						<span ng-bind="res.consigneeName"></span>
+					</li>
+					<li>
+						<label>手机号:</label>
+						<span ng-bind="res.consigneeMobile"></span>
+					</li>
+					<li>
+						<p id="order_shy_xg">
+							<a ng-click="update(res.id)">修改</a>&nbsp;
+							<a ng-show="res.isDefault==1">默认地址</a>
+							<a ng-show="ifDefaultShow && res.isDefault==0" ng-click="setAsDefaultAddress(res.id,res)">设为默认地址</a>
+						</p>
+					</li>
+				</ol>
+
+			</li>
+			<li ng-show="shippingAddressLength0" ng-click="update()">
+				<p ng-mouseover="ngOnmouseover()" ng-mouseleave="ngOnmouseleave()">
+					<i ng-if="onmouseovers"></i>
+					<i ng-if="onmouseovers2" style="background: url('../../images/jhddhover.png') no-repeat;"></i>
+				</p>
+				<p ng-mouseover="ngOnmouseover()" ng-mouseleave="ngOnmouseleave()">
+					<span ng-if="onmouseovers"><a >添加新地址</a></span>
+					<span ng-if="onmouseovers2"><a style="color: #00A2D9;">添加新地址</a></span>
+				</p>
+
+			</li>
+		</ul>
+		<div class="orders">
+			<span>确定订单信息</span>
+			<span ng-hide="iftype1"><a href="cart.html">返回购物车</a></span>
+		</div>
+		<div class="orders_message_all clearfix">
+			<div class=" orders_message clearfix">
+				<ul>
+					<li>商品名称</li>
+					<li>单价（元）</li>
+					<li>数量</li>
+					<!--<li>规格</li>-->
+					<li>金额</li>
+				</ul>
+				<ul class="clearfix">
+					<li class="clearfix" ng-repeat="res in dataGoods track by $index">
+						<ol>
+							<li><img ng-src="{{res.masterImg}}" /></li>
+							<li>
+								<a ng-href="goods.html?id={{res.goodsId}}" ng-bind="res.goodsName" target="_blank"></a>
+								<span ng-if="res.productSpecInfo.split(':')[0]=='null'"></span>
+								<span ng-if="res.productSpecInfo.split(':')[0]!='null'" ng-bind="res.productSpecInfo"></span>
+							</li>
+							<li><!--ng-bind="res.productPrice | priceFormatFilter"-->
+								<span class="orderd_conter_ul_mon_mey" ng-bind="res.salesPrice | priceFormatFilter"></span>
+								<span style="text-decoration: line-through;" ng-if="moneydata.promotionIdForGoodsPromotion==0" ng-bind="res.marketPrice | priceFormatFilter"></span>
+								<span style="text-decoration: line-through;" ng-if="moneydata.promotionIdForGoodsPromotion!=0" ng-bind="res.productPrice | priceFormatFilter"></span>
+							</li>
+							<li ng-bind="res.productNumber"></li>
+							<!--<li ng-if="res.productSpecInfo.split(':')[0]=='null'">无</li>
+								<li ng-if="res.productSpecInfo.split(':')[0]!='null'" ng-bind="res.productSpecInfo"></li>-->
+							<li ng-bind="res.productTotalPrice | priceFormatFilter"></li>
+						</ol>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="invoice clearfix" name="Invoice" verify-scope="tipStyle: 1">
+			<div class="invoice_head">
+				<p>发票信息：</p>
+				<ul class="clearfix invoce_ul_fapiao">
+					<li>
+						<ol>
+							<li ng-show="dataInvoice.invoiceType==1">普通发票</li>
+							<li ng-show="dataInvoice.invoiceType==2">电子发票</li>
+							<li ng-show="dataInvoice.invoiceType==0">无需发票</li>
+							<li ng-hide="dataInvoice.invoiceType==0" ng-bind="dataInvoice.invoiceTitle" title="{{res.consigneeAddress}}" class="ellipsis_Li"></li>
+							<li ng-hide="dataInvoice.invoiceType==0" ng-bind="dataInvoice.invoiceDetail"></li>
+							<li>
+								<a ng-click="editInvoice()" onmouseover="this.style.cursor='pointer'">修改</a>
+							</li>
+						</ol>
+					</li>
+					<li ng-show="ifedit">
+						<ol>
+							<li ng-class="{true: 'li_color', false: ''}[isActive1]" ng-click="generalInvoice(1)" onmouseover="this.style.cursor='pointer'">普通发票</li>
+							<li ng-class="{true: 'li_color', false: ''}[isActive2]" ng-click="electronicInvoice(2)" onmouseover="this.style.cursor='pointer'">电子发票</li>
+							<li ng-class="{true: 'li_color', false: ''}[isActive3]" ng-click="noNeedInvoice(0)" onmouseover="this.style.cursor='pointer'">无需发票</li>
+						</ol>
+					</li>
+					<li class="clearfix hide" ng-show="ifedit">
+						<ul class="clearfix">
+							<li ng-show="ifgeneral">
+								<label>发票抬头：</label>
+								<input type="text" readonly value="个人" class="inp_border" ng-class="{true:'inpqws_border',false:'inp_border'}[rightimg]" ng-click="showRight('个人')" />
+								<i class="i_back" ng-hide="rightimg"></i>
+							</li>
+							<li ng-show="ifelectronic">
+								<label><span>*</span>收件人电话：</label>
+								<input type="text" ng-if="ifelectronic" placeholder="收件人电话" ng-model="dataInvoice.phone" ng-verify="pattern:/^0?1[3|4|5|7|8][0-9]\d{8}$/,errmsg:'手机号格式不正确'" maxlength="11" />
+								<input type="text" ng-hide="ifelectronic" placeholder="收件人电话" ng-model="dataInvoice.phone" maxlength="11" />
+							</li>
+							<li ng-show="ifgeneral">
+								<label></label>
+								<input type="text" placeholder="输入单位发票抬头" ng-class="{true:'inp_border',false:'inpwqe_border'}[rightimg]" ng-model="invoiceTitle" ng-click="showRight(2)" maxlength="50" ng-blur="showRightData()" />
+								<i class="i_back" ng-show="rightimg"></i>
+							</li>
+							<li class="email" ng-show="ifelectronic">
+								<label>收件人邮箱：</label>
+								<input type="email" ng-if="ifelectronic" placeholder="收件人邮箱" ng-model="dataInvoice.email" ng-verify="required: false" />
+								<input type="email" ng-hide="ifelectronic" placeholder="收件人邮箱" ng-model="dataInvoice.email" />
+							</li>
+
+							<li ng-show="ifgeneral">
+								<ol>
+									<li><label>发票内容：</label></li>
+									<li ng-click="invoiceDetailClick('明细')" ng-class="{true:'li_border',false:''}[dataInvoice.invoiceDetail=='明细']" onmouseover="this.style.cursor='pointer'">明细<i class="i_background" ng-show="dataInvoice.invoiceDetail=='明细'"></i></li>
+									<li ng-click="invoiceDetailClick('药品')" ng-class="{true:'li_border',false:''}[dataInvoice.invoiceDetail=='药品']" onmouseover="this.style.cursor='pointer'">药品<i class="i_background" ng-show="dataInvoice.invoiceDetail=='药品'"></i></li>
+									<li ng-click="invoiceDetailClick('保健品')" ng-class="{true:'li_border',false:''}[dataInvoice.invoiceDetail=='保健品']" onmouseover="this.style.cursor='pointer'">保健品<i class="i_background" ng-show="dataInvoice.invoiceDetail=='保健品'"></i></li>
+									<li ng-click="invoiceDetailClick('医疗器械')" ng-class="{true:'li_border',false:''}[dataInvoice.invoiceDetail=='医疗器械']" onmouseover="this.style.cursor='pointer'">医疗器械<i class="i_background" ng-show="dataInvoice.invoiceDetail=='医疗器械'"></i></li>
+									<li ng-click="invoiceDetailClick('其他')" ng-class="{true:'li_border',false:''}[dataInvoice.invoiceDetail=='其他']" onmouseover="this.style.cursor='pointer'">其他<i class="i_background" ng-show="dataInvoice.invoiceDetail=='其他'"></i></li>
+								</ol>
+							</li>
+							<li ng-show="ifnoNeed">
+								<p>我的亲，您正在选择<span>不需要发票</span>，我们会尽快为您发货~</p>
+							</li>
+
+							<li>
+								<ol>
+									<li ng-click="cancel()" onmouseover="this.style.cursor='pointer'">取消</li>
+									<li><button ng-verify="{control:'Invoice'}" ng-click="okInvoice()" onmouseover="this.style.cursor='pointer'">保存</button></li>
+								</ol>
+							</li>
+							<li ng-hide="ifelectronic||ifnoNeed">
+								<p>亲，普通纸质发票会夹杂在商品中，</p>
+								<p>请注意查收！</p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div class="conter_foot">
+			<ul>
+				<li>
+					<label>给卖家留言：</label>
+					<textarea rows="2" cols="100" placeholder="选填（对本次交易的说明）" maxlength="200" ng-model="remark" ng-verify="required: false,max:200,errmsg:'字数不得超过200个！'"></textarea>
+				</li>
+				<li ng-hide="true">
+					<ol>
+						<li><label>配送时间：</label></li>
+						<li><input type="checkbox" />不限配送时间：周一至周日</li>
+						<li><input type="checkbox" />工作日收货：周一至周五</li>
+						<li><input type="checkbox" />双休：假日送货：周六至周日</li>
+					</ol>
+				</li>
+			</ul>
+		</div>
+		<div class="conter_ft clearfix">
+			<div class="conter_footer clearfix">
+				<div class="conter_fot clearfix">
+					<p>
+						<b title="{{theReceiptAddress.consigneePca + theReceiptAddress.consigneeAddress}}" class="ellipsis" ng-bind="theReceiptAddress.consigneePca + theReceiptAddress.consigneeAddress"></b>
+						<span ng-bind="theReceiptAddress.consigneeMobile"></span>
+						<span ng-bind="theReceiptAddress.consigneeName"></span>
+
+					</p>
+
+					<!--<span ng-bind="theReceiptAddress.consigneePca + theReceiptAddress.consigneeAddress"></span>-->
+					<p><span ng-bind="moneydata.moneyProduct | priceFormatFilter"></span><label>商品金额：</label></p>
+					<p ng-show="moneydata.moneyDiscountForCouponsPromotion>0"><span ng-bind="moneydata.moneyDiscountForCouponsPromotion | priceFormatFilter"></span><label>优惠券促销：</label></p>
+					<p ng-show="moneydata.moneyDiscountForGoodsPromotion>0"><span ng-bind="moneydata.moneyDiscountForGoodsPromotion | priceFormatFilter"></span><label>商品促销：</label></p>
+					<p ng-show="moneydata.moneyDiscountForOrdersPromotion>0"><span ng-bind="moneydata.moneyDiscountForOrdersPromotion | priceFormatFilter"></span><label>订单满减：</label></p>
+					<!--<p><label>积分兑换：</label><span ng-bind="moneydata.moneyInegral | priceFormatFilter"></span></p>-->
+					<p><span ng-bind="moneydata.moneyLogistics | priceFormatFilter"></span><label>物流费用：</label></p>
+					<!--<p><label>为您节省：</label><span ng-bind="'￥'+moneydata.saveMoney | priceFormatFilter"></span></p>-->
+
+					<p>
+						<span class="order_xian"></span>
+					</p>
+					<p id="order_header_sfrx">实付款:<span ng-bind="moneydata.moneyOrder | priceFormatFilter"></span></p>
+					<div class="conter_button">
+						<button ng-click="orderSubmission()" ng-disabled="moneydata.moneyOrder<0||moneydata.moneyOrder==0" style="cursor: pointer;">提交订单</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footerpage></footerpage>
+
+	<!-- <script type="text/javascript" src="js/common/CommonService.js"></script>
+		<script type="text/javascript" src="js/common/CommonFilter.js"></script>
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script type="text/javascript" src="js/common/directives.js"></script>
+		<script type="text/javascript" src="js/plugins/angular/angular.min.js"></script> -->
+
+	<!-- ngDialog -->
+	<!-- <script src="js/plugins/ngDialog/ngDialog.min.js"></script> -->
+	<!-- ngVerify -->
+	<!-- <script src="js/plugins/ngVerify/ngVerify.js"></script>
+
+		<script type="text/javascript" src="js/controllers/order/orderConfig.js"></script> -->
+	<!--拦截器-->
+	<!-- <script type="text/javascript" src="js/common/interceptor.js"></script>
+		<script type="text/javascript" src="js/controllers/order/orderController.js"></script>
+		<script type="text/javascript" src="js/services/order/orderService.js"></script> -->
+</body>
+
+</html>

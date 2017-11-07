@@ -1,0 +1,78 @@
+angular
+	.module("managerApp")
+	.factory("ShipperPendingService", function($q, $http, constMapiLocation) {
+		var baseUrl = constMapiLocation + '/shipper';
+		return {
+			//待审核列表
+			find: function(realName, phone, startTime, pageNo, pageSize) {
+				var defer = $q.defer();
+				var url = baseUrl + '/pendingchecks?pageNo=' + pageNo + '&pageSize=' + pageSize;
+				if(realName) {
+					url += "&realName=" + realName;
+				}
+				if(phone) {
+					url += "&phone=" + phone;
+				}
+				if(startTime) {
+					url += "&startTime=" + startTime;
+				}
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				})
+				return defer.promise;
+			},
+			//详情
+			detail: function(id) {
+				var defer = $q.defer();
+				var url = baseUrl + '/get/' + id;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				})
+				return defer.promise;
+			},
+			//审核
+			check: function(shipperId, checkStatus, remark, settlementMethod) {
+				var defer = $q.defer();
+				var url = baseUrl + '/check?shipperId=' + shipperId + '&checkStatus=' + checkStatus;
+				if(remark) {
+					url += "&remark=" + remark;
+				}
+				if(settlementMethod) {
+					url += "&settlementMethod=" + settlementMethod;
+				}
+				$http({
+					method: 'put',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				})
+				return defer.promise;
+			},
+			//货主审核
+			seach:function(shipperId,pageNo,pageSize){
+				var defer = $q.defer();
+				var url = baseUrl + '/checks?shipperId=' + shipperId + '&pageNo='+ pageNo + '&pageSize=' + pageSize;
+				$http({
+					method:'get',
+					url:url
+				}).success(function(data){
+					defer.resolve(data);
+				}).error(function(data){
+					defer.reject(data);
+				})
+				return defer.promise;
+			}
+		}
+	})

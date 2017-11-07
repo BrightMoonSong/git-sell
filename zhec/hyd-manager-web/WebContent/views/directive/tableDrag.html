@@ -1,0 +1,101 @@
+<div class="hideScroll">
+	<style type="text/css">
+		.dragFixedNav {
+			border: none;
+			width: 280px;
+			position: fixed;
+			padding: 10px;
+			right: -7px;
+			top: -3px;
+			background-color: #b8c7d4;
+			color: rgb(115, 99, 99);
+		}
+		
+		.dragFixedNav2 {
+			width: 38px;
+			position: fixed;
+			padding: 10px;
+			right: -7px;
+			top: -3px;
+		}
+		
+		.table-drag-search {
+			padding: 0px;
+			padding-top: 5px;
+			margin: 0px;
+			min-height: 45px;
+		}
+		
+		#userListToPdf button {
+			padding: 3px;
+			margin-bottom: 0px;
+		}
+		
+		#userListToPdf {
+			margin-bottom: 2px;
+		}
+	</style>
+	<div class="ibox-content table-drag-search">
+		<button type="button" class="btn btn-warning operationBtn" data-toggle="modal" ng-click="ToPdf()" ng-if="tableDragBtnList.contains('ToPdf')">
+								<span class="glyphicon glyphicon-plus"></span> ToPdf
+							</button>
+		<button type="button" class="btn btn-warning operationBtn" data-toggle="modal" ng-click="ToExcel()" ng-if="tableDragBtnList.contains('ToExcel')">
+								<span class="glyphicon glyphicon-plus"></span> ToExcel
+							</button>
+		<button type="button" class="btn btn-warning operationBtn" data-toggle="modal" ng-click="ToEcharts()" ng-if="tableDragBtnList.contains('ToEcharts')">
+								<span class="glyphicon glyphicon-plus"></span> ToEcharts
+							</button>
+		<div class="fixed-nav" style="z-index: 99;" ng-init="dragover=false" ng-class="{true: 'dragFixedNav', false: 'dragFixedNav2'}[dragover]" ng-mouseleave='dragover=false' ng-if="tableDragBtnList.contains('drag')">
+			<div class="btn btn-primary pull-right" ng-mouseenter='dragover=true'>
+				<i class="fa fa-bars"></i>
+			</div>
+			<p style="margin-top: 16px;" ng-show="dragover">下面可以拖拽排序（table列排序）</p>
+			<ul ng-show="dragover" class="list-group" style="max-height: 350px;overflow: auto;">
+				<li class="list-group-item" ng-repeat="head in headList" ng-drop="true" ng-drop-success="onDropComplete($index, $data,$event)" style="cursor:pointer;" ng-drag="true" ng-drag-data="head">
+					<div class="inline"><input type="checkbox" ng-model="head.ngif"/></div>
+					<div class="inline">
+						<span ng-click="head.ngif=head.ngif?false:true">{{head.value}}</span>
+					</div>
+					<div style="clear: both;"></div>
+				</li>
+			</ul>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+	<div class="ibox-content" id="divHightForJq" style="position: relative;overflow: hidden;padding-right: 15px;">
+		<div id="tableTopDiv" style="width:100%;height:300px;overflow: auto;">
+			<table datatable="ng" dt-options="dtOptions" id="userListToPdf" class="table table-striped table-bordered table-hover dataTables-example">
+				<thead>
+					<tr>
+						<th width="{{head.width}}" ng-repeat="head in headList" ng-if="head.ngif" ng-click="sort(head.code)">
+							{{head.value}}
+							<span ng-if="head.code!='myOperation'" class="glyphicon glyphicon-sort"></span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in tableData">
+						<td ng-repeat="head in headList" ng-if="head.ngif" repeat-finish>
+							<img my-img ng-if="head.ifImg" ng-src="data[head.code]" style="width: 50px;min-height: 55px;" />
+						<!--	<span ng-if="!head.ifImg&&head.code!='myOperation'&&!head.ifCompile" ng-bind="data[head.code]"></span>-->
+							<div class="ellipsis-text100" style="max-width: {{head.width-17+'px'}};" ng-if="!head.ifImg&&head.code!='myOperation'&&!head.ifCompile" ng-bind="data[head.code]" title="{{data[head.code]}}"></div>
+							<!--<button ng-if="!head.ifImg&&head.code=='myOperation'" class="btn btn-warning" ng-click="openModal(data.userId)"> fsddfd </button>-->
+							<!--<element ng-if="!head.ifImg&&head.code=='myOperation'" ng-bind-html="data[head.code] | trust2Html"></element>-->
+							<!--<element ng-if="!head.ifImg&&head.code=='myOperation'">
+								<myoperationbtn valuelist="{{myOperation}}"></myoperationbtn>
+							</element>-->
+							<element ng-if="head.ifCompile">
+								<dy-compile html="{{'<span ng-bind='+head.func+'('+data[head.code]+')'+'></span>'}}"></dy-compile>
+							</element>
+							<element ng-if="!head.ifImg&&head.code=='myOperation'&&!head.ifCompile">
+								<dy-compile html="{{data[head.code]}}"></dy-compile>
+							</element>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<datalistpager ng-show="tableData&&tableData.length>0"></datalistpager>
+	</div>
+</div>

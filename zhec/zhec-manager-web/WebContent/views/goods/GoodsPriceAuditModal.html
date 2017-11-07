@@ -1,0 +1,26 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">通过时可以不填写直接确定,拒绝时必填</h1>
+	</div>
+	<div class="">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">申请回执:</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" ng-model="remarks" maxlength="200"></textarea>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-warning" ng-click="okModal()" ng-disabled="okModalDisabled">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 确定
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+
+</div>

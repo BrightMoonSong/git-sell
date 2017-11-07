@@ -1,0 +1,74 @@
+<nav class="navbar-default navbar-static-side" role="navigation" ng-controller="functionController">
+	<div class="sidebar-collapse">
+		<ul side-navigation class="nav metismenu" id="side-menu">
+
+			<li class="nav-header">
+				<div class="profile-element" uib-dropdown>
+					<img alt="image" class="img-circle" src="img/profile_small.jpg" />
+					<a uib-dropdown-toggle href> <span class="clear"> <span
+							class="block m-t-xs"><strong ng-if="userName == null" class="font-bold">顾问</strong> <strong ng-if="userName != null" class="font-bold" ng-bind="userName">顾问</strong>
+						</span> <span class="text-muted text-xs block">操作<b class="caret"></b></span>
+					</span>
+					</a>
+					<ul uib-dropdown-menu="" class="animated fadeInRight m-t-xs">
+						<li><a href="" ng-click="exitLogin()">退出</a></li>
+						<li><a href="" ng-click="changePassword()">修改密码</a></li>
+					</ul>
+				</div>
+				<div class="logo-element">...</div>
+			</li>
+			<li ng-show="personalCenter"
+				ng-class="{active: $state.includes('personalCenter')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">个人中心</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('personalCenter')}">
+					<li ui-sref-active="active" ng-repeat="son in dataEntityfun" ng-click="funcIdPower(son.id)" ng-if="21==son.parentId">
+						<a ui-sref="{{son.menuUrl}}">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+			<!--<li ng-show="recommend"
+				ng-class="{active: $state.includes('recommend')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">推荐订单金额统计</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('recommend')}">
+					<li ui-sref-active="active" ng-repeat="son in dataEntityfun" ng-click="funcIdPower(son.id)" ng-if="22==son.parentId">
+						<a ui-sref="{{son.menuUrl}}">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>-->
+			<li ng-show="promotion"
+				ng-class="{active: $state.includes('promotion')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">顾问推荐</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('promotion')}">
+					<li ui-sref-active="active" ng-repeat="son in dataEntityfun" ng-click="funcIdPower(son.id)" ng-if="23==son.parentId">
+						<a ui-sref="{{son.menuUrl}}">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-hide="true"
+				ng-class="{active: $state.includes('financial')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">财务管理</span>
+					<span class="fa arrow"></span>
+				</a>           
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('financial')}">
+					<li ui-sref-active="active" ng-repeat="son in dataEntityfun" ng-click="funcIdPower(son.id)" ng-if="24==son.parentId">
+						<a ui-sref="{{son.menuUrl}}">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</nav>

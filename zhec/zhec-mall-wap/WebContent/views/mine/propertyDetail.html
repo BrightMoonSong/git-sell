@@ -1,0 +1,22 @@
+
+		<div  id="needs_head">
+			<ul class="head">
+				<li ><a ng-click='replace1()'><img src="img/fh.png"  /></a></li>
+				<li id="needs_xq">明细</li>
+			</ul>
+		</div>
+		<div class="money_detail_conter">
+			<ol>
+        <li class="bill_fapiao" ng-repeat="spendOne in spentScoreList">
+          <a>
+            <label>{{estimateType(spendOne.changeType)}}</label>
+            <div>
+              <span ng-bind="spendOne.balanceChange | priceFormatFilter:2
+"></span>
+              <span ng-bind="spendOne.addTime"></span>
+            </div>
+          </a>
+        </li>
+			</ol>
+		</div>
+

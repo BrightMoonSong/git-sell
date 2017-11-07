@@ -1,0 +1,250 @@
+<div class="inmodal" >
+    <div class="modal-header">
+        <h1 class="modal-title">会员管理</h1>
+    </div>
+    <div class="" name="myform" verify-scope="tipStyle: 1">
+        <ul class="form-horizontal ">
+            <li class="list-group-item">
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">昵称：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">顾问ID：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.consultantId">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">等级：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.rank">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">经验值：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.empiric">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">会员积分：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.emailVerifyCode">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">注册时间：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.registerStime">
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="col-sm-3 control-label">登陆次数：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.registerTime">
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">性别：</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.sex == 0" type="radio" value="0">&nbsp;保密&nbsp;
+                            </label>
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.sex == 1" type="radio" value="1">&nbsp;男&nbsp;
+                            </label>
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.sex == 2" type="radio" value="2">&nbsp;女&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">生日：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.birthday">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">邮箱：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">qq：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.qq">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">座机：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">手机号：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.mobile">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">密码输入错误次数：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.pwdErrorTimes">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">会员来源：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                            ng-if="memberList.source==1" value="web">
+                            <input readonly="true" disabled="disabled" type="text" class="form-control"
+                            ng-if="memberList.source==2" value="wap">
+                            <input readonly="true" disabled="disabled" type="text" class="form-control"
+                            ng-if="memberList.source==3" value="Android；">
+                            <input readonly="true" disabled="disabled" type="text" class="form-control"
+                            ng-if="memberList.source==4" value="IOS ">
+                            <input readonly="true" disabled="disabled" type="text" class="form-control"
+                            ng-if="memberList.source==5" value="微信商城">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">账户余额：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">账户支付密码：</label>
+                    <div class="col-sm-9">
+                        <input readonly="true" disabled="disabled" type="text" class="form-control"
+                               ng-model="memberList.balance">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否验证邮箱：</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.isEmailVerify == 0"  type="radio" value="1">&nbsp;未验证&nbsp;
+                            </label>
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.isEmailVerify == 1"  type="radio" value="0">&nbsp;验证&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否验证手机：</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.isSmsVerify == 0" type="radio" value="1">&nbsp;未验证&nbsp;
+                            </label>
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.isSmsVerify == 1" type="radio" value="0">&nbsp;验证&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">短信验证码：</label>
+                    <div class="col-sm-9">
+                        <input disabled="disabled" readonly="true" type="text" class="form-control"
+                               ng-model="memberList.smsVerifyCode">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">邮件验证码：</label>
+                    <div class="col-sm-9">
+                        <input disabled="disabled" readonly="true" type="text" class="form-control"
+                               ng-model="memberList.emailVerifyCode">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否接受短信：</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.ifReceiveSms == 0"  type="radio" value="1">&nbsp;不接受&nbsp;
+                            </label>
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.ifReceiveSms == 1" type="radio" value="0">&nbsp;接受&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否接受邮件：</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.ifReceiveEmail == 0" type="radio" value="1">&nbsp;不接受&nbsp;
+                            </label>
+                            <label class="radio-inline" disabled>
+                                <input disabled="disabled" ng-checked="memberList.ifReceiveEmail == 1" type="radio" value="0">&nbsp;接受&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">状态：</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline" ng-click="check(1,'status')">
+                                <input disabled="disabled" ng-model="memberList.status" type="radio" disabled value="1">&nbsp;正常&nbsp;
+                            </label>
+                            <label class="radio-inline" ng-click="check(0,'status')">
+                                <input disabled="disabled" ng-model="memberList.status" disabled type="radio" value="0">&nbsp;禁用&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="col-sm-3 control-label">上次登录时间：</label>
+                    <div class="col-sm-9">
+                        <input disabled="disabled" readonly="true" type="text" class="form-control"
+                               ng-model="memberList.lastLoginTime">
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">上次使用的支付方式：</label>
+                    <div class="col-sm-9">
+                        <input disabled="disabled" readonly="true" type="text" class="form-control"
+                               ng-model="memberList.lastPayId">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">最后登录IP：</label>
+                    <div class="col-sm-9">
+                        <input disabled="disabled" readonly="true" type="text" class="form-control"
+                               ng-model="memberList.lastLoginIp">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+

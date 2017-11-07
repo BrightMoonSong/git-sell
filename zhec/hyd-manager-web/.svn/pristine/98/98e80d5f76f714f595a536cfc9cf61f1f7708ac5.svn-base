@@ -1,0 +1,48 @@
+<nav class="navbar-default navbar-static-side" role="navigation" ng-controller="functionController">
+	<div class="sidebar-collapse">
+		<ul side-navigation class="nav metismenu" id="side-menu">
+			<li class="nav-header">
+
+				<div class="profile-element" uib-dropdown>
+					<img alt="image" class="img-circle" style="width: 48px;height: 48px;" src="img/profile.jpg" />
+					<a uib-dropdown-toggle href> <span class="clear">
+						<span class="block m-t-xs"> <strong class="font-bold">{{main.userName}}</strong>
+						</span> <span class="text-muted text-xs block">操作<b class="caret"></b></span>
+						</span>
+					</a>
+					<ul uib-dropdown-menu="" class="animated fadeInRight m-t-xs">
+						<li>
+							<a ng-click="modifyPassword()">修改密码</a>
+						</li>
+						<li>
+							<a ng-click="quitLogin()">退出</a>
+						</li>
+					</ul>
+				</div>
+				<div class="logo-element">...</div>
+			</li>
+			<li ng-hide="false" ng-class="{active: $state.includes('sysconfig')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">系统管理-测试</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse">
+					<li ui-sref-active="active">
+						<a ui-sref="manager.sysconfig.sysuserlist({funcId: 8})" class="ng-binding">管理员</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-repeat="res in dataEntityfun track by $index" ng-if="res.parentId==0" ng-class="{active: activeFirst==$index}">
+				<a ng-click="toggleClassClick($index)"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label" ng-bind="res.name"></span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse" ng-class="{in: activeFirst==$index}">
+					<li ui-sref-active="active" ng-repeat="son in dataEntityfun" ng-if="son.parentId!=0&&son.parentId==res.functionId">
+						<a ui-sref="{{son.functionUrl}}({funcId: son.functionId})" class="ng-binding" ng-bind="son.name"></a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</nav>

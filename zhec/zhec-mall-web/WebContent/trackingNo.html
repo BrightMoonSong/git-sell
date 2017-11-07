@@ -1,0 +1,50 @@
+
+<form name="myform" id="trank_head" novalidate="novalidate" verify-scope="tipStyle:2">
+  <h3>填写物流编号</h3>
+  <div class="trak_conter clearfix">
+    <span>物流公司：</span>
+    <select ng-model="company" ng-options="x.name for x in logistics" value="{{x.name}}" ng-change="checkCompany(company)" name="track" required ng-verify>
+      <option value="" >--请选择--</option>
+    </select>
+    <!--<span ng-hide='myform.track.$pristine || myform.track.$valid' ng-show='myform.track.$invalid' class="error" style="width: 102px;color: red">*请选择物流公司</span>-->
+
+  </div>
+
+  <div class="trak_conter_two clearfix">
+    <span>物流单号：</span>
+    <input type="text" ng-model="logisticsNumber" placeholder="请输入物流单号" required name="trackNo" ng-verify autocomplete="off"/>
+    <!--<span ng-hide='myform.trackNo.$pristine || myform.trackNo.$valid' ng-show='myform.trackNo.$invalid' class="error" style="width: 114px;color: red">*物流单号不能为空</span>-->
+  </div>
+  <div class="trak_foot clearfix">
+    <button ng-click="closeTrackingNo()" >取消</button>
+    <button ng-click="confirlSend(logisticsNumber,returnOrder.memberId,returnOrder.id)" ng-verify="control:'myform'" ng-disabled = "cancleParent">确定</button>
+  </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

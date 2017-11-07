@@ -1,0 +1,165 @@
+<div class="row wrapper border-bottom white-bg page-heading" ng-hide="editorModel">
+	<div class="col-lg-12">
+
+		<div class="col-lg-6">
+			<div class="ibox-title">
+				<div class="heading">
+					<!-- 搜索  -->
+					<div class="col-sm-6">
+						<div class="input-group">
+							<input type="text" placeholder="按商品名称检索" class="form-control" ng-model="infoNameSearch">
+							<span class="input-group-btn">
+									<button class="btn btn-success" type="button"
+                                            ng-click="loadData(true)">
+                                        <span class="glyphicon glyphicon-search"></span>
+							</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<!-- 刷新按钮 -->
+			<button type="button" class="btn btn-success pull-right" ng-click="loadData(true)">
+                <span class="glyphicon glyphicon-refresh"></span> 刷新
+            </button>
+			<!-- 添加按钮触发模态框 -->
+			<button type="button" class="btn btn-warning pull-right" data-toggle="modal" ng-click="openModal()">
+                <span class="glyphicon glyphicon-plus"></span> 添加
+            </button>
+		</div>
+	</div>
+</div>
+
+<!-- 富文本 -->
+<div ng-show="editorModel" style="width: 100%;overflow: auto;height: 560px;position: relative;z-index: 10000;margin-top: 50px;">
+	<h3 style="font-family: '微软雅黑';font-weight: 500;text-align: center;" ng-if="expOrDes=='describe'">商品描述</h3>
+	<h3 style="font-family: '微软雅黑';font-weight: 500;text-align: center;" ng-if="expOrDes=='explain'">商品说明书</h3>
+	<!--style给定宽度可以影响编辑器的最终宽度-->
+	<script type="text/plain" id="myEditor" style="height:450px;overflow:auto;max-height: 450px;">
+		
+	</script>
+
+	<div class="col-lg-12" style="height:73px;">
+		<button class="btn btn-success pull-right" ng-click="goBack()">返回</button>
+		<button class="btn btn-warning pull-right" ng-click="getContentAngular()">保存</button>
+	</div>
+	<style type="text/css">
+		.edui-container {
+			width: 100% !important;
+		}
+	</style>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight " ng-show="infoContainer">
+	<div class="row marLeft15">
+		<div class="col-lg-12 ">
+			<div class="ibox float-e-margins">
+
+				<div class="hideScroll">
+					<div class="ibox-content showContent">
+						<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th style="width: 370px;">商品名称</th>
+									<!--<th style="width: 400px;">商品促销信息</th>-->
+									<th>分类</th>									
+									<th>类型</th>
+									<th>品牌</th>
+									<th>操作信息</th>
+									<th style="width: 230px">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="info in infoList">
+									<td>{{ info.id }}</td>
+									<td>{{ info.name1 }}</td>
+									<!--<td>{{ info.name2 }}</td>-->
+									<td>{{ info.goodsCateName }}</td>
+									<td ng-show="info.goodsType==1">处方</td>
+									<td ng-show="info.goodsType==2">非处方</td>
+									<td ng-show="info.goodsType==3">其它</td>
+									<td ng-show="info.goodsType!=3&&info.goodsType!=2&&info.goodsType!=1"></td>
+									<td>{{ info.goodsBrandName }}</td>
+									<td ng-if="info.addUserName!=null&&info.updateUserName!=null">{{ "添加人:" + info.addUserName}}<br/>
+									{{ "修改人:" + info.updateUserName}}</td>
+									<td ng-if="info.addUserName==null&&info.updateUserName!=null">{{ "添加人:无"}}<br/>
+									{{ "修改人:" + info.updateUserName}}</td>
+									<td ng-if="info.addUserName!=null&&info.updateUserName==null">{{ "添加人:" + info.addUserName}}<br/>
+									{{ "修改人:无"}}</td>
+									<td ng-if="info.addUserName==null&&info.updateUserName==null">{{ "添加人:无"}}<br/>
+									{{ "修改人:无"}}</td>
+									<td class="action-column">
+										<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModal(info.id)">修改</button>
+										<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openGoodsDetailsModal(info.id,'describe')">商品描述</button>
+										<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openGoodsDetailsModal(info.id,'explain')">说明书</button>
+										<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="openModalSpecOssList(info.id)">规格图片上传</button>
+										<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="submit(info.id)">提交</button>
+										<button type="button" class="btn btn-warning" data-toggle="modal" ng-click="gotoGoodsDetail(info.id)">预览</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<link href="css/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="js/plugins/editor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/plugins/editor/umeditor.min.js"></script>
+<script type="text/javascript">
+	//实例化编辑器
+	var um = UM.getEditor('myEditor');
+	um.addListener('blur', function() {
+		$('#focush2').html('编辑器失去焦点了')
+	});
+	um.addListener('focus', function() {
+		$('#focush2').html('')
+	});
+	//按钮的操作
+	function insertHtml() {
+		var value = prompt('插入html代码', '');
+		um.execCommand('insertHtml', value)
+	}
+
+	function isFocus() {
+		alert(um.isFocus())
+	}
+
+	function doBlur() {
+		um.blur()
+	}
+
+	function createEditor() {
+		enableBtn();
+		um = UM.getEditor('myEditor');
+	}
+
+	function getAllHtml() {
+		alert(UM.getEditor('myEditor').getAllHtml())
+	}
+
+	function getContent() {
+		var arr = [];
+		//arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+		//arr.push("内容为：");
+		arr.push(UM.getEditor('myEditor').getContent());
+		//alert(arr.join("\n"));
+	}
+
+	function setContent(isAppendTo, data) {
+		var arr = [];
+		arr.push("使用editor.setContent('欢迎使用额为umeditor')方法可以设置编辑器的内容");
+		UM.getEditor('myEditor').setContent(data, isAppendTo);
+		//alert(arr.join("\n"));
+	}
+</script>
+<div ng-show="infoContainer">
+	<datalistpager></datalistpager>
+</div>

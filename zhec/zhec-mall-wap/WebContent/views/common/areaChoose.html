@@ -1,0 +1,33 @@
+<div>
+	<div id="needs_head">
+		<ul class="head">
+			<li>
+				<a ng-click="onCancel()"><img src="img/fh.png" /></a>
+			</li>
+			<li id="needs_xq">选择地址</li>
+		</ul>
+	</div>
+	<div class="addresscate_head">
+		<ul>
+			<li class="addresscate_head_li" ng-if="areaFlag>=1" ng-bind="pacEntity.province.name==undefined||pacEntity.province.name==null||pacEntity.province.name==''?defaultTip:pacEntity.province.name" ng-click="clickTab(1)">
+
+			</li>
+			<li ng-if="areaFlag>=2" ng-bind="pacEntity.city.name==undefined||pacEntity.city.name==null||pacEntity.city.name==''?defaultTip:pacEntity.city.name" ng-click="clickTab(2)">
+
+			</li>
+			<li ng-if="areaFlag>=3" ng-bind="pacEntity.area.name==undefined||pacEntity.area.name==null||pacEntity.area.name==''?defaultTip:pacEntity.area.name" ng-click="clickTab(3)">
+
+			</li>
+		</ul>
+	</div>
+	<div class="addresscate_conter clearfix">
+		<ol class="clearfix">
+			<li class="clearfix">
+				<ul class="clearfix">
+					<li ng-repeat="area in areaList" ng-bind="area.name" ng-click="selectItem(area.name,area.id,area.zipCode)" repeatdone="initAddressSwiper(1)">
+					</li>
+				</ul>
+			</li>
+		</ol>
+	</div>
+</div>

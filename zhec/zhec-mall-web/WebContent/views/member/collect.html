@@ -1,0 +1,92 @@
+    <ul class="right_goods_head">
+          <li class="recent_goods">
+            <label>我的收藏夹：</label>
+            <ul class="recent_goods_cf">
+            	<li class="recent_goods_cf_xz" ng-click="Drugs(2,$event)">非处方药</li>
+            	<li ng-click="Prescription(1,$event)">处方药</li>
+            </ul>
+            <!-- <ol class="collect_ol">
+              <li ng-click="selectAll()">
+                <label><input ng-click="selectAll()" ng-model="allSelect" type="checkbox" name="checked" />全选</label>
+              </li>
+              <li ng-click="membercart(1)">
+                <img src="images/cgwc.png" />
+              </li>
+              <li ng-click="collectDeldata(1,1,1)">
+                <img src="images/clj.png" />
+              </li>
+            </ol> -->
+          </li>
+          <li class="collect_shoping clearfix" ng-show="cellectIfGoods">
+            <div class="collect_shoping_head" >
+              <ol>
+                <li>商品名称</li>
+                <li>单价（元）</li>
+                <li>库存状态</li>
+                <li>操作</li>
+              </ol>
+            </div>
+            <div class="collect_onall clearfix">
+            <ol class="collect_ol" ng-show="cellectIfGoods" >
+              <li ng-click="selectAll()">
+                <label><input ng-click="selectAll()" ng-model="allSelect" type="checkbox" name="checked" /><sapn>全选</sapn></label>
+              </li>
+              <!-- <li >
+
+              </li> -->
+              <li>
+                <a ng-click="collectDeldata(1,1,1)">删除 </a>
+              </li>
+              <li ng-show="display">
+                  <a ng-click="membercart(1)">加入购物车</a>
+              </li>
+            </ol>
+             <ol class="clearfix collect_one">
+              <li>
+                <ul ng-repeat="collect in collectList">
+                  <li><input ng-click="selectChange()" ng-model="collect.status" type="checkbox" name="checked"/></li>
+                  <li><a ng-href="goods.html?id={{collect.goodsId}}" target="=_blank"><img ng-src="{{collect.masterImg}}"></a></li>
+                    <li></span><span ng-if="collect.goodsType==1"><img src="images/prescription.png"></span>
+                      <a href="goods.html?id={{collect.goodsId}}" target="=_blank" ng-bind="collect.name1"></a>
+                    </li>
+                    <li>
+                      <b ng-bind="collect.salesPrice | priceFormatFilter"></b>
+                    </li>
+                    <li ng-if="collect.stock >0">有货</li>
+                    <li ng-if="collect.stock <1">无货</li>
+
+
+                    <li>
+                      <p ng-show="display"><button ng-click="membercart(0,collect.id,collect.productId,collect.goodsId,collect.name1,collect.masterImg,collect.goodsType)">加入购物车</button></p>
+                      <p><a ng-click="collectDeldata(0,collect.id,collect.productId)">删除</a></p>
+                    </li>
+                </ul>
+                </li>
+            </ol >
+            </div>
+            </li>
+            <li class="conter_shopping clearfix" ng-hide="cellectIfGoods">
+                <!-- <div class="rx_cf">
+                    <label>我的收藏夹：</label>
+                    <ul class="recent_goods_cf">
+                    	<li class="recent_goods_cf_xz" ng-click="Drugs(2,$event)">非处方药</li>
+                    	<li class="recent_goods_cf_xz" ng-click="Prescription(1,$event)">处方药</li>
+                    </ul>
+                </div> -->
+                    <div class="rx_cf_background">
+                        <ul class="collect_none">
+                        <li>
+                            <img src="images/cellect.png"/>
+                        </li>
+                        <li>
+                            <p>您还没有收藏任何商品</p>
+                            <p><a href="index.html">去购物></a></p>
+                        </li>
+                    </ul>
+                    </div>
+
+            </li>
+            <div ng-show="cellectIfGoods">
+                <datalistpager></datalistpager>
+            </div>
+        </ul>

@@ -1,0 +1,66 @@
+<div>
+    <h4>修改商品信息</h4>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div style="line-height:45px"><strong>商品名&nbsp:</strong>&nbsp&nbsp{{good.name1}}</div>
+            <div style="line-height:45px"><strong>品牌&nbsp:</strong>&nbsp&nbsp{{good.price}}</div>
+            <div style="line-height:45px"><strong>商品种类&nbsp:</strong>&nbsp&nbsp{{good.cateName}}</div>
+            <div style="line-height:45px"><strong>商品价格&nbsp:</strong>&nbsp&nbsp{{good.price}}</div>
+        </div>
+        <div class="col-sm-8">
+            <form class="form-horizontal" role="myform" verify-scope="tipStyle: 1"
+                    >
+                <div class="form-group">
+                    <label for="start" class="col-sm-2 control-label">启用时间</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="start" new-picker
+                               ng-model="good.timeStart" ng-verify="{required:true}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="end" class="col-sm-2 control-label">结束时间</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="end" new-picker
+                               ng-model="good.timeEnd" ng-verify="{required:true}">
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-3 col-sm-offset-3">
+                                <strong>启用</strong>
+                                <input type="radio" name="STATUS" ng-click="good.status=1" ng-checked="good.status==1"
+                                       ng-model="good.status">
+                            </div>
+                            <div class="col-sm-6">
+                                <strong>禁用</strong>
+                                <input type="radio" name="STATUS" ng-click="good.status=0" ng-checked="good.status==0"
+                                       ng-model="good.status">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="sort" class="col-sm-2 control-label">排序</label>
+
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="sort" ng-model="good.sort">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success pull-right" ng-click="modify(good)" ng-hide="false"
+                            ng-verify="{control:'myform'}">
+                        <span class="glyphicon glyphicon-plus"></span>确定
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+

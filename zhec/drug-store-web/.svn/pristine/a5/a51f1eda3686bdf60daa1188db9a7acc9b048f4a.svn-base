@@ -1,0 +1,67 @@
+<style type="text/css">
+	.btn.active,
+	.btn:active {
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+	}
+	
+	.spanin {
+		display: inline-block;
+		float: left;
+		margin-top: 5px;
+	}
+	
+	.innputy {
+		margin-top: 9px !important;
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">家庭常备药品推荐</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group" >
+					<label class="col-sm-3 control-label"> 分店药店Id (*)</label>
+					<div class="col-sm-9">
+						<input readonly="true"  type="text" class="form-control" ng-model="recomEntiy.drugstoreId">
+					</div>
+				</div>
+				<div class="form-group" ng-show="databoll">
+					<label class="col-sm-3 control-label"> 商品名称</label>
+					<div class="col-sm-9">
+							<input readonly="true"  type="text" class="form-control" ng-model="name1">
+					</div>
+				</div>
+				<div class="form-group" ng-hide="databoll">
+					<label class="col-sm-3 control-label"> 商品名称</label>
+					<div class="col-sm-9">
+						<input readonly="true"  type="text" class="form-control" ng-model="recomEntiy.goodsName">
+					</div>
+				</div>
+				<div class="form-group" ng-hide="databoll">
+					<label class="col-sm-3 control-label"> 商品图片</label>
+					<div class="col-sm-9">
+					<img ng-src="{{recomEntiy.goodsImg}}" onerror="javascript:this.src='../../img/loadding.gif';" alt="努力加载中..." style="width: 50px" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">排序号</label>
+					<div class="col-sm-9">
+						<input type="number" ng-verify="{min:1 ,max:30,required:true}" class="form-control" ng-model="recomEntiy.sort " onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal1()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

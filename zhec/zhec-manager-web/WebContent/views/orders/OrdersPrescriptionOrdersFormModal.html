@@ -1,0 +1,313 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">处方订单管理</h1>
+    </div>
+    <div class="modal-body" name="myform" verify-scope="tipStyle: 2">
+        <!-- 标签页start -->
+        <ul class="nav nav-tabs">
+            <li class="active" ng-click="onClickTab('ordersDetails.html')">
+                <a data-toggle="tab">订单详情</a>
+            </li>
+            <li ng-click="onClickTab('receivingMessage.html')">
+                <a data-toggle="tab">收货信息</a>
+            </li>
+
+            <li ng-click="onClickTab('leaveMessage.html')">
+                <a data-toggle="tab">留言板</a>
+            </li>
+            <li ng-click="onClickTab('remarks.html')">
+                <a data-toggle="tab">备注</a>
+            </li>
+        </ul>
+        <!-- <div id="mainView">
+            <div ng-include="currentTab"></div>
+        </div> -->
+        <div id="mainView">
+            <!-- style="overflow: auto;max-height: 600px;width: 100%;"-->
+            <!--OSS-->
+            <div style="width: 100%;clear: both;" ng-hide="showOss">
+                <form name=theform ng-hide="true">
+                    <input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+                    <input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+                    <br/> 上传到指定目录:
+                    <input type="text" id="dirname" value="{{dataIdoss}}" placeholder="如果不填，默认是上传到根目录" size=50>
+                </form>
+                <h4 ng-hide="true">您所选择的文件列表：</h4>
+
+                <div id="ossfile">
+                    你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系XXX)
+                </div>
+                <br/>
+
+                <div id="container" style="width: 100%;clear: both;">
+                    <a id="selectfiles" href="javascript:void(0);" class="btn btn-success">选择图片</a>
+                    <a id="postfiles" href="javascript:void(0);" class="btn btn-success">开始上传</a>
+                </div>
+                <pre id="console" ng-hide="true"></pre>
+            </div>
+            <!--oss-->
+            <div ng-include="currentTab"></div>
+        </div>
+        <!-- 订单详情 -->
+        <script type="text/ng-template" id="ordersDetails.html">
+            <ul class="form-horizontal" >
+                <li class="list-group-item col-sm-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">商品名:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.goodsName" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">规格:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.specInfo" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">商品单价:</label>
+
+                        <div class="col-sm-8">
+                            <span disabled="disabled" readonly="true" class="form-control" ng-bind="dataEntity.recipeOrder.goodsPrice | priceFormatFilter"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">购买数量:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.productNumber" readonly>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item col-sm-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">发票抬头:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.invoiceTitle" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">发票类型:</label>
+
+                        <div class="col-sm-8" ng-if="dataEntity.recipeOrder.invoiceType==2">
+                            <input type="text" class="form-control" value="电子发票" readonly>
+                        </div>
+                        <div class="col-sm-8" ng-if="dataEntity.recipeOrder.invoiceType==1">
+                            <input type="text" class="form-control" value="普通发票" readonly>
+                        </div>
+                        <div class="col-sm-8" ng-if="dataEntity.recipeOrder.invoiceType==0">
+                            <input type="text" class="form-control" value="无需发票" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">发票内容:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.invoiceDetail" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">提交时间:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.addTime" readonly>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="col-sm-4 control-label">登记购买人联系方式:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="orders.mobile" readonly>
+                        </div>
+                    </div> -->
+                </li>
+                <li class="list-group-item col-sm-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">会员姓名:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.memberLoginId" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">顾问:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.consultantName" readonly>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </script>
+        <!-- 留言标记 -->
+        <script type="text/ng-template" id="leaveMessage.html">
+            <div class="form-group col-sm-12" style="padding-top: 15px;">
+                <label class="col-sm-1 control-label">回复:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" ng-model="data.message" maxlength="150"></textarea>
+                    <p><span id="text-count">字数最大不超过150</span></p>
+                </div>
+
+                <button type="button" class="btn btn-success pull-right" ng-click="okModal()" ng-verify="{control:'myform'}">
+                    <span class="glyphicon glyphicon-share-alt"></span> 发送
+                </button>
+            </div>
+            <div style="overflow: auto;max-height: 400px;width: 100%;">
+                <ul class="form-horizontal">
+                    <li class="list-group-item col-sm-12" ng-repeat="res in dataEntity.recipeOrderMessage" style="background-color: white;padding-top: 5px;">
+                        <div class="form-group col-sm-12 text-left" style="padding-top: 10px;">
+                            <label class="col-sm-2 text-left fontweight5">
+                            消息来源:<span class="text-left" style="color: #4169e3;" ng-if="res.source==1">客服</span><span class="text-left" style="color: #4169e3;" ng-if="res.source==2">买家</span>
+                        </label>
+                            <label class="col-sm-4 text-left fontweight5">留言时间:{{res.inTime}}</label>
+
+                        </div>
+                        <div class="form-group" style="padding: 10px;">
+                            <label class="col-sm-2 text-right fontweight5">留言信息:</label>
+
+                            <div class="col-sm-4">
+                                <span class="text-left fontweight5 spanWrap" ng-bind="res.message"></span>
+                            </div>
+                            <!-- <label class="col-sm-2 text-left fontweight5" ng-hide="res.imgUrl==''||res.imgUrl==undefined||res.imgUrl==null">图片:</label>
+                            <div class="col-sm-5 text-left fontweight5" ng-hide="res.imgUrl==''||res.imgUrl==undefined||res.imgUrl==null" ng-repeat="imgsrc in res.imgUrl.split(',')">
+                                <a ng-click="showBigImg(imgsrc)"><img ng-src="{{imgsrc}}" style="width: 80px;cursor:url('../../../img/big32.ico'),auto" alt="图片加载中" />
+                            </div> -->
+
+                            <div class="col-sm-5 text-left fontweight5" ng-hide="res.imgUrl==''||res.imgUrl==undefined||res.imgUrl==null">
+                                <img ng-repeat="imgsrc in res.imgUrl.split(',')" ng-src="{{imgsrc}}" ng-click="showBigImg(imgsrc)" style="width: 80px;cursor:url('../../../img/big32.ico'),auto" alt="图片加载中..." />
+                            </div>
+                        </div>
+                    </li>
+                    <div style="clear: both;"></div>
+                </ul>
+            </div>
+        </script>
+        <!--图片放大  -->
+        <script type="text/ng-template" id="firstDialogId">
+            <div style="width:auto;margin:0 auto">
+                <div ng-click="closeModal()" style="cursor:url('../../../img/small32.ico'),auto" id="showImg" style="width:auto"><img style="max-width: 750px; display: block;margin:0 auto" ng-click="closeModal()" ng-src="{{currentImg}}" /></div>
+            </div>
+        </script>
+        <!-- 收货信息 -->
+        <script type="text/ng-template" id="receivingMessage.html">
+            <ul class="form-horizontal" >
+                <li class="list-group-item col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">收货人姓名:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.orderName" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">收货人手机号:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.orderMobile" readonly>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">收货邮编:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.orderPost" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">收货省市区:</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.orderPca" readonly>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">详细地址:</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="dataEntity.recipeOrder.orderAddress" readonly>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </script>
+
+        <!-- 备注 -->
+        <script type="text/ng-template" id="remarks.html">
+            <div class="form-group col-sm-12" style="padding-top: 15px;">
+                <label class="col-sm-1 control-label">备注:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" ng-model="data.remarks"></textarea>
+                </div>
+                <button type="button" class="btn btn-success pull-right" ng-click="sendMessage()" ng-verify="{control:'myform'}">
+                    <span class="glyphicon glyphicon-share-alt"></span> 保存
+                </button>
+            </div>
+            <div style="overflow: auto;max-height: 400px;width: 100%;">
+                <ul class="form-horizontal">
+                    <li class="list-group-item col-sm-12" ng-repeat="res in dataEntity.recipeOrderMessageRemarks" style="background-color: white;padding-top: 5px;">
+                        <div class="form-group col-sm-12 text-left" style="padding-top: 10px;">
+                            <label class="col-sm-2 text-left fontweight5">
+                            备注:
+                        </label>
+                            <label class="col-sm-4 text-left fontweight5">留言时间:{{res.inTime}}</label>
+                        </div>
+                        <div class="form-group" style="padding: 10px;">
+                            <label class="col-sm-2 text-right fontweight5">备注信息:</label>
+
+                            <div class="col-sm-4">
+                                <span class="text-left fontweight5" ng-bind="res.messageRemarks"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <div style="clear: both;"></div>
+                </ul>
+            </div>
+        </script>
+
+    </div>
+    <div class="modal-footer">
+        <button ng-show="dataEntity.recipeOrder.status==0" type="button" class="btn btn-warning" ng-click="okAuditing(1)" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-floppy-disk"></span> 通过
+        </button>
+        <button ng-show="dataEntity.recipeOrder.status==0" type="button" class="btn btn-success" ng-click="okAuditing(2)" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-share-alt"></span> 拒绝
+        </button>
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span> 取消
+        </button>
+    </div> -->
+</div>
+
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/base64.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/upload.js"></script>
+<style type="text/css">
+	.modelbigimgdiv{
+		width: 100%;
+		overflow: hidden;
+		text-align: center;
+		cursor:url(../../../img/small32.ico),auto
+	}
+	.modelbigimg{
+		max-width: 1025px;
+		cursor:url(../../../img/small32.ico),auto
+	}
+</style>
+<div ng-hide="model" class="modelbigimgdiv" ng-click="clickBigImg()">
+	<img ng-src="{{bigimgsrc}}" onmousewheel="return bbimg(this)"
+		  class="modelbigimg" alt="" />
+</div>

@@ -1,0 +1,116 @@
+<div class="ngdialog-message share_div_head">
+	
+	<h1>分享</h1>
+	<ul class="bdsharebuttonbox clearfix" ng-if="resource == 1">
+		<!--<li>
+			<a  data-resource="{{resource}}" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+			<p>微信</p>
+		</li>-->
+		<li>
+			<a data-resource="{{resource}}" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+			<p>QQ好友</p>
+		</li>
+		<li>
+			<a  data-resource="{{resource}}" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+			<p>新浪微博</p>
+		</li>
+		<li>
+			<a  data-resource="{{resource}}" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+			<p>腾讯微博</p>
+		</li>
+		<li>
+			<a  data-resource="{{resource}}" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+			<p>人人网</p>
+		</li>
+		<li>
+			<a  data-resource="{{resource}}" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+			<p>复制网址</p>
+		</li>
+	</ul>
+	<ul class="bdsharebuttonbox clearfix" ng-if="resource == 2">
+		<!--<li>
+			<a  data-resource="{{resource}}" data-id="{{goodsId}}" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+			<p>微信</p>
+		</li>-->
+		<li>
+			<a   data-resource="{{resource}}" data-id="{{goodsId}}" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+			<p>QQ好友</p>
+		</li>
+		<li>
+			<a  data-resource="{{resource}}" data-id="{{goodsId}}" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+			<p>新浪微博</p>
+		</li>
+		<li>
+			<a  data-resource="{{resource}}" data-id="{{goodsId}}" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+			<p>腾讯微博</p>
+		</li>
+		<li>
+			<a  data-resource="{{resource}}" data-id="{{goodsId}}" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+			<p>人人网</p>
+		</li>
+		<li>
+			<a  data-resource="{{resource}}" data-id="{{goodsId}}" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+			<p>复制网址</p>
+		</li>
+	</ul>
+	<div class="share_button">
+		<button ng-click="cancleShare()">取消</button>
+	</div>
+	
+</div>
+<script type="text/javascript">
+
+	//全局变量，动态的文章ID
+	var ShareId = "";
+	var goodsId = ""
+	//绑定所有分享按钮所在A标签的鼠标移入事件，从而获取动态ID
+	
+	$(function() {
+		$(".bdsharebuttonbox a").mouseover(function() {
+			ShareId = $(this).attr("data-resource");
+			if(ShareId == 2){
+				goodsId = $(this).attr("data-id");
+			}
+//		window._bd_share_config.share.bdPic	=constMallLocation+"/imgaes/u1884.png";
+//		window._bd_share_config.share.bdPopTitle="会员注册 - 鹿医生";
+		});
+	});
+
+	/* 
+	 * 动态设置百度分享URL的函数,具体参数
+	 * cmd为分享目标id,此id指的是插件中分析按钮的ID
+	 *，我们自己的文章ID要通过全局变量获取
+	 * config为当前设置，返回值为更新后的设置。
+	 */
+	function SetShareUrl(cmd, config) {
+		if(ShareId) {
+			if(ShareId == 1){
+//				config.bdPic = constMallLocation+"/imgaes/u1884.png";
+				config.bdUrl = constMallLocation + "/register.html?memberId=" + JSON.parse(getCookie("loginManager")).id;
+			}else{
+				config.bdUrl = constMallLocation + "/goods.html?id="+goodsId;
+			}
+		}
+		return config;
+	}
+//	function setTitle(cmd,config){
+//		if(ShareId) {
+//			if(ShareId == 1){
+//				config.bdText = "会员注册 - 鹿医生";
+//			}else{
+//				config.bdText = "商品分享 - 鹿医生";
+//			}
+//		}
+//		return config;
+//	}
+	//插件的配置部分，注意要记得设置onBeforeClick事件，主要用于获取动态的文章ID
+    window._bd_share_config = {
+        "common": {
+            onBeforeClick:SetShareUrl,"bdSnsKey":{},"bdMini":"2"
+            ,"bdMiniList":false,"bdStyle":"0","bdSize":"24",'bdText':'','searchPic':"1"
+        }, "share": {}
+    };
+	//插件的JS加载部分
+	with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+

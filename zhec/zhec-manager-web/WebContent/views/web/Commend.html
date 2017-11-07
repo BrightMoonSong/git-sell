@@ -1,0 +1,73 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+    <div class="row marLeft15">
+        <div class="col-lg-12 ">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="col-md-2">
+
+                        <select ng-model="selectedSite.num" class="form-control" ng-options="x.num as x.site for x in sites" value="{{x.num}}">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" placeholder="按商品推荐位检索"
+                                   class="form-control  ng-pristine ng-valid ng-empty ng-touched"
+                                   ng-model="comName"><span class="input-group-btn">
+									<button class="btn btn-success" type="button" ng-click="loadData(true)">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+								</span>
+                        </div>
+                    </div>
+                    <div class="heading col-lg-offset-11">
+                        <button type="button" class="btn btn-success operationBtn" ng-click="loadData(true)">
+                            <span class="glyphicon glyphicon-refresh"></span> 刷新
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hideScroll">
+                <div class="ibox-content ">
+                    <table datatable="ng" dt-options="dtOptions"
+                           class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>商品推荐位名称</th>
+                            <th>商品推荐位信息</th>
+                            <th>管理推荐位</th>
+                        </tr>
+                        </thead>
+                        <tbody style="">
+                        <tr ng-repeat="commend in commendData">
+                            <td>{{ commend.id}}</td>
+                            <td>{{ commend.commendName}}</td>
+                            <td>{{ commend.commendDesc}}</td>
+                            <td class="action-column">
+                                <button type="button" class="btn btn-warning"
+                                        data-toggle="modal" data-target="#update" ng-click="openModalOne(commend.id,commend.goodsCategory,commend.commendName)"
+                                        >
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true">新增</span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<datalistpager></datalistpager>
+
+
+
+
+
+
+

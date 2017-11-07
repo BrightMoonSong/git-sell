@@ -1,0 +1,17 @@
+<li class="clearfix paging" ng-show="showDataPager">
+  <ul class="conter_stair">
+    <li class="btnLeft"><a ng-click="upPage()">上一页</a></li>
+    <li>
+      <ul class="conter_stair_ul">
+        <li ng-show="isShowPage1">....</li>
+        <li ng-repeat="item in arr track by $index"><a ng-click="choosePageNum($index)" ng-class="{selectColor:currentPageNo==item}">{{item}}</a></li>
+
+        <li ng-show="isShowPage2&&allPage!=6">...</li>
+        <li ng-hide="arr[arr.length-1]==allPage"><a ng-click="jumpLast()">{{allPage}}</a></li>
+      </ul>
+    </li>
+    <li class="btnRight"><a ng-click="downPage()">下一页</a></li>
+    <li>共{{allPage}}页{{allDataCount}}条</li>
+    <li>第<input ng-readonly="allPage <= 1" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'');}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'');}" type="text" ng-model="selectPage">页<input type="button" value="跳转"  ng-click="selectPageNum(selectPage)"></li>
+  </ul>
+</li>

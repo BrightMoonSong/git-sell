@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html ng-app="returnOderDetailApp">
+
+	<head>
+		<script type="text/javascript">
+    //IE8以及以下
+    if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+      alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+      window.open("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100", "_self");
+    }
+  </script>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/common/zhecConfig.js"></script>
+    <script language="javascript">
+      if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+
+      }else{
+        var strDelete = publicUrlMall.split("/mall");
+        publicUrlMall = strDelete[0] + strDelete[1];
+      }
+      document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+      document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/order/renturnOrderDetail.css>");
+      document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+      document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/jDialog/jDialog.css>");
+      document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog.min.css>");
+      document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+      document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngVerify/ngVerify.css>");
+
+    </script>
+
+		<!-- <link rel="shortcut icon" type="image/ico" href="/favicon.ico"> -->
+		<!-- <link rel="stylesheet" href="stylesheets/screen.css" /> -->
+		<!-- <link rel="stylesheet" href="stylesheets/order/renturnOrderDetail.css" /> -->
+		<!-- <link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog.min.css" /> -->
+		<!-- <link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css" /> -->
+		<!-- <link rel="stylesheet" href="stylesheets/plugins/jDialog/jDialog.css" type="text/css"> -->
+		<!-- <link rel="stylesheet" href="stylesheets/plugins/ngVerify/ngVerify.css" type="text/css"> -->
+		<!-- <script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script> -->
+
+		<!-- <script type="text/javascript" src="js/plugins/angular/angular.min.js"></script> -->
+		<!-- <script type="text/javascript" src="js/plugins/ngDialog/ngDialog.min.js"></script> -->
+		<!-- <script type="text/javascript" src="js/common/CommonService.js"></script> -->
+		<!-- <script type="text/javascript" src="js/common/directives.js"></script> -->
+		<!-- <script type="text/javascript" src="js/common/zhecConfig.js"></script> -->
+
+		<!-- <script type="text/javascript" src="js/common/cookie.js"></script> -->
+		<!-- Piwik -->
+		<!-- <script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script> -->
+		<!-- End Piwik Code -->
+		<!--拦截器-->
+		<!-- <script type="text/javascript" src="js/common/interceptor.js"></script> -->
+		<!-- <script type="text/javascript" src="js/common/zhec.js"></script> -->
+		<!-- <script type="text/javascript" src="js/plugins/jDialog/jDialog.js"></script> -->
+		<!-- <script type="text/javascript" src="js/controllers/order/returnOrderDetailController.js"></script> -->
+		<!-- <script type="text/javascript" src="js/services/order/returnOrderDetailService.js"></script> -->
+
+
+		<!-- <script type="text/javascript" src="js/plugins/oss/lib/crypto1/crypto/crypto.js"></script> -->
+		<!-- <script type="text/javascript" src="js/plugins/oss/lib/crypto1/hmac/hmac.js"></script> -->
+		<!-- <script type="text/javascript" src="js/plugins/oss/lib/crypto1/sha1/sha1.js"></script> -->
+		<!-- <script type="text/javascript" src="js/plugins/oss/lib/base64.js"></script> -->
+		<!-- <script type="text/javascript" src="js/plugins/oss/plupload.full.min.js"></script> -->
+		<!-- <script type="text/javascript" src="js/plugins/oss/upload.js"></script> -->
+		<!-- <script type="text/javascript" src="js/plugins/ngVerify/ngVerify.js"></script> -->
+
+		<title>退货详情-鹿医生</title>
+	</head>
+
+	<body ng-controller="returnOrderDetailController">
+		<headerpage></headerpage>
+
+		<div class="head_navagiton">
+			<div class="head_conter">
+				<ul class="head_ul">
+					<li class="head_li">
+						<div class="head_log">
+							<a href="index.html">
+								<div class="head_log-img"><img src="images/u1884.png"></div>
+							</a>
+						</div>
+					</li>
+					<li>
+						<ol ng-show="returnOrder.orderStatus!=6">
+							<li>
+								<!--	<p ng-bind="createTime"></p>-->
+
+								<p>
+
+									<!--ng-src="images/jdt.png"蓝色-->
+									<!--ng-src="images/jdt1.png"灰色-->
+
+									<image ng-src="{{returnOrder.orderStatus>0?blueTime:grayTime}}" />
+								</p>
+								<p>待审退单</p>
+
+							</li>
+							<li>
+								<!--<p ng-bind="paidTime"></p>-->
+								<p>
+									<image ng-src="{{returnOrder.orderStatus>1?blueTime:grayTime}}" />
+								</p>
+								<p>已审核退单</p>
+
+							</li>
+							<li>
+								<!-- <p ng-bind="confirmTime"></p>-->
+								<p>
+									<image ng-src="{{returnOrder.orderStatus>2?blueTime:grayTime}}" />
+								</p>
+								<p>已发货退单</p>
+								<!--<p><span>2016-10-09 10:29:00&nbsp; </span></p>-->
+							</li>
+							<li>
+								<!--<p ng-bind="confirmTime"></p>-->
+								<p>
+									<image ng-src="{{returnOrder.orderStatus>3?blueTime:grayTime}}" />
+								</p>
+								<p>已收货退单</p>
+
+							</li>
+							<li>
+								<!--<p ng-bind="confirmTime"></p>-->
+								<p>
+									<image ng-src="{{returnOrder.orderStatus>4?blueTime:grayTime}}" />
+								</p>
+								<p>已完成退单</p>
+
+							</li>
+						</ol>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="conter clearfix">
+			<div class=" orders_message clearfix">
+				<ul class="orders_message_ul_head">
+					<li>商品名称</li>
+					<li>数量</li>
+					<li>单价</li>
+					<li>实付单价</li>
+					<li>退单类型</li>
+					<li>退还金额</li>
+				</ul>
+				<ul class="clearfix orders_message_ul_head_conter">
+					<li class="clearfix">
+						<ol>
+							<li>
+								<a ng-href="goods.html?id={{returnOrder.goodsId}}" target="_blank"><img ng-src="{{returnOrder.goodsImage}}"></a>
+							</li>
+							<li>
+								<p>
+									<span ng-if="returnOrder.goodsType==1"><img src="images/prescription.png"></span>
+									<a ng-href="goods.html?id={{returnOrder.goodsId}}" target="_blank"><b ng-bind="returnOrder.goodsName"></b></a>
+									<p ng-bind="returnOrder.productSpecInfo"></p>
+								</p>
+							</li>
+							<li><b ng-bind="returnOrder.productNum"></b></li>
+							<!--这个的改了，改为退还优惠-->
+							<li>￥<b ng-bind="returnOrder.productPrice | number:2"></b></li>
+							<li ng-bind="returnOrder.productMoneyPay"></li>
+							<!--这个添加退单类型-->
+							<li ng-bind="returnOrder.refundType"></li>
+							<li>￥<b ng-bind="returnOrder.totalMoneyRefund | number:2"></b></li>
+						</ol>
+					</li>
+				</ul>
+			</div>
+			<ul class="clearfix conter_ul_td">
+				<li>
+					<div class="conter_header">
+						<p>退单状态：<span ng-bind="returnOrder.orderStatusValue"></span></p>
+					</div>
+					<ol class="clearfix">
+						<li class="return_heig_li">
+							<label>退单编号：</label>
+							<span ng-bind="returnOrder.orderRefundSn"></span>
+						</li>
+            <li ng-if="returnOrder.logisticsName">
+              <label>物流公司：</label>
+              <span ng-bind="returnOrder.logisticsName"></span>
+            </li>
+            <li ng-if="returnOrder.logisticsNumber">
+              <label>物流编号：</label>
+              <span ng-bind="returnOrder.logisticsNumber"></span>
+            </li>
+						<li class="return_heig_li return_heig_ts">
+							<label>提&nbsp;&nbsp;&nbsp;示:</label>
+							<span ng-if="returnOrder.orderStatus==1"><b>订单正在审核中请耐心等待</b></span>
+							<span ng-if="returnOrder.orderStatus==2"><b>您需要在一周内填写物流单号，否则退单将会中止</b></span>
+							<span ng-if="returnOrder.orderStatus==3"><b>若货已发出，请您注意跟踪物流信息（若在30天之内收不到货，退货失败，订单中止）</b></span>
+							<span ng-if="returnOrder.orderStatus==4"><b>已经收到货了，我们将尽快的把退款返回您的账户</b></span>
+							<span ng-if="returnOrder.orderStatus==5"><b>退款完成，退单结束</b></span>
+							<span ng-if="returnOrder.orderStatus==6"><b>订单中止</b></span>
+						</li>
+						<li class="return_heig_li">
+							<label>退货数量：</label>
+							<span><b ng-bind="returnOrder.productNum"></b>件</span>
+						</li>
+						<li class="return_heig_li">
+							<label>退货原因：</label>
+							<span ng-bind="returnOrder.refundReason"><b></b></span>
+						</li>
+						<li class="return_heig_li">
+							<label id="return_ul_img">图片上传：</label>
+							<img ng-src="{{img}}" ng-repeat="img in returnOrder.imgUrl" />
+							<!--<img  src="favicon.ico"/>
+        	<img  src="favicon.ico"/>
+        	<img  src="favicon.ico"/>
+        	<img  src="favicon.ico"/>-->
+						</li>
+						<li id="return_ul_li_wt">
+							<label>问题描述：</label>
+							<b ng-bind="returnOrder.remark"></b>
+						</li>
+						<li class="return_heig_li">
+							<label>退款方式：</label>
+							<span ng-bind="returnOrder.moneyRefundWay"></span>
+						</li>
+
+						<li class="return_heig_li">
+							<label>返回方式：</label>
+							<span ng-bind="returnOrder.returnMethod"></span>
+						</li>
+						<li class="return_heig_li">
+							<label>收货地址：</label>
+							<span ng-bind="returnOrder.refundAddress"></span>
+						</li>
+						<li class="return_heig_li">
+							<label>手机号码：</label>
+							<span ng-bind="returnOrder.contactInformation"></span>
+						</li>
+						<li class="return_heig_li">
+							<button ng-click="cancleApply(returnOrder.id,memberId)" ng-show="returnOrder.orderStatus<3">取消申请</button>
+							<button ng-click="trackingNo()" ng-show="returnOrder.orderStatus==2">填写单号</button>
+						</li>
+					</ol>
+				</li>
+
+				<li>
+					<div class="conter_header">
+						<p>常见问题</p>
+					</div>
+					<ul class="clearfix">
+						<li><span>1、</span><b>您未通过审核 </b></li><br/>
+						<li><span>2、</span><b>审核通过没有在一周内上传物流单号 </b></li><br/>
+						<li><span>3、</span><b>在货品发出后，我们在30天之内没有收到，请自行联系物流公司</b></li>
+
+					</ul>
+				</li>
+			</ul>
+			<div class="dialog_box clearfix">
+
+				<ul class="clearfix message_spoke">
+					<h3>退货留言板</h3>
+					<li class="message_spoke_pj">
+						<label>留言：</label>
+						<textarea ng-model="messageMemInput" rows="5" cols="100" onkeyup="this.value=this.value.substring(0, 500);CountWords(this,'show')" maxlength="200" onchange="this.value=this.value.substring(0, 500)" onkeydown="this.value=this.value.substring(0, 500)" placeholder="请输入小于200的字符">
+						</textarea>
+						<br/>
+						<span id="show"></span>
+					</li>
+					<li class="message_spoke_sc clearfix">
+						<form name=theform ng-hide="true" style="display: none !important;">
+							<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+							<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+							<br/> 上传到指定目录:
+							<input type="text" value="{{returnmemberId}}" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+						</form>
+
+						<br/>
+						<div id="container" class="clearfix">
+							<div id="ossfile" ng-hide="previewHide" class="clearfix">
+								你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系XXX)
+							</div>
+							<a id="selectfiles" href="javascript:void(0);" class="btn"><img src="images/xnjh.png"></a>
+							<img src="images/xnjj.png" />
+							<img src="images/xnjj.png" />
+							<img src="images/xnjj.png" />
+							<img src="images/xnjj.png" />
+						</div>
+						<div class="clearfix postfiles_div">
+							<a id="postfiles" href="javascript:void(0);" class="btn">开始上传</a>
+						</div>
+						<pre id="console" ng-hide="true"></pre>
+						<div id="message_click">
+							<button ng-click="addMessage()" ng-disabled="addMessageDisabled">发表留言</button>
+						</div>
+					</li>
+					<li class="clearfix message_return">
+						<ul ng-repeat="message in returnOrder.message" class="clearfix">
+							<li>
+								<span ng-if="message.source==2"><img width="80px" height="80px" ng-src="{{memberImg}}"/></span>
+								<span ng-if="message.source==1"><img width="80px" height="80px" src="images/customerService.png"/></span>
+							</li>
+							<li>
+								<p ng-if="message.source==2"><b ng-bind="loginId"></b>-买家</p>
+								<p ng-if="message.source==1">客服</p>
+							</li>
+							<li><b ng-bind="message.createTime"></b></li>
+							<li class="clearfix">
+								<span ng-bind="message.message"></span>
+							</li>
+							<li>
+								<ul>
+									<!--<li ng-repeat="messageImg in message.messageImgList">
+                <a href=""><img width="60px" height="60px" ng-src="{{messageImg}}" /></a>
+              </li>-->
+									<li ng-repeat="messageImg in message.messageImgList">
+										<a ng-click="showBigImg(messageImg)"><img style="cursor:url('images/big32.ico'),default" class="smallImg" ng-src="{{messageImg}}" /></a>
+									</li>
+								</ul>
+							</li>
+							<script type="text/ng-template" id="firstDialogId">
+								<div style="width:auto;text-align: center">
+									<div ng-click="closeModal()" style="cursor:url('images/small32.ico'),auto" id="showImg" style="width:auto"><img style="max-width: 750px;" ng-click="closeModal()" ng-src="{{currentImg}}" /></div>
+								</div>
+							</script>
+						</ul>
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+		<footerpage></footerpage>
+	</body>
+
+
+</html>
+<script>
+  document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/controllers/cart/cartConfig.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/ngDialog/ngDialog.min.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/ngVerify/ngVerify.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/jDialog/jDialog.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/common/interceptor.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/crypto1/crypto/crypto.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/crypto1/hmac/hmac.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/crypto1/sha1/sha1.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/base64.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/plupload.full.min.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/upload.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/controllers/order/returnOrderDetailController.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/services/order/returnOrderDetailService.js><\/script>");
+</script>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html ng-app="CartApp" ng-controller="cartController">
+
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script language="javascript">
+			if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+				
+			}else{
+				var strDelete = publicUrlMall.split("/mall");
+				publicUrlMall = strDelete[0] + strDelete[1];
+			}
+			document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/cart/shopping.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/jDialog/jDialog.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog.min.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/cart/cartConfig.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/ngDialog/ngDialog.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jDialog/jDialog.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/interceptor.js><\/script>");
+		    document.write("<script src="+publicUrlMall+"js/controllers/cart/cartController.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/services/cart/cartservice.js><\/script>");
+		</script>
+		
+		
+		<!--<link rel="stylesheet" href="stylesheets/cart/shopping.css" />-->
+		<!--<link rel="stylesheet" href="stylesheets/screen.css" />-->
+		<!--<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>-->
+		<!-- jDialog -->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/jDialog/jDialog.css" type="text/css">-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog.min.css" type="text/css">-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css" type="text/css">-->
+		<!--<script src="js/plugins/angular/angular.min.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/CommonService.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/directives.js"></script>-->
+		
+		
+		<!-- End Piwik Code -->
+		<!--<script src="js/common/CommonFilter.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/controllers/cart/cartConfig.js"></script>-->
+		<!-- ngDialog -->
+		<!--<script src="js/plugins/ngDialog/ngDialog.min.js"></script>-->
+		<!-- cookie -->
+		<!--<script type="text/javascript" src="js/common/cookie.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/zhec.js"></script>-->
+		<!-- Piwik -->
+		<!--<script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script type="text/javascript" src="js/plugins/jDialog/jDialog.js"></script>-->
+
+		<!--<script src="js/common/interceptor.js" type="text/javascript" charset="utf-8"></script>-->
+		
+		<!--<script type="text/javascript" src="js/services/cart/cartservice.js"></script>-->
+		<title>购物车 - 鹿医生</title>
+	</head>
+
+	<body >
+		<headerpage></headerpage>
+		<!---------------头导航条---------------------------->
+		<search></search>
+
+		<navigation-bar></navigation-bar>
+		<!----------------------居中conter--------------------------------->
+		<div class="conter">
+			<div class="conter_head carthasGoods" ng-show="hasGoods" style="display: none;">
+				<p>购物车<span>共有<b><b ng-bind="allCartNum()"></b>件商品</b></span></p>
+			</div>
+			<div class="conter_con carthasGoods clearfix" ng-show="hasGoods" style="display: none;">
+				<div class="conter_con_ul">
+					<ul>
+						<li>商品名称</li>
+						<li>单价（元）</li>
+						<li>数量</li>
+						<li>金额</li>
+						<li>操作</li>
+					</ul>
+					<div class="cart_ul_ba clearfix">
+						<ul class="clearfix">
+							<li>
+								<label ng-click="selectAll()"><input type="checkbox"  ng-model="allSelect"  value="1" /><span>全选</span></label>
+								<a ng-click="delete(1,2,3)">删除</a>
+							</li>
+							<li ng-repeat="goods in goodsList">
+								<ol>
+									<li ng-click="selectChange()"><input id="test" ng-disabled="goods.stock == 0 || goods.goodsState != 6" ng-model="goods.status" type="checkbox"></li>
+									<li>
+										<a ng-href="goods.html?id={{goods.goodsId}}" target="_blank"><img ng-src="{{goods.masterImg}}"></a>
+									</li>
+									<li>
+										<a ng-href="goods.html?id={{goods.goodsId}}" target="_blank"><b ng-bind="goods.goodsName"></b>
+											<p><b ng-bind="goods.specName"></b><b ng-bind="goods.specInfo"></b></p>
+										</a>
+									</li>
+									<li><b ng-bind="goods.salesPrice | priceFormatFilter"></b></li>
+									<li>
+										<ul>
+											<li><button ng-click="goods.count=goods.count-1;changeNum(goods.id,goods.count,goods.productId,goods.stock)" ng-disabled="goods.count<=1 || goods.goodsState != 6">-</button></li>
+											<li><input ng-readonly="true" type="text" ng-model="goods.count" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'');}" value="goods.count" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'');}" ng-blur="inputNum(goods.id,goods.count,goods.productId,goods.stock,goods.goodsState)" ng-readonly="goods.readonly" ng-change="limitNum(goods.count)"></li>
+											<li><button ng-click="goods.count=goods.count+1;changeNum(goods.id,goods.count,goods.productId,goods.stock)" ng-disabled="goods.goodsState != 6 || goods.count>=200 ||goods.stock<1">+</button></li>
+											<li><b ng-show="goods.stock >= 1 && goods.goodsState == 6">有货</b><b style="color: red;" ng-show="goods.stock < 1 && goods.goodsState == 6">无货</b><b style="color: red;" ng-show="goods.goodsState != 6">已下架</b></li>
+										</ul>
+									</li>
+									<li><b ng-bind="goods.count*goods.salesPrice | priceFormatFilter"></b></li>
+									<li>
+										<p>
+											<a ng-click="delete(0,goods.id,goods.productId)">删除</a>
+										</p>
+										<p>
+											<a ng-click="membercollection(0,goods.id,goods.goodsId,goods.productId)">移入收藏</a>
+										</p>
+									</li>
+								</ol>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<div class="conter_fot carthasGoods" ng-show="hasGoods" style="display: none;">
+				<ul>
+					<li>
+						<ol class="clearfix">
+							<li ng-click="selectAll()"><label><input  ng-model="allSelect" type="checkbox" value="2" /><span>全选</span></label></li>
+							<li>
+								<a ng-click="delete(1,2,3)">删除</a>
+							</li>
+							<li>
+								<a ng-click="membercollection(1,cartId,arr)">移入收藏夹</a>
+							</li>
+						</ol>
+					</li>
+					<li >
+						<button ng-class="{true: 'cart_floa selectGoods', false: 'cart_floa noSelectGoods'}[allSelectNum()>0]" ng-click="payCart()" ng-disabled="okModalDisabled && notAllowPay">结算</button>
+					</li>
+					<li class="cart_flo">
+						<ul>
+							<li>已选商品<span><b ng-bind="allSelectNum()"></b></span>件</li>
+							<li>合计(不含运费)：<span><b ng-bind="totalPrice() | priceFormatFilter"></b></span></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+			<div class="conter_shopping" ng-hide="hasGoods">
+				<ul class="shopping_none">
+					<li>
+						<img ng-src="{{ossPublic}}images/kshop.png" />
+					</li>
+					<li>
+						<p>购物车空空的哦~，去看看心仪的商品吧</p>
+						<p>
+							<a href="index.html">去购物></a>
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="conter_commodity">
+				<div class="commodity_head clearfix">大家都在看</div>
+				<ul>
+					<li class="goods_border" ng-repeat="good in goodsinleft">
+						<ol>
+							<li>
+								<a href="goods.html?id={{good.id}}" ng-bind="good.name1"></a>
+							</li>
+							<li>
+								<a></a>
+							</li>
+							<li><span ng-bind="good.price | priceFormatFilter"></span></li>
+							<li>
+								<a href="goods.html?id={{good.id}}"><img ng-src="{{good.masterImg}}"></a>
+							</li>
+						</ol>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<footerpage></footerpage>
+	</body>
+
+</html>

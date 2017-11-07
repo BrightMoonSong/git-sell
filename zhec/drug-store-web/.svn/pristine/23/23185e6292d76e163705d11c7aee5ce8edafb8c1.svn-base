@@ -1,0 +1,84 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">商品图片管理</h1>
+	</div>
+	<div class="modal-body">
+		<div name="myformOss" verify-scope="tipStyle: 1">
+
+			<button type="button" class="btn btn-success" ng-click="openModalOss()">
+                <span class="glyphicon glyphicon-plus"></span> 上传图片
+            </button>
+			<ul class="form-horizontal">
+				<li class="list-group-item" ng-repeat="img in dataInfoImages track by $index">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">上传的图片:</label>
+
+						<div ng-class="{true: 'col-sm-2', false: 'col-sm-5'}[$index===0]">
+							<input type="text" class="form-control" ng-model="img.imagePath" ng-hide="true">
+							<img my-img ng-src="{{img.imagePath}}" onerror="javascript:this.src='../../img/loadding.gif';" alt="努力加载中..." style="width: 50px" />
+						</div>
+						<div class="col-sm-3" style="text-align: center;padding-top: 10px;" ng-if="$index===0">
+							<small>注：首张图片是主图</small>
+						</div>
+						<div class="col-sm-2">
+							<label class="radio-inline" ng-click="img.status=1"> <input
+                                    type="radio" ng-checked="img.status=='1'"
+                                    name="{{'state'+$index}}">&nbsp;启用&nbsp;
+                            </label> <label class="radio-inline" ng-click="img.status=0"> <input
+                                type="radio" ng-checked="img.status=='0'"
+                                name="{{'state'+$index}}">&nbsp;不启用&nbsp;
+                        </label>
+						</div>
+						<div class="col-sm-2">
+							<input type="number" class="form-control" placeholder="排序号" ng-model="img.sort" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}">
+						</div>
+						
+						<a class="col-sm-1" ng-click="removeImg(img.imageId)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</div>
+				</li>
+			</ul>
+			<ul class="form-horizontal">
+				<li class="list-group-item" ng-repeat="img2 in dataInfoImages2 track by $index">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">上传图片：</label>
+
+						<div ng-class="{true: 'col-sm-2', false: 'col-sm-5'}[$index===0&&dataInfoImages.length==0]">
+							<input type="text" class="form-control" ng-model="img2.imagePath" ng-hide="true">
+							<img my-img ng-src="{{img2.imagePath}}" style="width: 50px" />
+						</div>
+						<div class="col-sm-3" style="text-align: center;padding-top: 10px;" ng-if="$index===0&&dataInfoImages.length==0">
+							<small>注：首张图片是主图</small>
+						</div>
+						<div class="col-sm-2">
+							<label class="radio-inline" ng-click="img2.status=1"> <input
+                                    type="radio" name="{{'state2'+$index}}" ng-checked="img2.status==1">&nbsp;启用&nbsp;
+                            </label> <label class="radio-inline" ng-click="img2.status=0"> <input
+                                type="radio" name="{{'state2'+$index}}" ng-checked="img2.status==0">&nbsp;不启用&nbsp;
+                        </label>
+						</div>
+						<div class="col-sm-2">
+							<input type="number" class="form-control" placeholder="排序号" ng-model="img2.sort" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}">
+						</div>
+						<a class="col-sm-1" ng-click="dataInfoImages2.splice($index,1)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</div>
+				</li>
+				<div class="modal-footer">
+					<!--<button type="button" class="btn btn-success" ng-click="add_li()">
+                        <span class="glyphicon glyphicon-plus"></span> 新增一行
+                    </button>-->
+					<button type="button" class="btn btn-warning" ng-click="okInfoImages(dataInfoImages,dataInfoImages2)" ng-verify="{control:'myformOss'}">
+                        <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                    </button>
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                        <span class="glyphicon glyphicon-share-alt"></span> 取消
+                    </button>
+				</div>
+			</ul>
+		</div>
+
+	</div>
+</div>

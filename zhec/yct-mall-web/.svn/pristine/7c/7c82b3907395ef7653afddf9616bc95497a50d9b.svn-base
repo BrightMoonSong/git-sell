@@ -1,0 +1,8 @@
+/**
+ * 系统用户controller定义
+ */
+function HomeController($scope, $http, $q, HomeService, ngDialog, $rootScope) {
+	console.log(HomeService.find());
+}
+
+app.controller('HomeController', HomeController);

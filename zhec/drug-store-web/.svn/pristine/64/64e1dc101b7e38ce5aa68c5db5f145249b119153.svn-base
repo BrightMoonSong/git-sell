@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html ng-app="managerApp">
+
+<head>
+	<!--
+		<script type="text/javascript">
+			//IE8以及以下
+			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+				alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+				window.open("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100", "_self");
+			}
+		</script>-->
+	<meta charset="utf-8">
+	<!--<link rel="shortcut icon" type="image/ico" href="/favicon.ico">-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- Page title set in pageTitle directive -->
+	<title page-title></title>
+	<!–[if IE]>
+	<!--<script src="js/plugins/html5.js"></script>-->
+	<![endif]–>
+
+		<!-- 判断是否有userToken -->
+		<!--<script src="js/jump.js"></script>-->
+		<!-- Font awesome -->
+		<!--<link href="font-awesome/css/font-awesome.css" rel="stylesheet">-->
+
+		<!-- Bootstrap and Fonts -->
+		<!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
+
+		<!-- Main Inspinia CSS files -->
+		<!--<link href="css/animate.css" rel="stylesheet">
+		<link id="loadBefore" href="css/style.css" rel="stylesheet">
+		<link id="loadBefore" href="css/main.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/ngVerify.css">-->
+
+		<!-- ngDialog -->
+		<!--<link id="loadBefore" href="css/plugins/ngDialog/ngDialog.min.css" rel="stylesheet">
+		<link id="loadBefore" href="css/plugins/ngDialog/ngDialog-theme-default.min.css" rel="stylesheet">-->
+
+		<!-- jDialog -->
+		<!--<link rel="stylesheet" href="css/plugins/jDialog/jDialog.css" type="text/css">-->
+	</head>
+
+	<!-- ControllerAs syntax -->
+	<!-- Main controller with serveral data used in Inspinia theme on diferent view -->
+
+	<body ng-controller="MainCtrl as main">
+		<div id="bigimgbody"></div>
+			<!-- Main view  -->
+			<div ui-view></div>
+		</div>
+	</body>
+
+	<audio id="bgMusic">
+			<source = src="./views/promptSounds.mp3" type="audio/mp3">
+	</audio>
+	<script type="text/javascript">
+	function bofang() {
+		var audio = document.getElementById("bgMusic");
+		//重新播放
+		audio.currentTime = 0;
+		audio.play();
+	}
+	</script>
+	<script type="text/javascript" src="js/zhecConfig.js"></script>
+	<!--JSON转Excel-->
+	<script type="text/javascript" src="js/controllers/common/jsToExcel.js"></script>
+	<script src="js/My97DatePicker/WdatePicker.js"></script>
+	<!-- echarts -->
+	<script src="js/plugins/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+	<script language="javascript">
+		if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlManager)){
+
+		}else{
+			var strDelete = publicUrlManager.split("/manager");
+			publicUrlManager = strDelete[0] + strDelete[1];
+		}
+		document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlManager+"favicon.ico>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"font-awesome/css/font-awesome.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"css/bootstrap.min.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"css/animate.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"js/My97DatePicker/skin/WdatePicker.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"css/style.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"css/main.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"css/ngVerify.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"css/plugins/ngDialog/ngDialog.min.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"css/plugins/ngDialog/ngDialog-theme-default.min.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlManager+"css/plugins/jDialog/jDialog.css>");
+
+		document.write("<script src="+publicUrlManager+"js/plugins/html5.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/jquery/jquery-2.1.1.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/jquery/wheelbigimg.js><\/script>");
+
+		document.write("<script src="+publicUrlManager+"js/plugins/jquery-ui/jquery-ui.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/bootstrap/bootstrap.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/plugins/metisMenu/jquery.metisMenu.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/plugins/slimscroll/jquery.slimscroll.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/plugins/pace/pace.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/initview.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/angular/angular.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/plugins/oclazyload/dist/ocLazyLoad.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/ui-router/angular-ui-router.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/bootstrap/ui-bootstrap-tpls-1.1.2.min.js><\/script>");
+	    document.write("<script src="+publicUrlManager+"js/angular/angular-resource.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/plugins/ngVerify/ngVerify.js><\/script>");
+//		document.write("<script src="+publicUrlManager+"js/My97DatePicker/WdatePicker.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/plugins/ngDialog/ngDialog.min.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/app.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/CommonFilter.js><\/script>");
+
+		document.write("<script src="+publicUrlManager+"js/config.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/router.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/directives.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/controllers.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/interceptor.js><\/script>");
+
+		document.write("<script src="+publicUrlManager+"js/services/common/functionService.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/controllers/common/functionController.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/controllers/common/topnavbarController.js><\/script>");
+		document.write("<script src="+publicUrlManager+"js/plugins/jDialog/jDialog.js><\/script>");
+
+	</script>
+	<script src="js/zhecConfigConstant.js" type="text/javascript" charset="utf-8"></script>
+	<!--html转pdf-->
+	<script type="text/javascript" src="js/jquery/jsToExcelToPdf/canvg2.js"></script>
+	<script type="text/javascript" src="js/jquery/jsToExcelToPdf/html2canvas-0.4.1.js"></script>
+	<script type="text/javascript" src="js/jquery/jsToExcelToPdf/jspdf.min.js"></script>
+	<!--html转pdf 依赖jquery 所以放在jquery后面-->
+	<script src="js/controllers/common/htmlToPdf.js" type="text/javascript" charset="utf-8"></script>
+
+	<!--依赖angular的拖拽-->
+	<script src="js/plugins/ngDraggable/ngDraggable.js" type="text/javascript" charset="utf-8"></script>
+	<!--柱形图 折线图 饼图-->
+	<script src="js/controllers/common/funEcharts.js" type="text/javascript" charset="utf-8"></script>
+
+
+</html>

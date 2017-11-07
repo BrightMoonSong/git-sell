@@ -1,0 +1,83 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+	<div class="row marLeft15">
+		<div class="col-lg-12 ">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<div class="heading">
+						<!-- 搜索  -->
+						<div class="col-sm-3">
+							<div class="input-group">
+								<input type="text" placeholder="按名称/链接检索" class="form-control "
+									ng-model="userNameSearch"> <span
+									class="input-group-btn">
+									<button class="btn btn-success" type="button"
+										ng-click="loadData(true)">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-lg-9">
+							<!-- 刷新按钮 -->
+							<button type="button" class="btn btn-success operationBtn"
+								ng-click="loadData(true)">
+								<span class="glyphicon glyphicon-refresh"></span> 刷新
+							</button>
+							<!-- 添加按钮触发模态框 -->
+							<button type="button" class="btn btn-warning operationBtn"
+								data-toggle="modal" ng-click="openModal()">
+								<span class="glyphicon glyphicon-plus"></span> 添加
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="hideScroll">
+					<div class="ibox-content ">
+						<table datatable="ng" dt-options="dtOptions"
+							class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>导航名称</th>
+									<th>排序号</th>
+									<th>链接</th>
+									<th>生效时间</th>
+									<th>失效时间</th>
+									<th>跳转状态</th>
+									<th>应用类型</th>
+									<th class="fixedWidth">编辑</th>
+								</tr>
+							</thead>
+							<tbody style="">
+								<tr ng-repeat="navBar in navBarList">
+									<td>{{navBar.id}}</td>
+									<td>{{navBar.title}}</td>
+									<td>{{navBar.sort}}</td>
+									<td>{{navBar.link}}</td>
+									<td>{{navBar.startTime}}</td>
+									<td>{{navBar.endTime}}</td>
+									<td ng-if="navBar.target==0">当前页面打开</td>
+                                	<td ng-if="navBar.target==1">新建页面打开</td>
+                                	<td ng-if="navBar.status==1">web</td>
+                                	<td ng-if="navBar.status==2">wap</td>
+                                	<td ng-if="navBar.status==3">IOS</td>
+									<td class="action-column">
+										<button type="button" class="btn btn-warning"
+											data-toggle="modal" data-target="#update"
+											ng-click="openModal(navBar.id)">
+											<!--<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>-->修改
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<datalistpager></datalistpager>
+
+

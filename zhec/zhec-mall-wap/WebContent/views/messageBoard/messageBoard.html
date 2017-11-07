@@ -1,0 +1,102 @@
+ <!--留言板-->
+    	<div class="order_machine clearfix">
+    		<div  id="needs_head">
+				 <ul class="head">
+					<li onclick="history.go(-1)"><a href="javascript:history.back(-1)"><img src="img/fh.png"/></a></li>
+					<li id="needs_xq">留言</li>
+				</ul>
+			</div>
+			<div class="order_machine_div clearfix" ng-repeat="message in messageList">
+				<ul class="order_machine_div_ul clearfix " ng-if="message.source==1">
+					<li class="order_machine_div_ul_img ">
+						<img src="../../img/kftx.png" />
+					</li>
+					<li  class="order_machine_div_ul_name ">
+						客服123
+					</li>
+					<li  class="order_machine_div_ul_speak " >
+						<span ng-bind="message.message1">
+							您好，我是客服123，请问需要什么帮助？
+						</span>
+					</li>
+					<li ng-repeat="messageImg in message.messageImgList">
+						<a ng-click="showBigImg(messageImg)" ><img style="max-width:80px" class="smallImg" ng-src="{{messageImg}}" /></a>
+					</li>
+				</ul>
+				<ol class="order_machine_div_ol clearfix" ng-if="message.source==2">
+					<li class="order_machine_div_ol_img ">
+						<img src="../../img/yhtx.png" />
+					</li>
+					<li  class="order_machine_div_ol_name " ng-bind="loginId">
+						
+					</li>
+					<li  class="order_machine_div_ol_speak ">
+						<span ng-bind="message.message1"></span>
+						
+					</li>
+					<li ng-repeat="messageImg in message.messageImgList">
+						<a ><img style="max-width:80px"  class="smallImg" ng-src="{{messageImg}}" /></a>
+					</li>
+				</ol>
+				
+			</div>
+    	</div>
+    		<div class="all_bill_div_return clearfix" style="width: 100%;background: white;display: none;">
+				<!--处方回拨电话-->
+				<ul class="all_bill_div_head">
+					<b>
+						照片上传
+					</b>
+					<a>
+						上传图片
+					</a>
+				</ul>
+				<ul class="all_bill_div_trutrn clearfix">
+					<li><a href="">选择的图片在这里展示</a></li>
+					<li> <a href=""></a></li>
+				</ul>
+		</div>
+    	  <div class="fix_foot" >
+	        <ol class="fix_header">
+	          <li class="ycenter fix_foot_img_input" ><input type="text" placeholder="在这里留言" /></li>
+	          <li class="fix_foot_img_return prescripiton_button pop_img_button">
+	          
+	          	<form name=theform ng-hide="true">
+					<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+					<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+					<br/> 上传到指定目录：
+					<input type="text" value="{{prescriptionUrl}}/{{memberId}}" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+				</form>
+				<!--<img id="imgPreview" style="max-width： 150px;" />-->
+				<div style="position:fixed;left:0;top:0;width:100%;height:100%;display:none;" id="showOssFile">
+					<div style="position:fixed;width:100%;height:100%;background-color:#333;opacity:0.5;z-index:9"></div>
+					<div id="ossfile" style="position:fixed;width:200px;height:200px;background-color:#fff;z-index:10">
+						你的浏览器不支持flash,Silverlight或者HTML5
+					</div>
+					
+					<button style="color:#333;position:fixed;bottom:0;z-index:10" id="postfiles" href="javascript:void(0);">
+	          		确定
+		          	</button>
+		          	<button ng-click="addMessage()" style="color:#333;bottom:0;right:0;position:fixed;z-index:10">发送</button>
+				</div>
+				
+				<span  id="container">
+					<a id="selectfiles" href="javascript:void(0);" class="btn">
+		          		<img src="../../img/sctp.png"/>
+		          	</a>
+				</span>
+				<span style="float:left">发送</span>
+				<pre id="console" ng-hide="true"></pre>
+				<!--OSS结束 -->
+				</li>
+				<li>
+					
+				</li>
+        </ol>
+      </div>
+<script type="text/javascript" src="../../vendor/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="../../vendor/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="../../vendor/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="../../vendor/oss/lib/base64.js"></script>
+<script type="text/javascript" src="../../vendor/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="../../vendor/oss/upload.js"></script>

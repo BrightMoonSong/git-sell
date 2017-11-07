@@ -1,0 +1,164 @@
+<div class="classify_head">
+  订单
+</div>
+<div class="order_banner">
+  <ul class="orders_ul">
+    <li><span ng-class="{true:'orders_click',false:'orders_notclick'}[orderState==0]" ng-click="findAllOrders()">全部</span></li>
+    <li><span ng-class="{true:'orders_click',false:'orders_notclick'}[orderState==1]" ng-click="findNotPay()">待付款</span></li>
+    <li><span ng-class="{true:'orders_click',false:'orders_notclick'}[orderState==3]" ng-click="findNotReceive()">待收货{{orderState}}</span></li>
+    <li><span class="orders_notclick">已完成</span></li>
+  </ul>
+</div>
+
+<div ng-repeat="orderList in allOrders">
+  <div class="order_tital">
+    <ul>
+      <li>订单编号:<span ng-bind="orderList.orderSn"></span></li>
+      <li>运费:<span ng-bind="orderList.moneyLogistics | number:2"></span></li>
+      <li>订单金额：</span><span ng-bind="orderList.moneyOrder | number:2"></span></li>
+      <li>
+        <a href="payMoney.htm?orderId={{orderList.id}}&&memberId={{orderList.memberId}}"><button class="order_pay_for" ng-show="orderList.payStatus==0">去支付</button></a>
+        <b ng-show="orderList.payStatus!=0" class="have_pay_orders">已付款</b>
+        <!--<p>
+          <a href="javascript:void(0);"
+              ng-click="cancleDialog(16,123)">取消订单</a>
+        </p>-->
+      </li>
+    </ul>
+  </div>
+  <ul class="orders_pay clearfix" ng-repeat="list in orderList.ordersSub">
+    <li class="orders_pay_dd">
+      <p><label>订单号：</label><span ng-bind="list.orderSn"></span><!--<b ng-bind="payStatus(orderList.payStatus)"></b>--></p>
+    </li>
+
+    <li class="orders_pay_img swiper-container" >
+
+        <ol class="swiper-wrapper">
+          <li ng-repeat="goods in list.ordersProduct" class="swiper-slide" repeat-done="isRepeat()">
+            <a href="####">
+              <img ng-src="{{goods.masterImg}}"/>
+            </a>
+          </li>
+
+        </ol>
+    </li>
+    <li class="orders_pay_money">
+      <ol>
+        <li>合计:</li>
+        <li>￥<span ng-bind="list.moneyOrder |number:2"></span></li>
+        <li>共<b ng-bind="list.num"></b>件商品</li>
+      </ol>
+    </li>
+    <li class="orders_pay_click">
+      <button class="order_pay_for" ng-if="list.orderStatus>0" ng-click="addOrderToCar(list.ordersProduct)">再来一单</button>
+      <button class="order_pay_for" ng-if="2<list.orderStatus&&list.orderStatus<4" ng-click="confirmOrder(list.id,list.orderSn,list.orderStatus,16,123)">确认收货</button>
+      <!--<button class="order_pay_for" ng-if="orderList.payStatus==0">去支付</button>-->
+      <!--确认收货和查看物流必须做到自订单上面，位置不够，建议做在订单详情-->
+      <!--<button class="order_pay_for">确认收货</button>
+      <button id="order_pay_wl">查看物流</button>-->
+    </li>
+  </ul>
+</div>
+
+
+<ul class="orders_pay clearfix">
+  <li class="orders_pay_dd">
+    <p><label>订单号：</label><span>2151816</span><b id="orders_pay_over">删除</b><b id="orders_pay_ok">订单已完成</b></p>
+
+  </li>
+  <li class="orders_pay_img">
+    <ol>
+      <li>
+        <a href="####">
+          <img src="img/04.jpg"/>
+        </a>
+      </li>
+      <li>
+        <a href="####">
+          <img src="img/04.jpg"/>
+        </a>
+      </li>
+      <li>
+        <a href="####">
+          <img src="img/04.jpg"/>
+        </a>
+      </li>
+      <li>
+        <a href="####">
+          <img src="img/04.jpg"/>
+        </a>
+      </li>
+    </ol>
+  </li>
+  <li class="orders_pay_money">
+    <ol>
+      <li>合计:</li>
+      <li>￥118</li>
+      <li>共<b>4</b>件商品</li>
+    </ol>
+  </li>
+  <li class="orders_pay_click">
+    <button class="order_pay_for">去支付</button>
+  </li>
+</ul>
+<ul class="orders_pay clearfix">
+  <li class="orders_pay_dd">
+    <p><label>订单号：</label><span>2151816</span><b>等待收货</b></p>
+
+  </li>
+  <div  class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <a href="####">
+          <img src="img/04.jpg"/>
+        </a>
+      </div>
+      <div class="swiper-slide">
+        <a href="####">
+          <img src="img/04.jpg"/>
+        </a>
+      </div>
+      <div class="swiper-slide">
+        <a href="####">
+          <img src="img/04.jpg"/>
+        </a>
+      </div>
+      <div class="swiper-slide">
+        <a href="####">
+          <img src="img/04.jpg"/>
+        </a>
+      </div>
+    </div>
+  </div>
+  <li class="orders_pay_money">
+    <ol>
+      <li>合计:</li>
+      <li>￥118</li>
+      <li>共<b>4</b>件商品</li>
+    </ol>
+  </li>
+  <li class="orders_pay_click">
+    <button class="order_pay_for">确认收货</button>
+    <button id="order_pay_wl1">查看物流</button>
+  </li>
+</ul>
+<div class="swiper-container">
+
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">Slide 1</div>
+      <div class="swiper-slide">Slide 2</div>
+      <div class="swiper-slide">Slide 3</div>
+      <div class="swiper-slide">Slide 4</div>
+      <div class="swiper-slide">Slide 5</div>
+      <div class="swiper-slide">Slide 6</div>
+      <div class="swiper-slide">Slide 7</div>
+      <div class="swiper-slide">Slide 8</div>
+      <div class="swiper-slide">Slide 9</div>
+      <div class="swiper-slide">Slide 10</div>
+    </div>
+
+
+</div>
+<div id="whitee">
+
+</div>

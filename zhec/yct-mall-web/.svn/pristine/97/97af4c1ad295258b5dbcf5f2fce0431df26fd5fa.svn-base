@@ -1,0 +1,47 @@
+function newsListController($scope, $http, $q, newsListService, ngDialog, $stateParams, $rootScope) {
+	$scope.isActiveId = 1;
+	$scope.newId = "";
+	$scope.findnews = function(type) {
+		$scope.isActiveId = type;
+		$scope.nesdetail = true;
+		switch(type) {
+			case 1:
+				$scope.newdata = "公司公告";
+				break;
+			case 2:
+				$scope.newdata = "公司新闻";
+				break;
+			case 3:
+				$scope.newdata = "行业新闻";
+				break;
+		}
+		newsListService
+			.findnews(type)
+			.then(function(result) {
+				console.log(result)
+				$scope.newlist = result.data;
+			})
+	}
+	//详情
+	$scope.newsdetail = function(newsId) {
+		$scope.newId = newsId;
+		newsListService
+			.newsdetail(newsId)
+			.then(function(result) {
+				$scope.newdetail = result.data;
+			//	$("#detail-conyer").html($scope.newdetail.content);
+				$scope.nesdetail = false;
+			})
+	}
+	$scope.findnews(1);
+	switch ($stateParams.newsTypeId){
+		case '1':
+			$scope.findnews(1);
+			break;
+		case '2':
+			$scope.findnews(2);
+			break;
+	}
+}
+
+app.controller('newsListController', newsListController);

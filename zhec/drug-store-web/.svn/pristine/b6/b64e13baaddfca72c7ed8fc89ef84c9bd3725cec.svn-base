@@ -1,0 +1,259 @@
+<style type="text/css">
+	.table-striped>tbody>tr:nth-of-type(odd) {
+		background-color: #f9f9f9;
+	}
+
+	.table-striped>tbody>tr {
+		background-color: #f9f9f9;
+	}
+
+	.singleclick {
+		background-color: #c5c5f7 !important;
+	}
+
+	.dbclick {
+		background-color: #7e9ec8 !important;
+	}
+
+	.zhende {
+		background-color: #cdcdcd !important;
+		color: #9d9a9a !important;
+	}
+	/*.back-active>a{
+		background-color: #ccc !important;
+	}*/
+</style>
+
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">商品详情</h1>
+	</div>
+	<div class="modal-body">
+		<!-- 标签页start -->
+		<ul class="nav nav-tabs">
+			<!--  class="active" -->
+			<li class="active" ng-click="onClickTab('basicInformation.html')" ng-class="currentTab=='basicInformation.html'?'back-active':''">
+				<a data-toggle="tab"> 基本信息 </a>
+			</li>
+			<li ng-click="onClickTab('instruction.html')" ng-class="currentTab=='instruction.html'?'back-active':''">
+				<a data-toggle="tab"> 说明书 </a>
+			</li>
+			<li ng-click="onClickTab('goodsinfoimages.html')" ng-class="currentTab=='goodsinfoimages.html'?'back-active':''">
+				<a data-toggle="tab"> 轮播图 </a>
+			</li>
+		</ul>
+		<div id="mainView">
+			<div ng-include="currentTab"></div>
+		</div>
+		<!-- 说明书 -->
+		<script type="text/ng-template" id="instruction.html">
+			<div>
+				<element ng-bind-html="dataEntity.instruction | trust2Html"></element>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" ng-click="cancelModal()">
+									<span class="glyphicon glyphicon-share-alt"></span> 取消
+							</button>
+			</div>
+		</script>
+		<!-- 轮播图 -->
+		<script type="text/ng-template" id="goodsinfoimages.html">
+			<div>
+				<ul class="form-horizontal">
+					<li class="list-group-item" ng-repeat="img in dataInfoImages track by $index">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">上传的图片:</label>
+
+							<div ng-class="{true: 'col-sm-2', false: 'col-sm-5'}[$index===0]">
+								<input type="text" class="form-control" ng-model="img.imagePath" ng-hide="true">
+								<img my-img ng-src="{{img.imagePath}}" onerror="javascript:this.src='../../img/loadding.gif';" alt="努力加载中..." style="width: 50px" />
+							</div>
+							<div class="col-sm-3" style="text-align: center;padding-top: 10px;" ng-if="$index===0">
+								<small>注：首张图片是主图</small>
+							</div>
+							<div class="col-sm-3">
+								<input type="radio" ng-checked="img.status=='1'" name="{{'state'+$index}}" disabled>&nbsp;启用&nbsp;
+	              <input type="radio" ng-checked="img.status=='0'" name="{{'state'+$index}}" disabled>&nbsp;不启用&nbsp;
+							</div>
+							<div class="col-sm-2">
+								<span class="form-control" style="border:none;" ng-bind="'排序号:  '+img.sort"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" ng-click="cancelModal()">
+									<span class="glyphicon glyphicon-share-alt"></span> 取消
+							</button>
+			</div>
+		</script>
+		<!-- 基本信息 -->
+		<script type="text/ng-template" id="basicInformation.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">分类选择：</label>
+
+							<div class="col-sm-3">
+								<select ng-model="$parent.brandList" disabled class="form-control" ng-options="x.cateName for x in allCateList" ng-change="clickone($parent.brandList.childrenList)">
+									<option value="">--请选择一级分类--</option>
+								</select>
+							</div>
+							<div class="col-sm-3">
+								<select ng-model="$parent.brandLtId" disabled class="form-control" ng-options="x.cateName for x in secCateList" ng-change="clicktwo($parent.brandLtId.childrenList)">
+									<option value="">--请选择二级分类--</option>
+								</select>
+							</div>
+							<div class="col-sm-3">
+								<select ng-model="$parent.brandLtaId" disabled class="form-control" ng-options="x.cateName for x in thirdCateList" ng-change="clickThird($parent.brandLtaId)">
+									<option value="">--请选择三级分类--</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">分类名称：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" placeholder="分类ID" ng-bind="dataEntity.goodsCate"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品名称：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.name1"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品简介：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.name2"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品关键字：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.keyword"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品条形码：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.barCode"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品类型：</label>
+
+							<div class="col-sm-10">
+								<input type="radio" name="goodsType" disabled ng-checked="dataEntity.goodsType=='1'">&nbsp;处方药&nbsp;
+								<input type="radio" name="goodsType" disabled ng-checked="dataEntity.goodsType=='2'">&nbsp;非处方药&nbsp;
+								<input type="radio" disabled name="goodsType" ng-checked="dataEntity.goodsType=='3'">&nbsp;其它&nbsp;
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">生产厂家：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.factory"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">品牌：</label>
+
+							<div class="col-sm-10">
+								<select ng-model="dataEntity.goodsBrandId" ng-verify="option:0" class="form-control" ng-options="x.brandId as x.brandName for x in brandNameList" disabled>
+									<option value="">--请选择--</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">包装：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.packing"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品售价：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind='dataEntity.salesPrice'=""></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">排序号：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.sort"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">单品规格信息：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.specification"></span>
+							</div>
+						</div>
+						<!-- <div class="form-group">
+							<label class="col-sm-2 control-label">商户：</label>
+
+							<div class="col-sm-10">
+								<div class='col-sm-5' style="padding-left: 0px;">
+									<select disabled ng-model="dataEntity.chainId" class="form-control" ng-options="x.chainId as x.chainName for x in drugAllNameList" ng-change="drugstoreById(dataEntity.chainId)">
+										<option value="">--请选择连锁店--</option>
+									</select>
+								</div>
+								<div class='col-sm-5'>
+									<select disabled ng-model="dataEntity.storeId" class="form-control" ng-options="x.drugstoreId as x.drugstoreName for x in drugSecondNameList">
+										<option value="">--请选择药店--</option>
+									</select>
+								</div>
+							</div>
+						</div> -->
+						<div class="form-group">
+							<label class="col-sm-2 control-label">库存单位：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.unit"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">重量(单位:g)：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.weight"></span>
+							</div>
+						</div>
+
+						<div class="form-group" ng-if="dataId">
+							<label class="col-sm-2 control-label">SKU：</label>
+
+							<div class="col-sm-10">
+								<span class="form-control" ng-bind="dataEntity.sku"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+	</div>
+
+</div>

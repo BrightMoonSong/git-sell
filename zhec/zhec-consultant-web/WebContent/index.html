@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app="managerApp">
+
+<head>
+	
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Page title set in pageTitle directive -->
+    <title page-title></title>
+	<script type="text/javascript" src="js/zhecConfig.js"></script>
+	<script src="js/My97DatePicker/WdatePicker.js"></script>
+	<script language="javascript">
+		if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlConsultant)){
+			
+		}else{
+			var strDelete = publicUrlConsultant.split("/consultant");
+			publicUrlConsultant = strDelete[0] + strDelete[1];
+		}
+		document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlConsultant+"favicon.ico>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlConsultant+"font-awesome/css/font-awesome.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlConsultant+"css/bootstrap.min.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlConsultant+"css/animate.css>");
+//		document.write("<link rel=\"stylesheet\" href="+publicUrlConsultant+"js/My97DatePicker/skin/WdatePicker.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlConsultant+"css/style.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlConsultant+"css/main.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlConsultant+"css/ngVerify.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlConsultant+"css/plugins/ngDialog/ngDialog.min.css>");
+		document.write("<link rel=\"stylesheet\" href="+publicUrlConsultant+"css/plugins/ngDialog/ngDialog-theme-default.min.css>");
+		
+		document.write("<script src="+publicUrlConsultant+"js/jquery/jquery-2.1.1.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/jquery-ui/jquery-ui.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/bootstrap/bootstrap.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/metisMenu/jquery.metisMenu.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/slimscroll/jquery.slimscroll.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/pace/pace.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/initview.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/angular/angular.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/oclazyload/dist/ocLazyLoad.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/ui-router/angular-ui-router.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/bootstrap/ui-bootstrap-tpls-1.1.2.min.js><\/script>");
+	    document.write("<script src="+publicUrlConsultant+"js/angular/angular-resource.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/ngVerify/ngVerify.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/My97DatePicker/WdatePicker.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/ngDialog/ngDialog.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/angular-qr/bower_components/qrcode/lib/qrcode.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/plugins/angular-qr/angular-qr.min.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/app.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/config.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/router.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/directives.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/controllers.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/interceptor.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/jump.js><\/script>");
+		
+		document.write("<script src="+publicUrlConsultant+"js/services/common/functionService.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/controllers/common/functionController.js><\/script>");
+		document.write("<script src="+publicUrlConsultant+"js/controllers/common/topnavbarController.js><\/script>");
+//			document.write("<script src="+publicUrlConsultant+"js/jump.js><\/script>");
+	</script>
+    <!-- Font awesome -->
+    <!--<link href="font-awesome/css/font-awesome.css" rel="stylesheet">-->
+
+    <!-- Bootstrap and Fonts -->
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
+    
+    <!-- Main Inspinia CSS files -->
+    <!--<link href="css/animate.css" rel="stylesheet">
+    <link id="loadBefore" href="css/style.css" rel="stylesheet">
+    <link id="loadBefore" href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/ngVerify.css">-->
+    
+    <!-- ngDialog -->
+    <!--<link id="loadBefore" href="css/plugins/ngDialog/ngDialog.min.css" rel="stylesheet">
+    <link id="loadBefore" href="css/plugins/ngDialog/ngDialog-theme-default.min.css" rel="stylesheet">-->
+</head>
+
+<!-- ControllerAs syntax -->
+<!-- Main controller with serveral data used in Inspinia theme on diferent view -->
+<body ng-controller="MainCtrl as main">
+
+<!-- Main view  -->
+<div ui-view></div>
+
+<!-- My97DatePicker -->
+<!--<script src="js/My97DatePicker/WdatePicker.js"></script>-->
+<!-- jQuery and Bootstrap -->
+<!--<script src="js/jquery/jquery-2.1.1.min.js"></script>
+<script src="js/plugins/jquery-ui/jquery-ui.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>-->
+
+<!-- MetsiMenu -->
+<!--<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>-->
+
+<!-- SlimScroll -->
+<!--<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>-->
+
+<!-- Peace JS -->
+<!--<script src="js/plugins/pace/pace.min.js"></script>-->
+
+<!-- Custom and plugin javascript -->
+<!--<script src="js/initview.js"></script>-->
+
+<!-- Main Angular scripts-->
+<!--<script src="js/angular/angular.min.js"></script>
+<script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+<script src="js/plugins/ui-router/angular-ui-router.min.js"></script>
+<script src="js/bootstrap/ui-bootstrap-tpls-1.1.2.min.js"></script>
+<script src="js/angular/angular-resource.min.js"></script>-->
+<!-- ngVerify -->
+<!--<script src="js/plugins/ngVerify/ngVerify.js"></script>-->
+<!-- ngDialog -->
+<!--<script src="js/plugins/ngDialog/ngDialog.min.js"></script>-->
+<!-- qrCode -->
+<!--<script src="js/plugins/angular-qr/bower_components/qrcode/lib/qrcode.min.js"></script>
+<script src="js/plugins/angular-qr/angular-qr.min.js"></script>-->
+
+<!-- Anglar App Script -->
+<!--<script src="js/app.js"></script>
+<script src="js/zhecConfig.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/config.js"></script>
+<script src="js/router.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/interceptor.js"></script>
+<script src="js/jump.js"></script>-->
+<!--
+<script src="js/services/common/functionService.js"></script>
+<script src="js/controllers/common/functionController.js"></script>
+<script src="js/controllers/common/topnavbarController.js"></script>-->
+</body>
+</html>

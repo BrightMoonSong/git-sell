@@ -1,0 +1,41 @@
+<div class="fix_foot">
+	<ol class="fix_foot_ol">
+		<li>
+			<a href="#/main/index" ng-click="checkPage(0)">
+				<img ng-if="clickPage == 0" src="img/logo.png" />
+				<img ng-if="clickPage != 0" src="img/sy2.png" />
+				<p>首页</p>
+			</a>
+		</li>
+		<li>
+			<a href="#/main/list" ng-click="checkPage(1)">
+				<img ng-if="clickPage == 1" src="img/fl1.png" />
+				<img ng-if="clickPage != 1" src="img/fl2.png" />
+				<p>分类</p>
+			</a>
+		</li>
+		
+		<li>
+			<a href="#/main/cart" ng-click="checkPage(2)">
+				<img ng-if="clickPage == 2" src="img/gwc1.png" />
+				<img ng-if="clickPage != 2" src="img/gwc.png" />
+				<p>购物车</p>
+			</a>
+		</li>
+		<li>
+			<a href="#/main/orderlist" ng-click="checkPage(3)">
+				<img ng-if="clickPage == 3" src="img/dd1.png" />
+				<img ng-if="clickPage != 3" src="img/dd2.png" />
+				<p>订单</p>
+			</a>
+		</li>
+		<li>
+			<a href="#/main/mine" ng-click="checkPage(4)">
+				<img ng-if="clickPage == 4" src="img/wd1.png" />
+				<img ng-if="clickPage != 4" src="img/wd2.png" />
+				<p>我的</p>
+			</a>
+		</li>
+	</ol>
+</div>
+

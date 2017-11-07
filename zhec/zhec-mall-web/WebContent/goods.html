@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html ng-app="goodsApp" ng-controller="goodsController">
+
+	<head>
+		<meta charset="UTF-8">
+		<title ng-bind="goodsDetail.name1+' - 鹿医生'"></title>
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script language="javascript">
+			if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+				
+			}else{
+				var strDelete = publicUrlMall.split("/mall");
+				publicUrlMall = strDelete[0] + strDelete[1];
+			}
+			document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/goods/goods.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/jDialog/jDialog.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog.min.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/plugins/ngVerify/ngVerify.css>");
+			
+			document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+			
+			document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/ngDialog/ngDialog.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/ngVerify/ngVerify.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/interceptor.js><\/script>");
+			
+			
+			document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/goods/goodsConfig.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jDialog/jDialog.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/goods/goodsController.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/services/goods/goodsservice.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/me-lazyload/me-lazyload.js><\/script>");
+			
+		</script>
+		
+		
+		<!--<link rel="shortcut icon" type="image/ico" href="/favicon.ico">-->
+		
+		
+		<!--<link rel="stylesheet" href="stylesheets/screen.css" />-->
+		<!--<link rel="stylesheet" href="stylesheets/goods/goods.css" />-->
+
+		<!-- jDialog -->
+		<!--<script type="text/javascript" src="js/common/CommonService.js"></script>-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/jDialog/jDialog.css" type="text/css">-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog.min.css" type="text/css">-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css" type="text/css">-->
+		<!--<link rel="stylesheet" href="stylesheets/plugins/ngVerify/ngVerify.css" />-->
+		<!--<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>-->
+		<!--<script src="js/plugins/angular/angular.min.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/directives.js"></script>-->
+		
+		
+		<!-- End Piwik Code -->
+		<!--<script type="text/javascript" src="js/plugins/jDialog/jDialog.js"></script>-->
+		<!--<script src="js/common/CommonFilter.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/controllers/goods/goodsConfig.js"></script>-->
+		<!-- ngDialog -->
+		<!--<script src="js/plugins/ngDialog/ngDialog.min.js"></script>
+		<script src="js/plugins/ngVerify/ngVerify.js" type="text/javascript" charset="utf-8"></script>-->
+		<!-- cookie -->
+		<!--<script type="text/javascript" src="js/common/cookie.js"></script>
+		<script type="text/javascript" src="js/common/zhec.js"></script>-->
+		<!-- Piwik -->
+		<!--<script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/common/interceptor.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script type="text/javascript" src="js/controllers/goods/goodsController.js"></script>-->
+		<!--<script type="text/javascript" src="js/services/goods/goodsservice.js"></script>-->
+		<!--<script type="text/javascript" src="js/plugins/me-lazyload/me-lazyload.js" ></script>-->
+		<!-- Piwik -->
+		<script type="text/javascript">
+		_paq.push(['addEcommerceItem',  
+		           "22", // (required) SKU: Product unique identifier  
+		           "Endurance: Shackleton's Incredible Voyage", // (optional) Product name  
+		           ["Adventure Books", "Best sellers"], // (optional) Product category, string or array of up to 5 categories  
+		           8.8, // (recommended) Product price  
+		           1 // (optional, default to 1) Product quantity  
+		           ]);  
+		_paq.push(['trackGoal', 4]);
+		</script>
+		<!-- End Piwik Code -->
+	</head>
+
+	<body >
+
+		<headerpage></headerpage>
+		<smallcart></smallcart>
+		<navigation-bar></navigation-bar>
+		<div class="nav_details clearfix">
+			<ul class="nav_head">
+				<li>
+					<a href="index.html">首页 </a>>
+					<li ng-repeat="nav in comeInNav track by $index">
+						<a ng-href="list.html?cat={{nav.id}},1,0,0,0,0" ng-bind="nav.name"></a>
+						<b ng-if="$index != comeInNav.length-1">></b>
+					</li>
+				</li>
+			</ul>
+			<div class="nav_conter nav_img">
+				<div class="preview">
+					<div id="vertical" class="bigImg smallBox">
+						<img id="midimg" lazy-src="{{firstImg}}?x-oss-process=style/l_m" alt="" />
+						<div id="tool" class="tool"></div>
+					</div>
+					<div class="smallImg">
+						<div id="imageMenu">
+							<li ng-click="showBefore()" id="iamge_de_left">
+								<a><img src="images/arrowl.png"></a>
+							</li>
+							<div id="fixedArea">
+								<ul>
+									<li ng-class="{true:'hover', false:''}[$index == 0]" ng-repeat="imgList in goodsDetail.imagesList">
+										<img ng-mouseover="changePath(imgList.imagePath,$event)" lazy-src="{{imgList.imagePath}}?x-oss-process=style/l_s" alt="" />
+									</li>
+									
+								</ul>
+							</div>
+							<li ng-click="showMore()" id="iamge_de_right">
+								<a><img src="images/arrowr.png"></a>
+							</li>
+						</div>
+					</div>
+					<ol class="goods_shchang">
+						<li>
+							<!--<img ng-if="ifCollection == true" ng-click="joinCollection()" src="images/sc.png"/>-->
+							<img ng-click="joinCollection()" lazy-src="{{collectPic}}"/>
+							<span style="cursor:pointer;" ng-click="joinCollection()">收藏商品</span>
+						</li>
+						<li>
+							<img ng-click="goToShare(goodsId)" src="../../images/hytg.png"/>
+						</li>
+					</ol>
+					<div id="bigView" class="bigBox">
+						<img id="bigImg" lazy-src="{{firstImg}}?x-oss-process=style/l_b" alt="" />
+					</div>
+				</div>
+			</div>
+
+			<div class="nav_conter nav_product">
+				<ul>
+					<li class="nav_product_one showHide" style="display: none;">
+						<b ng-if="goodsDetail.goodsType ==1" class="prePic">
+							<img  src="images/prescription.png"  class="goods_rx_blue"/>
+							<!--<img ng-show="goodsDetail.goodsType == 3||goodsDetail.goodsType == 4||goodsDetail.goodsType == 5" src="images/anesthesia.png"  class="goods_rx_ren" />-->
+						</b>
+						<span ng-bind="goodsDetail.name1" data-name1="{{goodsDetail.name1}}"></span>
+					</li>
+					<li class="nav_product_two" ng-bind="goodsDetail.name2"></li>
+					
+					<li class="nav_product_four showHide" style="display: none;">
+						<p ng-if="goodsPromotionList.length==0" >
+							<lable style="float:left" >商城价：</lable>
+							<b style="font-size: 28px;color: #FF9900;"  ng-bind="zhPrice | priceFormatFilter"></b>
+						</p>
+						<p ng-if="goodsPromotionList.length==0">
+							<lable style="float:left">市场价：</lable>
+							<span>
+								<b ng-bind="goodsDetail.marketPrice | priceFormatFilter"></b>
+							</span>
+						</p>
+						<p ng-if="goodsPromotionList.length>0">
+							
+							<lable class="showPromption" style="float:left" >促销价：</lable>
+							<span class="showPromption" style="font-size: 28px;color: #FF9900;">
+								<b ng-bind="promptionPrice | priceFormatFilter"></b>
+							</span>
+						</p>
+						<p ng-if="goodsPromotionList.length>0" class="showPromption"> 
+							<lable style="float:left">原价：</lable>
+							<span>
+								<b ng-bind="zhPrice | priceFormatFilter"></b>
+							</span>
+						</p>
+						<div class="showHide" style="display: none;">
+							<!--<lable style="float:left" ng-if="ordersPromotionList.length!=0">促销：</lable>-->
+							<div ng-if="ordersPromotionList.length!=0" class="goods_spanm" ng-repeat="ordersPromotion in ordersPromotionList">
+								<b>满减</b>
+								<b ng-bind="'满'+ordersPromotion.threshold+'减'+ordersPromotion.quota"></b>
+								<!--<b ng-bind="ordersPromotion.promotionName"></b>-->
+							</div>
+							<div ng-if="couponsPromotionList.length!=0" class="goods_spany clearfix" ng-repeat="couponsPromotion in couponsPromotionList">
+								<!--<div class="goods_spanyq"></div>-->
+								<div class="goods_spanyd">
+									<div ng-bind="couponsPromotion.quota"></div>
+									<div>优惠券</div>
+								</div>
+								<div class="goods_spanyqm" ng-bind="'满'+couponsPromotion.threshold+'减'+couponsPromotion.quota"></div>
+							</div>
+						</div>
+					</li>
+					<li class="nav_product_yplx nav_product_five">
+						<p>
+							<lable style="float:left">药品类型：</lable>
+							<span ng-if="goodsDetail.goodsType == 2">非处方</span>
+							<span ng-if="goodsDetail.goodsType == 1">处方药</span>
+							<span ng-if="goodsDetail.goodsType == 3">其它</span>
+						</p>
+					</li>
+					<li class="nav_product_sfyb nav_product_five">
+						<p>
+							<lable style="float:left">是否医保：</lable>
+							<span ng-if="goodsDetail.isHealthInsurance == 0">非医保</span>
+							<span ng-if="goodsDetail.isHealthInsurance != 0">医保</span>
+						</p>
+					</li>
+					<li class="nav_product_five">
+						<p>
+							<lable style="float:left">生产企业：</lable>
+							<span ng-bind="goodsDetail.factory"></span>
+						</p>
+					</li>
+					<li class="nav_product_five">
+						<p>
+							<lable style="float:left">商品规格：</lable>
+							<span ng-bind="goodsDetail.specification"></span>
+						</p>
+					</li>
+					<!--<li class="nav_product_gg_goods clearfix">
+						<div>
+							<label>规格：</label>
+							<div class="clearfix">
+								<a >
+								<img src="images/4f7afb76a7eeadcc968d75b04e1a1283.jpg" />
+								<span>大美女</span>
+								<i class="nav_product_gg_goods_i"></i>
+								<b></b>
+								</a>
+							<a class="nav_product_gg_goods_a">
+								<img src="images/4f7afb76a7eeadcc968d75b04e1a1283.jpg" />
+								<span>11g*85*20</span>
+								<i ></i>
+								<b class="nav_product_gg_goods_fc"></b>
+							</a>
+							<a>
+								<img src="images/4f7afb76a7eeadcc968d75b04e1a1283.jpg" />
+								<span>111g*855*202</span>
+								<i></i>
+								<b></b>
+							</a>
+							</div>
+						</div>
+					</li>-->
+					<li class="nav_product_border">
+						<li class="nav_product_six"  ng-repeat="(key,value) in spcInfo">
+							<label ng-bind="key+'：'"></label>
+							<ol id="slectSpe" >
+								<li ng-mouseover="hoverSpc(1,productitem.stock,$event)" ng-class="{true: 'color_bor  slectSpe', false: 'slectSpe'}[specAttrIds.contains(spcMessage.split(':')[0])]" ng-repeat="spcMessage in value">
+									<b ng-click="changeType(1,spcMessage.split(':')[0],$event,key)" ng-bind="spcMessage.split(':')[1]"></b>
+								</li>
+							</ol>
+						</li>
+					</li>
+					
+					<li class="nav_product_seven">
+						<ol>
+							<li>
+								<label for="">数量：</label>
+							</li>
+							<li>
+								<ul>
+									<li>
+										<input class="goodsNum" ng-model="goodsNum" value="1" readonly="true" type="text" />
+									</li>
+									<li class="addNum">
+										<button ng-click="goodsNum=goodsNum+1;limitStock(goodsNum)" ng-disabled="goodsNum>=200 || goodsStatus != 6 || goodsNum > initStock"><img ng-if="initStock >=1" lazy-src="images/upallow.png"><img ng-if="initStock <1 || goodsStatus != 6" lazy-src="images/upnotallow.png" /></button>
+									</li>
+									<li class="downNum">
+										<button ng-click="goodsNum=goodsNum-1" ng-disabled="goodsStatus != 6 || goodsNum<=1"><img ng-if="initStock >1 && goodsNum>1" lazy-src="images/downallow.png"><img ng-if="goodsNum<=1 || initStock <1" lazy-src="images/downnotallow.png" /></button>
+									</li>
+								</ul>
+							</li>
+							<li  class="showHide"  style="color:red;display: none;"><b ng-if="flag == true && goodsDetail.state == 6">无货</b><b ng-if="goodsDetail.state != 6">该商品已下架</b>
+							</li>
+						</ol>
+						<li class="nav_product_nine showHide" ng-if="goodsDetail.goodsType != 1" style="display: none;">
+							<button ng-click="nowBuy(1)"  ng-disabled="flag1==true || flag==true || goodsDetail.state != 6 || okModalDisabled" ng-class="{true: 'notAllow', false: 'allowClick nav_product_nine_button'}[flag1==true ||flag == true || goodsDetail.state == 2]">立即购买</button>
+							<button ng-click="joinCart()" ng-disabled="flag1==true ||flag==true || goodsDetail.state != 6 || okModalDisabled" ng-class="{true: 'notAllow', false: 'allowClick nav_product_nine_button'}[flag1==true ||flag == true || goodsDetail.state == 2]">加入购物车</button>
+						</li>
+						<li class="nav_product_input showHide" ng-show="goodsDetail.goodsType == 1" style="display: none;">
+							<p>
+								<b>提示：</b> 您购买的是处方药，请先输入手机号，我站客服将回电给您。
+							</p>
+							<input type="text" id="searchBox" ng-model="myMobile" class="search-box inputPhone" placeholder="请输入电话或手机号" />
+							<button class="Phone" ng-disabled="okModalDisabled || flag==true || goodsDetail.state != 6" ng-click="submitInputMessage1(1)" ng-disabled="flag==true || goodsDetail.state != 6" ng-class="{true: 'notAllow', false: 'allowClick '}[flag1==true ||flag == true || goodsDetail.state == 2]">提交</button>
+							<button class="Need" ng-click="openDetail()" ng-disabled="flag==true || goodsDetail.state != 6" ng-class="{true: 'notAllow', false: 'allowClick '}[flag1==true ||flag == true || goodsDetail.state == 2]">需求登记</button>
+						</li>
+						<li class="nav_product_ten">
+							<ol>
+								<li><label for="">支付方式：</label></li>
+								<li><i></i><span>余额</span></li>
+								<li><i></i><span>微信</span></li>
+								<li><i></i><span>支付宝</span></li>
+								<li><i></i><span>银联</span></li>
+							</ol>
+						</li>
+					</li>
+				</ul>
+			</div>
+			<li class="nav_conter nav_service">
+				<ul>
+					<li>
+						<ol>
+							<li><i></i>
+								<p>正品保证</p>
+							</li>
+							<li><i></i>
+								<p>专业药师</p>
+							</li>
+							<li><i></i>
+								<p>优质服务</p>
+							</li>
+						</ol>
+					</li>
+					<li>
+						<ol>
+							<li>
+								<p>
+									订购热线：
+								</p>
+								<p>
+									<img src="images/ph.png" alt="" /> 400-8811-020
+								</p>
+
+							</li>
+							<li>
+								<p>
+									售后热线：
+								</p>
+								<p>
+									<img src="images/ph.png" alt="" /> 400-8811-020
+								</p>
+							</li>
+						</ol>
+					</li>
+					<li>
+						<ol>
+							<li>
+								<p>
+									鹿医生健康商城手机APP下载
+								</p>
+							</li>
+							<li>
+								<i></i>
+								<i></i>
+							</li>
+							<li>
+								<p>IOS</p>
+								<p>
+									安卓
+								</p>
+							</li>
+						</ol>
+					</li>
+				</ul>
+			</li>
+		</div>
+		<!--<promptpublick aa="sayHi(promptMessage(101))"></promptpublick>-->
+		<div class="conter clearfix">
+			<ul class="conter_ul clearfix">
+				<li class="conter_left conter_li">
+					<ul class="conter_left_ula clearfix">
+						<li ng-repeat="goodsLeft in goodsinleft">
+							<a href={{goodsLeft.imageLink}} target="_blank"><img lazy-src="{{goodsLeft.imageUrl}}" /></a>
+						</li>
+					</ul>
+				</li>
+				<li class="conter_right conter_li">
+					<ul class="conter_right_ul clearfix">
+						<li class="fixNavTop">
+							<ul class="conter_right_ul_ulde getHeight">
+								<li ng-click="changeMessage(0,$event)" ng-class="{true: 'showSelect', false: ''}[currentShowMessage == 0]">商品信息<i></i></li>
+								<li ng-repeat="(key,value) in propsInfo" ng-if="key!='默认分组'" ng-click="changeMessage(1,$event)" ng-class="{true: 'showSelect', false: ''}[currentShowMessage == 1]">规格与包装<i></i></li>
+								<li ng-click="changeMessage(2,$event)" ng-class="{true: 'showSelect', false: ''}[currentShowMessage == 2]">说明书<i></i></li>
+								<li ng-click="changeMessage(3,$event)" ng-class="{true: 'showSelect', false: ''}[currentShowMessage == 3]">售后说明<i></i></li>
+								<li ng-click="changeMessage(4,$event)" ng-class="{true: 'showSelect', false: ''}[currentShowMessage == 4]">关于我们<i></i></li>
+							</ul>
+						</li>
+						<li class="clickShow" id="allHeight">
+							<ul class="conter_product">
+								<li class="selfAdapt clearfix">
+									<ol class="clearfix">
+										<li  ng-repeat="(key,value) in propsInfo" ng-if="key=='默认分组'" class="clearfix">
+											<ul class="clearfix">
+												<li ng-repeat="propsInfoList in value" class="clearfix goods_shop_xx">
+													<ol ng-repeat="(key1,value1) in propsInfoList">
+														<label  for="" ng-bind="key1+'：'"></label>
+														<span  ng-bind="value1"></span>
+													</ol>
+												</li>
+											</ul>
+											
+										</li>
+										<!--<li ng-repeat="attrItem in goodsDetail.attrList">
+											<label for="" ng-bind="attrItem.name+'：'"></label>
+											<span ng-bind="attrItem.value"></span>
+										</li>-->
+									</ol>
+								</li>
+								<li class="clearfix getGoodsMessageHei">
+									<ol class="clearfix">
+										<li>
+											<i></i>
+											<span>实物展示：</span>
+										</li>
+										<li class="clearfix">
+											<ul class="clearfix description">
+												
+											</ul>
+										</li>
+									</ol>
+								</li>
+							</ul>
+							<ul class="direction conter_product getGoodsMessageHei conter_product_gg_bz_all">
+
+								<li  ng-repeat="(key,value) in propsInfo" ng-if="key!='默认分组'" id="conter_product_gg_bz">
+									<label for="" ng-bind="key"></label>
+									<span ng-repeat="propsInfoList in  value">
+										<span ng-repeat="(key1,value1) in propsInfoList">
+											<b  for="" ng-bind="key1+'：'"></b>
+											<i  ng-bind="value1"></i>
+										</span>
+										
+									</span>
+								</li>
+							</ul>
+							<ul class="direction conter_product getGoodsMessageHei">
+								<li class="instruction instruction_zm" id="instruction_zm"></li>
+							</ul>
+							<ul class="Aftermarket conter_product getGoodsMessageHei">
+								<li class="">这里是售后</li>
+							</ul>
+							<ul class="regarding conter_product getGoodsMessageHei">
+								<li class="">这里是关于</li>
+							</ul>
+							<div class="goosdetailMessage">
+								<!--<ul>
+									<li class="details_ly_one">
+										<img lazy-src="{{firstImg}}" alt="" />
+									</li>
+									<li class="details_ly_two">
+										<p ng-bind="goodsDetail.name1"></p>
+									</li>
+									<li class="details_ly_three" ng-if="goodsDetail.goodsType == 1 || goodsDetail.goodsType == 0">
+										<b class="zhPrice1" ng-bind="zhPrice1 | priceFormatFilter"></b>
+									</li>
+									<li class="details_ly_four clearfix" ng-if="goodsDetail.goodsType == 1 || goodsDetail.goodsType == 0">
+										<label for="" ng-bind="spcName"></label>
+										<ol id="slectSpe">
+											<li ng-if="goodsDetail.productList.length >= 2" ng-mouseover="hoverSpc(2,productitem.stock,$event)" ng-class="{true: 'color_bor  slectSpe1', false: 'slectSpe1'}[productitem.isSelected == 1]" ng-repeat="productitem in goodsDetail.productList">
+												<button ng-click="changeType(2,productitem.specName,productitem.salesWebPrice,productitem.stock,productitem.id,$event)" ng-bind="productitem.specAttrName"></button>
+											</li>
+										</ol>
+									</li>
+									<li class="details_ly_five" ng-if="goodsDetail.goodsType == 1 || goodsDetail.goodsType == 0">
+										<ol>
+											<li>
+												<label for="">数量：</label>
+											</li>
+											<li>
+												<ul>
+													<li>
+														<input ng-model="goodsNum" value="1" class="goodsNum" readonly="true" type="text" />
+													</li>
+													<li class="addNum">
+														<button ng-click="goodsNum=goodsNum+1" ng-disabled="goodsNum>=200 || goodsStatus != 6 || goodsNum >= initStock1"></button>
+													</li>
+													<li class="downNum">
+														<button ng-click="goodsNum=goodsNum-1" ng-disabled="goodsStatus != 6 || goodsNum<=1 "></button>
+													</li>
+
+												</ul>
+											</li>
+										</ol>
+									</li>
+									<li class="details_ly_six" ng-if="goodsDetail.goodsType == 1 || goodsDetail.goodsType == 0">
+										<button class="nowBuy" ng-click="nowBuy(2)" ng-disabled="flag==true || goodsDetail.state != 6" ng-class="{true: 'notAllow', false: 'allowClick '}[flag == true || goodsDetail.state == 2]">立即购买</button>
+										<button class="joinCart1" ng-click="joinCart(2)" ng-disabled="flag==true || goodsDetail.state != 6" ng-class="{true: 'notAllow', false: 'allowClick '}[flag == true || goodsDetail.state == 2]">加入购物车</button>
+									</li>
+								</ul>-->
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<footerpage></footerpage>
+		<div id="shareCover" style="display: none;">
+			<div id="showShare" class="share_div_head">
+				<h1><b>分享</b><img src="images/errow_05.png" ng-click="cancleShare()" alt="" class="share_div_img"/></h1>
+				<ul class="bdsharebuttonbox clearfix">
+					<li>
+						<a  data-id="{{goodsId}}" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+						<p>QQ好友</p>
+					</li>
+					<li>
+						<a  data-id="{{goodsId}}" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+						<p>新浪微博</p>
+					</li>
+					<li>
+						<a  data-id="{{goodsId}}" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+						<p>腾讯微博</p>
+					</li>
+					<li>
+						<a  data-id="{{goodsId}}" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+						<p>人人网</p>
+					</li>
+					<li>
+						<a  data-id="{{goodsId}}" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+						<p>复制网址</p>
+					</li>
+				</ul>
+				<div class="share_button">
+					<button ng-click="cancleShare()">取消</button>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+
+			//全局变量，动态的文章ID
+			var goodsId = ""
+			//绑定所有分享按钮所在A标签的鼠标移入事件，从而获取动态ID
+			
+			$(function() {
+				$(".bdsharebuttonbox a").mouseover(function() {
+					goodsId = $(this).attr("data-id");
+				});
+			});
+		
+			/* 
+			 * 动态设置百度分享URL的函数,具体参数
+			 * cmd为分享目标id,此id指的是插件中分析按钮的ID
+			 *，我们自己的文章ID要通过全局变量获取
+			 * config为当前设置，返回值为更新后的设置。
+			 */
+			function SetShareUrl(cmd, config) {
+				config.bdUrl = constMallLocation + "/goods.html?id="+goodsId;
+				console.log(config.bdUrl)
+				return config;
+			}
+			//插件的配置部分，注意要记得设置onBeforeClick事件，主要用于获取动态的文章ID
+		    window._bd_share_config = {
+		        "common": {
+		            onBeforeClick:SetShareUrl,"bdSnsKey":{},"bdMini":"2"
+		            ,"bdMiniList":false,"bdStyle":"0","bdSize":"24",'bdText':'','searchPic':"1"
+		        }, "share": {}
+		    };
+			//插件的JS加载部分
+			with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+		</script>
+		
+	</body>
+	<script type="text/javascript">
+			
+			
+			function getUrlParam(name) {
+			 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+			 var r = window.location.search.substr(1).match(reg); //匹配目标参数
+			 if (r != null) return unescape(r[2]); return null; //返回参数值
+			}
+			var id = getUrlParam('id');
+			$(document).ready(function() {
+				console.log($(".nav_product_one span").attr("data-name1"))
+			})
+		_paq.push(['trackGoal', 4]);
+		_paq.push(['addEcommerceItem',
+		           id, // (required) SKU: Product unique identifier
+					"Product name", // (optional) Product name
+					["Adventure Books", "Best sellers"], // (optional) Product category, string or array of up to 5 categories
+					8.8, // (recommended) Product price
+					1 // (optional, default to 1) Product quantity
+					]);
+		_paq.push(['trackEcommerceCartUpdate',15.5]); // (required) Cart amount
+		_paq.push(['setEcommerceView',
+		           id, // (required) SKU: Product unique identifier
+		           "Endurance: Shackleton's Incredible Voyage", // (optional) Product name
+		           "Adventure Books", // (optional) Product category, or array of up to 5 categories
+		           20.11 // (optional) Product Price as displayed on the page
+		           ]);
+		_paq.push(['trackPageView']);
+		</script>
+</html>

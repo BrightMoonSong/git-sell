@@ -1,0 +1,63 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title" ng-if="!dataId">添加热门推荐</h1>
+		<h1 class="modal-title" ng-if="dataId">修改专题推荐</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal">
+			<li class="list-group-item" style="background-color: white;">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">商品名称：</label>
+
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-verify="{required:true}" placeholder="商品名称" ng-model="dataEntity.goodsName" readonly="readonly">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">商品图片：</label>
+
+					<div class="col-sm-10">
+						<img my-img onerror="this.src='img/loadding.gif'" ng-src="{{dataEntity.goodsImg}}" alt="..." style="max-width: 40px;max-height: 40px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">商品规格：</label>
+
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-verify="{required:true}" placeholder="商品规格" ng-model="dataEntity.goodsSpec" readonly="readonly">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">商品价格：</label>
+
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-verify="{required:true}" placeholder="商品价格" ng-model="dataEntity.goodsPrice" readonly="readonly">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">药店ID：</label>
+
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-verify="{required:true}" placeholder="药店ID" ng-model="dataEntity.drugstoreId" readonly="readonly">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">排序号(*)：</label>
+
+					<div class="col-sm-10">
+						<input type="number" class="form-control" placeholder="排序号" ng-model="dataEntity.sort" />
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+			<button class="btn btn-success" ng-click="cancelModal2()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+
+</div>

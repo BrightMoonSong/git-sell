@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="loginApp">
+
+<head>
+	<script type="text/javascript">
+		//IE8以及以下
+		if (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") ==
+			"MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+			alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+			window.open(
+				"https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100",
+				"_self");
+		}
+	</script>
+
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+
+	<script language="javascript">
+
+		if (/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)) {
+
+		} else {
+			var strDelete = publicUrlMall.split("/mall");
+			publicUrlMall = strDelete[0] + strDelete[1];
+		}
+		document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href=" + publicUrlMall + "favicon.ico>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/login.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/screen.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/register.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngVerify/ngVerify.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/jDialog/jDialog.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog.min.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/jquery/dist/jquery.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/angular/angular.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/ngDialog/ngDialog.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/cookie.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/zhec.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/login/appLoginConfig.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/Piwik.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/jDialog/jDialog.js><\/script>");
+
+		document.write("<script src=" + publicUrlMall + "js/plugins/oclazyload/dist/ocLazyLoad.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/ngVerify/ngVerify.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/angular-ui-router/release/angular-ui-router.min.js><\/script>");
+	</script>
+
+	<!-- <meta charset="utf-8"> -->
+	<title></title>
+	<!-- <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+	<link rel="stylesheet" href="stylesheets/screen.css" />
+	<link rel="stylesheet" href="stylesheets/login.css" />
+	<link rel="stylesheet" href="stylesheets/register.css" />
+	<link rel="stylesheet" href="stylesheets/plugins/ngVerify/ngVerify.css" /> -->
+	<!-- ngDialog -->
+	<!-- <link href="stylesheets/plugins/ngDialog/ngDialog.min.css" rel="stylesheet">
+	<link href="stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css" rel="stylesheet">
+
+	<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+	<script type="text/javascript" src="js/common/cookie.js"></script>
+	<script type="text/javascript" src="js/common/zhec.js"></script> -->
+	<!-- Piwik -->
+	<!-- <script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script> -->
+	<!-- End Piwik Code -->
+</head>
+
+<body>
+
+	<div ui-view>
+
+	</div>
+
+	<!-- <script src="js/plugins/angular/angular.min.js"></script>
+	<script src="js/plugins/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script> -->
+	<!-- ngVerify -->
+	<!-- <script src="js/plugins/ngVerify/ngVerify.js"></script> -->
+	<!-- ngDialog -->
+	<!-- <script src="js/plugins/ngDialog/ngDialog.min.js"></script>
+
+	<script src="js/login/appLoginConfig.js"></script> -->
+</body>
+<!-- <script type="text/javascript" src="js/login/appLoginConfig.js">
+
+</script> -->
+</html>

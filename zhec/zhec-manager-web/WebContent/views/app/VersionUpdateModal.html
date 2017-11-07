@@ -1,0 +1,59 @@
+<div class="inmodal" name="myform" verify-scope="tipStyle: 2">
+    <div class="modal-header">
+        <h1 class="modal-title">上传新版本APP</h1>
+    </div>
+    <div class="modal-body">
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label   class="radio-inline">
+                      <input type="radio" ng-model="appType" ng-value = "1" name="appType">&nbsp;Android&nbsp;
+                    </label>
+                    <label  class="radio-inline">
+                      <input type="radio" ng-model="appType" ng-value = "2" name="appType">&nbsp;IOS&nbsp;
+                    </label>
+                  </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">APP版本名：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-verify
+                               ng-model="appVersionName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">APP版本号(code)：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-verify
+                               ng-model="appVersionCode">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">下载URL：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-verify
+                               ng-model="apkUrl">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">更新内容：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-verify
+                               ng-model="appVersionDesc">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" ng-click="update()" ng-verify="{control:'myform'}">
+            <span class="glyphicon glyphicon-floppy-disk"></span> 上传
+        </button>
+        <button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span> 取消
+        </button>
+    </div>
+</div>

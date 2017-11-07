@@ -1,0 +1,31 @@
+<div class="conter_con clearfix">
+	<div class="clearfix conter_con_js">
+		<p>结算失败！
+	    <b ng-show="joinFailGoods.status" class="conter_con_js_b" style="color: red;">该商品无货</b>
+		<b ng-hide="joinFailGoods.status" class="conter_con_js_b" style="color: red;" class="conter_con_ul_zt">该商品已下架</b>
+		</p>
+		
+	</div>
+	<div class="conter_con_ul_tc clearfix">
+		<ul>
+			<li></li>
+			<li>商品名称</li>
+			<li>单价（元）</li>
+			<li>状态</li>
+		</ul>
+		<ul class="clearfix">
+			<li>
+				<ol>
+					<li><img ng-src="{{joinFailGoods.masterImg}}"></li>
+					<li ><span ng-bind="joinFailGoods.goodsName"></span><p ng-if="joinFailGoods.specName!=''&&joinFailGoods.specName!=null&&joinFailGoods.specName!=undefined"><b ng-bind="joinFailGoods.specName + ':'"></b><b ng-bind="joinFailGoods.specAttrName"></b></p></li>
+					<li>￥<b ng-bind="joinFailGoods.salesPrice"></b></li>
+					<li ng-show="joinFailGoods.status" style="color: red;" class="conter_con_ul_zt">无货</li>
+					<li ng-hide="joinFailGoods.status" style="color: red;" class="conter_con_ul_zt">下架</li>
+				</ol>
+			</li>
+		</ul>
+	</div>
+	<div class="conter_con_but">
+		<button ng-click="closeModal()">关闭</button>
+	</div>
+</div>

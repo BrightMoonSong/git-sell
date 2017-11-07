@@ -1,0 +1,73 @@
+.edita_conter{
+	width: 100%;
+	margin-top: 0.416rem;
+}
+.edita_conter>ul{
+	width: 100%;
+	height: 4.583rem;
+	margin-bottom: 1px;
+	background: #FFFFFF;
+}
+.edita_conter>ul>li:first-child{
+	width: 17.83%;
+	margin-left: 0.833rem;
+}
+.edita_conter>ul>li{
+	height: 100%;
+}
+.edita_conter>ul>li>label{
+	display: block;
+	font-family: MicrosoftYaHei;
+	font-size: 1.083rem;
+	color: #333333;
+	letter-spacing: 1.01px;
+	line-height: 4.583rem ;
+}
+.edita_conter>ul>li:nth-child(2){
+	width:70.6%;
+}
+.edita_conter>ul>li:nth-child(2)>input{
+	width: 100%;
+	height: 100%;
+	border: 0;
+	outline: medium;
+	text-indent: 1.25rem;
+	font-family: MicrosoftYaHei;
+	font-size: 1.083rem;
+	color: #CCCCCC;
+	letter-spacing: 1.08px;
+}
+#edita_li_img{
+	    height: 100%;
+    float: right;
+    margin-right: 0.833rem;
+}
+#edita_li_img>a{
+	display: -webkit-flex;
+	width: 100%;
+	height: 100%;
+}
+#edita_li_img>a>img{
+	width: 0.675rem;
+	
+}
+.edita_button{
+	width: 100%;
+	height: 3.666rem;
+	margin-top: 5rem;
+}
+.edita_button>button{
+	width: 82.9%;
+	height: 100%;
+	display: block;
+	margin: 0 auto;
+	border: 0;
+	outline: medium;
+	background-image: linear-gradient(-90deg, #22A2FF 0%, #1ACEFF 100%);
+	border-radius: 4px;
+	font-family: MicrosoftYaHei;
+	font-size: 1.166rem;
+	color: #FFFFFF;
+	letter-spacing: 1.17px;
+	
+}

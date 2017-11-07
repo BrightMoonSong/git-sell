@@ -1,0 +1,27 @@
+
+		<div  id="needs_head">
+			<ul class="head">
+				<li ><a ng-href="/index.html#/main/mine"><img src="img/fh.png"  /></a></li>
+				<li id="needs_xq">关于鹿医生</li>
+			</ul>
+		</div>
+		<div class="aboutlys_log">
+			<a class="ycenter xcenter">
+				<img src="img/logo.png"  class="xcenter"/>
+			</a>
+			<p>鹿医生V1.1.0</p>
+		</div>
+		<div>
+			<ul ng-repeat="title in articleTitle">
+				<li class="bill_fapiao aboutlys_border ">
+					<a href="/index.html#info/article?arc={{title.id}}">
+						<label class="bill_fapiao_label" ng-bind="title.title"></label>
+						<img src="img/ljjt.png" />
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="spread_footer">
+			<p>copyright&copy-2200</p>
+			<p>鹿医生版权所有</p>
+		</div>

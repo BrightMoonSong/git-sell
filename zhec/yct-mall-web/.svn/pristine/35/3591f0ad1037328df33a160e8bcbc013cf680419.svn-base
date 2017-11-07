@@ -1,0 +1,8 @@
+app.factory('CompanyService', function($q, $http, constMapiLocation) {
+	//var baseUrl = constMapiLocation + '/goods';
+	return {
+		find: function() {
+			return 'CompanyService';
+		}
+	}
+})

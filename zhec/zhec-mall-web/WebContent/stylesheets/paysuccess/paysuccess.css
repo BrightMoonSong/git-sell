@@ -1,0 +1,176 @@
+li {
+  float: left;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  color: #ff9900;
+}
+a:active {
+  color: white;
+}
+
+input:focus {
+  outline: none;
+}
+
+img {
+  cursor: pointer;
+}
+img:hover {
+  -webkit-filter: brightness(1.05);
+  filter: brightness(1.05);
+}
+
+.pay_banner {
+  width: 100%;
+  height: 145px;
+  background: #f5f5f5;
+}
+.pay_banner .pay_banner_all {
+  width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+}
+.pay_banner .pay_banner_all .pay_banner_head {
+  width: 100%;
+  height: 28px;
+  padding-top: 20px;
+  background-image: url('../images/addys.png?1482991704');
+  background-repeat: no-repeat;
+  background-position: 464px 20px;
+  font-size: 26px;
+  line-height: 25px;
+  color: #71b247;
+  text-align: center;
+}
+.pay_banner .pay_banner_all .pay_banner_head_ul {
+  margin-top: 20px;
+  width: 100%;
+  height: 62px;
+}
+.pay_banner .pay_banner_all .pay_banner_head_ul .pay_banner_head_li {
+  width: 336px;
+  height: 100%;
+  float: right;
+}
+.pay_banner .pay_banner_all .pay_banner_head_ul .pay_banner_head_li .pay_detalis {
+  width: 100%;
+  height: 36px;
+  margin-top: 25px;
+}
+.pay_banner .pay_banner_all .pay_banner_head_ul .pay_banner_head_li .pay_detalis > a {
+  width: 158px;
+  height: 100%;
+  display: block;
+  float: left;
+  text-align: center;
+  line-height: 36px;
+  font-size: 16px;
+}
+.pay_banner .pay_banner_all .pay_banner_head_ul .pay_banner_head_li .pay_detalis > a:nth-child(1) {
+  margin-right: 10px;
+  border: 1px solid white;
+  background: white;
+  color: #00A2D9;
+}
+.pay_banner .pay_banner_all .pay_banner_head_ul .pay_banner_head_li .pay_detalis > a:nth-child(1):hover {
+  border-color: #00A2D9;
+}
+.pay_banner .pay_banner_all .pay_banner_head_ul .pay_banner_head_li .pay_detalis > a:nth-child(2) {
+  background: #FF9900;
+  color: white;
+}
+.pay_banner .pay_banner_all .pay_banner_head_ul .pay_banner_head_li .pay_detalis > a:nth-child(2):hover {
+  -webkit-filter: brightness(1.05);
+  filter: brightness(1.05);
+}
+
+.conter .add_conter_head {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+.conter .add_conter_shopping {
+  width: 100%;
+}
+.conter .add_conter_shopping > ul {
+  width: 100%;
+  height: 100%;
+}
+.conter .add_conter_shopping > ul > li > ol {
+  padding: 20px;
+  width: 198px;
+  height: 270px;
+  border: 1px dotted #cacaca;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(1) {
+  width: 160px;
+  height: 160px;
+  margin-left: 20px;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(1) > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(1) > a > img {
+  width: 160px;
+  height: 160px;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(2) {
+  width: 100%;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(2) > p {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(2) > p:nth-child(1) {
+  line-height: 28px;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(2) > p:nth-child(1) > a {
+  font-size: 14px;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(2) > p:nth-child(2) {
+  color: #6b6b6b;
+  line-height: 17px;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(2) > p:nth-child(3) {
+  color: red;
+  font-size: 14px;
+  line-height: 20px;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(3) {
+  margin-top: 10px;
+  width: 100%;
+  height: 30px;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(3) > a {
+  width: 200px;
+  height: 100%;
+  margin: 0 auto;
+  background: #00A2D9;
+  color: white;
+  font-size: 14px;
+  display: block;
+  text-align: center;
+  line-height: 30px;
+}
+.conter .add_conter_shopping > ul > li > ol > li:nth-child(3) > a:hover {
+  -webkit-filter: brightness(1.05);
+  filter: brightness(1.05);
+}
+.conter .add_conter_shopping > ul > li > ol:hover {
+  border: 1px solid #FF9900;
+}

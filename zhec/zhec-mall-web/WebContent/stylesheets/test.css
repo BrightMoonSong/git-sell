@@ -1,0 +1,78 @@
+.cart{
+	width:160px;
+	height:60px;
+	background-color:#ccc;
+	border:2px solid #333;
+	margin-top:40px;
+	position:relative;
+}
+.cart .showControl{
+	width:100%;
+	height:100%;
+}
+.cart>ul{
+	position:absolute;
+	width:300px;
+	height:300px;
+	background-color:#fff;
+	right:0;
+	top:60px;
+	border: 2px solid #ccc; 
+	z-index:999;
+}
+.cart>ul .allCartGoods{
+	width:300px;
+	height:260px;
+	overflow:auto;
+}
+
+.cart>ul .cartBottom{
+	position:absolute;
+	width:100%;
+	height:40px;
+	background-color:#ccc;
+	left:0;
+	bottom:0px;
+	z-index:999;
+	
+}
+.cart>ul .cartBottom i{
+	display: inline-block;
+	float:left;
+	width:30%;
+	line-height:40px;
+}
+.cart>ul .cartBottom i:nth-child(3) button{
+	margin-left:35%;
+	width:100%;
+	height:40px;
+	background-color:red;
+	color:#fff;
+}
+.cart>ul li{
+	height:80px;
+	width:100%;
+	border-bottom:1px solid #ccc;
+}
+
+.cart>ul li img{
+	width:70px;
+	height:70px;
+	margin:5px;
+	float:left;
+}
+.cart>ul li ul:nth-child(2){
+	width:40%;
+	height:70px;
+	margin:5px;
+	float:left;
+}
+.cart>ul li .cartBottom{
+	width:15%;
+	height:70px;
+	margin:5px;
+	float:left;
+}
+.cart>ul li .cartBottom p{
+	margin-top:5px;
+}

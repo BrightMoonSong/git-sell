@@ -1,0 +1,112 @@
+<div  id="needs_head">
+	<ul class="head">
+		<li onclick="history.go(-1)"><img src="img/fh.png"  /></li>
+		<li id="needs_xq">申请详情</li>
+	</ul>
+</div>
+<div class="rxapply_conter clearfix" >
+	<div class="apply_head_div ">
+		<label>创建时间：<span ng-bind="recipeApply[0].orderTime"></span></label>
+		<span>
+			<b ng-if="recipeApply[0].status == 0">正在审批</b>
+			<b ng-if="recipeApply[0].status == 1">审批通过</b>
+			<b ng-if="recipeApply[0].status == 2">审批未通过</b>
+		</span>
+	</div>
+	<div class="rxapply_head apply_head ycenter">
+		<a ui-sref="info.goods({id:recipeApply[0].goodsId})">
+			<img ng-src="{{recipeApply[0].goodsImageUrl}}" alt=""/>
+		</a>
+		<ol class="clearfix">
+			<li>
+				<a ui-sref="info.goods({id:recipeApply[0].goodsId})" class="words" ng-bind="recipeApply[0].goodsName"></a>
+			</li>
+			<li class="apply_head_li_two"  ng-bind="recipeApply[0].specInfo"></li>
+			<li  class="apply_head_li_three">
+				<b  ng-bind="recipeApply[0].goodsPrice | priceFormatFilter"></b>
+				<span  ng-bind="'x'+recipeApply[0].productNumber"></span>
+			</li>
+		</ol>
+	</div>
+	<!-- <div class="app_det_button ycenter">
+		<button>前去付款</button>
+	</div> -->
+</div>
+<ul class="clearfix apply_conter_ul">
+	<li class="apply_conter_ul_if ">
+		信息
+	</li>
+	<li class="bill_fapiao apply_conter_ul_li">
+		<a>
+			<label>姓名</label>
+			<span class="app_det_color"  ng-bind="recipeApply[0].orderName">赵三儿</span>
+		</a>
+	</li>
+	<li class="bill_fapiao apply_conter_ul_li">
+		<a>
+			<label>电话</label>
+			<span class="app_det_color"  ng-bind="recipeApply[0].orderMobile"></span>
+		</a>
+	</li>
+	<li class="bill_fapiao ">
+		<a>
+			<label>地址</label>
+			<div>
+				<span  ng-bind="recipeApply[0].orderProvinceName+' '+recipeApply[0].orderCityName+' '+recipeApply[0].orderAreaName"></span>
+				<span  ng-bind="recipeApply[0].orderAddress"></span>
+			</div>
+		</a>
+	</li>
+	<li class="bill_fapiao ">
+		<a>
+			<label>发票信息</label>
+			<div>
+				<span ng-if="recipeApply[0].invoiceType != 0" ng-bind="recipeApply[0].invoiceTitle+','+recipeApply[0].invoiceDetail">无需发票</span>
+				<span ng-if="recipeApply[0].invoiceType == 0">无</span>
+			</div>
+		</a>
+	</li>
+	<li class=" apply_detail_img">
+		<label>处方图片</label>
+		<div class="ycenter" ng-repeat="img in recipeGoodsList"> 
+			<img style="max-width:3rem" ng-src="{{img}}" />
+		</div>
+	</li>
+	<li class="bill_fapiao ">
+		<a ui-sref="info.messageBoard({id:recipeApply[0].id,source:1})">
+			<label>问题描述</label>
+			<img src="img/ljjt.png" ng-if="showDetail == false"  id="apply_img_xj"/>
+			<img src="img/Triangle.png" ng-if="showDetail" id="apply_img_xj"/>
+			<span ng-click="clickShowDetail()" class="app_det_color">展开</span>
+		</a>
+	</li>
+	<li class="apply_detail_liuyan clearfix" ng-show="showDetail">
+		<ul ng-repeat="message in messageList">
+			<li>
+				<p ng-if="message.source==2"><b ng-bind="loginId"></b>-买家</p>
+				<p ng-if="message.source==1">客服</p>
+			</li>
+			<li><b ng-bind="message.time"></b></li>
+			<li>
+				<p ng-bind="message.message1"></p>
+			</li>
+			<li>
+				<ul>
+					<li ng-repeat="messageImg in message.messageImgList">
+						<a ng-click="showBigImg(messageImg)" ><img  class="smallImg" ng-src="{{messageImg}}" /></a>
+					</li>
+				</ul>
+			</li>
+			
+		</ul>
+	</li>
+
+</ul>
+<div class="fix_foot">
+	<ol class="fix_header">
+		<li class="ycenter fix_header_input" ><input type="text" placeholder="在这里留言"/></li>
+		<li class="fix_foot_button">
+			<button>留言</button>
+		</li>
+	</ol>
+</div>

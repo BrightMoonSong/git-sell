@@ -1,0 +1,59 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">优惠券发放</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal" style="background-color: #faf9f6;">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">积分范围（*）：</label>
+
+					<div class="col-sm-4">
+						<input ng-verify="{max:12,required: false}" type="number" class="form-control" ng-model="modalGrantBatch.integralStart">
+					</div>
+					<div class="col-sm-1" style="text-align: center;padding-top: 5px;">
+						<span>--</span>
+					</div>
+					<div class="col-sm-4">
+						<input ng-verify="{max:12,required: false}" type="number" class="form-control" ng-model="modalGrantBatch.integralEnd">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">等级范围（*）：</label>
+
+					<div class="col-sm-4">
+						<input ng-verify="{max:12,required: false}" type="number" class="form-control" ng-model="modalGrantBatch.rankStart">
+					</div>
+					<div class="col-sm-1" style="text-align: center;padding-top: 5px;">
+						<span>--</span>
+					</div>
+					<div class="col-sm-4">
+						<input ng-verify="{max:15,required: false}" type="number" class="form-control" ng-model="modalGrantBatch.rankEnd">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">余额范围（*）：</label>
+
+					<div class="col-sm-4">
+						<input ng-verify="{max:15,required: false}" type="number" class="form-control" ng-model="modalGrantBatch.balanceStart">
+					</div>
+					<div class="col-sm-1" style="text-align: center;padding-top: 5px;">
+						<span>--</span>
+					</div>
+					<div class="col-sm-4">
+						<input ng-verify="{max:15,required: false}" type="number" class="form-control" ng-model="modalGrantBatch.balanceEnd">
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" ng-disabled="ifdisabled" class="btn btn-warning" ng-click="okModalBatch()" ng-verify="{control:'myform'}" ng-disabled="okmodaldis">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+
+</div>

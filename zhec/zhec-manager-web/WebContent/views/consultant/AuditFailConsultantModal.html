@@ -1,0 +1,33 @@
+<div class="inmodal" >
+    <div class="modal-header">
+        <h1 class="modal-title">顾问管理</h1>
+    </div>
+    <div class="" name="myform" verify-scope="tipStyle: 1">
+        <ul class="form-horizontal ">
+            <li class="list-group-item">
+                <div ng-show="auditStatuss==2" class="form-group col-sm-12 ">
+                    <label class="col-sm-3 control-label">有效期：</label>
+                    <div class="form-group col-md-9">
+                        <input type="text"  start-picker class="form-control" ng-model="validityTime" placeholder="请输入日期" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-3 control-label">备注：</label>
+                    <div class="form-group col-sm-9">
+                        <input type="text" class="form-control"
+                               ng-model="remark">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+			        <button type="button" class="btn btn-warning" ng-click="sendMessage()" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+			            <span class="glyphicon glyphicon-floppy-disk"></span> 确定
+			        </button>
+			        <button type="button" class="btn btn-success" ng-click="cancelFailAudit()">
+			            <span class="glyphicon glyphicon-share-alt"></span> 取消
+			        </button>
+			    </div>
+            </li>
+        </ul>
+    </div>
+</div>

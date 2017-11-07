@@ -1,0 +1,117 @@
+<style type="text/css">
+	.btn.active,
+	.btn:active {
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+	}
+	
+	.spanin {
+		display: inline-block;
+		float: left;
+		margin-top: 5px;
+	}
+	
+	.innputy {
+		margin-top: 9px !important;
+	}
+	
+	.form-contr {
+		min-height: 40px;
+		width: 100%;
+		padding: 6px 12px;
+		word-break: break-all;
+		border: 1px solid #ddd;
+		    display: block;
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">异常日志管理</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">平台:</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="logEntiy.platform"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">请求路径:</label>
+					<div class="col-sm-9">
+						<span class="form-contr" ng-bind="logEntiy.requestUri"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">请求方式:</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="logEntiy.requestMethod"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">错误码:</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="logEntiy.code"></span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">接口方法名称:</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="logEntiy.interfaceName"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">IP地址:</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="logEntiy.ip"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">访问时间:</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="logEntiy.time"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">用户ID:</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="logEntiy.userId"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">用户手机号:</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="logEntiy.phone"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">请求参数:</label>
+					<div class="col-sm-9">
+						<div class="form-contr" ng-bind="logEntiy.param"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">简要错误信息:</label>
+					<div class="col-sm-9">
+						<div class="form-contr" ng-bind="logEntiy.simpleMsg"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">详细错误信息:</label>
+					<div class="col-sm-9">
+						<div class="form-contr" ng-bind="logEntiy.detailMsg"></div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+
+		<button type="button" class="btn btn-success" ng-click="cancelModalDetail()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

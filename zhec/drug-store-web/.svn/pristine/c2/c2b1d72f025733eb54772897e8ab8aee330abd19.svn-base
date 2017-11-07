@@ -1,0 +1,53 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">以固定模板编辑说明书</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal">
+			<li class="list-group-item" style="background-color: white;">
+				<div class="form-group">
+					<div class="col-sm-2" style="padding-right: 0;">
+						<input type="text" class="form-control" value="标题：" style="text-align: right;background-color: #fff;" readonly="readonly">
+					</div>
+
+					<div class="col-sm-8" style="padding-left: 0;">
+						<input type="text" class="form-control" placeholder="例如:说明书" ng-model="dataEntity.title">
+					</div>
+				</div>
+				<div class="form-group" ng-repeat="res in dataEntity.infoExplain" style="border-bottom: 1px solid #e5e6e7;padding-bottom: 5px;">
+					<div class="col-sm-2" style="padding-right: 0;">
+						<input type="text" class="form-control" style="text-align: right;" ng-verify="{required:true}" placeholder="名称" ng-model="res.name">
+					</div>
+					<a class="col-sm-1 pull-right">
+						<span class="glyphicon glyphicon-remove" style="color: #3f3ff5;" ng-hide="dataEntity.infoExplain.length==1" ng-click="dataEntity.infoExplain.splice($index,1)"></span>
+					</a>
+					<div class="col-sm-9 pull-right" style="margin: 0;padding-left: 0;">
+						<span ng-repeat="r in res.description">
+							<div class="col-sm-10" style="padding-left: 0px;">
+								<input type="text" class="form-control" ng-verify="{required:true}" placeholder="说明" ng-model="r.desc">
+							</div>
+							<div class="col-sm-2">
+								<span class="glyphicon glyphicon-plus" style="color: #3f3ff5;" ng-click="add_description(res.description)"></span>
+								<span class="glyphicon glyphicon-remove" style="color: #3f3ff5;" ng-hide="res.description.length==1" ng-click="res.description.splice($index,1)"></span>
+							</div>
+						</span>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="add_li()">
+	                <span class="glyphicon glyphicon-plus"></span> 加一行
+	            </button>
+			<button class="btn btn-warning" ng-click="okModalExplain()" ng-verify="{control:'myform'}">
+	                保存
+	            </button>
+			<button class="btn btn-success" ng-click="cancelModalDesc2()">
+	                以其他方式编辑
+	            </button>
+			<button class="btn btn-success" ng-click="cancelModalDesc()">
+	                取消
+	            </button>
+		</div>
+	</div>
+</div>

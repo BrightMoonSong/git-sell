@@ -1,0 +1,52 @@
+.mymoney_conter{
+	width: 100%;
+	height: 15.416rem;
+	margin-top: 0.416rem;
+	background: #FFFFFF;
+	margin-bottom: 1px;
+}
+.mymoney_conter>label{
+	width: 100%;
+	display: block;
+	padding-top:2.75rem ;
+	margin-left:1.666rem ;
+	font-family: MicrosoftYaHei;
+	font-size: 1.25rem;
+	color: #999999;
+	letter-spacing: 0.19px;
+}
+.mymoney_conter>span{
+	width: 100%;
+	display: block;
+	margin-left:1.666rem ;
+	height: 11.75rem;
+	font-family: MicrosoftYaHei;
+	font-size: 5rem;
+	color: #22A4FF;
+	letter-spacing: 1px;
+	line-height: 11.75rem;
+}
+.mymoney_img>img{
+	width: 1.485rem;
+	height: 1.485rem;
+	margin-top: 1.5875rem;
+}
+.mymoney_foot{
+	width: 100%;
+	height: 3.666rem;
+	margin-top: 3.333rem;
+}
+.mymoney_foot>button{
+	width: 82.9%;
+	height: 100%;
+	border: 0;
+	outline: medium;
+	background-image: linear-gradient(-90deg, #22A2FF 0%, #1ACEFF 100%);
+	border-radius: 4px;
+	font-family: MicrosoftYaHei;
+	font-size:1.166rem;
+	color: #FFFFFF;
+	letter-spacing: 1.17px;
+	display: block;
+	margin: 0 auto;
+}

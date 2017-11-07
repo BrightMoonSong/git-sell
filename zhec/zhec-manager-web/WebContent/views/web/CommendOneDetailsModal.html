@@ -1,0 +1,45 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <div class="col-sm-3">
+            <h4>修改商品信息</h4>
+        </div>
+        <div class="col-sm-offset-9">
+            <button type="button" class="btn btn-warning" ng-click="openModalOneAdd()">
+                <span class="glyphicon glyphicon-floppy-disk"></span>增加商品
+            </button>
+
+            <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span>取消
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <table class="table text-center content">
+            <thead>
+            <tr>
+                <td class="col-sm-4"><strong>商品的名字</strong></td>
+                <td class="col-sm-2"><strong>启用时间</strong></td>
+                <td class="col-sm-2"><strong>结束时间</strong></td>
+                <td class="col-sm-1"><strong>排序</strong></td>
+                <td class="col-sm-1"><strong>状态</strong></td>
+                <td class="col-sm-2">
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="good in dataEntity">
+                <td class="col-sm-4">{{good.name1}}</td>
+                <td class="col-sm-2">{{good.timeStart}}</td>
+                <td class="col-sm-2">{{good.timeEnd}}</td>
+                <td class="col-sm-1">{{good.sort}}</td>
+                <td class="col-sm-1">{{good.status?"启用":"禁用"}}</td>
+                <td class="col-sm-2">
+                    <button class="btn btn-warning" ng-click="openModalOneModify(good.id)"><span class="glyphicon glyphicon-edit"
+                                                                      aria-hidden="true">修改</span></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

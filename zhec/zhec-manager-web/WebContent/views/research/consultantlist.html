@@ -1,0 +1,60 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+    <div class="row marLeft15">
+        <div class="col-lg-12 ">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="heading">
+                        <!-- 搜索  -->
+                        <!--<div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" placeholder="按姓名检索" class="form-control "
+                                       ng-model="userNameSearch"> <span
+                                    class="input-group-btn">
+									<button class="btn btn-success" type="button"
+                                            ng-click="loadData(true)">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+								</span>
+                            </div>
+                        </div>-->
+                        <div class="col-lg-9 col-lg-offset-3">
+                            <!-- 刷新按钮 -->
+                            <button type="button" class="btn btn-success operationBtn"
+                                    ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-refresh"></span> 刷新
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hideScroll">
+                    <div class="ibox-content ">
+                        <table datatable="ng" dt-options="dtOptions"
+                               class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>顾问ID</th>
+                                <th>余额</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody style="">
+                            <tr ng-repeat="consultant in consultants">
+                                <td>{{ consultant.id }}</td>
+                                <td>{{ consultant.balance}}</td>
+                                <td>
+                                    <button class="btn btn-warning" ng-click="openModalOne(consultant.id)">查看详情</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<datalistpager></datalistpager>
+
+

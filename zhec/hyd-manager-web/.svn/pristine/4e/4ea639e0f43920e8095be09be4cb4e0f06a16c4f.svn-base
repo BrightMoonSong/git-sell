@@ -1,0 +1,150 @@
+function CarModelController($scope, $q, $http, $rootScope, CarModelService, constPageSize, ngDialog, goodsReminder) {
+
+	//车型列表
+	$scope.find = function(currentPageNo, currentPaseSize) {
+		var defer = $q.defer();
+		var modelName = $scope.modelName;
+		CarModelService
+			.find(modelName, currentPageNo, currentPaseSize)
+			.then(function(result) {
+				$scope.carmodelList = result.data;
+				defer.resolve(result);
+			}, function(result) {
+				defer.reject(result);
+			})
+		return defer.promise;
+	}
+	//弹出详情菜单弹窗
+	$scope.openModal = function(modelId) {
+		$scope.modelId = modelId;
+		$scope.dialog = ngDialog.open({
+			template: 'views/carmodel/CarModelFormModel.html',
+			className: 'ngdialog-theme-default',
+			controller: 'CarModelFormModelController',
+			scope: $scope,
+			width: 850
+		})
+	};
+	//启禁用删除操作
+	$scope.enableId = function(id, status) {
+		var chainstouses;
+		if(status == 1) {
+			//0禁1启
+			chainstouses = goodsReminder.goodsState.enable;
+		} else if(status == 2) {
+			chainstouses = goodsReminder.goodsState.forbidden;
+		} else if(status == 3) {
+			chainstouses = goodsReminder.goodsbranddelete;
+		}
+		ngDialog.openConfirm({
+			template: '<p>' + chainstouses + '</p>' +
+				'<div class="ngdialog-buttons">' +
+				'<button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">取消' +
+				'<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">确定' +
+				'</button></div>',
+			plain: true,
+			closeByDocument: false,
+			closeByEscape: false,
+			className: 'ngdialog-theme-default'
+		}).then(function(value) {
+			CarModelService
+				.enable(id, status)
+				.then(function(result) {
+					$scope.loadData()
+				}),
+				function(reason) {}
+		})
+	}
+	//关闭弹窗
+	$scope.cancelModal = function() {
+		$scope.dialog.close();
+	}
+}
+
+//弹窗操作
+function CarModelFormModelController($scope, CarModelService,$rootScope) {
+	imgPath1="";
+	imgPath2="";
+	$scope.idData = imgPathCarModel;
+	//弹窗初始化
+	$scope.innter = function() {
+		if($scope.modelId) {
+			CarModelService
+				.detail($scope.modelId)
+				.then(function(result) {
+					$scope.carmodelEntiy = result.data;
+				}, function(resaon) {
+
+				})
+		} else {
+			$scope.carmodelEntiy = {
+				"status": 1,
+				"modelImgUrlSelected": "",
+				"modelImgUrlUnselected": ""
+			}
+		}
+	}
+	$scope.innter();
+
+	//保存操作
+	$scope.okModal = function() {
+		if($scope.modelId) {
+			if(imgPath1) {
+				$scope.carmodelEntiy.modelImgUrlUnselected = imgPath1;
+			}
+			if(imgPath2) {
+				$scope.carmodelEntiy.modelImgUrlSelected = imgPath2;
+			}
+			CarModelService
+				.edit($scope.carmodelEntiy)
+				.then(function(result) {
+					$scope.cancelModal();
+					$scope.loadData();
+				}, function(reason) {
+
+				})
+		} else {
+			$scope.carmodelEntiy.modelImgUrlSelected = imgPath2;
+			$scope.carmodelEntiy.modelImgUrlUnselected = imgPath1;
+			if(!$scope.carmodelEntiy.modelImgUrlSelected){
+				$rootScope.showAlert("请填写完整信息！")
+				return 0 ;
+			}
+
+			CarModelService
+				.add($scope.carmodelEntiy)
+				.then(function(result) {
+					$scope.cancelModal();
+					$scope.loadData();
+				}, function(reson) {
+
+				})
+		}
+	}
+	$scope.check = function(n) {
+		$scope.carmodelEntiy.status = n;
+	}
+}
+
+var imgPath1, imgPath2;
+
+function setImgCarModelPath(res, n) {
+	switch(n) {
+		case 1:
+			imgPath1 = res;
+			//console.log('车型未选中图标');
+			//console.log(imgPath1);
+			break;
+		default:
+		//	console.log('车型选中图标');
+			imgPath2 = res;
+			//console.log(imgPath2);
+			break;
+	}
+
+}
+
+angular
+	.module("managerApp")
+	.controller("CarModelController", CarModelController)
+	.controller("CarModelFormModelController", CarModelFormModelController)

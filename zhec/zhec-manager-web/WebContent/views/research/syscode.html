@@ -1,0 +1,95 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+    <div class="row marLeft15">
+        <div class="col-lg-12 ">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="heading">
+                        <div class="form-group col-md-2">
+                            <select class="form-control" ng-model="type">
+                                <option value="">--请选择--</option>
+                                <option ng-repeat="x in alltypes" >{{x}}</option>
+                            </select>
+                        </div>
+                        <!-- 搜索  -->
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" placeholder="按字典id检索" class="form-control "
+                                       ng-model="codeId"> <span
+                                    class="input-group-btn">
+									<button class="btn btn-success" type="button"
+                                            ng-click="searchCode(type,codeId)">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+								</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <!-- 刷新按钮 -->
+                            <button type="button" class="btn btn-success operationBtn"
+                                    ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-refresh"></span> 刷新
+                            </button>
+                            <!-- 添加按钮触发模态框 -->
+                            <button type="button" class="btn btn-warning operationBtn"
+                                    data-toggle="modal" ng-click="openModals(null)">
+                                <span class="glyphicon glyphicon-plus"></span> 添加
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hideScroll">
+                    <div class="ibox-content ">
+                        <table datatable="ng" dt-options="dtOptions"
+                               class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>字典英文名</th>
+                                <th>字典Id</th>
+                                <th>字典值</th>
+                                <th>字典说明</th>
+                                <th>排序</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody style="">
+                            <tr ng-repeat="code in codeList">
+                                <td>{{ code.codeType }}</td>
+                                <td>{{code.codeId}}</td>
+                                <td>{{code.codeText}}</td>
+                                <td>{{ code.codeExplain }}</td>
+                                <td>{{ code.sort }}</td>
+                                <td>{{ code.status==1?"启用":"禁用" }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="openModals(code)">
+                                    修改
+                                </button>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="deleteId(code.id)">
+                                        删除
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<datalistpager></datalistpager>
+<script type="text/ng-template" id="firstDialogId">
+    <div class="ngdialog-message">
+        <h3>确定{{currentStatus}}？</h3>
+    </div>
+    <div class="ngdialog-buttons">
+        <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirmClick()">删除</button>
+        <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="cancleClick()">取消</button>
+    </div>
+</script>

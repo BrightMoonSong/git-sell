@@ -1,0 +1,62 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <div class="col-sm-3">
+            <h4>管理广告位</h4>
+        </div>
+        <div class="col-sm-offset-9">
+            <button type="button" class="btn btn-warning" ng-click="openModalOneAdd()">
+                <span class="glyphicon glyphicon-floppy-disk"></span>上传图片
+            </button>
+
+            <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span>取消
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="row text-center content">
+            <div class="col-sm-2" style="padding-bottom: 25px">图片</div>
+            <div class="col-sm-3">描述</div>
+           <!-- <div class="col-sm-2">链接地址</div>-->
+            <div class="col-sm-2">启用时间</div>
+            <div class="col-sm-2">禁用时间</div>
+            <div class="col-sm-1">排序号</div>
+            <div class="col-sm-1">状态</div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row" ng-repeat="imgDate in dataEntity track by $index" style="text-align: center">
+            <div class="col-sm-2">
+                <img class="img-responsive" ng-src="{{imgDate.imageUrl}}" alt=""/>
+                <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
+                    width="80%" color=#987cb9 SIZE=1>
+            </div>
+            <div class="col-sm-3 col-xs-3">
+                {{imgDate.imageTitle}}
+            </div>
+            <!--<div class="col-sm-2 col-xs-2">
+                {{imgDate.imageLink}}
+            </div>-->
+            <div class="col-sm-2 col-xs-2 ">
+                {{imgDate.timeStart}}
+
+            </div>
+            <div class="col-sm-2 col-xs-2 ">
+                {{imgDate.timeEnd}}
+
+            </div>
+            <div class="col-sm-1 col-xs-1">
+                {{imgDate.sort}}
+            </div>
+            <div class="col-sm-1 col-xs-1">
+
+                {{imgDate.status==1?"启用":"禁用"}}
+            </div>
+            <div class="col-sm-1 col-xs-1">
+                <button class="btn btn-warning btn-xs"
+                        ng-click="openModalOneModify(imgDate.id,imgDate.imageUrl,imgDate.advertId,imgDate.advertName)">
+                    修改
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

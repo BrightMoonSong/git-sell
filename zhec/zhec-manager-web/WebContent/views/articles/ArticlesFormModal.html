@@ -1,0 +1,97 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">文章信息</h1>
+    </div>
+
+    <div class="" name="myform" verify-scope="tipStyle: 1">
+
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+                <div ng-show="play" class="form-group">
+                    <label class="col-sm-4 control-label">文章一级分类（*）：</label>
+                    <select id="search" ng-model="articleType3" ng-verify="option:0" ng-options="sh.id as sh.name for sh in articleTypeList3" ng-change="articleTypeChange3(articleType3)">
+                      <option  value="">---请选择文章的一级分类---</option>
+                    </select>
+                </div>
+                <div ng-show="play" class="form-group">
+                    <label class="col-sm-4 control-label">文章二级分类（*）：</label>
+                    <select id="search1" ng-model="articleType4" ng-verify="option:0" ng-options="sh.id as sh.name for sh in articleTypeList4" ng-change="articleTypeChange4(articleType4)">
+                      <option  value="">---请选择文章的二级分类---</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">标题（*）：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify="" type="text" class="form-control" ng-model="dataEntity.title">
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label class="col-sm-3 control-label">内容（*）：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify="" type="text" class="form-control" ng-model="dataEntity.content">
+                    </div>
+                </div> -->
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">作者（*）：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify="" type="text" class="form-control" ng-model="dataEntity.author">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">排序号（*）：</label>
+                    <div class="col-sm-9">
+                        <input type="number" ng-verify="{required:true}" class="form-control" ng-model="dataEntity.sort">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否推荐（*）：</label>
+
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline"> <input type="radio"
+                                                                ng-checked="dataEntity.isTop=='1'" name="isTop"
+                                                                value="1" ng-model="dataEntity.isTop">&nbsp;推荐&nbsp;
+                            </label> <label class="radio-inline"> <input type="radio" ng-verify
+                                                                         ng-checked="dataEntity.isTop=='0'"
+                                                                         name="isTop" value="0"
+                                                                         ng-model="dataEntity.isTop">&nbsp;不推荐&nbsp;
+                        </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">状态（*）：</label>
+
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline"> <input type="radio"
+                                                                ng-checked="dataEntity.status=='1'" name="status"
+                                                                value="1" ng-model="dataEntity.status">&nbsp;正常&nbsp;
+                            </label> <label class="radio-inline"> <input type="radio" ng-verify
+                                                                         ng-checked="dataEntity.status=='0'"
+                                                                         name="status" value="0"
+                                                                         ng-model="dataEntity.status">&nbsp;禁用&nbsp;
+                        </label>
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+            <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+        </div>
+    </div>
+
+</div>

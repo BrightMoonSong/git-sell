@@ -1,0 +1,249 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+    <div class="row marLeft15">
+        <div class="col-lg-12 ">
+            <div class="ibox float-e-margins">
+               <!-- <div class="ibox-title">
+                    <div class="heading">
+                        <div class="form-group col-md-2">
+                            <select class="form-control" ng-model="type">
+                                <option value="">&#45;&#45;请选择&#45;&#45;</option>
+                                <option ng-repeat="x in alltypes" >{{x}}</option>
+                            </select>
+                        </div>
+                        &lt;!&ndash; 搜索  &ndash;&gt;
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" placeholder="按字典id检索" class="form-control "
+                                       ng-model="codeID"> <span
+                                    class="input-group-btn">
+									<button class="btn btn-success" type="button"
+                                            ng-click="searchCode(type,codeID)">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+								</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            &lt;!&ndash; 刷新按钮 &ndash;&gt;
+                            <button type="button" class="btn btn-success operationBtn"
+                                    ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-refresh"></span> 刷新
+                            </button>
+                            &lt;!&ndash; 添加按钮触发模态框 &ndash;&gt;
+                            <button type="button" class="btn btn-warning operationBtn"
+                                    data-toggle="modal" ng-click="openModals(null)">
+                                <span class="glyphicon glyphicon-plus"></span> 添加
+                            </button>
+                        </div>
+                    </div>
+                </div>-->
+
+                <div class="hideScroll">
+                    <div class="ibox-content ">
+                        <table datatable="ng" dt-options="dtOptions"
+                               class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>定时任务名称</th>
+                                <th>输入id</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody style="">
+                            <tr>
+                                <td>取消24小时未支付的过期订单</td>
+                                <td><input type="text" ng-model="expireOrder" placeholder="填写订单的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="order1(expireOrder)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>已发货订单30天没有操作变成已收货</td>
+                                <td><input type="text" ng-model="receiveOrder" placeholder="填写订单的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="order1(receiveOrder)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>已收货订单超过15天变成已安全订单</td>
+                                <td><input type="text" ng-model="safeOrder" placeholder="填写订单的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="order3(safeOrder)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>已安全订单变成待结算订单</td>
+                                <td><input type="text" ng-model="balanceOrder" placeholder="填写订单的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="order4(balanceOrder)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>待结算变已完成订单</td>
+                                <td><input type="text" ng-model="completeOrder" placeholder="填写订单的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="order5(completeOrder)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>已审核退单变已中止退单</td>
+                                <td><input type="text" ng-model="suspendOrder" placeholder="填写订单的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="order6(suspendOrder)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>已发货退单变已中止退单</td>
+                                <td><input type="text" ng-model="sendOrder" placeholder="填写退单的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="order7(sendOrder)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>退货中止订单变已完成退货订单</td>
+                                <td><input type="text" ng-model="returnOrder" placeholder="填写订单的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="order8(returnOrder)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>检验顾问资质有效期</td>
+                                <td><input type="text" ng-model="validID" placeholder="填写顾问的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="consultant1(validID)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>有效期临界短信提醒</td>
+                                <td><input type="text" ng-model="messageID" placeholder="填写顾问的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="consultant2(messageID)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                                                                                                                                                                              <tr>
+                                <td>提现超过5天未确认变成确认</td>
+                                <td><input type="text" ng-model="witndrawID" placeholder="填写顾问的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="consultant3(witndrawID)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>自动停止提现流程</td>
+                                <td><input type="text" ng-model="stopID" placeholder="填写顾问的id"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="consultant4(stopID)">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>添加索引</td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="http1()">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>删除索引</td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="http2()">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>校验用户余额、积分、经验</td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="verify1()">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>校验顾问余额</td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="verify2()">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>校验库存</td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning"
+                                            data-toggle="modal" data-target="#update"
+                                            ng-click="verify3()">
+                                        确定
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

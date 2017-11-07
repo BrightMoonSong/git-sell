@@ -1,0 +1,234 @@
+<style>
+	.audiUl {
+		padding-top: 15px;
+		padding-bottom: 15px;
+		min-height: 480px !important;
+	}
+	
+	.spanin {
+		display: inline-block;
+		float: left;
+		margin-top: 5px;
+	}
+	
+	.innputy {
+		margin-top: 9px !important;
+	}
+	
+	.btnClass {
+		width: 39px;
+		padding: 0;
+		height: 22px;
+		margin-top: 5px;
+		border: 0;
+	}
+</style>
+
+<!--详情-->
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">车主详情管理</h1>
+	</div>
+	<div class="col-lg-12">
+		<ul class="form-horizontal" style="background-color: #fff;">
+			<li class="list-group-item col-sm-6">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车主ID :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.carOwnerId "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车主经营类型:</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-if="carOwnerEntiy.businessType==1">个人</span>
+						<span class="form-control" ng-if="carOwnerEntiy.businessType==2">企业</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车主签约类型  :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-if="carOwnerEntiy.contractType==1">未签约</span>
+						<span class="form-control" ng-if="carOwnerEntiy.contractType==2">签约</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">手机号 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.phone "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车牌号 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.carLicenseNo "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车型ID</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.carModelId  "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">真实姓名</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.realName"></span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">身份证号码</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.idCardNo"></span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="carOwnerEntiy.businessType==2">
+					<label class="col-sm-3 control-label">公司名称 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.companyName "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">载重量 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.carModel.loadCapacity "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车型名称 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.carModel.modelName "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">起步价 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.carModel.referStartPrice "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">排序 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.carModel.sort "></span>
+					</div>
+				</div>
+
+			</li>
+			<li class="list-group-item col-sm-6" style="min-height: 610px;">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">车型 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.carModel.loadCapacity "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">状态</label>
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+
+							<input class="spanin innputy" type="radio" ng-click="checked(1)" ng-checked="carOwnerEntiy.status==1" name=status value="1" ng-disabled="true"><span class="spanin">&nbsp;启用&nbsp;</span>
+
+							<input class="spanin innputy" type="radio" ng-click="checked(2)" ng-checked="carOwnerEntiy.status==2" ng-disabled="true" name=status value="2"><span class="spanin">&nbsp;禁用&nbsp;</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">昵称 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.nickName "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">性别</label>
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+
+							<input class="spanin innputy" type="radio" ng-click="checked(1)" ng-checked="carOwnerEntiy.sex==1" name=type value="3" ng-disabled="true"><span class="spanin">&nbsp;男&nbsp;</span>
+
+							<input class="spanin innputy" type="radio" ng-click="checked(2)" ng-checked="carOwnerEntiy.sex==2" ng-disabled="true" name=type value="4"><span class="spanin">&nbsp;女&nbsp;</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" ng-if="carOwnerEntiy.businessType==2">
+					<label class="col-sm-3 control-label">公司性质 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="companyNatures(carOwnerEntiy.companyNature) "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">审核状态  :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="checkStatus(carOwnerEntiy.checkStatus)"></span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">创建时间 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.createTimeStr "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">修改时间 :</label>
+					<div class="col-sm-9">
+						<span class="form-control" ng-bind="carOwnerEntiy.updateTimeStr "></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">是否安装Gps:</label>
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+							<input class="spanin innputy" type="radio" ng-click="checked(1)" ng-checked="carOwnerEntiy.isGps==1" name=type value="1" ng-disabled="true"><span class="spanin">&nbsp;是&nbsp;</span>
+							<input class="spanin innputy" type="radio" ng-click="checked(2)" ng-checked="carOwnerEntiy.isGps==2" ng-disabled="true" name=type value="2"><span class="spanin">&nbsp;否&nbsp;</span>
+							<!--<button type="button" class="btn btn-warning btnClass" ng-click="openModals(carOwnerEntiy.carOwnerId,carOwnerEntiy.isGps)" ng-verify="{control:'myform'}" ng-if="dataBollea">
+            					修改
+        					</button>-->
+						</div>
+					</div>
+				</div>
+
+			</li>
+			<li class="list-group-item col-sm-12" style="min-height: 610px;">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">头像 :</label>
+					<div class="col-sm-9">
+						<img my-img ng-src="{{carOwnerEntiy.headImg}}" alt="" width="50" style="max-height: 38px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">选中图标 :</label>
+					<div class="col-sm-9">
+						<img my-img ng-src="{{carOwnerEntiy.carModel.modelImgUrlSelected}}" alt="" width="50" style="max-height: 38px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">未选中图标 :</label>
+					<div class="col-sm-9">
+						<img my-img ng-src="{{carOwnerEntiy.carModel.modelImgUrlUnselected}}" alt="" width="50" style="max-height: 38px;" />
+					</div>
+				</div>
+				<div class="form-group" ng-repeat="res in carOwnerEntiy.paperworks">
+					<label class="col-sm-3 control-label" ng-if="res.type==1">身份证正面图 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==2">身份证反面图 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==3">手持身份证 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==4">驾驶本 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==5">驾驶本副页 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==6">行驶本 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==7">带牌车辆45°照片 :</label>
+					<label class="col-sm-3 control-label" ng-if="res.type==8">企业营业执照 :</label>
+					<div class="col-sm-9">
+						<img my-img ng-src="{{res.imgUrl}}" alt="" width="50" style="max-height: 38px;" />
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+
+		<button class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

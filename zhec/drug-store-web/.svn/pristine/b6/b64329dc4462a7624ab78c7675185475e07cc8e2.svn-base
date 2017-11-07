@@ -1,0 +1,284 @@
+/**
+ * 系统用户service定义
+ */
+
+angular
+	.module('managerApp')
+	.factory('GoodsInfoService', function($http, $q, constMapiLocation) {
+		var baseUrl = constMapiLocation + '/goodsinfo';
+		var baseUrl2 = constMapiLocation + '/goodscate';
+		var baseUrlBrand = constMapiLocation + '/goodsbrand';
+		var drugstoreschain = constMapiLocation + '/drugstoreschain';
+		var drugstore = constMapiLocation + '/drugstore';
+		var baseUrlImg = constMapiLocation + '/goodsinfoimages';
+		var baseUrlSymptoms = constMapiLocation + '/symptoms';
+		return {
+			//查询数据方法
+			find: function(parmValue, cateId, pageSize, pageNo, storeId) {
+				var defer = $q.defer();
+				var url = baseUrl + "/findinfos?pageSize=" + pageSize + "&pageNo=" + pageNo;
+				if(parmValue) {
+					url += "&parmValue=" + parmValue;
+				}
+				if(cateId) {
+					url += "&cateId=" + cateId;
+				}
+				if(storeId) {
+					url += "&storeId=" + storeId;
+				}
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//获取树形列表，返回全部数据
+			symptomsAll: function() {
+				var defer = $q.defer();
+				var url = baseUrlSymptoms + "/findall?type=2";
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//查询价格更改记录
+			findpricebills: function(goodsId, pageSize, pageNo, startTime, endTime) {
+				var defer = $q.defer();
+				var url = baseUrl + "/findpricebills?pageSize=" + pageSize + "&pageNo=" + pageNo;
+				if(goodsId) {
+					url += "&goodsId=" + goodsId;
+				}
+				if(startTime) {
+					url += "&startTime=" + startTime;
+				}
+				if(endTime) {
+					url += "&endTime=" + endTime;
+				}
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//获取品牌ID和名称列表
+			namelist: function() {
+				var defer = $q.defer();
+				var url = baseUrlBrand + '/findinfos/namelist';
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//根据连锁店ID列出所有连锁店子药店列表
+			drugstoreById: function(chainId) {
+				var defer = $q.defer();
+				var url = drugstore + '/findall?chainId=' + chainId;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//所有连锁店列表
+			drugfindall: function() {
+				var defer = $q.defer();
+				var url = drugstoreschain + '/findall';
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//获取树形分类列表，返回全部分类数据
+			findall: function(type) {
+				var defer = $q.defer();
+				var url = baseUrl2 + '/findall?type=' + type;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//根据PID获取子分类列表
+			findinfosbypid: function(id) {
+				var defer = $q.defer();
+				var url = baseUrl2 + '/findinfosbypid/' + id;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//根据ID获取商品详情
+			getinfo: function(id) {
+				var defer = $q.defer();
+				var url = baseUrl + '/getinfo/' + id;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//商品添加
+			addinfo: function(res) {
+				var defer = $q.defer();
+				var url = baseUrl + '/addinfo';
+				$http({
+					method: 'post',
+					url: url,
+					data: res
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//修改商品
+			updateinfo: function(res) {
+				var defer = $q.defer();
+				var url = baseUrl + '/updateinfo';
+				$http({
+					method: 'put',
+					url: url,
+					data: res
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//修改价格
+			updateprice: function(res) {
+				var defer = $q.defer();
+				var url = baseUrl + '/updateprice';
+				$http({
+					method: 'put',
+					url: url,
+					data: res
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//更改状态，状态值（0禁用 1正常 2已删除 3在售）
+			updatestatus: function(id, status, upTime, downTime) {
+				var defer = $q.defer();
+				var url = baseUrl + '/updatestatus/' + id + '?status=' + status;
+				if(downTime) {
+					url += "&downTime=" + downTime;
+				}
+				if(upTime) {
+					url += "&upTime=" + upTime;
+				}
+				$http({
+					method: 'put',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//修改商品描述和说明书信息      类型：1说明书，2商品描述
+			description: function(res) {
+				var defer = $q.defer();
+				var url = baseUrl + '/description';
+				$http({
+					method: 'put',
+					url: url,
+					data: res
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//修改商品图片
+			updateinfoImg: function(res) {
+				var defer = $q.defer();
+				var url = baseUrlImg + '/updateinfo';
+				$http({
+					method: 'put',
+					url: url,
+					data: res
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//获取商品图片列表
+			findinfosImg: function(id) {
+				var defer = $q.defer();
+				var url = baseUrlImg + '/findinfos/' + id;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//获取商品图片列表
+			updatestatusImg: function(id, status) {
+				var defer = $q.defer();
+				var url = baseUrlImg + '/updatestatus/' + id + '?status=' + status;
+				$http({
+					method: 'put',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			}
+		}
+	});

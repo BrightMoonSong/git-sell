@@ -1,0 +1,83 @@
+
+.orderd_foot{
+	width: 100%;
+	height:3.667rem ;
+	background: #FFFFFF;
+	margin-top: 0.416rem;
+	margin-bottom: 5rem;
+}
+.orderd_foot>ul{
+	width: 100%;
+	height: 100%;
+}
+.orderd_foot>ul>li{
+	width: 50%;
+	height: 100%;
+}
+.orderd_foot>ul>li>a{
+	display: block;
+}
+.orderd_foot>ul>li>a>img,.orderd_foot>ul>li>a>span{
+	float: left;
+}
+.orderd_foot>ul>li>a>img{
+	width: 1rem;
+	height: 1rem;
+	margin-right: 0.416rem;
+	margin-top: 0.13rem;
+}
+.orderd_foot>ul>li>a>span{
+	display: block;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #22A2FF;
+	letter-spacing: 0;
+}
+.order_foot_ol{
+	width: 100%;
+	height: 100%;
+}
+.order_foot_ol_one{
+	margin-left: 0.916rem;
+}
+.order_foot_ol>li>span{
+	    line-height: 4.083rem;
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #333333;
+	
+}
+.order_foot_ol_three,.order_foot_ol_two{
+	float: right;
+}
+.order_foot_ol_three{
+	width:7.917rem;
+	height: 100%;
+}
+.order_foot_ol_three>button{
+	width: 100%;
+	height: 100%;
+	border: 0;
+	outline: medium;
+	background-image: linear-gradient(-90deg, #22A2FF 0%, #1ACEFF 100%);
+	font-family: MicrosoftYaHei;
+	font-size: 1.167rem;
+	color: #FFFFFF;
+	letter-spacing: 2px;
+	
+}
+.order_foot_ol_two>label{
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #333333;
+	letter-spacing: 1px;
+}
+.order_foot_ol_two{
+	margin-right: 0.833rem;
+}
+.order_foot_ol .order_foot_ol_two>span{
+	font-family: MicrosoftYaHei;
+	font-size: 1.334rem;
+	color: #FF3F39;
+	letter-spacing: 0;
+}

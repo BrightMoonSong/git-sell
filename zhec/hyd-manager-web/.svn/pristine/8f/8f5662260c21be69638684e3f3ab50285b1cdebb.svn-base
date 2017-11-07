@@ -1,0 +1,99 @@
+<style type="text/css">
+	.btn.active,
+	.btn:active {
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+	}
+	
+	.spanin {
+		display: inline-block;
+		float: left;
+		margin-top: 5px;
+	}
+	
+	.innputy {
+		margin-top: 9px !important;
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">一级菜单管理</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group" >
+					<label class="col-sm-3 control-label"> 关键字</label>
+					<div class="col-sm-9">
+						<input  type="text" class="form-control" ng-model="authfunlist.code">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label"> 权限名称(*)</label>
+					<div class="col-sm-9">
+						<input ng-verify="{min:2 ,max:30,required:true}" type="text" class="form-control" ng-model="authfunlist.name  ">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label"> 权限路径(*)</label>
+					<div class="col-sm-9">
+						<input ng-verify="{required:true}" type="text" class="form-control" ng-model="authfunlist.functionUrl  ">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label"> 排序号(*)</label>
+					<div class="col-sm-9">
+						<input  ng-verify="{min:1 ,max:30,required:true}" type="number" class="form-control" ng-model="authfunlist.sort">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">角色范围(*)</label>
+					<div class="col-sm-9">
+						<select ng-model="authfunlist.scope"ng-verify="option:0" class="form-control" ng-options="x.id as x.name for x in scopeList">
+							<option value="">--请选择--</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label"> 权限描述</label>
+					<div class="col-sm-9">
+						<input  type="text" class="form-control" ng-verify="{required:false}" ng-model="authfunlist.description ">
+					</div>
+				</div>
+				<div class="form-group" ng-hide="true">
+					<label class="col-sm-3 control-label">是否生成4菜单(*)</label>
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+
+							<input class="spanin innputy" type="radio" ng-click="checks(1)" ng-checked="authfunlist.isMenu==1" name=isMenu value="1" ng-disabled="datared"><span class="spanin">&nbsp;是&nbsp;</span>
+
+							<input class="spanin innputy" type="radio" ng-click="checks(0)" ng-verify ng-checked="authfunlist.isMenu  ==0" ng-disabled="datared" name=isMenu value="0"><span class="spanin">&nbsp;否&nbsp;</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" ng-hide="true">
+					<label class="col-sm-3 control-label">状态(*)</label>
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+
+							<input class="spanin innputy" type="radio" ng-click="check(1)" ng-checked="authfunlist.status ==1" name=status value="1" ng-disabled="datared"><span class="spanin">&nbsp;正常&nbsp;</span>
+
+							<input class="spanin innputy" type="radio" ng-click="check(0)" ng-verify ng-checked="authfunlist.status ==0" ng-disabled="datared" name=status value="0"><span class="spanin">&nbsp;禁用&nbsp;</span>
+						</div>
+					</div>
+				</div>
+
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

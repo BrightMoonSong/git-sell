@@ -1,0 +1,75 @@
+<ul class="myorder_ula">
+	<li class="myorder_ul myorder_fla " ng-hide="true">
+		<ol>
+			<li ng-click="findAllOrders() " ng-class="{blueBottom:orderState==0}">所有订单<span></span></li>
+			<li ng-click="findNotPay()" ng-class="{blueBottom:orderState==1}">待付款<span>({{ordersnum.unpaidNum}})</span></li>
+			<li ng-click="findNotReceive()" ng-class="{blueBottom:orderState==3}">待收货<span>({{ordersnum.tobeReceivNum}})</span></li>
+		</ol>
+	</li>
+	<!--tobeShipNum: 0, tobeReceivNum: 0, unpaidNum: 13, allNum: 0}-->
+	<!---->
+	<li class="myorde_time myorder_fla" ng-hide="true">
+		<ol>
+			<li class="parentInput">
+				<input type="text" class="workinput wicon mr25" id="inpstart" placeholder="开始时间" readonly>
+			</li>
+			<li>至</li>
+			<li>
+				<input type="text" class="workinput wicon mr25" id="inpend" placeholder="结束时间" readonly>
+			</li>
+			<li>
+				<input class="search-box" type="text" placeholder="输入商品名" name="keyword" ng-model="parmValue">
+				<div ng-click="searchOrders(parmValue)" class="search-button">
+					<span></span>
+				</div>
+			</li>
+		</ol>
+	</li>
+	<li class="recent_goods">
+		处方申请：
+	</li>
+	<li class="goods_listorder" id="goods_listorder_pre" ng-if="prescriptionList.length > 0">
+		<ol class="prsonal_list_ol">
+			<li>商品名称</li>
+			<li>单价（元）</li>
+			<li>数量</li>
+			<li>审批状态</li>
+			<li id="prescription_xq">详情</li>
+		</ol>
+	</li>
+	<li class="clearfix treat_money_order_orli" ng-repeat="list in prescriptionList track by $index">
+		<ol class="clearfix">
+			<li class="order_fist_border prescription_header"><b ng-bind="list.orderTime"> </b></li>
+			<li class="treat_money_more clearfix">
+				<ul  class="treat_money_more_ul clearfix">
+					<li>
+						<a href="goods.html?id={{list.goodsId}}" target="view_window"><img ng-src="{{list.goodsImageUrl}}" /></a>
+					</li>
+					<li>
+						<a href="goods.html?id={{list.goodsId}}" target="view_window"><b ng-if="list.goodsType==1"><img  src="../../images/prescription.png" alt="" /></b><b ng-bind="list.goodsName"></b></a>
+						<p ng-show="list.specInfo!=''&&list.specInfo!=null&&list.specInfo!=undefined"><b ng-bind="list.specInfo"></b></p>
+					</li>
+					<li><b ng-bind="list.goodsPrice | priceFormatFilter"></b></li>
+					<li id="prescription_num" ng-bind="list.productNumber"></li>
+				</ul>
+				<ol class="clearfix treat_money_pay">
+					<li><b ng-show="{{list.status}}==0">正在审批</b><b ng-show="{{list.status}}==1">审批通过</b><b ng-show="{{list.status}}==2">审批未通过</b></li>
+					<li id="prescr_line">
+						<p ng-bind="showStatus(list.orderStatus)"></p>
+						<p class="prescription_look">
+							<a href="messageBoard.html?id={{list.id}}" target="view_window">查看详情</a>
+						</p>
+					</li>
+				</ol>
+			</li>
+		</ol>
+	</li>
+	<li ng-if="prescriptionList.length==0" class="order_kong" id="pres_kong">
+		<img src="images/noPres.png"/>
+		 <p>
+  			<span>您还没有任何订单</span>
+  			<span><a href="index.html">去购物></a></span>
+  		</p>
+	</li>
+	<datalistpager></datalistpager>
+</ul>

@@ -1,0 +1,148 @@
+ <div class="swiper-container swiper-container-orderretunrn">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <div id="needs_head">
+        <ul class="head">
+          <li>
+            <a href="#info/returnOrder"><img src="img/fh.png" /></a>
+          </li>
+          <li id="needs_xq">服务详情</li>
+          <li id="shopping_bj">
+            <a>完成</a>
+          </li>
+        </ul>
+      </div>
+      <div class="rxapply_conter clearfix">
+        <div class="apply_head_div ">
+          <label>创建时间：<span ng-bind="returnOrder.refundCreateTime"></span></label>
+          <span ng-bind="returnOrder.orderStatusValue">审核通过</span>
+        </div>
+        <div class="rxapply_head apply_head ycenter">
+          <a ui-sref="info.goods({id:returnOrder.goodsId})">
+            <img ng-src="{{returnOrder.goodsImage}}" alt="" />
+          </a>
+          <ol class="clearfix">
+              <li class="prescripiton_a_rx">
+                  <img src="img/prescription.png" ng-if="returnOrder.goodsType==1">
+              </li>
+            <li>
+              <a ui-sref="info.goods({id:returnOrder.goodsId})" class="words" ng-bind="returnOrder.goodsName"></a>
+            </li>
+            <li class="apply_head_li_two" ng-bind="returnOrder.specInfo"></li>
+            <li class="apply_head_li_three">
+              <b ng-bind="returnOrder.productPrice|priceFormatFilter:2">¥ 39.00</b>
+              <span ng-bind="returnOrder.productNum">x2</span>
+            </li>
+          </ol>
+        </div>
+        <div class="app_det_button" ng-if="returnOrder.orderStatus<3">
+          <button ng-click="cancleApply(returnOrder.id)">取消申请</button>
+        </div>
+      </div>
+      <div class="serve_conter clearfix">
+        <ol class="clearfix">
+            <li>
+              <label>退货单号:</label>
+              <span ng-bind="returnOrder.orderRefundSn">其他渠道价格更低,支付方式有误/无法支付 </span>
+            </li>
+            <li>
+              <label>订单号:</label>
+              <span ng-bind="returnOrder.orderSn">其他渠道价格更低,支付方式有误/无法支付 </span>
+            </li>
+          <li>
+            <label>退货原因:</label>
+            <span ng-bind="returnOrder.refundReason">其他渠道价格更低,支付方式有误/无法支付 </span>
+          </li>
+          <li>
+            <label>退款方式:</label>
+            <span ng-bind="returnOrder.moneyRefundWay">退回余额 </span>
+          </li>
+          <li>
+            <label>退货原因:</label>
+            <span ng-bind="returnOrder.returnMethod">快递至平台</span>
+          </li>
+          <li>
+            <label>退回地址:</label>
+            <span ng-bind="returnOrder.refundAddress">北京市东亚望京中心A座2111室</span>
+          </li>
+          <li>
+            <label>联系方式:</label>
+            <span ng-bind="returnOrder.contactInformation">15678904568 </span>
+          </li>
+        </ol>
+        <div class="serve_conter_ul_p">
+          <p><b>*</b><span ng-bind="statusWarn(returnOrder.orderStatus)"></span>您需要在一周内填写物流单号，否则退单将会中止</p>
+        </div>
+      </div>
+      <ul class="serve_conter_ul clearfix">
+        <li class="bill_fapiao sever_border" ng-show="returnOrder.orderStatus==2">
+          <a ng-click="slideTo(1)" id="cotrack">
+            <label class="bill_fapiao_label sever_wt_colr">物流公司</label>
+            <img src="img/ljjt.png" />
+            <span class="app_det_color sever_rig_colr">请选择</span>
+          </a>
+        </li>
+
+        <li class="bill_fapiao ">
+          <a>
+            <label class="bill_fapiao_label sever_wt_colr">问题描述</label>
+            <img src="img/Triangle.png" id="sever_img_wz" />
+            <span ng-click="clickShowDetail()" class="app_det_color ">展开</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="fix_foot">
+        <ol class="fix_header">
+          <li class=" fix_foot_img_input" ><a  class="ycenter"><input type="text" placeholder="在这里留言" /></a></li>
+          <li class="fix_foot_img_return">
+          	<a>
+          		<img  src="../../img/sctp.png"/>
+          	</a>
+          </li>
+          <li class="fix_foot_img_button">
+          	<button>
+          		发送
+          	</button>
+          </li>
+        </ol>
+      </div>
+     </div>
+	<div class="swiper-slide">
+	  <div id="needs_head">
+        <ul class="head">
+          <li>
+            <a ng-click="slideTo(0)" ><img src="img/fh.png" /></a>
+          </li>
+          <li id="needs_xq">选择物流公司</li>
+
+        </ul>
+      </div>
+      <div class="bill_fapiao ">
+      		<input type="hidden" name="showctract_id" id="showctractId" style="display: none;" value="">
+			<a >
+				<label><b>物流公司</b></label>
+				<img src="img/ljjt.png" />
+				<span id="showctract">请选择</span>
+			</a>
+		</div>
+		<div class="serve_conter_UL_input">
+				<input type="text" placeholder="请输入物流单号" ng-model="logisticsNumber" maxlength="22" />
+		</div>
+		<div class="login_conter_button">
+			<button ng-click="confirlSend(logisticsNumber,returnOrder.memberId,returnOrder.id)">确认</button>
+		</div>
+
+    </div>
+
+  </div>
+  <style type="text/css">
+	.returncompany li{
+		float: initial;
+	}
+  </style>
+  <div class="returncompany"></div>
+<link rel="stylesheet" type="text/css" href="../../vendor/iosSelect/iosSelect.css"/>
+<script src="../../vendor/iosSelect/iosSelect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../vendor/iosSelect/iscroll.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../vendor/iosSelect/returnorder_deta.js" type="text/javascript" charset="utf-8"></script>

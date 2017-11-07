@@ -1,0 +1,52 @@
+<style>
+	.swiper-container {
+		width: 100%;
+		height: 100%;
+	}
+
+	.swiper-slide-width {
+		width: 40%;
+	}
+</style>
+<div class="swiper-container swiper-container-fvp">
+	<div class="swiper-wrapper">
+		<!-- 分类列表页 -->
+		<div class="swiper-slide">
+			<div id="carte_head">
+				<ul class="head">
+					<li><img src="img/code.png" /></li>
+					<li><input type="text" placeholder="输入内容" ng-click="gotoSearch()" /></li>
+					<li ng-click="gotoLogin()" ng-if="!isLogin"><a >登录</a></li>
+					<li ng-click="gotoMine()" ng-if="isLogin">
+						<img src="img/mine_white.png" />
+					</li>
+				</ul>
+			</div>
+			<ul class="clearfix carte_conter">
+				<li class="carte_left clearfix">
+					<ol class="clearfix" ng-repeat="goods in headseversa">
+						<li>
+							<i ng-class="{true:'carte_left_i',false:''}[currentSelect==goods.id]"></i>
+							<span ng-class="{true:'carte_left_span',false:''}[currentSelect==goods.id]" ng-click="opens($event,goods.id)">{{goods.name}}</span>
+						</li>
+					</ol>
+				</li>
+				<li class="carte_right clearfix">
+					<ol class="carte_right_ol clearfix" ng-repeat="children in goodslists">
+						<li class="carte_right_ol_li"><label>{{children.name}}</label></li>
+						<li ng-repeat="childrens in children.childrenList">
+							<a ui-sref="info.list({paramsCategoryId:{{childrens.id}},paramsOrderid:0,paramsInstock:0,paramsBrandId:0,paramsFilterId:0})">{{childrens.name}}</a>
+						</li>
+					</ol>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="swiper-slide">
+			<searching></searching>
+		</div>
+	</div>
+</div>
+<!-- </body>
+</html> -->

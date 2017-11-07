@@ -1,0 +1,155 @@
+angular
+	.module('managerApp')
+	.controller('SysSearchHotController', SysSearchHotController)
+	.controller('SearchHotFormModalController', SearchHotFormModalController)
+
+function SysSearchHotController($rootScope, $scope, $http, $q, constPageSize, SysSearchHotService, ngDialog) {
+	//搜索
+	$scope.find = function(currentPageNo, currentPaseSize) {
+		var defer = $q.defer();
+		SysSearchHotService
+			.find(currentPaseSize, currentPageNo, $scope.searchHotNameSearch)
+			.then(function(result) {
+					$scope.searchHotList = result.data;
+					defer.resolve(result);
+				},
+				function(result) {
+					defer.reject(result);
+				})
+		return defer.promise;
+	};
+	/**
+	 * 弹出 添加 修改 数据模态框
+	 */
+	$scope.openModal = function(dataId, res) {
+		$scope.dataId = dataId;
+		if(dataId) {
+			$scope.dataEntity = res;
+		}
+		$scope.dialog = ngDialog.open({
+			template: 'views/system/SearchHotFormModal.html',
+			className: 'ngdialog-theme-default',
+			controller: 'SearchHotFormModalController',
+			scope: $scope,
+			width: 650
+		})
+	};
+
+	//修改状态
+	$scope.editStatus = function(id, n) {
+		var reminder; //提示语
+		switch(n) {
+			case 0:
+				reminder = "确定禁用吗？"; //提示语
+				break;
+			case 1:
+				reminder = "确定启用吗？"; //提示语
+				break;
+			case 2:
+				reminder = "确定删除吗？"; //提示语
+				break;
+		}
+
+		ngDialog.openConfirm({
+			template: '<p>' + reminder + '</p>' +
+				'<div class="ngdialog-buttons">' +
+				'<button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">取消' +
+				'<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">确定' +
+				'</button></div>',
+			plain: true,
+			closeByDocument: false,
+			closeByEscape: false,
+			className: 'ngdialog-theme-default'
+		}).then(function(value) {
+			switch(n) {
+				case 2:
+					SysSearchHotService
+						.delete(id)
+						.then(
+							function(result) {
+								if(result.code >= 0) {
+									$scope.loadData(); //刷新
+								}
+							},
+							function(result) {
+
+							});
+					break;
+				default:
+					SysSearchHotService
+						.updatestatus(id, n)
+						.then(
+							function(result) {
+								if(result.code >= 0) {
+									$scope.loadData(); //刷新
+								}
+							},
+							function(result) {
+
+							});
+					break;
+			}
+
+		}, function(reason) {
+
+		});
+
+	}
+	//关闭弹出窗
+	$scope.cancelModal = function() {
+		$scope.dialog.close();
+	}
+}
+//添加  修改弹窗
+function SearchHotFormModalController($rootScope, $scope, SysSearchHotService) {
+	$scope.initEntity = function() {
+		if($scope.dataId) { //修改
+
+		} else { //添加
+			$scope.dataEntity = {
+				'content': '',
+				'sort': 1,
+				'status': 1
+			};
+		}
+	}
+	$scope.initEntity();
+
+	//修改
+	$scope.okModal = function() {
+		if($scope.okModalDis) {
+			return false;
+		}
+		$scope.okModalDis = true;
+		if($scope.dataId) { //修改
+			SysSearchHotService
+				.update($scope.dataEntity)
+				.then(
+					function(result) {
+						$scope.okModalDis = false;
+						if(result.code >= 0) {
+							$scope.loadData(); //刷新
+							$scope.cancelModal();
+						}
+					},
+					function(result) {
+						$scope.okModalDis = false;
+					});
+		} else {
+			SysSearchHotService
+				.add($scope.dataEntity)
+				.then(
+					function(result) {
+						$scope.okModalDis = false;
+						if(result.code >= 0) {
+							$scope.loadData(); //刷新
+							$scope.cancelModal();
+						}
+					},
+					function(result) {
+						$scope.okModalDis = false;
+					});
+		}
+
+	}
+}

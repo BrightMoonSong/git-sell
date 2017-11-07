@@ -1,0 +1,47 @@
+<!--<div class="recent_goods recent_goods_border">
+	我的优惠券：
+</div>-->
+<div class="coupon_status">
+  <ol>
+    <li ng-click="toUse()" ng-class="{blueBottom:type==1}">待使用</li>
+    <li ng-click="alreadyUse()" ng-class="{blueBottom:type==2}">已使用</li>
+    <li ng-click="expired()" ng-class="{blueBottom:type==3}">已过期</li>
+    <li ng-click="lostEfficacy()" ng-class="{blueBottom:type==4}">已失效</li>
+  </ol>
+</div>
+<div class="order_kong" id="cupon_kong" ng-if="couponData.totalSize==0">
+	<img src="../../images/yhjk.png" />
+	<p id="cupon_span">
+		<span>您还没有优惠券</span>
+	</p>
+</div>
+<div class="coup_div_yh clearfix">
+	<ul class="coupon_header clearfix" ng-repeat="oneCou in coupons">
+		<li class="coupon_header_back" ng-class="{coupon_header_back:type==1,coupon_header_back_gray:type!=1}">
+			<p><span ng-bind="oneCou.quota | number:2"></span><b>￥</b></p>
+			<p><span>满￥</span><span ng-bind="oneCou.threshold | number:2"></span><span>可用</span></p>
+			<p><span ng-bind="oneCou.startTime"></span><span class="clearfix"></span><span ng-bind="oneCou.endTime"></span></p>
+		</li>
+		<li class="coupon_header_pinlei">
+			<ol>
+				<li>
+					<label>名&nbsp;&nbsp;&nbsp;称：</label>
+	        <span ng-bind="oneCou.couponName"></span>
+				</li>
+				<li>
+					<label>限平台：</label>
+					<span ng-bind="oneCou.arrPlatform"></span>
+				</li>
+				<li>
+					<label>券编号：</label>
+					<span ng-bind="oneCou.couponCode"></span>
+				</li>
+				<li class="coupon_header_pinlei_button" ng-show="type==1">
+					<button class="blue_border_corder"  ng-class="{true: 'blue_border_corder', false: 'gray_border_corder'}[type_button]">去使用</button>
+				</li>
+			</ol>
+
+		</li>
+	</ul>
+</div>
+<datalistpager></datalistpager>

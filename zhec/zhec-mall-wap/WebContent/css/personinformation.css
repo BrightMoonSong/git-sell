@@ -1,0 +1,68 @@
+.person_conter{
+	width: 100%;
+	margin-top: 0.416rem;
+}
+#person_bill_img{
+	height: 6.66rem;
+	line-height: 6.66rem;
+}
+#person_bill_img>a>label{
+	line-height: 6.66rem;
+}
+#person_bill_img>a>img{
+	margin-top:2.66rem;
+}
+.person_img{
+	width: 3.541rem;
+	height: 100%;
+}
+.person_img>img{
+
+	width: 3.541rem;
+	height: 3.75rem;
+	margin-top:1.458rem ;
+	border-radius: 100px;
+}
+
+.person_conter_ul>li:last-child{
+	border: 0;
+}
+.person_conter_ul>li>a>label{
+	color: #333333;
+}
+.person_conter_ul>li>a>span{
+	color: #999999;
+}
+.personifo_input{
+    width: 20%;
+    height: 100%;
+    margin-left: 0.833rem;
+    outline: medium;
+    border: 0;
+}
+.personifo_button{
+	    margin-top: 3.208rem;
+    width: 100%;
+    height: 3.666rem;
+}
+.personifo_button button{
+	    width: 82.9%;
+    height: 100%;
+    margin: 0 auto;
+    outline: medium;
+    border: 0;
+    font-family: MicrosoftYaHei;
+    font-size: 1.333rem;
+    color: #FFFFFF;
+    letter-spacing: 1.33px;
+    display: block;
+    background-image: linear-gradient(-90deg, #22A2FF 0%, #1ACEFF 100%);
+    border-radius: 4px;
+}
+.personifo_div_input{
+	width: 100%;
+    height: 3rem;
+    border: 0;
+    border-top: 1px solid #eee;
+    text-indent: 1rem;
+}

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="afterSalesApp" ng-controller="afterSalesController">
+
+<head>
+	<script type="text/javascript">
+		//IE8以及以下
+		if (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") ==
+			"MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+			alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+			window.open(
+				"https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100",
+				"_self");
+		}
+	</script>
+
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+	<script language="javascript">
+		if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+			
+		}else{
+			var strDelete = publicUrlMall.split("/mall");
+			publicUrlMall = strDelete[0] + strDelete[1];
+		}
+		document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href=" + publicUrlMall + "favicon.ico>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/afterSales/afterSales.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/screen.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngVerify/ngVerify.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/jDialog/jDialog.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog.min.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/jquery/dist/jquery.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/angular/angular.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/CommonService.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/directives.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/CommonFilter.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/controllers/afterSales/afterSalesConfig.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/ngDialog/ngDialog.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/ngVerify/ngVerify.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/cookie.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/zhec.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/Piwik.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/jDialog/jDialog.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/interceptor.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/controllers/afterSales/afterSalesController.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/services/afterSales/afterSalesService.js><\/script>");
+	</script>
+
+
+
+
+	<!-- <meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico"> -->
+	<title ng-bind="title"></title>
+	<!-- <link rel="stylesheet" href="stylesheets/screen.css" />
+	<link rel="stylesheet" href="stylesheets/afterSales/afterSales.css" /> -->
+	<!--ngVerify-->
+	<!-- <link href="stylesheets/plugins/ngVerify/ngVerify.css" rel="stylesheet">
+	<link href="stylesheets/plugins/ngDialog/ngDialog.min.css" rel="stylesheet">
+	<link href="stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css" rel="stylesheet"> -->
+	<style type="text/css">
+		.after_problem>.verifyTips {
+			top: 65px !important;
+			left: -50px !important;
+		}
+
+		.after_service_Li>.verifyTips {
+			top: -10px !important;
+			left: -430px !important;
+		}
+	</style>
+	<!-- <script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+	<script type="text/javascript" src="js/common/cookie.js"></script>
+	<script type="text/javascript" src="js/common/zhec.js"></script> -->
+	<!-- Piwik -->
+	<!-- <script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script> -->
+	<!-- End Piwik Code -->
+</head>
+
+<body>
+	<headerpage></headerpage>
+	<div class="head_navagiton">
+		<div class="head_conter">
+			<ul class="head_ul">
+				<li class="head_li">
+					<div class="head_log">
+						<a href="index.html">
+							<div class="head_log-img"><img src="images/u1884.png"></div>
+						</a>
+					</div>
+				</li>
+				<li style="display: none;">
+					<ol>
+						<li>
+
+							<p>
+								<img ng-src="images/jdt.png" />
+							</p>
+							<p>拍下商品</p>
+							<!--<p><span ng-bind="createTime">&nbsp; </span></p>-->
+						</li>
+						<li>
+
+							<p>
+								<img ng-src="images/jdt1.png" />
+							</p>
+							<p>在线付款</p>
+							<!--<p><span ng-bind="paidTime">&nbsp; </span></p>-->
+						</li>
+						<li>
+
+							<p>
+								<img ng-src="images/jdt1.png" />
+							</p>
+							<p>厂家发货</p>
+							<!--<p><span>2016-10-09 10:29:00&nbsp; </span></p>-->
+						</li>
+						<li>
+
+							<p>
+								<img ng-src="images/jdt1.png" />
+							</p>
+							<p>确认收货</p>
+							<!--<p><span ng-bind="receivedStime">&nbsp; </span></p>-->
+						</li>
+					</ol>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<form name="myform" verify-scope="tipStyle: 1">
+		<div class="afterall clearfix">
+			<div class="after_head">
+				<span>申请售后:</span>
+			</div>
+			<ul class="clearfix after_ul">
+				<li class="after_tr">
+					<ol>
+						<li>商品名称</li>
+						<li>包装清单</li>
+						<li>数量</li>
+						<li>实付(元)</li>
+					</ol>
+				</li>
+				<li class="after_tr_shop">
+					<div class="after_tr_sdiv">
+						<a ng-click="openOrder()" ng-bind="dataEntity.orderSn"></a>
+					</div>
+					<ul>
+						<li><img ng-src="{{dataEntity.goodsImage}}" alt="鹿医生" />
+							<b id="prescriptionPng" style="display: none;" ng-show="dataEntity.goodsType==1" class="ng-scope after_cf"><img src="../../images/prescription.png" alt=""></b>
+							<!--<b id="anesthesiaPng" style="display: none;" ng-show="dataEntity.goodsType==3" class="ng-scope after_cf"><img src="../../images/anesthesia.png" alt=""></b>-->
+							<a ng-href="goods.html?id={{goodsId}}" id="after_img" ><b ng-bind="dataEntity.goodsName"></b><br/><b ng-bind="dataEntity.specInfo"></b></a>
+						</li>
+						<li ng-if="!dataEntity.packageDeatil==''" ng-bind="dataEntity.packageDeatil"></li>
+						<li ng-if="dataEntity.packageDeatil==''">无</li>
+						<li ng-bind="dataEntity.productNum"></li>
+						<li ng-bind="'￥'+dataEntity.moneyRefund.toString().priceFilter()"></li>
+					</ul>
+				</li>
+			</ul>
+			<p class="after_p">
+				信息填写
+			</p>
+			<div class=" clearfix after_service" id="after_red">
+				<ul class="after_service_ul clearfix " id="after_service_ul">
+					<li class="after_service_ul_li after_service_Li">
+						<span><b>*</b>服务类型：</span>
+						<label><input type="radio" name="tuihuo" ng-checked="refundType==1" value="1"><span>退货</span></label>
+					</li>
+					<li class="after_li after_service_Li">
+						<span><b>*</b>提交数量：</span>
+						<ul class="after_number">
+							<li><input type="text" readonly="readonly" ng-model="productNum" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'');}" value="productNum" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'');}"></li>
+							<li><button ng-click="productNum=productNum+1" ng-disabled="productNum==dataEntity.maxReturnNum||productNum>dataEntity.maxReturnNum"><img style="width: 7px;" ng-hide="productNum==dataEntity.maxReturnNum||productNum>dataEntity.maxReturnNum" src="images/upallow.png" /><img style="width: 7px;" ng-show="productNum==dataEntity.maxReturnNum||productNum>dataEntity.maxReturnNum" src="images/upnotallow.png" /></button></li>
+							<li><button ng-click="productNum=productNum-1" ng-disabled="productNum<1||productNum==1"><img style="width: 7px;" ng-hide='productNum<1||productNum==1' src="images/downallow.png" /><img style="width: 7px;" ng-show='productNum<1||productNum==1' src="images/hjjh.png" /></button></li>
+							<!--<li><span>您最多可提交数量为<span ng-bind="dataEntity.maxReturnNum"></span>个</span>
+								</li>-->
+						</ul>
+					</li>
+					<li class="after_yy after_service_Li ">
+						<span><b>*</b>提交原因：</span>
+						<select ng-model="reason" ng-verify="option:0,errmsg:'请选择'" ng-options="x.id as x.name for x in reasonlist" value="{{x.id}}" ng-change="changeRefundReason(reason)">
+								<option value="">请选择退货原因</option>
+							</select>
+					</li>
+					<li class="after_problem">
+						<span><b>*</b>问题描述：</span>
+						<textarea rows="5" cols="100" ng-model="remark" ng-verify="{min:10,max:200}" onkeyup="this.value=this.value.substring(0, 200);CountWords(this,'show')" maxlength="200" onchange="this.value=this.value.substring(0, 200)" onkeydown="this.value=this.value.substring(0, 200)"
+										placeholder="请输入10-200字"></textarea>
+						<span id="show">
+
+								</span>
+					</li>
+					<li>
+						<span>上传图片：</span>
+					</li>
+					<li class="clearfix massafe_oss_li">
+
+						<!--OSS-->
+						<br />
+						<div name="theform" style="display: none;">
+							<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+							<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+							<br/> 上传到指定目录:
+							<input type="text" value="{{submitBillmemberId}}" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+						</div>
+
+						<br/>
+						<div id="container" class="clearfix">
+							<div id="ossfile" class="clearfix">
+								你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系XXX)
+							</div>
+							<a id="selectfiles" href="javascript:void(0);" class="btn"><img src="images/xnjh.png"></a>
+							<img src="images/xnjj.png" />
+							<img src="images/xnjj.png" />
+							<img src="images/xnjj.png" />
+							<img src="images/xnjj.png" />
+						</div>
+						<div class="clearfix after_oss_div">
+							<a id="postfiles" href="javascript:void(0);" class="btn" style="display: none;">开始上传</a>
+						</div>
+						<pre id="console" style="display: none;"></pre>
+						<!--OSS-->
+					</li>
+					<li class="after_sale_oss">
+						<span class="after_service_span">为了帮助您更好的解决问题，请上传图片</span>
+						<span class="after_service_span after_service_span2">最多可上传5张图片，每张图片大小不超过2M，支持bmp,gif,jpg,png,jpeg格式文件</span>
+					</li>
+				</ul>
+			</div>
+			<!--红框-->
+			<div class="after_service clearfix after_confirm">
+				<ul class="after_service_ul clearfix ">
+					<li class="after_service_ul_li after_service_Li">
+						<span><b>*</b>退款方式：</span>
+						<label class="after_confirm_span"><input type="radio" ng-checked="moneyRefundWay==1" name="tuihuiyue" value="2" />按原支付方式退回</label>
+					</li>
+					<li class="after_service_Li">
+						<span class="small">如果收到商品时有发票，退货时必须返还所有发票，否则不予退货。</span>
+						<!--<span>申请凭据：</span>
+							<label><input type="checkbox" ng-model="invoice"/>有发票</label>-->
+					</li>
+					<li class="after_service_Li">
+						<span><b>*</b>返回方式：</span>
+						<label class="after_confirm_span"><input type="radio" ng-checked="returnMethod==1" name="kdpt" value="3" />快递至平台</label>
+					</li>
+					<li class="after_service_Li">
+						<span class="small">商品返回地址将在服务单审核通过后在“退货订单”中查询</span>
+					</li>
+					<li class="after_service_Li">
+						<span><b>*</b>收货地址：</span>
+						<span ng-bind="dataEntity.refundAddress"></span>
+					</li>
+					<li class="after_service_Li">
+						<span><b>*</b>手机号码：</span>
+						<input type="text" ng-model="contactInformation" value="157****5184" ng-verify="pattern:/^0?1[3|4|5|7|8][0-9]\d{8}$/,errmsg:'手机号格式不正确'" maxlength="11" />
+						<span class="small">提交服务单后，售后专员可能与您电话沟通，请保持手机畅通</span>
+					</li>
+				</ul>
+			</div>
+			<!--确认信息框-->
+
+		</div>
+		<div class="afeter_butt">
+			<button ng-click="okModel()" ng-verify="{control:'myform'}" class="after_confirm_button" ng-disabled="dataDisabled">确认提交</button>
+		</div>
+		<!--外围的框-->
+	</form>
+
+	<footerpage></footerpage>
+
+
+
+	<!-- <script type="text/javascript" src="js/common/CommonService.js"></script>
+	<script type="text/javascript" src="js/common/directives.js"></script>
+	<script type="text/javascript" src="js/plugins/angular/angular.min.js"></script> -->
+
+
+	<!-- ngVerify -->
+	<!-- <script src="js/plugins/ngVerify/ngVerify.js"></script> -->
+	<!-- ngDialog -->
+	<!-- <script src="js/plugins/ngDialog/ngDialog.min.js"></script> -->
+
+	<!-- jDialog -->
+	<!-- <link rel="stylesheet" href="stylesheets/plugins/jDialog/jDialog.css" type="text/css">
+	<script type="text/javascript" src="js/plugins/jDialog/jDialog.js"></script>
+
+	<script type="text/javascript" src="js/controllers/afterSales/afterSalesConfig.js"></script> -->
+	<!--拦截器-->
+	<!-- <script type="text/javascript" src="js/common/interceptor.js"></script>
+	<script type="text/javascript" src="js/controllers/afterSales/afterSalesController.js"></script>
+	<script type="text/javascript" src="js/services/afterSales/afterSalesService.js"></script> -->
+	<!--oss-->
+	<!-- <script type="text/javascript" src="js/plugins/oss/lib/crypto1/crypto/crypto.js"></script>
+	<script type="text/javascript" src="js/plugins/oss/lib/crypto1/hmac/hmac.js"></script>
+	<script type="text/javascript" src="js/plugins/oss/lib/crypto1/sha1/sha1.js"></script>
+	<script type="text/javascript" src="js/plugins/oss/lib/base64.js"></script>
+	<script type="text/javascript" src="js/plugins/oss/plupload.full.min.js"></script>
+	<script type="text/javascript" src="js/plugins/oss/upload.js"></script> -->
+
+
+</body>
+<script language="javascript">
+ 
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/crypto1/crypto/crypto.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/crypto1/hmac/hmac.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/crypto1/sha1/sha1.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/lib/base64.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/plupload.full.min.js><\/script>");
+  document.write("<script src="+publicUrlMall+"js/plugins/oss/upload.js><\/script>");
+ </script>
+
+</html>

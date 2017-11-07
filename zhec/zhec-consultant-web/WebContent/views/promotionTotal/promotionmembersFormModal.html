@@ -1,0 +1,49 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">会员信息</h1>
+    </div>
+
+    <div class="" name="myform" verify-scope="tipStyle: 1">
+
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">姓名：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify="" readonly type="text" class="form-control" ng-model="dataEntity.name">
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label class="col-sm-3 control-label">内容（*）：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify="" type="text" class="form-control" ng-model="dataEntity.content">
+                    </div>
+                </div> -->
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">性别：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify="" readonly  type="text" class="form-control" ng-model="dataEntity.sex">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">手机：</label>
+                    <div class="col-sm-9">
+                        <input type="number" readonly  ng-verify="{required:true}" class="form-control" ng-model="dataEntity.mobile">
+                    </div>
+                </div>
+
+
+
+            </li>
+        </ul>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+        </div>
+    </div>
+
+</div>

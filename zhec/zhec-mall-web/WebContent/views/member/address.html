@@ -1,0 +1,72 @@
+
+			<ul>
+				<li class="recent_goods recent_goods_border">
+					<ul  class="recent_address">
+						<li>
+							地址管理
+						</li>
+						<li>
+						共有<span ng-bind="totalSize"></span>个地址
+						</li>
+						<li ng-click = "openModal(-1)">
+							+新增地址
+						</li>
+					</ul>
+				</li>
+				<li class="address_head_all">
+					<ol>
+						<li>姓名</li>
+						<li>详细地址</li>
+						<li>电话</li>
+						<li>邮编</li>
+						<li>操作</li>
+					</ol>
+				</li>
+
+				<li class="address_message clearfix">
+					<ol ng-repeat="address in addressList">
+						<li class="address_message_li" ng-if = "address.isDefault ==  1">
+							<ul>
+
+								<li ng-bind="address.consigneeName"></li>
+								<li><b ng-bind="address.consigneePca"></b> <b ng-bind="address.consigneeAddress"></b></li>
+								<li ng-bind="address.consigneeMobile"></li>
+								<li ng-bind="address.consigneePost"></li>
+								<li class="address_message_mose" >
+
+									<span ng-click = "setDefaultAddress(address.id,address.memberId)" id="address_ono">
+										默认地址
+									</span>
+									<span ng-click = "openModal(address.id)">
+										编辑
+									</span>
+									<span ng-click = "deleteAddress(address.id)">
+										删除
+									</span>
+								</li>
+							</ul>
+						</li>
+						<li ng-if = "address.isDefault ==  0">
+							<ul >
+								<li ng-bind="address.consigneeName"></li>
+								<li><b ng-bind="address.consigneePca"></b> <b ng-bind="address.consigneeAddress"></b></li>
+								<li ng-bind="address.consigneeMobile"></li>
+								<li ng-bind="address.consigneePost"></li>
+								<li class="address_message_mose" >
+
+									<span ng-click = "setDefaultAddress(address.id,address.memberId)">
+										设为默认地址
+									</span>
+									<span ng-click = "openModal(address.id)">
+										编辑
+									</span>
+									<span ng-click = "deleteAddress(address.id)">
+										删除
+									</span>
+								</li>
+
+							</ul>
+						</li>
+					</ol>
+				</li>
+			</ul>

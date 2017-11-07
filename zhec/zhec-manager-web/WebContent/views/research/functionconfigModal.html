@@ -1,0 +1,83 @@
+<div class="inmodal" >
+    <div class="modal-header">
+        <h1 class="modal-title">功能点管理</h1>
+    </div>
+    <div class="">
+        <ul class="form-horizontal ">
+            <li class="list-group-item">
+                 <div class="form-group">
+                    <label class="col-sm-3 control-label">功能名称：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"
+                               ng-model="configMessage.name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">parentId：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"
+                               ng-model="configMessage.parentId">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">menuUrl：</label>
+                    <div class="col-sm-9">
+                        <input  type="text" class="form-control"
+                               ng-model="configMessage.menuUrl">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">functionUrl：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"
+                               ng-model="configMessage.functionUrl">
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">应用范围：</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline" >
+                                <input  ng-model="configMessage.scope" type="radio" ng-value="1">&nbsp;平台&nbsp;
+                            </label>
+                            <label class="radio-inline" >
+                                <input ng-model="configMessage.scope" type="radio" ng-value="2">&nbsp;顾问&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">排序号：</label>
+                    <div class="col-sm-9">
+                        <input  type="text" class="form-control"
+                               ng-model="configMessage.sort">
+                    </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">状态：</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline" >
+                                <input ng-model="configMessage.status" type="radio" ng-value="1">&nbsp;启用&nbsp;
+                            </label>
+                            <label class="radio-inline" >
+                                <input ng-model="configMessage.status" type="radio" ng-value="0">&nbsp;禁用&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                	<button type="button" class="btn btn-success" ng-click="okModal()">
+			            <span class="glyphicon glyphicon-share-alt"></span> 确定
+			        </button>
+					<button type="button" class="btn btn-warning" ng-click="cancelModal()">
+			            <span class="glyphicon glyphicon-share-alt"></span> 取消
+			        </button>
+				</div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+

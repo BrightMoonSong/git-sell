@@ -1,0 +1,75 @@
+angular
+	.module("managerApp")
+	.factory("OrderAbnormalService", function($q, $http, constMapiLocation) {
+		var baseUrl = constMapiLocation + '/order';
+		return {
+			//全部订单列表
+			find: function(orderNo,carLicenseNo, startTimeStr, endTimeStr, pageNo, pageSize) {
+				var defer = $q.defer();
+				var url = baseUrl + '/abnormalsignorders?pageNo=' + pageNo + '&pageSize=' + pageSize;
+				if(orderNo) {
+					url += "&orderNo=" + orderNo;
+				}
+				if(carLicenseNo) {
+					url += "&carLicenseNo=" + carLicenseNo;
+				}
+				if(startTimeStr) {
+					url += "&startTimeStr=" + startTimeStr;
+				}
+				if(endTimeStr) {
+					url += "&endTimeStr=" + endTimeStr;
+				}
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				})
+				return defer.promise;
+			},
+			//取消订单
+			cancel: function(id) {
+				var defer = $q.defer();
+				var url = baseUrl + '/cancel/' + id;
+				$http({
+					method: 'put',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				})
+				return defer.promise;
+			},
+			//详情订单
+			detail: function(id) {
+				var defer = $q.defer();
+				var url = baseUrl + '/getabnormalsignorder/' + id;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				})
+				return defer.promise;
+			},
+			//处理订单
+			updatehandle: function(id, handleRemark) {
+				var defer = $q.defer();
+				var url = baseUrl + '/updatehandle/' + id + '?handleRemark=' + handleRemark;
+				$http({
+					method: 'put',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				})
+				return defer.promise;
+			}
+		}
+	})

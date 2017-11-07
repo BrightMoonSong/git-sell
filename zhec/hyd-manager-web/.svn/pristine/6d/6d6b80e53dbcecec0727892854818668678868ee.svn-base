@@ -1,0 +1,6 @@
+<div  class="{{promptClass}}" id="toastLoadding">
+	<div class="modal-header toastTop">   
+        <h4 id="myModalLabel" class="modal-title">正在处理</h4>
+    </div>
+    <div class="modal-body"><img class="loaddingGif" src="../../img/loadding.gif" /></div>
+</div>

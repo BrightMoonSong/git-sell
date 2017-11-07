@@ -1,0 +1,29 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title" ng-if="!dataId&&!dataPid">添加一级区域</h1>
+		<h1 class="modal-title" ng-if="dataId&&!dataPid">修改子级区域</h1>
+		<h1 class="modal-title" ng-if="dataPid">添加子级区域</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal">
+			<li class="list-group-item" style="background-color: white;">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">区域名称(*)：</label>
+
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-verify="{required:true}" placeholder="区域名称" ng-model="dataEntity.name">
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+
+</div>

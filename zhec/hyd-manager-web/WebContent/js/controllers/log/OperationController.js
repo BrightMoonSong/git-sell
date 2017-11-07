@@ -1,0 +1,139 @@
+function OperationController($scope, $q, OperationService, constPageSize, ngDialog, goodsReminder) {
+	$scope.WdatePicker = {};
+	$scope.requestMethodList = [{
+			"name": "GET"
+		},
+		{
+			"name": "POST"
+		},
+		{
+			"name": "PUT"
+		},
+		{
+			"name": "DELETE"
+		}
+	];
+	$scope.platformList=[
+		{
+			"name": "APP"
+		},
+		{
+			"name": "WEB"
+		}
+	]
+	//操作日志记录列表
+	$scope.find = function(currentPageNo, currentPaseSize) {
+		var defer = $q.defer();
+		var requestMethod = $scope.requestMethod;
+		var interfaceName = $scope.interfaceName;
+		var platform = $scope.platform;
+		var requestUri = $scope.requestUri;
+		var phone = $scope.phone;
+		$scope.startTimeStr = $scope.WdatePicker.startTimes;
+		$scope.endTimeStr = $scope.WdatePicker.endTimes;
+		OperationService
+			.find(currentPageNo, currentPaseSize,platform,requestUri,requestMethod, interfaceName, phone, $scope.startTimeStr, $scope.endTimeStr)
+			.then(function(result) {
+				$scope.logList = result.data;
+				defer.resolve(result)
+			}, function(result) {
+				defer.reject(result)
+			})
+		return defer.promise;
+	}
+	//弹出弹窗
+	$scope.openModal = function() {
+		$scope.dialog = ngDialog.open({
+			template: 'views/log/OperationFormModel.html',
+			className: 'ngdialog-theme-default',
+			controller: 'OperationFormModelController',
+			scope: $scope,
+			width: 850
+		})
+	};
+	//弹出弹窗
+	$scope.openModalDetail = function(id) {
+		$scope.id = id;
+		$scope.dialog1 = ngDialog.open({
+			template: 'views/log/OperationDetailFormModel.html',
+			className: 'ngdialog-theme-default',
+			controller: 'OperationDetailFormModelController',
+			scope: $scope,
+			width: 850
+		})
+	};
+	//删除操作
+	$scope.enableId = function(id) {
+		var chainstouses;
+		chainstouses = goodsReminder.goodsbranddelete;
+		ngDialog.openConfirm({
+			template: '<p>' + chainstouses + '</p>' +
+				'<div class="ngdialog-buttons">' +
+				'<button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">取消' +
+				'<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">确定' +
+				'</button></div>',
+			plain: true,
+			closeByDocument: false,
+			closeByEscape: false,
+			className: 'ngdialog-theme-default'
+		}).then(function(value) {
+			OperationService
+				.delete(id)
+				.then(function(result) {
+					$scope.loadData()
+				}),
+				function(reason) {}
+		})
+	}
+	//关闭批量删除弹窗
+	$scope.cancelModal = function() {
+		$scope.dialog.close();
+	}
+	//关闭详情弹窗
+	$scope.cancelModalDetail = function() {
+		$scope.dialog1.close();
+	}
+}
+//批量删除弹窗操作
+function OperationDetailFormModelController($scope, OperationService) {
+	//详情初始化
+	$scope.inter = function() {
+		OperationService
+			.detail($scope.id)
+			.then(function(result) {
+				$scope.logEntiy = result.data;
+			}, function(reson) {
+
+			})
+	}
+	$scope.inter();
+}
+
+function OperationFormModelController($scope, $rootScope, OperationService) {
+	//批量删除
+	$scope.WdatePicker = {};
+
+	$scope.okModal = function() {
+	if(!$scope.WdatePicker.startTime || !$scope.WdatePicker.endTime) {
+		$rootScope.showAlert("起始时间和结束时间不能为空");
+		return;
+	}
+		$scope.startTimeStr = $scope.WdatePicker.startTime;
+		$scope.endTimeStr = $scope.WdatePicker.endTime;
+		console.log($scope.WdatePicker.startTime, $scope.WdatePicker.endTime)
+		OperationService
+			.alldelete($scope.startTimeStr, $scope.endTimeStr)
+			.then(function(result) {
+				$scope.cancelModal();
+				$scope.loadData()
+			}, function(reson) {
+
+			})
+	}
+}
+
+angular
+	.module("managerApp")
+	.controller("OperationController", OperationController)
+	.controller("OperationDetailFormModelController", OperationDetailFormModelController)
+	.controller("OperationFormModelController", OperationFormModelController)

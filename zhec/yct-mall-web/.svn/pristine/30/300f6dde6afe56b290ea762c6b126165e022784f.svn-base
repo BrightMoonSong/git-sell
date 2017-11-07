@@ -1,0 +1,8 @@
+/**
+ * 系统用户controller定义
+ */
+function CompanyController($scope, $http, $q, CompanyService, ngDialog, $rootScope) {
+	$rootScope.rootIsActiveId = 2;//公司概况
+}
+
+app.controller('CompanyController', CompanyController);

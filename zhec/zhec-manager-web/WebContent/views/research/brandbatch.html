@@ -1,0 +1,15 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="ibox-title col-lg-12" style="height: 50px">
+		<div class="col-sm-2">
+			<select ng-model="typeId" class="form-control" ng-options="sh.id as sh.name for sh in TypeList">
+		<option value="">---请选择关联类型---</option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="col-sm-7">
+    <textarea placeholder="请输入品牌名..." class="form-control" ng-model="brand" style="height:150px"></textarea>
+    <button type="button" class="btn btn-success pull-right" ng-click="okModal()" ng-disabled="okModalDisabled">
+        <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+    </button>
+</div>

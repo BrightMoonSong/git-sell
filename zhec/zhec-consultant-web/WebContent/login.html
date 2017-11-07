@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myAppLogin">
+
+	<head>
+		<script type="text/javascript">
+		    //IE8以及以下
+		    if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0")
+	        {
+				alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+			 	window.open("https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100","_self");
+	        }
+		</script>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>登录页面</title>
+		<link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+
+		<meta name="description" content="User login page" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="css/plugins/login/css/bootstrap.min.css" />
+
+		<!-- text fonts -->
+		<link rel="stylesheet" href="css/plugins/login/fonts/fonts.googleapis.com.css" />
+
+		<!-- ace styles -->
+		<link rel="stylesheet" href="css/plugins/login/css/ace.min.css" />
+
+		<!--[if lte IE 9]>
+            <link rel="stylesheet" href="../css/plugins/login/css/ace-part2.min.css" />
+        <![endif]-->
+		<link rel="stylesheet" href="css/plugins/login/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="css/plugins/ngDialog/ngDialog-theme-default.min.css" />
+		<link rel="stylesheet" href="css/plugins/ngDialog/ngDialog.min.css" />
+		<link rel="stylesheet" href="css/plugins/ngVerify/ngVerify.css" />
+		<!--[if lte IE 9]>
+          <link rel="stylesheet" href="../css/plugins/login/css/ace-ie.min.css" />
+        <![endif]-->
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+        <script src="../css/plugins/login/js/html5shiv.min.js"></script>
+        <script src="../css/plugins/login/js/respond.min.js"></script>
+        <![endif]-->
+	</head>
+
+	<body class="login-layout" id="login_body">
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container">
+							<div class="center">
+								<h1>
+                                    <i class="ace-icon fa fa-leaf green"></i>
+                                    <span class="red">鹿医生</span>
+                                    <span class="white" id="id-text2">顾问管理系统</span>
+                                </h1>
+								<h4 class="blue" id="id-company-text">&copy; 御草堂</h4>
+							</div>
+
+							<div class="space-6"></div>
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header blue lighter bigger">
+                                                <i class="ace-icon fa fa-coffee green"></i>
+                                                请登录
+                                            </h4>
+											<div class="space-6"></div>
+											<form ng-controller="loginController" >
+												<fieldset verify-scope="tipStyle: 1">
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input ng-model="inputUserPhone" ng-verify="{required: true,pattern:/^[1][3,4,5,7,8][0-9]{9}$/}" type="text" class="form-control" placeholder="请输入手机号" />
+                                                        </span>
+                                                    </label>
+
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input ng-model="inputUserPassword" type="password" ng-verify="{required: true,min:6,max:12}" class="form-control" placeholder="密码" />
+                                                        </span>
+                                                    </label>
+
+													<div class="space"></div>
+
+													<div class="clearfix">
+														<button ng-click="userLogin()" type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                                                            <span class="bigger-110">登录</span>
+                                                        </button>
+													</div>
+													<div class="space-4"></div>
+												</fieldset>
+											</form>
+										</div>
+										<!-- /.widget-main -->
+
+										<div class="toolbar clearfix">
+											<div>
+												<a href="#" data-target="#forgot-box" class="forgot-password-link">
+													<i class="ace-icon fa fa-arrow-left"></i> 忘记密码
+												</a>
+											</div>
+
+											<div>
+												<a href="#" data-target="#signup-box" class="user-signup-link">
+													注册
+													<i class="ace-icon fa fa-arrow-right"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+									<!-- /.widget-body -->
+								</div>
+								<!-- /.login-box -->
+
+								<div id="forgot-box" class="forgot-box widget-box no-border" ng-controller="findPasswordController">
+									<div class="widget-body">
+										<div class="widget-main" >
+											<h4 class="header red lighter bigger">
+                                                <i class="ace-icon fa fa-key"></i>
+                                               	 找回密码
+                                           </h4>
+											<div class="space-6" ></div>
+											<form name="forgetPasswordForm" verify-scope="tipStyle: 1">
+												<fieldset >
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="text" ng-verify="{required: true,pattern:/^[1][3,4,5,7,8][0-9]{9}$/}" ng-model="userMobile" class="col-sm-8" placeholder="请输入手机号" />
+                                                            <button ng-click="ifmobile()" type="button" ng-disabled="paraclass == false && okModalDisabled" class="col-sm-4 pull-right btn btn-sm btn-danger">
+                                                            <span class="">{{btnMessage}}</span>
+                                                        </button>
+                                                        </span>
+                                                    </label>
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input ng-model="newCode" type="text" ng-verify="{min:6,max:6}"  class="form-control" placeholder="输入验证码" />
+                                                        </span>
+                                                    </label>
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" name="password1" ng-verify="{min:6,max:12}" ng-model="newPassword" class="form-control" placeholder="新密码" />
+                                                        </span>
+                                                    </label>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password"  ng-verify="{min:6,max:12,recheck:'password1'}" class="form-control" ng-verify="{min:6,max:12}" placeholder="再次输入密码" />
+                                                        </span>
+                                                    </label>
+													<div class="block clearfix">
+														<button ng-click="editNewPassword()" type="button" class="form-control btn btn-sm btn-success" ng-verify="{control:'forgetPasswordForm'}">
+                                                            <span class="bigger-110">确认</span>
+                                                        </button>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+										<!-- /.widget-main -->
+
+										<div class="toolbar center">
+											<a href="#" data-target="#login-box" class="back-to-login-link">
+												返回登录
+												<i class="ace-icon fa fa-arrow-right"></i>
+											</a>
+										</div>
+									</div>
+									<!-- /.widget-body -->
+								</div>
+								<!-- /.forgot-box -->
+
+								<div id="signup-box" class="signup-box widget-box no-border" ng-controller="registerController">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header green lighter bigger">
+                                                <i class="ace-icon fa fa-users blue"></i>
+                                                	用户注册
+                                            </h4>
+
+											<div class="space-6"></div>
+											<p>填写信息: </p>
+
+											<form>
+												<fieldset name="myform" verify-scope="tipStyle: 1">
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="text" ng-verify="{required: true,pattern:/^[1][3,4,5,7,8][0-9]{9}$/}" ng-model="userPhone" class="form-control" placeholder="手机号" />
+                                                        </span>
+                                                    </label>
+
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" ng-verify="{min:6,max:12}" name="password-1" ng-model="userPassword" class="form-control" placeholder="密码" />
+                                                        </span>
+                                                    </label>
+
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" ng-verify="{min:6,max:12,recheck:'password-1'}" ng-model="userRepeatPassword" class="form-control" placeholder="确认密码" />
+                                                        </span>
+                                                   </label>
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input ng-model="btnMessage" ng-click="ifmobile()" value="{{btnMessage}}" ng-disabled="paraclass == false && okModalDisabled" class="btn btn-default btn-sm col-sm-5 {{paraclass}}" />
+                                                        </span>
+                                                    </label>
+													<label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input class="form-control" type="text" ng-verify="required: true" ng-model="phoneCode" placeholder="请输入验证码" />
+                                                        </span>
+                                                    </label>
+													<label class="block">
+                                                        <input type="checkbox"  class="ace" />
+                                                       	<input type="checkbox" ng-checked="true"/>
+                                                        <span class="lbl">
+                                                            <a href="">用户协议</a>
+                                                        </span>
+                                                    </label>
+
+													<div class="space-24"></div>
+
+													<div class="clearfix">
+														<button type="reset" class="width-30 pull-left btn btn-sm" ng-click="emptyData()">
+                                                            <i class="ace-icon fa fa-refresh"></i>
+                                                            <span class="bigger-110">重置</span>
+                                                        </button>
+
+														<button ng-click="registerConsultant()" type="button" class="width-65 pull-right btn btn-sm btn-success" ng-verify="{control:'myform'}">
+                                                            <span class="bigger-110">注册</span>
+
+                                                            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                        </button>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+
+										<div class="toolbar center">
+											<a href="#" data-target="#login-box" class="back-to-login-link">
+												<i class="ace-icon fa fa-arrow-left"></i> 返回登录
+											</a>
+										</div>
+									</div>
+									<!-- /.widget-body -->
+								</div>
+								<!-- /.signup-box -->
+							</div>
+							<!-- /.position-relative -->
+
+						</div>
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.main-content -->
+		</div>
+		<!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+		<script src="../css/plugins/login/jquery.2.1.1.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="../css/plugins/login/js/jquery.1.11.1.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='js/jquery.min.js'>" + "<" + "/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='../css/plugins/login/js/jquery1x.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='../css/plugins/login/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+		</script>
+
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			jQuery(function($) {
+				$(document).on('click', '.toolbar a[data-target]', function(e) {
+					e.preventDefault();
+					var target = $(this).data('target');
+					$('.widget-box.visible').removeClass('visible'); //hide others
+					$(target).addClass('visible'); //show target
+				});
+			});
+
+			//you don't need this, just used for changing background
+			jQuery(function($) {
+				$('#btn-login-dark').on('click', function(e) {
+					$('body').attr('class', 'login-layout');
+					$('#id-text2').attr('class', 'white');
+					$('#id-company-text').attr('class', 'blue');
+
+					e.preventDefault();
+				});
+				$('#btn-login-light').on('click', function(e) {
+					$('body').attr('class', 'login-layout light-login');
+					$('#id-text2').attr('class', 'grey');
+					$('#id-company-text').attr('class', 'blue');
+
+					e.preventDefault();
+				});
+				$('#btn-login-blur').on('click', function(e) {
+					$('body').attr('class', 'login-layout blur-login');
+					$('#id-text2').attr('class', 'white');
+					$('#id-company-text').attr('class', 'light-blue');
+
+					e.preventDefault();
+				});
+
+			});
+		</script>
+
+		<!-- Main Angular scripts-->
+		<script src="js/angular/angular.min.js"></script>
+		
+		<!-- Main login scripts-->
+		<script src="js/zhecConfig.js"></script>
+		<script src="js/appLogin.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/plugins/ngDialog/ngDialog.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/plugins/ngVerify/ngVerify.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/ng-template" id="modalDialogId">
+		    <div class="ngdialog-message">
+		        <h3>提示信息</h3>
+		        <p ng-bind="promptMessage"></p>
+		    </div>
+		    <div class="ngdialog-buttons">
+		        <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">确定</button>
+		    </div>
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html ng-app="payMoneyApp" ng-controller="payMoneyController">
+
+<head>
+
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+	<script language="javascript">
+		if (/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)) {
+
+		} else {
+			var strDelete = publicUrlMall.split("/mall");
+			publicUrlMall = strDelete[0] + strDelete[1];
+		}
+		document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href=" + publicUrlMall + "favicon.ico>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/payMoney.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/screen.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/jDialog/jDialog.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog.min.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+	
+	</script>
+
+	<!-- <meta charset="UTF-8"> -->
+	<title ng-bind="title"></title>
+
+	<!-- <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+		<link rel="stylesheet" href="stylesheets/payMoney.css" />
+		<link rel="stylesheet" href="stylesheets/screen.css" /> -->
+	<!-- ngDialog -->
+	<!-- <link href="stylesheets/plugins/ngDialog/ngDialog.min.css" rel="stylesheet">
+		<link href="stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css" rel="stylesheet"> -->
+	<script type="text/javascript">
+		if (/cartinfo.html/g.test(document.referrer)) {
+			window.open("index.html", "_self")
+		}
+	</script>
+	<!-- <script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script type="text/javascript" src="js/common/cookie.js"></script>
+		<script type="text/javascript" src="js/common/zhec.js"></script> -->
+	<!-- Piwik -->
+	<!-- <script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script> -->
+	<!-- End Piwik Code -->
+
+</head>
+
+<body>
+	<headerpage></headerpage>
+	<!---------------头导航条---------------------------->
+	<!--<search></search>
+
+		<navigation-bar></navigation-bar>-->
+
+	<div class="head_navagiton">
+		<div class="head_conter">
+			<ul class="head_ul">
+				<li class="head_li">
+					<div class="head_log">
+						<a href="index.html">
+							<div class="head_log-img"><img src="images/u1884.png"></div>
+						</a>
+					</div>
+				</li>
+				<li>
+					<ol>
+						<li>
+							<p>
+								<!--2017-03-06 12:12:12-->
+							</p>
+							<p>
+								<img src="images/jdt.png" />
+							</p>
+							<p>拍下商品</p>
+
+							<!-- ng-bind="createTime"-->
+						</li>
+						<li>
+							<p>
+								<!--2017-03-06 12:12:12-->
+							</p>
+							<p>
+								<img src="images/jdt1.png" />
+							</p>
+							<p>在线付款</p>
+						</li>
+						<li>
+							<p>
+								<!--2017-03-06 12:12:12-->
+							</p>
+							<p>
+								<img src="images/jdt1.png" />
+							</p>
+							<p>厂家发货</p>
+						</li>
+						<li>
+							<p>
+								<!--2017-03-06 12:12:12-->
+							</p>
+							<p>
+								<img src="images/jdt1.png" />
+							</p>
+							<p>确认收货</p>
+						</li>
+					</ol>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="conter clearfix">
+		<div class="conter_pay_head">
+			订单支付
+		</div>
+		<div class="conter_pay_nav clearfix">
+			<ul>
+				<li>订单编号：<span ng-bind="dataEntity.orderSn"></span></li>
+				<li>应付金额：<span ng-bind="dataEntity.orderMoney | priceFormatFilter"></span></li>
+				<li>(请您在提交订单后的24小时之内付款，否则订单自动取消)</li>
+				<!--<li id="pay_ye_zf">亲!您的余额不够了，还需支付<span>￥85</span></li>-->
+			</ul>
+		</div>
+		<div class="conter_pay_conter clearfix">
+
+			<div id="moneyPayBalanceHide" style="display: none;" class="payMoney_div_pay clearfix">
+				<lable ng-show="moneyPayBalanceHide">众会账户支付：</lable>
+				<ol ng-show="moneyPayBalanceHide">
+					<li id="payMoney_inp">
+						<input type="checkbox" name="balance" ng-model="balancePayment" ng-change="payChange()" ng-disabled="balancedisabled||dataEntity.balance==0" ng-class="{true: 'payMoney_inp_img', false: 'paymoney_quxia'}[balancePayment]" />
+					</li>
+					<li>
+						<img src="images/qd.png">
+					</li>
+					<li>
+						余额支付：
+					</li>
+					<li>
+						您的账户余额为：<span ng-bind="dataEntity.balance | priceFormatFilter"></span>
+					</li>
+					<li ng-if="dataEntity.balance<dataEntity.orderMoney">
+						选择余额支付后还需支付：<span ng-hide="moneyPayBalanceHide" ng-bind="thirdpay | priceFormatFilter"></span>
+						<span ng-show="moneyPayBalanceHide" ng-bind="(dataEntity.orderMoney-dataEntity.balance) | priceFormatFilter"></span>
+					</li>
+					<li>
+						<a href="/member.html#/property">充值</a>
+					</li>
+				</ol>
+				<ul id='displaynoneang' style="display: none;" ng-show="balancePayment" class="payMoney_show_ul clearfix">
+					<li><label>订单金额：</label><span ng-bind="dataEntity.orderMoney | priceFormatFilter"></span></li>
+					<li class="payMoney_balance"><label>余额支付：</label><span ng-bind="dataEntity.balance | priceFormatFilter"></span></li>
+					<li><label>订单编号：</label><span ng-bind="dataEntity.orderSn"></span></li>
+					<li><label>账户名称：</label><span ng-bind="dataEntity.loginId"></span></li>
+					<li class="payMoney_phone"><label>手机号码：</label><span ng-bind="dataEntity.mobile"></span><button ng-click="sendpaybybalancesms()" ng-bind="btnMessage" ng-disabled="!paraclass"></button></li>
+					<li class="payMoney_proving"><label>请输入收到的手机验证码：</label><input type="text" ng-model="smsCode" maxlength="6" onchange="this.value=this.value.substring(0, 6)" /><button ng-click="paybybalance()">完成验证</button></li>
+					<li ng-if="dataEntity.balance<dataEntity.orderMoney">
+						<span ng-bind="'(账户余额不足，支付后还需'+((dataEntity.orderMoney-dataEntity.balance) | priceFormatFilter)+'。'"></span>
+					</li>
+					<li style="display: none;">*温馨提示：通过账户余额支付的订单将不予以开发票，望您知悉，祝您购物愉快。</li>
+					<li id="conter_pay_fix">
+						<ol>
+							<li>
+								<h2>安全提示</h2>
+							</li>
+							<li>"支付失败，须转账到个人账户"</li>
+							<li>"索取银行卡密码，验证码"</li>
+							<li>"订单取消，点击退单链接"</li>
+							<li>"收取任何代理商注册费用"</li>
+							<li>
+								<p>以上内容为常见骗术</p>
+								<p>千万慎重，请勿点击</p>
+							</li>
+						</ol>
+					</li>
+				</ul>
+				<div class="payMoney_payment clearfix">
+					<div class="conter_pay_three_money">
+						<lable>在线支付</lable>
+						<span ng-show="ifShowWeChat||ifShowSavingsDepositCard||ifShowThirdPartyPayment">第三方支付：<b ng-bind="thirdpay | priceFormatFilter"></b></span>
+					</div>
+					<ul class="conter_pay_conter_all clearfix">
+						<li>
+							<ul class="conter_pay_conter_head getHeight">
+								<li class="pay_hover">
+									<input type="checkbox" ng-click="WeChat()" ng-model="ifShowWeChat" name="balance" ng-class="{true: 'payMoney_inp_img', false: 'paymoney_quxia'}[ifShowWeChat]" />
+									<img src="images/wx.png">
+									<span>微信支付</span>
+								</li>
+								<li>
+									<input type="checkbox" ng-click="SavingsDepositCard()" ng-model="ifShowSavingsDepositCard" name="balance" ng-class="{true: 'payMoney_inp_img', false: 'paymoney_quxia'}[ifShowSavingsDepositCard]" />
+									<img src="images/zf.png">
+									<span>支付宝</span>
+								</li>
+								<li>
+									<input type="checkbox" ng-click="ThirdPartyPayment()" ng-model="ifShowThirdPartyPayment" name="balance" ng-class="{true: 'payMoney_inp_img', false: 'paymoney_quxia'}[ifShowThirdPartyPayment]" />
+									<img src="images/yl.png">
+									<span>银联支付</span></li>
+							</ul>
+						</li>
+						<li class="pay_clickShow" ng-show="ifShowWeChat">
+							<div class="pay_conter_product">
+								<ol>
+									<li>
+										<div id="qrcode"></div>
+									</li>
+
+									<!-- <li></li> -->
+								</ol>
+								<div class="pay_can_bottm">
+									<img src="images/weixinzf.png">
+								</div>
+
+							</div>
+
+						</li>
+						<li class="pay_clickShow" ng-show="ifShowSavingsDepositCard">
+							<div class="pay_direction">
+								<ol>
+									<li>
+										<div id="qrcode"></div>
+									</li>
+
+									<li></li>
+								</ol>
+								<div class="pay_can_bottm">
+									<img src="images/weixinzf.png">
+								</div>
+							</div>
+						</li>
+						<li class="pay_clickShow" ng-show="ifShowThirdPartyPayment">
+							<div class="pay_regarding">
+								<ol>
+									<li>
+										<div id="qrcode"></div>
+									</li>
+
+									<li></li>
+								</ol>
+								<div class="pay_can_bottm">
+									<img src="images/weixinzf.png">
+								</div>
+							</div>
+						</li>
+
+					</ul>
+
+				</div>
+			</div>
+
+		</div>-
+		<!--尾部-->
+		<footerpage></footerpage>
+
+		<!-- <script type="text/javascript" src="js/common/zhecConfig.js"></script>
+			<script src="js/common/zhec.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>
+			<script type="text/javascript" src="js/plugins/angular/angular.min.js"></script> -->
+
+		<!-- ngDialog -->
+		<!-- <script src="js/plugins/ngDialog/ngDialog.min.js"></script>
+			<script type="text/javascript" src="js/common/cookie.js"></script> -->
+		<!-- 二维码 -->
+		<!-- <script type="text/javascript" src="js/plugins/qrcode/qrcode.min.js"></script>
+			<script type="text/javascript" src="js/common/CommonService.js"></script>
+			<script type="text/javascript" src="js/common/CommonFilter.js"></script>
+			<script type="text/javascript" src="js/common/directives.js"></script> -->
+		<!--拦截器-->
+		<!-- <script type="text/javascript" src="js/common/interceptor.js"></script>
+
+			<script type="text/javascript" src="js/controllers/pay/payController.js"></script> -->
+
+		<!--jDialog 弹窗-->
+		<!-- <link rel="stylesheet" href="stylesheets/plugins/jDialog/jDialog.css" type="text/css">
+			<script type="text/javascript" src="js/plugins/jDialog/jDialog.js"></script> -->
+		<script language="javascript">
+			document.write("<script src=" + publicUrlMall + "js/plugins/qrcode/qrcode.min.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/plugins/angular/angular.min.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/common/CommonService.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/common/directives.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/common/CommonFilter.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/plugins/ngDialog/ngDialog.min.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/common/cookie.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/common/zhec.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/common/Piwik.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/plugins/jDialog/jDialog.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/common/interceptor.js><\/script>");
+			document.write("<script src=" + publicUrlMall + "js/controllers/pay/payController.js><\/script>");
+		</script>
+</body>
+
+
+</html>

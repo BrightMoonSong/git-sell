@@ -1,0 +1,233 @@
+
+.orders_ul{
+	width: 100%;
+	height:3.166rem ;
+	background: #FFFFFF;
+}
+.orders_ul>li{
+	width: 33.3%;
+	height: 100%;
+	line-height: 3.166rem;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #666666;
+	letter-spacing: 0.1px;
+	text-align: center;
+	border-bottom: 1px solid #FFFFFF;
+}
+.orders_ul .order_ul_li{
+	color: #22A2FF;
+	border-bottom: 1px solid  #22A2FF;
+}
+.orders_conter{
+	width: 100%;
+}
+.orders_conter>li{
+	width: 100%;
+	
+}
+.orders_ul_conter{
+	width: 100%;
+}
+.orders_ul_conter>ul:last-child{
+	margin-bottom:20rem ;
+}
+.orders_conter>li>img{
+	width: 1.25rem;
+	height: 1.25rem;
+	border-radius: 100px;
+	outline: medium;
+	margin-left: 0.833rem;
+	margin-top:10.1rem ;
+}
+.orders_conter_one{
+	position: relative;
+}
+.orders_conter_one>a{
+	display: -webkit-flex;
+	width: 1.415rem;
+	height: 100%;
+	float: right;
+	margin-right:;
+	text-align: center;
+	position: absolute;
+	right: 1.25rem ;
+}
+.orders_conter_one>a>img{
+	width:1.415rem ;
+	height: 1.415rem;
+	display: block;
+}
+.orders_conter_one{
+	height: 3.583rem;
+	text-indent: 0.833rem;
+	line-height: 3.583rem ;
+	
+}
+.orders_conter_one>label{
+	font-family: MicrosoftYaHei;
+	font-size: 1.083rem;
+	color: #333333;
+	letter-spacing: 0;
+}
+.orders_conter_one>span{
+	font-family: MicrosoftYaHei;
+	font-size:0.916rem;
+	color: #FF3F39;
+	letter-spacing: 0;
+	    margin-left: 0.833rem;
+}
+.orders_conter_two{
+	height:2.791rem ;
+	background: #FFFFFF;
+	line-height:2.791rem;
+	text-indent: 0.833rem;
+}
+.orders_conter_two>label{
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #666666;
+	letter-spacing: 0;
+}
+.orders_conter_two>span{
+	float: right;
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #999999;
+	letter-spacing: 0;
+	line-height: 26px;
+	margin-right: 0.916rem;
+}
+.orders_conter_three{
+	min-height:6.5rem ;
+}
+.orders_conter_three>a{
+	width:4.833rem ;
+	height: 4.833rem;
+	display: block;
+	margin-left: 0.916rem;
+	margin-top: 0.916rem;
+	float: left;
+}
+.orders_conter_three>a>img{
+	width:4.833rem ;
+	height: 4.833rem;
+}
+.orders_conter_three>a,.orders_conter_three>ol{
+	float: left;
+}
+#orders_conter_three_name{
+	width: 70%;
+	margin-left: 0.833rem;
+	margin-top: 0.416rem;
+}
+#orders_conter_three_name>li{
+	width: 100%;
+	height:2.583rem;
+}
+#orders_conter_three_name>li>a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #333333;
+	letter-spacing: 1px;
+}
+#orders_conter_three_name>li:nth-child(2){
+	margin-top: 0.416rem;
+}
+#orders_conter_three_name>li>span{
+	
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #666666;
+	letter-spacing: 1px;
+	
+}
+.orders_conter_four{
+	height:2.833rem;
+	background: #FFFFFF;
+		border-bottom: 1px solid #E5E5E5;
+}
+.orders_conter_four>div{
+	float: right;
+	height: 100%;
+	line-height:2.833rem ;
+	margin-right: 0.916rem;
+}
+.orders_conter_four>div>span{
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #333333;
+}
+.orders_conter_four>div>span>b{
+	font-family: MicrosoftYaHei;
+	font-size:0.75rem;
+	color: #999999;
+}
+.orders_conter_four>div>span>label{
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #333333;
+}
+.orders_conter_four>div>span>label>b{
+	font-family: MicrosoftYaHei;
+	font-size:1.083rem;
+	color: #333333;
+	letter-spacing: 0;
+}
+.orders_conter_five{
+	height: 3.666rem;
+	background: #FFFFFF;
+}
+.orders_conter_five>button{
+	float: right;
+	width: 6.25rem;
+	height: 2.33rem;
+	border: 1px solid #E5E5E5;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #666666;
+	letter-spacing: 0;
+	outline: medium;
+	background: #FFFFFF;
+	margin-right:0.8333rem ;
+	margin-top: 0.708rem;
+}
+.orders_conter_but{
+	border-color:#22A2FF !important;
+	color:#22A2FF !important;
+	
+}
+.fix_order{
+	width: 100%;
+	height: 3.667rem;
+	background: #FFFFFF;
+	position: fixed;
+	bottom: 4.083rem;
+	left: 0;
+	line-height: 3.667rem;
+	border-bottom: 1px solid #EEEEEE;
+}
+.fix_order>label{
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #666666;
+	letter-spacing: 3.93px;
+	margin-left: 0.833rem;
+}
+.fix_order>button{
+	float: right;
+	width: 7.916rem;
+	height:100%;
+	border: 0;
+	outline: medium;
+	background-image: linear-gradient(-90deg, #1ACEFF 0%, #22A2FF 100%);
+	font-family: MicrosoftYaHei;
+	font-size: 1.167rem;
+	color: #FFFFFF;
+	letter-spacing: 2px;
+	
+	
+}

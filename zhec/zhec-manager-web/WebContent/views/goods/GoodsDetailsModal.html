@@ -1,0 +1,130 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">商品管理</h1>
+    </div>
+    <div class="modal-body">
+        <!-- 标签页start -->
+        <ul class="nav nav-tabs">
+            <!--  class="active" -->
+            <li class="active"
+                ng-click="onClickTab('Manual.html')">
+                <a data-toggle="tab"> 说明书 </a></li>
+            <li ng-click="onClickTab('descriptor.html')">
+                <a data-toggle="tab"> 商品描述信息 </a>
+            </li>
+            <li ng-click="onClickTab('myEditor')">
+                <a data-toggle="tab"> editor信息 </a>
+            </li>
+        </ul>
+        <div id="mainView">
+            <div ng-include="currentTab"></div>
+        </div>
+        <!-- 基本信息 -->
+        <script type="text/ng-template" id="Manual.html">
+            <ul class="form-horizontal" name="myinfoform" verify-scope="tipStyle: 1">
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">说明书：</label>
+
+                        <div class="col-sm-10">
+							<textarea rows="3" class="col-sm-12"
+                                      ng-model="dataEntity.instruction">
+
+							</textarea>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="okModal(dataEntity)"
+                        ng-verify="{control:'myinfoform'}">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                </button>
+                <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+            </div>
+        </script>
+
+        <link href="css/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="js/plugins/editor/third-party/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/plugins/editor/umeditor.config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/plugins/editor/umeditor.min.js"></script>
+        <script type="text/javascript" src="js/plugins/editor/lang/zh-cn/zh-cn.js"></script>
+        <!--style给定宽度可以影响编辑器的最终宽度-->
+        <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+            <p>这里我可以写一些输入提示,my name is Song Haoyue</p>
+
+
+        </script>
+        <!-- 规格信息 -->
+        <script type="text/ng-template" id="descriptor.html">
+            <ul class="form-horizontal" name="myformSpec" verify-scope="tipStyle: 1">
+                <li class="list-group-item">
+                    <div class="form-group">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">商品描述信息：</label>
+
+                            <div class="col-sm-10">
+							<textarea rows="3" class="col-sm-12"
+                                      ng-model="dataEntity.description">
+
+							</textarea>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="okModal(dataEntity)"
+                        ng-verify="{control:'myinfoform'}">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                </button>
+                <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+            </div>
+        </script>
+        <script type="text/javascript">
+            //实例化编辑器
+            var um = UM.getEditor('myEditor');
+            um.addListener('blur', function () {
+                $('#focush2').html('编辑器失去焦点了')
+            });
+            um.addListener('focus', function () {
+                $('#focush2').html('')
+            });
+            //按钮的操作
+            function insertHtml() {
+                var value = prompt('插入html代码', '');
+                um.execCommand('insertHtml', value)
+            }
+            function isFocus() {
+                alert(um.isFocus())
+            }
+            function doBlur() {
+                um.blur()
+            }
+            function createEditor() {
+                enableBtn();
+                um = UM.getEditor('myEditor');
+            }
+            function getAllHtml() {
+                alert(UM.getEditor('myEditor').getAllHtml())
+            }
+            function getContent() {
+                var arr = [];
+                arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+                arr.push("内容为：");
+                arr.push(UM.getEditor('myEditor').getContent());
+                alert(arr.join("\n"));
+            }
+        </script>
+        <!-- 标签页end -->
+    </div>
+</div>
+

@@ -1,0 +1,107 @@
+<style type="text/css">
+	.dbclick {
+		background-color: #7e9ec8 !important;
+	}
+	
+	.zhende {
+		background-color: #cdcdcd !important;
+		color: #9d9a9a !important;
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">用户管理</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">用户名称(*):</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="{min:2 ,max:30,required:true}" type="text" class="form-control" ng-model="dataEntity.userName">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">手机号(*):</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="pattern:/^0?1[3|4|5|7|8][0-9]\d{8}$/,errmsg:'手机号格式不正确'" type="text" class="form-control" ng-model="dataEntity.phone" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">生日(*):</label>
+
+					<div class="col-sm-9">
+						<input type="text" class="form-control" datapicker="dataEntitybirthday" readonly="readonly">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">年龄(*):</label>
+
+					<div class="col-sm-9">
+						<input type="text" class="form-control" ng-model="dataEntity.age" readonly="readonly">
+					</div>
+				</div>
+				<div class="form-group" ng-if="!dataId">
+					<label class="col-sm-3 control-label">密码(*):</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="{min:6 ,max:16,required:true}" type="text"  class="form-control" ng-model="dataEntity.password">
+					</div>
+				</div>
+				<div class="form-group"  ng-if="dataId">
+					<label class="col-sm-3 control-label">密码:</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="{min:6 ,max:16,required:false}" type="text" class="form-control" ng-model="dataEntity.passwords">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">性别(*):</label>
+
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+							<label class="radio-inline" ng-click="check(1,'sex')">
+                                <input type="radio" ng-checked="dataEntity.sex==1" name='sex' value="1">&nbsp;男&nbsp;
+                            </label>
+							<label class="radio-inline" ng-click="check(2,'sex')">
+                                <input type="radio" ng-checked="dataEntity.sex==2" name='sex' value="2">&nbsp;女&nbsp;
+                            </label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" style="display: none;">
+					<label class="col-sm-3 control-label">状态(*):</label>
+
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+							<label class="radio-inline" ng-click="check(1,'status')">
+                                <input type="radio" ng-checked="dataEntity.status==1" name='status' value="1">&nbsp;正常&nbsp;
+                            </label>
+							<label class="radio-inline" ng-click="check(0,'status')">
+                                <input type="radio" ng-checked="dataEntity.status==0" name='status' value="0">&nbsp;禁用&nbsp;
+                            </label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">角色(*):</label>
+					<div class="col-sm-9">
+						<span ng-repeat="res in roleList" style="cursor: pointer;float:left;padding: 10px;margin: 5px;" ng-bind="res.roleName" ng-click="roleListSelct(res.roleId)" ng-class="{false:'zhende',true:'dbclick'}[roleIdList.contains(res.roleId)]"></span>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}">
+            <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

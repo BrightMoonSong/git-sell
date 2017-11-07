@@ -1,0 +1,104 @@
+<style type="text/css">
+	.btn.active,
+	.btn:active {
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">品牌管理<label ng-hide="imgHid" class="col-sm-12 pull-right" style="color: #f57b78;font-family: Microsoft YaHei;font-size: 13px;width: 300px;font-weight: 500;">温馨提示：品牌图片最多只能上传一张！</label></h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group" ng-show="imgHid">
+					<label class="col-sm-3 control-label">品牌名称(*)</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="{min:2 ,max:30,required:true}" type="text" class="form-control" ng-model="dataEntity.name">
+					</div>
+				</div>
+				<div class="form-group" ng-hide="imgHid" style="background-color: #fff;">
+					<!--<label class="col-sm-3 control-label">图片上传：</label>-->
+
+					<div class="col-sm-12">
+						<!--OSS测试 -->
+						<form name=theform ng-hide=true>
+							<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+							<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+							<br/> 上传到指定目录:
+							<input type="text" id="dirname" value="{{idData}}" placeholder="如果不填，默认是上传到根目录" size=50>
+						</form>
+
+						<img id="imgPreview" style="max-width: 150px;" />
+
+						<div id="ossfile" ng-hide="previewHide">
+							你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系XXX)
+						</div>
+						<br/>
+
+						<div id="container" style="width: 100%;clear: both;">
+							<a id="selectfiles" href="javascript:void(0);" class="btn btn-success" style="margin-top: -35px;background-color: #fff;border-color:#fff"><img style="width: 50px;" src="../../img/plus.png" /></a>
+							<a id="postfiles" href="javascript:void(0);" class="btn btn-warning" style="display: none;position: absolute;bottom: -84px;">开始上传</a>
+						</div>
+						<pre id="console" ng-hide="true"></pre>
+					</div>
+					<!--OSS结束 -->
+				</div>
+
+				<div class="form-group" ng-show="imgHid">
+					<label class="col-sm-3 control-label">排序号</label>
+
+					<div class="col-sm-9">
+						<input type="number" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" class="form-control" ng-model="dataEntity.sort">
+					</div>
+				</div>
+
+				<div class="form-group" ng-show="imgHid">
+					<label class="col-sm-3 control-label">状态（*）</label>
+
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+							<label class="radio-inline" ng-click="check(1)">
+                                <input type="radio" ng-checked="dataEntity.state==1" name=state value="1"
+                                       ng-model="dataEntity.state">&nbsp;正常&nbsp;
+                            </label>
+							<label class="radio-inline" ng-click="check(0)">
+                                <input type="radio" ng-verify ng-checked="dataEntity.state==0" name=state value="0"
+                                       ng-model="dataEntity.state">&nbsp;禁用&nbsp;
+                            </label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group" ng-show="imgHid">
+					<label class="col-sm-3 control-label">品牌简介</label>
+
+					<div class="col-sm-9">
+						<textarea class="form-control" ng-model="dataEntity.introduction"></textarea>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-show="imgHid" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+        </button>
+		<button type="button" id="ossbrandimg" class="btn btn-warning" ng-click="okModal()" ng-hide="imgHid" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/base64.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/upload.js"></script>

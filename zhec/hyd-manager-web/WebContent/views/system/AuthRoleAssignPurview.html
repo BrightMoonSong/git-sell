@@ -1,0 +1,81 @@
+<style type="text/css">
+	.dbclick {
+		background-color: rgba(102, 127, 204, 0.5) !important;
+	}
+	
+	.zhende {
+		background-color: #cdcdcd !important;
+		color: #9d9a9a !important;
+	}
+	
+	.borderall {
+		border: 1px solid rgba(200, 200, 200, .8);
+	}
+	
+	.padding10 {
+		padding: 10px;
+	}
+	
+	.paddingleft10 {
+		padding-left: 10px;
+	}
+	
+	.paddingbottom0 {
+		padding-bottom: 0px;
+	}
+	
+	.margin10 {
+		margin: 10px;
+	}
+	
+	.bordernone {
+		border: 0px;
+	}
+	
+	.background1 {
+		background-color: rgba(102, 127, 204, 0.3);
+	}
+</style>
+<div class="inmodal" style="background-color: #fff;">
+	<div class="modal-header">
+		<h1 class="modal-title">权限分配</h1>
+	</div>
+	<div class="col-sm-12">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<ul class="list-group">
+					<li class="list-group-item bordernone" ng-repeat="first in dataEntity" style="min-height: 42px;">
+						<span class="borderall padding10 margin10" ng-click='SaveIdList(first.functionId,1)'>
+							<img style="width: 12px;height:12px;margin-right: 10px;" ng-src="{{firstFunIdList.contains(first.functionId)?scopeImgSrc1:scopeImgSrc2}}" />
+
+							<span style="padding-left: 0;" ng-bind='first.name'></span>
+						</span>
+						<div style="clear: both;"></div>
+						<ul class="list-group margin10 bordernone" ng-show='firstFunIdList.contains(first.functionId)&&first.functionVos.length>0'>
+							<li class="list-group-item bordernone paddingbottom0" ng-repeat="sec in first.functionVos" style="min-height: 42px;">
+								<span class="borderall padding10 margin10" ng-click='SaveIdList(sec.functionId,2)' ng-class="{true: 'background1', false: ''}[secFunIdList.contains(sec.functionId)]">
+									<img style="width: 12px;height:12px;margin-right: 10px;" ng-src="{{secFunIdList.contains(sec.functionId)?scopeImgSrc1:scopeImgSrc2}}" />
+
+									<span ng-bind='sec.name'></span>
+								</span>
+								<div style="clear: both;"></div>
+								<div class="col-sm-12 margin10 paddingleft10" ng-show='secFunIdList.contains(sec.functionId)&&sec.functionVos.length>0'>
+									<span style="cursor: pointer;float:left;padding: 10px;margin: 5px;" ng-repeat="third in sec.functionVos" ng-bind="third.name" ng-click="SaveIdList(third.functionId,3)" ng-class="{false:'zhende',true:'dbclick'}[functionIdsOkModel.contains(third.functionId)]"></span>
+								</div>
+								<div style="clear: both;"></div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+	</div>
+</div>

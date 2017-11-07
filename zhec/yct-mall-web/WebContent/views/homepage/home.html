@@ -1,0 +1,106 @@
+<style>
+	.hidden {
+		display: none;
+	}
+	
+	.active {
+		display: block;
+	}
+	
+	.smallImg{
+		width: 10px;
+		height: 10px;
+	}
+</style>
+<div class="content clearfix">
+	<div class="banner">
+		<div class="banner-Carousel">
+			<div class="banner-Carousel-head">
+				<span>药品推荐</span>
+				<span>DRUGS RECOMMENDED</span>
+			</div>
+			<div class="banner-Carousel-img" lunbo>
+				
+			</div>
+		</div>
+		<div class="banner-img">
+			<a class="xcenter ycenter">
+				<img src="../../img/banner.jpg" />
+			</a>
+		</div>
+	</div>
+	<div class="conter clearfix">
+		<div class="conter-list">
+			<div class="banner-Carousel-head" id="conter-list-head">
+				<span>药品分类</span>
+				<span>DRUG CLASSIFICATION</span>
+			</div>
+			<ul class="conter-list-head-ul clearfix">
+				<li ng-repeat="res in homeList track by $index" ng-if="$index<10">
+					<a ng-href="{{'index.html#/manager/productdetail/'+res.classificationId}}">
+					<span>+</span>
+					<span ng-bind="res.name"></span>
+					<span >MORE</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="conter-Carousel">
+			<ul  class="conter-Carousel-ul">
+				<li><a href="/index.html#/manager/companydetail">关于我们</a></li>
+				<li><a href="/index.html#/manager/newslist/2">公司新闻</a></li>
+				<li><a href="/index.html#/manager/newslist/1">公司公告</a></li>
+				<li><a href="/index.html#/manager/message/2">在线留言</a></li>
+			</ul>
+			<div class="conter-Carousel-word">
+				<p>天津御草堂药品销售有限公司 成立于20150930，注册地址在天津市河北区金纬路379号，主要从事药品：中成药；化学药制剂；抗生素制剂；生化药品；生化制品（除疫苗、血液制品）、医疗器械、保健食品（片剂、胶囊、软胶囊、丸剂、粉剂、颗粒剂、茶剂、膏剂、口服液、饼干、麦片、乳饮料、饮料、酒、醋、其他形态）、化妆品、日用百货零售。（依法须经批准的项目，经相关部门批准后方可开展经营活动） 。</p>
+				<p>我公司拥有一支充满朝气的团队，药师有着丰富的药学知识与用药指导经验。公司致力于打造“高品质，低药价”的优良药房，作为年轻的充满活力的药房，我们不断探索药品零售经营的新思路，并继续拓展门店，在天津市场上精耕细作，立志打造天津最好的专业药房，成为广大市民的健康好邻居。</p>
+			 
+   
+			</div>
+		</div>
+		<div class="conter-img">
+			<img src="../../img/timg (6).jpg" />
+		</div>
+	</div>
+</div>
+
+	<script type="text/ng-template" id="lunbo.html">
+		<div class="hidden" ng-repeat="img in images" >
+			<img ng-src="{{img.src}}" width="1" height="1" />
+		</div>
+		<div class="" style="position:relative ;">
+			<img src="{{dataImg.src}}" width="266" height="207" />
+			<p class="lunbo-banner">
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(0)'>
+				<img ng-src="{{step!=0?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(1)'>
+				<img ng-src="{{step!=1?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(2)'>
+				<img ng-src="{{step!=2?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(3)'>
+				<img ng-src="{{step!=3?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+				<span ng-mouseout='timerSetInterval()' ng-mouseover='focusBannerStep(4)'>
+				<img ng-src="{{step!=4?'../../img/lunbo/Carousel/1.png':'../../img/lunbo/Carousel/0.png'}}" class="smallImg"/>
+				</span>
+			</p>
+		</div>
+		<!--<ul>
+			<li ng-repeat="img in images track by $index" class="hidden">
+				<a href="{{img.href}}">
+					<img ng-src="{{img.src}}" alt="" width="1200" height="605" />
+				</a>
+				<p>
+					<img ng-src="{{'../../img/lunbo/Carousel/'+1+'.png'}}"/>
+					<img ng-src="../../img/lunbo/Carousel/1.png"/>
+					<img ng-src="../../img/lunbo/Carousel/1.png"/>
+					<img ng-src="../../img/lunbo/Carousel/0.png"/>
+					<img ng-src="../../img/lunbo/Carousel/1.png"/>
+				</p>
+			</li>
+		</ul>-->
+	</script>

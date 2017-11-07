@@ -1,0 +1,97 @@
+/**
+ * Created by shy on 2017/08/15.
+ */
+
+angular
+	.module('managerApp')
+	.factory('SysAreaService', function($http, $q, constMapiLocation) {
+		var baseUrl = constMapiLocation + '/area';
+		return {
+			//添加区域
+			addinfo: function(res) {
+				var defer = $q.defer();
+				var url = baseUrl + "/addinfo";
+				$http({
+					method: 'POST',
+					url: url,
+					data: res
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//获取树形区域列表，返回全部区域数据 查询类型 1：查询所有 2：仅查询正常状态
+			findall: function(type) {
+				var defer = $q.defer();
+				var url = baseUrl + '/findall?type=' + type;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//根据PID获取子区域列表
+			findinfosbypid: function(pid) {
+				var defer = $q.defer();
+				var url = baseUrl + '/findinfosbypid/' + pid;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//根据ID获取区域详情
+			getinfo: function(id) {
+				var defer = $q.defer();
+				var url = baseUrl + '/getinfo/' + id;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//修改区域，-2代表参数错误
+			updateinfo: function(res) {
+				var defer = $q.defer();
+				var url = baseUrl + "/updateinfo";
+				$http({
+					method: 'put',
+					url: url,
+					data: res
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//更改状态，状态值（0禁用 1正常 2已删除）
+			updatestatus: function(id,status) {
+				var defer = $q.defer();
+				var url = baseUrl + '/updatestatus/'+id+'?status=' + status;
+				$http({
+					method: 'put',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			}
+		}
+	});

@@ -1,0 +1,237 @@
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+<div class="wrapper wrapper-content animated fadeInRight ">
+	<div class="row marLeft15">
+		<div class="col-lg-12 ">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<div class="heading">
+						<!-- 搜索  -->
+						<div class="col-sm-6">
+							<h3 style="color:#FF9900;" ng-if="consultantList.length<1">您还没有上传任何资料，请上传！</h3>
+							<h3 style="color:#FF9900;" ng-if="consultantStatus == 1">恭喜您！您已成为我们尊贵的顾问！</h3>
+							<h3 style="color:#FF9900;" ng-if="consultantStatus == 3&&consultantList[0].auditStatus != 1">抱歉！您的证件已失效，请续审！</h3>
+							<h3 style="color:#FF9900;" ng-if="consultantList[0].auditStatus == 3">抱歉！审核未通过，请查看备注并上传不符合要求的文件！</h3>
+							<h3 style="color:#FF9900;" ng-if="consultantList[0].auditStatus == 1">请您耐心等候！我们将尽快审核...</h3>	
+							<!--<h3 style="color:#FF9900;" ng-if="consultantStatus == 4 && consultantList != ''">抱歉！您还未上传任何文件，请及时上传！</h3>-->	
+						</div>
+						<div class="col-sm-6">
+							<!-- 刷新按钮 -->
+							<!--<button type="button" class="btn btn-success operationBtn"
+								ng-click="loadData(true)">
+								<span class="glyphicon glyphicon-refresh"></span> 刷新
+							</button>-->
+							<button ng-if="ifFIstAudit == 1" class="btn btn-warning pull-right" ng-click="openModal(1)">
+					            <span class="glyphicon glyphicon-share-alt"></span> 提交资料
+					      	</button>
+					       <button ng-if="consultantStatus == 1||consultantStatus == 3" class="btn btn-warning pull-right" ng-click="editModal(3,a)">
+					            <span class="glyphicon glyphicon-share-alt"></span> 续审
+					      	</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="hideScroll">
+					<div class="ibox-content ">
+						<table datatable="ng" dt-options="dtOptions"
+							class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>申请时间</th>
+									<th>审核状态</th>
+									<!--<th>审核人</th>-->
+									<th>备注</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody style="">
+								<tr ng-repeat="consultant in consultantList track by $index">
+									<td>{{ consultant.addTime }}</td>
+									<td ng-if="consultant.auditStatus == 1">审核中</td>
+									<td ng-if="consultant.auditStatus == 2">审核通过</td>
+									<td ng-if="consultant.auditStatus == 3">审核未通过</td>
+									<!--<td>{{ consultant.auditName }}</td>-->
+									<td>{{ consultant.remark }}</td>
+									
+									<td class="action-column">
+										<button type="button" class="btn btn-warning"
+											data-toggle="modal" data-target="#update"
+											ng-click="openDetail(1,consultant.id)">
+											查看
+										</button>
+										<button ng-if="$index == 0 && consultant.auditStatus == 3" type="button"  class="btn btn-warning" ng-click="editModal(2,consultant.id)">
+								           	 修改资料
+								       </button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--<datalistpager></datalistpager>-->
+
+
+
+
+<script type="text/ng-template" id="firstDialogId">
+	<div class="inmodal"></div>
+	<div class="">
+		<ul class="list-group form-horizontal">
+			<div class="form-group">
+				<img style="cursor:url('img/small.cur'),auto;max-width: 750px;margin-left:20px;display: block;margin:0 auto" ng-click="closeModal()" ng-src="{{currentImg}}" />
+			</div>
+		</ul>
+	</div>
+	</div>
+	
+</script>
+
+<script type="text/ng-template" id="secDialogId">
+	
+	<div class="inmodal " style="height: auto;">
+		<div class="modal-header">
+			<h3 class="modal-title" style="font-weight: 500;">请上传</h3>
+		</div>
+		<div>
+			<div class="ibox float-e-margins">
+				<div class="ibox-content cancleBorder" name="myform" verify-scope="tipStyle: 1">
+					<ul class="form-horizontal">
+						<li class="list-group-item">
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label">请上传身份证正面(*):</label>
+								<div class="col-sm-6">
+									<a ><img style="cursor:url('img/big.cur'),auto;max-width: 150px;max-height: 150px;" ng-click="showBigImg(imgFir.filePath)" class="smallImg" class="col-sm-4 img-responsive" ng-src="{{imgFir.filePath}}"></a>
+								</div>
+								<button type="button" class="btn btn-success" ng-click="openModal(1)">
+						            <span class="glyphicon glyphicon-share-alt"></span> 选择图片
+						       </button>
+
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">请上传身份证反面(*):</label>
+								
+								<div class="col-sm-6">
+									<a ><img style="cursor:url('img/big.cur'),auto;max-width: 150px;max-height: 150px;" ng-click="showBigImg(imgSec.filePath)" class="smallImg" class="col-sm-4 img-responsive" ng-src="{{imgSec.filePath}}"></a>
+								</div>
+								<button type="button" class="btn btn-success" ng-click="openModal(2)">
+						            <span class="glyphicon glyphicon-share-alt"></span> 选择图片
+						       </button>
+
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">请上传手持身份证照片(*):</label>
+								
+								<div class="col-sm-6">
+									<a ><img style="cursor:url('img/big.cur'),auto;max-width: 150px;max-height: 150px;" ng-click="showBigImg(imgThi.filePath)" class="smallImg" class="col-sm-4 img-responsive" ng-src="{{imgThi.filePath}}"></a>
+								</div>
+								<button type="button" class="btn btn-success" ng-click="openModal(3)">
+						            <span class="glyphicon glyphicon-share-alt"></span> 选择图片
+						       </button>
+
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">请上传医师证(*):</label>
+								<div class="col-sm-6">
+									<a ><img style="cursor:url('img/big.cur'),auto;max-width: 150px;max-height: 150px;" ng-click="showBigImg(imgFou.filePath)" class="smallImg" class="col-sm-4 img-responsive" ng-src="{{imgFou.filePath}}"></a>
+								</div>
+								<button type="button" class="btn btn-success" ng-click="openModal(4)">
+						            <span class="glyphicon glyphicon-share-alt"></span> 选择图片
+						      </button>
+							</div>
+							<div class="form-group" ng-if="moreFiles.length>0">
+								<label class="col-sm-3 control-label">更多资料:</label>
+								<div class="col-sm-6" >
+									<a ng-repeat="files in moreFiles" style="display: inline-block;margin-left:10px;margin-bottom:10px;padding:5px;border:2px solid #ccc"><img style="cursor:url('img/big.cur'),auto;max-width: 150px;max-height: 150px;" ng-click="showBigImg(files.filePath)" class="smallImg" class="col-sm-4 img-responsive" ng-src="{{files.filePath}}"></a>
+								</div>
+							</div>
+							
+							<div class="form-group" ng-show="hideMoreBtn">
+								<label class="col-sm-3 control-label">点击上传更多资料:</label>
+								<div class="col-sm-6">
+									<a ng-click="openModal(5,'上传更多')"><img width="60px" height="60px"  src="../../img/plus.png"></a>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" ng-disabled="okModalDisabled" class="btn btn-warning" ng-click="submitMessage()">
+						            <span class="glyphicon glyphicon-share-alt"></span> 提交
+						        </button>
+						        <button type="button" class="btn btn-warning" ng-click="cancleModal()">
+						            <span class="glyphicon glyphicon-share-alt"></span> 取消
+						        </button>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+	<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/crypto/crypto.js"></script>
+	<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/hmac/hmac.js"></script>
+	<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/sha1/sha1.js"></script>
+	<script type="text/javascript" src="../../js/plugins/oss/lib/base64.js"></script>
+	<script type="text/javascript" src="../../js/plugins/oss/plupload.full.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/oss/upload.js"></script>
+</script>
+
+
+<script type="text/ng-template" id="ThirDialogId">
+	<div class="inmodal " style="height: auto;">
+		<div class="modal-header">
+			<h4 class="modal-title" style="color:#FF9900;">申请资料列表</h4>
+		</div>
+		<div class="" name="myform" >
+			<ul class="form-horizontal">
+				<li class="list-group-item">
+					<div class="form-group col-sm-4" style="margin:0 auto;margin-bottom:20px;"  ng-repeat="apply in applyList">
+						<a  style="display: block;width:200px;border:1px solid #ccc;height:200px;line-height:200px;"><img  ng-src="{{apply.filePath}}" alt="" style="cursor:url('img/big.cur'),auto;max-width: 180px;max-height: 180px;display: block;margin:0 auto;" ng-click="showBigImg(apply.filePath)"/></a>
+					</div>
+					<div class="form-group"></div>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="modal-footer">
+			<!--<button ng-if="ifFirtAudit==2" type="button" class="btn btn-warning pull-right" ng-click="submitEditMessage()">
+	            <span class="glyphicon glyphicon-share-alt"></span> 提交
+	        </button>-->
+			<button type="button" class="btn btn-warning pull-right" ng-click="cancelModal()">
+	            <span class="glyphicon glyphicon-share-alt"></span> 取消
+	        </button>
+		</div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="modalDialogId">
+    <div class="ngdialog-message">
+        <h3>提示信息</h3>
+        <p ng-bind="promptMessage"></p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">确定</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="ConfirmDialogId">
+    <div class="ngdialog-message">
+        <h3 style="color:#FF9900;">提示信息:</h3>
+        <p>确定提交吗？提交后在审核完成前将不可修改！</p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button  type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('Cancel')">取消</button>
+        <!-- 初审 -->
+        <button ng-if="ifFIstAudit == 1" ng-disabled="okModalDisabled" type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirmClick(1)">确定</button>
+        <!-- 修改 -->
+        <button ng-if="consultantList[0].auditStatus == 3" ng-disabled="okModalDisabled" type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirmClick(2)">确定</button>
+        <!-- 续审 -->
+        <button ng-if="consultantStatus == 1||consultantStatus == 3" type="button" ng-disabled="okModalDisabled" class="ngdialog-button ngdialog-button-primary" ng-click="confirmClick(3)">确定</button>
+    </div>
+</script>

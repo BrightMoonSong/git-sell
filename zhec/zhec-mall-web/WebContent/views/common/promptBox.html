@@ -1,0 +1,12 @@
+
+<div class="ngdialog-message " id="prom_div_head">
+    <h3>提示信息</h3>
+    <p ng-model="promptMessage" class="prom_div_head_P">
+    	<!--{{}}-->
+    	<span ng-bind="promptMessage"></span>
+    </p>
+    <!--<p>Value from controller {{ctrl.value}}</p>-->
+</div>
+<div class="ngdialog-buttons" id="prom_div_foot">
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">关闭</button>
+</div>

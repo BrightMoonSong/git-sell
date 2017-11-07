@@ -1,0 +1,6 @@
+<div class="{{SuccessClass}}" id="toastSuccess">
+	<div class="modal-header toastTop toastTopSuccess">   		
+        <h4 id="myModalLabel" class="modal-title">提示信息</h4>
+    </div>
+    <div class="modal-body" id="toast2" ng-model="successMessage">{{successMessage}}</div>
+</div>

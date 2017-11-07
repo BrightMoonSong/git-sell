@@ -1,0 +1,49 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">待售商品</h1>
+    </div>
+    <div class="" name="myform" verify-scope="tipStyle: 1">
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+
+                <div class="form-group" ng-hide="true">
+                    <label class="col-sm-2 control-label">商品名称(*)：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="商品名称"
+                               readonly ng-model="dataEntity.name1">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品上架时间：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" minpicker class="Wdate form-control" placeholder="商品上架时间" readonly="readonly"
+                               ng-model="dataEntity.addTime">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品下架时间：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" datapicker class="Wdate form-control" placeholder="商品下架时间" readonly="readonly"
+                               ng-model="dataEntity.downTime">
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" ng-click="okModal()"
+                    ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+            <button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+        </div>
+    </div>
+
+</div>
+

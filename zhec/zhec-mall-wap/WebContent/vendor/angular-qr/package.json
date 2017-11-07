@@ -1,0 +1,104 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "angular-qr@latest",
+        "scope": null,
+        "escapedName": "angular-qr",
+        "name": "angular-qr",
+        "rawSpec": "latest",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "H:\\workspace\\test"
+    ]
+  ],
+  "_from": "angular-qr@latest",
+  "_id": "angular-qr@0.2.3",
+  "_inCache": true,
+  "_location": "/angular-qr",
+  "_nodeVersion": "5.2.0",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/angular-qr-0.2.3.tgz_1477409691692_0.16738630272448063"
+  },
+  "_npmUser": {
+    "name": "karelbilek",
+    "email": "kb@karelbilek.com"
+  },
+  "_npmVersion": "3.8.2",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular-qr@latest",
+    "scope": null,
+    "escapedName": "angular-qr",
+    "name": "angular-qr",
+    "rawSpec": "latest",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-qr/-/angular-qr-0.2.3.tgz",
+  "_shasum": "8138c6ab9dfc2cbc42591070539d2bdb7dfc6467",
+  "_shrinkwrap": null,
+  "_spec": "angular-qr@latest",
+  "_where": "H:\\workspace\\test",
+  "authors": [
+    "Jan Antala <hello@janantala.com>",
+    "Karel Bilek <kb@karelbilek.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/runn1ng/angular-qr/issues"
+  },
+  "dependencies": {
+    "qrcode-genetator": "^1.0.2",
+    "angular-qr": "latest"
+  },
+  "description": "QR code generator for AngularJS",
+  "devDependencies": {
+    "conventional-changelog": "~0.0.11",
+    "gulp": "~3.5.0",
+    "gulp-concat": "~2.1.7",
+    "gulp-header": "~1.0.2",
+    "gulp-jshint": "~1.3.4",
+    "gulp-karma": "~0.0.2",
+    "gulp-rename": "~0.2.2",
+    "gulp-uglify": "~0.2.0",
+    "gulp-util": "~2.2.9",
+    "karma": "~0.12.1",
+    "karma-chrome-launcher": "~0.1.2",
+    "karma-firefox-launcher": "~0.1.3",
+    "karma-jasmine": "~0.2.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "8138c6ab9dfc2cbc42591070539d2bdb7dfc6467",
+    "tarball": "https://registry.npmjs.org/angular-qr/-/angular-qr-0.2.3.tgz"
+  },
+  "gitHead": "2123cd00e04b2e13697772bcdd1c6debe954406a",
+  "homepage": "https://github.com/runn1ng/angular-qr",
+  "keywords": [
+    "qr",
+    "qrcode",
+    "angular"
+  ],
+  "license": "MIT",
+  "main": "./src/angular-qr.js",
+  "maintainers": [
+    {
+      "name": "karelbilek",
+      "email": "kb@karelbilek.com"
+    }
+  ],
+  "name": "angular-qr",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/runn1ng/angular-qr.git"
+  },
+  "scripts": {},
+  "version": "0.2.3"
+}

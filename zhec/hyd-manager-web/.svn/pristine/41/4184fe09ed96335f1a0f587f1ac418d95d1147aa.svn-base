@@ -1,0 +1,179 @@
+<style >
+	.ibox-content{
+		    min-height: auto !important;
+	}
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="ibox-title col-lg-12" style="height: 50px">
+    <div class="heading">
+      <!-- 搜索  -->
+      <div class="col-sm-12">
+        <div class="col-sm-8">
+          <!-- 标签页start -->
+          <ul class="nav nav-tabs">
+            <li class="active" ng-click="onClickTab('carowner.html')">
+              <a data-toggle="tab">车主审核通过管理</a>
+            </li>
+            <li ng-click="onClickTab('shipper.html')">
+              <a data-toggle="tab"> 货主审核通过管理 </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-3">
+          <!--刷新按钮触发模态框-->
+          <button class="btn btn-success pull-right" style="margin-top: 0px;" ng-click="loadData(true)">
+				                <span class="glyphicon glyphicon-refresh"></span> 刷新
+				</button>
+        </div>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">
+          <div id="mainView">
+            <div ng-include="currentTab"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<datalistpager></datalistpager>
+<script type="text/ng-template" id="carowner.html">
+  <div class="col-sm-12" style="padding-left: 0;">
+    <div class="form-group col-md-2">
+      <div>
+        <input type="text" placeholder="车主姓名" class="form-control" ng-model="$parent.realName">
+      </div>
+    </div>
+    <div class="form-group col-md-2">
+      <div>
+        <input type="text" placeholder="车主手机号" class="form-control" ng-model="$parent.phone">
+      </div>
+    </div>
+    <div class="form-group col-md-2">
+      <div>
+        <input type="text" placeholder="车主车牌号" class="form-control" ng-model="$parent.carLicenseNo">
+      </div>
+    </div>
+    <div class="col-sm-3" style="width: 20%;">
+      <input type="text" placeholder="起始时间(创建时间)" start-pickers class="Wdate form-control" ng-model="datapick" readonly="readonly">
+    </div>
+
+    <!-- <div class="form-group col-md-2">
+      <div>
+        <input type="text" placeholder="权限名称" class="form-control" ng-model="$parent.names">
+      </div>
+    </div> -->
+
+    <button class="btn btn-success" type="button" ng-click="loadData(true)">
+                   <span class="glyphicon glyphicon-search"></span>
+    </button>
+
+  </div>
+  <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+    <thead>
+      <tr>
+        <th>经营类型</th>
+        <th>签约类型</th>
+        <th>姓名</th>
+        <th>手机号</th>
+        <th>车牌号</th>
+        <th>信誉评分</th>
+        <th>注册时间 </th>
+        <th>状态</th>
+        <th style="width: 173px;">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="role in carList">
+        <td ng-if="role.businessType==1">个人</td>
+        <td ng-if="role.businessType==2">企业</td>
+        <td ng-if="role.businessType!=2&&role.businessType!=1"></td>
+        <td ng-if="role.contractType==1">未签约</td>
+        <td ng-if="role.contractType==2">签约</td>
+        <td ng-if="role.contractType!=2&&role.contractType!=1">未签约</td>
+        <td ng-bind="role.realName"></td>
+        <td ng-bind="role.phone"></td>
+        <td ng-bind="role.carLicenseNo"></td>
+        <td ng-bind="role.reputationScore"></td>
+        <td ng-bind="role.createTimeStr"></td>
+        <td ng-if="role.status==2" ng-class="{true: 'enabok', false: 'enabno'}[role.status==1]">禁用</td>
+        <td ng-if="role.status==1" ng-class="{true: 'enabok', false: 'enabno'}[role.status==1]">启用</td>
+        <td ng-if="role.status!=2&&role.status!=1"></td>
+        <td class="action-column">
+          <button class="btn btn-warning" ng-click="enableId(role.carOwnerId,3)">删除</button>
+          <button class="btn btn-warning" ng-if="role.status==2" ng-click="enableId(role.carOwnerId,1)">启用</button>
+          <button class="btn btn-warning" ng-if="role.status==1" ng-click="enableId(role.carOwnerId,2)">禁用</button>
+          <button class="btn btn-warning" ng-click="openModal(role.carOwnerId,true)">详情</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>
+<script type="text/ng-template" id="shipper.html">
+  <div class="col-sm-12" style="padding-left: 0;">
+    <div class="form-group col-md-2">
+      <div>
+        <input type="text" placeholder="货主姓名" class="form-control" ng-model="$parent.realNames">
+      </div>
+    </div>
+    <div class="form-group col-md-2">
+      <div>
+        <input type="text" placeholder="货主手机号" class="form-control" ng-model="$parent.phones">
+      </div>
+    </div>
+    <div class="col-sm-3" style="width: 20%;">
+      <input type="text" placeholder="起始时间(创建时间)" start-pickers class="Wdate form-control" ng-model="datapick" readonly="readonly">
+    </div>
+    <button class="btn btn-success" type="button" ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-search"></span>
+                </button>
+  </div>
+
+  <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+    <thead>
+      <tr>
+        <th>经营类型</th>
+        <th>签约类型</th>
+        <th>姓名</th>
+        <th>手机号</th>
+        <th>结算方式</th>
+        <th>注册时间 </th>
+        <th>状态</th>
+        <th style="width: 199px;">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="role in shipperList">
+        <td ng-if="role.businessType==1">个人</td>
+        <td ng-if="role.businessType==2">企业</td>
+        <td ng-if="role.businessType!=2&&role.businessType!=1"></td>
+        <td ng-if="role.contractType==1">未签约</td>
+        <td ng-if="role.contractType==2">签约</td>
+        <td ng-if="role.contractType!=2&&role.contractType!=1">未签约</td>
+        <td ng-bind="role.realName"></td>
+        <td ng-bind="role.phone"></td>
+        <td ng-if="role.settlementMethod==1">现结</td>
+        <td ng-if="role.settlementMethod==2">月结</td>
+        <td ng-if="role.settlementMethod!=2&&role.settlementMethod!=1"></td>
+        <td ng-bind="role.createTimeStr"></td>
+        <td ng-if="role.status==2" ng-class="{true: 'enabok', false: 'enabno'}[role.status==1]">禁用</td>
+        <td ng-if="role.status==1" ng-class="{true: 'enabok', false: 'enabno'}[role.status==1]">启用</td>
+        <td ng-if="role.status!=2&&role.status!=1"></td>
+        <td class="action-column">
+          <button class="btn btn-warning" ng-if="role.status==1" ng-click="deteletes(role.shipperId,2)">禁用</button>
+          <button class="btn btn-warning" ng-if="role.status==2" ng-click="deteletes(role.shipperId,1)">启用</button>
+          <button class="btn btn-warning" ng-click="deteletes(role.shipperId,3)">删除</button>
+          <button class="btn btn-warning" ng-click="openModalshipper(role.shipperId,true)">详情</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>

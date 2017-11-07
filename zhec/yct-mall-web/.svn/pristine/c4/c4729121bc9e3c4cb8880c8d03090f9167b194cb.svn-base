@@ -1,0 +1,79 @@
+<div class="content">
+	<div class="banner">
+		<a class="detail-img ycenter xcenter">
+			<img src="../img/banner.jpg">
+		</a>
+	</div>
+	<div class="conter clearfix">
+		<div class="conter-list">
+			<div class="banner-Carousel-head" id="detail-left-head">
+				<span>新闻动态</span>
+			</div>
+			<ol class="detail-left-ol clearfix">
+				<li  ng-click="findnews(1)" ng-class="{true: 'detail-left-ol-li-click', false: ''}[isActiveId==1]">
+					<a>
+						<span>*</span>
+						<span>公司公告</span>
+					</a>
+				</li>
+				<li ng-click="findnews(2)" ng-class="{true: 'detail-left-ol-li-click', false: ''}[isActiveId==2]">
+					<a>
+						<span>*</span>
+						<span>公司新闻</span>
+					</a>
+				</li>
+				<li ng-click="findnews(3)" ng-class="{true: 'detail-left-ol-li-click', false: ''}[isActiveId==3]">
+					<a>
+						<span>*</span>
+						<span>行业新闻</span>
+					</a>
+				</li>
+			</ol>
+
+		</div>
+		<div class="detail-right clearfix">
+			<div class="detail-right-head">
+				<div class="detail-right-head-left">
+					<span>*</span>
+					<span  ng-bind="newdata"></span>
+				</div>
+				<ul class="detail-right-head-right">
+					<li>
+						<span>您所在的位置</span>
+						<span>></span>
+					</li>
+					<li>
+						<span>新闻动态</span>
+						<span>></span>
+					</li>
+					<li ng-bind="newdata">
+						
+					</li>
+				</ul>
+			</div>
+			
+			<div class="detail-right-conter">
+				<div class="newslist-list-conter" ng-show="nesdetail">
+					<ul>
+						<li ng-repeat=" new in newlist" >
+							<a ng-click="newsdetail(new.newsId)">
+								<span>*</span>
+								<span ng-bind="new.title">合理用药小贴士</span>
+								<span ng-bind="'['+new.cTime+']'"></span>
+							</a>
+						</li>
+						
+					</ul>
+				</div>
+				<div class="detail-right-conter" ng-hide="nesdetail">
+						<p ng-bind="newdetail.title" style="margin-top: 20px;width: 660px;height: auto;overflow: hidden;clear: both;line-height: 25px;text-align: center;margin: 10px 0 0 20px;"></p>
+						<p style="width: 660px;height: auto;overflow: hidden;clear: both;line-height: 25px;text-align: center;margin: 10px 0 0 20px;">
+							来源：<span ng-bind="newdetail.source"></span>
+							日期：<span ng-bind="newdetail.cTime"></span>
+						</p>
+						<p ng-bind-html="newdetail.content | trust2Html"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

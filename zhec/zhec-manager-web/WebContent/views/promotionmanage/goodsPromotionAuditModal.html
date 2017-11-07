@@ -1,0 +1,31 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">促销审核的备注信息</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">备注（*）：</label>
+
+					<div class="col-sm-9" ng-if="ngif==1">
+						<input ng-verify="{max:50,required:false}" type="text" class="form-control" ng-model="dataEntity.remark">
+					</div>
+					<div class="col-sm-9" ng-if="ngif==2">
+						<input ng-verify="{max:50,required:true}" type="text" class="form-control" ng-model="dataEntity.remark">
+					</div>
+				</div>
+
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-disabled="okmodaldis">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+
+</div>

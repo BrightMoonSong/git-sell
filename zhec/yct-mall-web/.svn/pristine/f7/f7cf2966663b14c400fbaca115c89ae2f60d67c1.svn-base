@@ -1,0 +1,28 @@
+function newsdetailController($scope, $http, $q, newsdetailService, ngDialog,$stateParams, $rootScope) {
+	$scope.isActiveId = 1;
+	$scope.findnews = function(newsId) {
+		$scope.isActiveId = newsId;
+		switch (newsId){
+			case 1:
+			$scope.newdata="公司公告";
+				break;
+			case 2:
+			$scope.newdata="公司新闻";
+				break;
+			case 3:
+			$scope.newdata="行业新闻";
+				break;
+		}
+		newsdetailService
+			.newsdetail(newsId)
+			.then(function(result) {
+				console.log(result)
+				$scope.newdetail = result.data;
+				$("#detail-conyer").html($scope.newdetail.content)
+			})
+	}
+	
+	$scope.findnews($stateParams.newsId);
+}
+
+app.controller('newsdetailController', newsdetailController);

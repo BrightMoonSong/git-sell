@@ -1,0 +1,368 @@
+
+		<div  id="needs_head">
+			<ul class="head">
+				<li><a href="#/main/mine"><img src="img/fh.png"/></a></li>
+				<li id="needs_xq">优惠券</li>
+			</ul>
+		</div>
+		<ul class="coupon_head">
+			<li>
+				<a ng-click="toUse()" ng-class="{coupon_color:type==1}">未使用</a>
+			</li>
+			<li>
+				<a ng-click="alreadyUse()" ng-class="{coupon_color:type==2}">已使用</a>
+			</li>
+			<li>
+				<a ng-click="expired()" ng-class="{coupon_color:type==3}">已过期</a>
+			</li>
+			<li>
+				<a ng-click="lostEfficacy()" ng-class="{coupon_color:type==4}">已失效</a>
+			</li>
+		</ul>
+
+
+
+
+
+
+
+
+    <div class="coupon_conter clearfix" ng-repeat="oneCou in coupons">
+      <div class="coupon_yhq" ng-class="{coupon_ysy:bg_gray}">
+        <ul class="coupon_yhq_ul">
+          <li>
+            <h3 ng-bind="oneCou.couponName"></h3>
+          </li>
+          <li>
+            <label>平台:</label>
+            <span ng-bind="oneCou.arrPlatform"></span>
+          </li>
+          <li>
+            <label>券编号:</label>
+            <span ng-bind="oneCou.couponCode"></span>
+          </li>
+          <li class="coupon_last_Li">
+            <label>使用期限:</label>
+             <span ng-bind="oneCou.startTime"></span><span ng-bind="oneCou.endTime"></span>
+          </li>
+        </ul>
+        <ol  class="coupon_yhq_ol">
+          <li><span ng-bind="oneCou.quota | number:2"></span></li>
+          <li><span>满￥</span><span ng-bind="oneCou.threshold | number:2"></span><span>可用</span></li>
+        </ol>
+        <div class="coupon_ysy_img" ng-show="type!=1">
+          <img src="img/ysyyz.png" />
+        </div>
+      </div>
+    </div>
+	<div class="coupon_img" >
+		<div class="coupon_img_conter" ng-if="coupons.length==0">
+			<span class="xcenter">
+				<img src="img/wyhq.png" />
+			</span>
+			<p>无优惠券</p>
+		</div>
+</div>
+
+   <!-- <div class="coupon_yhq coupon_ysy">
+      <ul class="coupon_yhq_ul">
+        <li>
+          <h3>上线大促</h3>
+        </li>
+        <li>
+          <label>平台:</label>
+          <span></span>
+        </li>
+        <li>
+          <label>券编号:</label>
+          <span>2144569782017</span>
+        </li>
+        <li class="coupon_last_Li">
+          <label>使用期限:</label>
+          <span> 2017-05-05 - 2017-06-09</span>
+        </li>
+      </ul>
+      <ol  class="coupon_yhq_ol">
+        <li>￥10</li>
+        <li>满¥50可用</li>
+      </ol>
+      <div class="coupon_ysy_img">
+        <img src="img/ysyyz.png" />
+      </div>
+    </div>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!--	<div class="coupon_conter clearfix">
+			<div class="coupon_yhq">
+				<ul class="coupon_yhq_ul">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol ">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+			</div>
+				<div class="coupon_yhq">
+				<ul class="coupon_yhq_ul ">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+			</div>
+			<div class="coupon_yhq  coupon_yhq_ul_yh">
+				<ul class="coupon_yhq_ul">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+			</div>-->
+
+		<!--已使用-->
+
+			<!--<div class="coupon_yhq coupon_ysy">
+				<ul class="coupon_yhq_ul">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+				<div class="coupon_ysy_img">
+					<img src="img/ysyyz.png" />
+				</div>
+			</div>
+			<div class="coupon_yhq coupon_ysy">
+				<ul class="coupon_yhq_ul">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+				<div class="coupon_ysy_img">
+					<img src="img/ygqyz.png" />
+				</div>
+			</div>
+			<div class="coupon_yhq coupon_ysy">
+				<ul class="coupon_yhq_ul">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+				<div class="coupon_ysy_img">
+					<img src="img/ysxyz.png" />
+				</div>
+			</div>
+			&lt;!&ndash;已过期&ndash;&gt;
+
+			<div class="coupon_yhq coupon_ysy">
+				<ul class="coupon_yhq_ul">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+				<div class="coupon_ysy_img ">
+					<img src="img/ygqyz.png" />
+				</div>
+			</div>
+			<div class="coupon_yhq coupon_ysy">
+				<ul class="coupon_yhq_ul">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+				<div class="coupon_ysy_img ">
+					<img src="img/ygqyz.png" />
+				</div>
+			</div>
+			<div class="coupon_yhq coupon_ysy">
+				<ul class="coupon_yhq_ul">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+				<div class="coupon_ysy_img ">
+					<img src="img/ygqyz.png" />
+				</div>
+			</div>
+			&lt;!&ndash;已失效&ndash;&gt;
+			<div class="coupon_yhq coupon_ysy">
+				<ul class="coupon_yhq_ul">
+					<li>
+						<h3>上线大促</h3>
+					</li>
+					<li>
+						<label>平台:</label>
+						<span></span>
+					</li>
+					<li>
+						<label>券编号:</label>
+						<span>2144569782017</span>
+					</li>
+					<li class="coupon_last_Li">
+						<label>使用期限:</label>
+						<span> 2017-05-05 - 2017-06-09</span>
+					</li>
+				</ul>
+				<ol  class="coupon_yhq_ol">
+					<li>￥10</li>
+					<li>满¥50可用</li>
+				</ol>
+				<div class="coupon_ysy_img ">
+					<img src="img/ysxyz.png" />
+				</div>
+			</div>
+		</div>-->

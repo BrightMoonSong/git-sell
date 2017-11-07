@@ -1,0 +1,61 @@
+angular
+	.module("managerApp")
+	.factory("CarownerOkService",function($q,$http,constMapiLocation){
+		var baseUrl = constMapiLocation + '/carowner';
+		return{
+			//审核通过列表
+			find:function(realName,phone,carLicenseNo,startTime,pageNo,pageSize){
+				var defer = $q.defer();
+				var url =baseUrl + '/carowners?pageNo=' + pageNo + '&pageSize=' + pageSize;
+				if(realName){
+					url+="&realName=" + realName ;
+				}
+				if(phone){
+					url+="&phone=" + phone ;
+				}
+				if(carLicenseNo){
+					url+="&carLicenseNo=" + carLicenseNo ;
+				}
+				if(startTime){
+					url+="&startTime=" + startTime ;
+				}
+				$http({
+					method:'get',
+					url:url
+				}).success(function(data){
+					defer.resolve(data);
+				}).error(function(data){
+					defer.reject(data);
+				})
+				return defer.promise;
+			},
+			//车主详情
+			detail:function(carOwnerId){
+				var defer = $q.defer();
+				var url = baseUrl + '/get/' + carOwnerId;
+				$http({
+					method:'get',
+					url:url
+				}).success(function(data){
+					defer.resolve(data);
+				}).error(function(data){
+					defer.reject(data);
+				})
+				return defer.promise;
+			},
+			//删除
+			detel:function(carOwnerId,status){
+				var defer = $q.defer();
+				var url = baseUrl + '/updatestatus/' + carOwnerId +'?status=' + status;
+				$http({
+					method:'put',
+					url:url
+				}).success(function(data){
+					defer.resolve(data);
+				}).error(function(data){
+					defer.reject(data);
+				})
+				return defer.promise;
+			},
+		}
+	})

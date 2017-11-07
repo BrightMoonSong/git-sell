@@ -1,0 +1,119 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">规格管理</h1>
+	</div>
+	<div class="modal-body" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal" style="height: auto;">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">规格名称(*)：</label>
+
+					<div class="col-sm-9">
+						<input type="text" ng-verify="{required:true}" class="form-control" ng-model="dataEntity.name"/>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">排序号：</label>
+
+					<div class="col-sm-9">
+						<input type="number" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" maxlength="9" class="form-control" ng-model="dataEntity.sort" placeholder="排序号(请输入数字)"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">是否上传主图：</label>
+
+					<div class="col-sm-9" ng-if="dataId == undefined">
+						<div class="form-group" style="padding-left: 20px;padding-top: 5px;">
+							<label class="radio-inline" ng-click="checkIsNeedImage(1)">
+                                <input type="radio" ng-checked="dataEntity.isNeedImage=='1'" name="isNeedImage">&nbsp;上传&nbsp;
+                           	</label>
+							<label class="radio-inline" ng-click="checkIsNeedImage(0)">
+								<input type="radio" ng-checked="dataEntity.isNeedImage=='0'" name="isNeedImage">&nbsp;不上传&nbsp;
+	                        </label>
+						</div>
+					</div>
+					<div class="col-sm-9" ng-if="dataId != undefined">
+						<div class="form-group" style="padding-left: 20px;padding-top: 5px;">
+							<label class="radio-inline" ng-click="checkIsNeedImage(1)" ng-if="dataId != undefined&&dataEntity.isNeedImage=='1'">
+                                <input type="radio" ng-checked="dataEntity.isNeedImage=='1'" name="isNeedImage">&nbsp;上传&nbsp;
+                           	</label>
+							<label class="radio-inline" ng-click="checkIsNeedImage(0)" ng-if="dataId != undefined&&dataEntity.isNeedImage=='0'">
+								<input type="radio" ng-checked="dataEntity.isNeedImage=='0'" name="isNeedImage">&nbsp;不上传&nbsp;
+	                        </label>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<ul class="list-group form-horizontal">
+			<li class="list-group-item" ng-repeat="res in resfly track by $index" style="padding-bottom: 10px">
+				<div class="form-group" style="margin-bottom: 0px">
+					<label class="col-sm-3 control-label">规格属性名称：</label>
+
+					<div class="col-sm-3">
+						<input ng-verify="{required:true}" type="text" class="form-control" placeholder="规格属性" ng-model="res.name" ><!--ng-disabled="!(attrIds.indexOf(res.id)<0)"-->
+						<!--<span ng-if="!(attrIds.indexOf(res.id)<0)" style="color: red">* 该属性已关联商品无法更改</span>-->
+					</div>
+
+					<label class="col-sm-3 control-label">排序号：</label>
+
+					<div class="col-sm-2">
+						<input type="number" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" maxlength="9" class="form-control" placeholder="排序号(请输入数字)" ng-model="res.sort">
+					</div>
+					<!--<label class="col-sm-1 control-label">状态(*)：</label>
+
+					<div class="col-sm-2">
+						<label class="radio-inline" ng-click="check(1,$index,1)">
+                                <input type="radio" ng-checked="res.status=='1'" name="{{'status1'+$index}}">&nbsp;正常&nbsp;
+                            </label>
+						<label class="radio-inline" ng-click="check(0,$index,1)">
+                                <input type="radio" ng-checked="res.status=='0'" ng-verify name="{{'status1'+$index}}">&nbsp;禁用&nbsp;
+                            </label>
+					</div>-->
+				</div>
+			</li>
+		</ul>
+		<ul class="list-group form-horizontal">
+			<li class="list-group-item" ng-repeat="updata in updataSpecAttr track by $index">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">规格属性名称(*)：</label>
+
+					<div class="col-sm-3">
+						<input type="text" class="form-control" placeholder="规格属性" ng-model="updata.name" ng-verify="{required:true}">
+					</div>
+
+					<label class="col-sm-3 control-label">排序号：</label>
+
+					<div class="col-sm-2">
+						<input type="number" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" maxlength="9" class="form-control" placeholder="排序号(请输入数字)" ng-model="updata.sort" ng-verify="{required:true}">
+					</div>
+					<!--<label class="col-sm-1 control-label">状态(*)：</label>
+
+					<div class="col-sm-2">
+						<label class="radio-inline" ng-click="check(1,$index,2)">
+                                <input type="radio" ng-checked="updata.status=='1'" name="{{'status'+$index}}">&nbsp;正常&nbsp;
+                            </label>
+						<label class="radio-inline" ng-click="check(0,$index,2)">
+                                <input type="radio" ng-checked="updata.status=='0'" ng-verify name="{{'status'+$index}}">&nbsp;禁用&nbsp;
+                            </label>
+					</div>-->
+					<a class="col-sm-1" ng-click="updataSpecAttr.splice($index,1)"><span class="glyphicon glyphicon-remove"></span></a>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-success" ng-click="add_li()">
+                <span class="glyphicon glyphicon-floppy-disk"></span>新增规格值
+            </button>
+			<button type="button" class="btn btn-warning" ng-click="okModal(updataSpecAttr,resfly)" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span>取消
+            </button>
+		</div>
+	</div>
+
+</div>

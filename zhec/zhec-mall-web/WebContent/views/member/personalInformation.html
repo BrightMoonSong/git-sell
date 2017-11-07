@@ -1,0 +1,56 @@
+<ul class="right_goods_head">
+	<li class="recent_goods recent_goods_border">
+		信息详情：
+	</li>
+	<li class="personal_alter">
+		<ol>
+			<li ng-click="isShow=true">
+				<img id="changeViewImg" src="../../images/grtx.png">
+			</li>
+			<li>
+				<label>
+					昵称：
+				</label>
+				<input ng-model="memberName" type="text"  placeholder="请输入昵称"/>
+			</li>
+			<li>
+				<label>
+					生日：
+				</label>
+				<input class="workinput wicon mr25" id="inpstart" ng-model="memberBirth" type="text"   placeholder="请选择"/>
+			</li>
+			<li>
+				<label>性别：</label>
+				<input ng-model="status" ng-value="0" name="status" type="radio" value="" />女
+				<input ng-model="status" ng-value="1" name="status" type="radio" value="" />男
+			</li>
+			<li>
+				<button ng-click="saveMemmberMessage()">保存</button>
+			</li>
+		</ol>
+	</li>
+	<li class="personal_alter_img">
+		<ol>
+			<li>选择头像:</li>
+			<li>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt1.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt2.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt3.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt4.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt5.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt6.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt7.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt8.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt9.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt10.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt11.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt12.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt13.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt14.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt15.png"></a>
+				<a><img ng-click="changeHeadImg($event)" src="../images/head/xgt16.png"></a>
+			</li>
+		</ol>
+	</li>
+
+</ul>

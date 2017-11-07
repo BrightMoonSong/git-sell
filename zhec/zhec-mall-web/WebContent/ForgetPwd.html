@@ -1,0 +1,90 @@
+
+<div ng-controller="ForgetPwdController">
+
+  <div class="head_logreg">
+    <div class="header_logreg">
+      <div class="head_log_logreg">
+        <i onclick="javascript:self.location='index.html'"><img src="images/u1884.png"></i>
+      </div>
+    </div>
+  </div>
+  <div class="conter_logreg" name="myform" verify-scope="tipStyle: 1">
+    <div class="conter_br"></div>
+    <div class="conter_div">
+
+      <div class="conter_head">
+        <ul class="conter_head_ul">
+          <li>忘记密码</li>
+          <li class="conter_head_ul_a"><a href="#/login" onclick="javascript:document.title=titleManage.login;">登录</a></li>
+          <li></li>
+        </ul>
+      </div>
+      <ul class="conter_con_ul" >
+        <li class="conter_con_ul_li_one">
+          <ul class="conter_con_ul_input">
+            <li>
+              <div class="conter_input_div">
+                <i></i>
+              </div>
+            </li>
+            <li>
+              <input id="userPhone" ng-verify="pattern:/^[1][3,4,5,7,8][0-9]{9}$/" type="text" ng-model="userPhone"  placeholder="手机号" maxlength="11">
+            </li>
+          </ul>
+        </li>
+     
+        <li class="conter_con_ul_li_one">
+          <ul class="conter_con_ul_input">
+            <li>
+              <div class="conter_input_div">
+                <i></i>
+              </div>
+            </li>
+            <li id="conter_con_ul_input_one">
+              <input id="wrongMessage" ng-verify ng-model="phoneCode" type="text"  maxlength="6" onchange="this.value=this.value.substring(0, 6)" placeholder="短信验证码">
+            </li>
+            <li id="conter_con_ul_input_li">
+              <button ng-class="{true: 'notallowClick', false: 'allowClick'}[paraclass == false]" ng-disabled="paraclass == false && okModalDisabled" ng-click="getPhoneCode()" id="clickBtn"  ng-bind="btnMessage"></button>
+            </li>
+          </ul>
+        </li>
+           <li class="conter_con_ul_li_one">
+          <ul class="conter_con_ul_input">
+            <li>
+              <div class="conter_input_div">
+                <i></i>
+              </div>
+            </li>
+            <li>
+              <input type="password" name="userPassword" ng-model="userPassword" ng-verify="{required: true,min:6,max:12}" placeholder="输入密码">
+            </li>
+
+          </ul>
+        </li>
+        <li class="conter_con_ul_li_one">
+          <ul class="conter_con_ul_input">
+            <li>
+              <div class="conter_input_div">
+                <i></i>
+              </div>
+            </li>
+            <li>
+              <input type="password" ng-model="confirmParssword" ng-verify="{recheck:'userPassword',min:6,max:12,errmsg:'两次密码输入不一致'}"  placeholder="再次输入密码">
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="conter_btn" ng-verify="{control:'myform'}">
+        <button class="forgetPasswordBtn" ng-click="forgetPwdBtn()" >确&nbsp;&nbsp;认</button>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom_logreg">
+    <div class="footer_first_logreg">
+      <ul class="footer_ul_logreg">
+        <li>互联网药品信息服务资格证书:（京）-非经营性-2014-0014</li>
+        <li>2000-2016 北京众会技术有限公司版权所有</li>
+      </ul>
+    </div>
+  </div>
+</div>

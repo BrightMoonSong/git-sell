@@ -1,0 +1,85 @@
+html{
+	font-size: 10px;
+}
+
+.list{
+	width:100%;
+	position: relative;
+}
+.list_ul{
+	width:1.98rem;
+	height:100%;
+}
+.list_ul>li{
+	width:1.98rem;
+	height:1.25rem;
+	border-bottom: 1px solid #F2F2F2;
+	
+}
+.list_left{
+	width:100%;
+	height:100%;
+	text-align: center;
+	line-height: 1.25rem;
+	color:#282828;
+	font-size: 0.26rem;
+	background: white;
+	
+}
+.list_left_blac{
+	background: #0094D9;
+	width:100%;
+	height:100%;
+	
+}
+.list_left_click{
+	background: #F2F2F2;
+	color: #0094D9;
+	margin-left: 0.1rem;
+}
+.list_right{
+	width:3.9rem;
+	position: absolute;
+	right:0;
+	top: 0.3rem;
+	
+}
+.list_right>ul{
+	width:100%;
+	height:100%;
+	background: white;
+	margin-top: 0.2rem;
+}
+.list_right_label{
+	width:100%;
+	height:0.6rem;
+	line-height: 0.6rem;
+	color: #282828;
+	border-bottom:2px solid #F2F2F2;
+	text-indent:0.3rem ;
+	
+}
+.list_right_label>label{
+	font-size:0.24rem;
+}
+.list_right_biaoqian{
+	width:100%;
+	box-shadow:2px 1px 2px 0px #a29faf;
+}
+.list_right_biaoqian>ol{
+	width:100%;
+	height:100%;
+}
+.list_right_biaoqian>ol>li{
+	height:0.72rem;
+	min-width:1.3rem;
+	
+}
+.list_right_biaoqian>ol>li>a{
+	width:100%;
+	height:100%;
+	display: block;
+	text-align: center;
+	line-height: 0.72rem;
+	font-size: 0.24rem;
+}

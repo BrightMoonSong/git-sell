@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="notGoodsApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>商品不见了 - 鹿医生</title>
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script language="javascript">
+			if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+				
+			}else{
+				var strDelete = publicUrlMall.split("/mall");
+				publicUrlMall = strDelete[0] + strDelete[1];
+			}
+			document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/notFindGoods/notfindgoods.js><\/script>");
+			
+			document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+			
+			
+		</script>
+		<!--<link rel="stylesheet" href="stylesheets/screen.css" />-->
+		<!-- Piwik -->
+		<!--<script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script>-->
+		<!-- End Piwik Code -->
+	</head>
+	<body ng-controller="notGoodsController">
+		<headerpage></headerpage>
+		<div class="nav_details clearfix" style="width: 1200px;margin: 0 auto;padding-top:100px;height: 400px;background-color: #fff;">
+			<img src="images/goods404.png" alt="" style="max-width: 500px;margin:0 auto;display:block;"/>
+		</div>
+		<footerpage></footerpage>
+	</body>
+	<!--<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>-->
+	<!--<script type="text/javascript" src="js/common/cookie.js" ></script>-->
+	<!--<script type="text/javascript" src="js/common/zhec.js" ></script>-->
+	<!--<script src="js/plugins/angular/angular.min.js"></script>-->
+	<!--<script type="text/javascript" src="js/common/CommonService.js"></script>-->
+	<!--<script type="text/javascript" src="js/common/directives.js" ></script>-->
+	<!--<script src="js/controllers/notFindGoods/notfindgoods.js" type="text/javascript" charset="utf-8"></script>-->
+</html>

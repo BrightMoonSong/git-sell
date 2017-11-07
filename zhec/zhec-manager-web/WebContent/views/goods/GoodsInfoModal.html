@@ -1,0 +1,638 @@
+<style type="text/css">
+	.table-striped>tbody>tr:nth-of-type(odd) {
+		background-color: #f9f9f9;
+	}
+	
+	.table-striped>tbody>tr {
+		background-color: #f9f9f9;
+	}
+	
+	.singleclick {
+		background-color: #c5c5f7 !important;
+	}
+	
+	.dbclick {
+		background-color: #7e9ec8 !important;
+	}
+	
+	.zhende {
+		background-color: #cdcdcd !important;
+		color: #9d9a9a !important;
+	}
+</style>
+
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">商品管理</h1>
+	</div>
+	<div class="modal-body">
+		<!-- 标签页start -->
+		<ul class="nav nav-tabs">
+			<!--  class="active" -->
+			<li ng-hide="addHide" class="active" ng-click="onClickTab('cate.html')">
+				<a data-toggle="tab"> 分类信息 </a>
+			</li>
+			<li ng-show="addHide" class="active" ng-click="onClickTab('basicInformation.html')">
+				<a data-toggle="tab"> 基本信息 </a>
+			</li>
+			<li ng-show="editHide" ng-click="onClickTab('goodsSpecIds.html')">
+				<a data-toggle="tab"> 规格信息 </a>
+			</li>
+			<!--<li ng-show="editHide" ng-click="onClickTab('goodsBrandIds.html');serchType()">
+				<a data-toggle="tab"> 类型属性 </a>
+			</li>-->
+			<li ng-show="editHide" ng-click="onClickTab('goodsBrandIds2.html')">
+				<a data-toggle="tab"> 商品属性 </a>
+			</li>
+			<!-- <li ng-show="editHide" ng-click="onClickTab('filterType.html')">
+                 <a data-toggle="tab"> 商品详情 </a>
+             </li>-->
+			<li ng-show="editHide" ng-click="onClickTab('customType.html')">
+				<a data-toggle="tab"> 图片信息 </a>
+			</li>
+		</ul>
+		<div id="mainView">
+			<div ng-include="currentTab"></div>
+		</div>
+		<!-- 分类信息 -->
+		<script type="text/ng-template" id="cate.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item">
+					<div class="form-group">
+						<div class="col-sm-12">
+							<ul class="form-horizontal col-sm-4" style="overflow: auto;max-height: 418px;">
+								<li class="list-group-item" style="cursor:pointer" ng-repeat="brand in brandList" ng-click="clickone(brand.id);selectedWhich1($index)" ng-class='{active:$index==selectedRow1}' ng-show="brand.pid==0">
+									{{brand.name}}
+								</li>
+							</ul>
+							<ul class="form-horizontal col-sm-4" style="overflow: auto;max-height: 418px;">
+								<li class="list-group-item" style="cursor:pointer" ng-repeat="brands in brandLt" ng-click="clicktwo(brands.id);selectedWhich2($index)" ng-class='{active:$index==selectedRow2}'>
+									{{brands.name}}
+								</li>
+							</ul>
+							<ul class="form-horizontal col-sm-4" style="overflow: auto;max-height: 418px;">
+								<li class="list-group-item" style="cursor:pointer" ng-repeat="brandsa in brandLta" ng-click="clickThird(brandsa.id,brandsa.name);selectedWhich3($index)" ng-class='{active:$index==selectedRow3}'>
+									{{brandsa.name}}
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<button type="button" class="btn btn-warning pull-right" ng-click="okModalCate()" ng-disabled="ifThirdShow||okModalDisabled">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 下一步
+            </button>
+			<button type="button" class="btn btn-success pull-right" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</script>
+		<!-- 基本信息 -->
+		<script type="text/ng-template" id="basicInformation.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group" ng-show='dataId != null && dataId != undefined && dataId != ""'>
+							<label class="col-sm-2 control-label">分类选择：</label>
+
+							<div class="col-sm-3">
+								<select ng-model="brandListId" class="form-control" ng-options="x.name for x in brandList" ng-change="clickone(brandListId.id)">
+									<option value="">--请选择--</option>
+								</select>
+							</div>
+							<!--<span>&gt;</span>-->
+							<div class="col-sm-3">
+								<select ng-model="brandLtId" class="form-control" ng-options="x.name for x in brandLt" ng-change="clicktwo(brandLtId.id)">
+									<option value="">--请选择--</option>
+								</select>
+							</div>
+							<div class="col-sm-3">
+								<select ng-model="brandLtaId" class="form-control" ng-options="x.name for x in brandLta" ng-change="clickThird(brandLtaId.id,brandLtaId.name)">
+									<option value="">--请选择--</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">分类名称：</label>
+
+							<div class="col-sm-10">
+								<input ng-hide="dataId != null && dataId != undefined && dataId != ''" type="text" class="form-control" placeholder="分类ID" ng-model="temporaryName" readonly>
+								<!--dataId != null && dataId != undefined && dataId != "" 修改时   temporaryName-->
+								<input ng-show="dataId != null && dataId != undefined && dataId != ''" type="text" class="form-control" placeholder="分类ID" ng-model="dataEntity.goodsCateName" readonly>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品名称(*)：</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="商品名称" ng-verify="{min:10 ,max:60,required:true}" ng-model="dataEntity.name1">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品促销信息：</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="商品促销信息" ng-verify="{max:100,required:true}" ng-model="dataEntity.name2">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品关键字：</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="商品关键字" ng-verify="{required:true}" ng-model="dataEntity.keyword">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">品牌：</label>
+
+							<div class="col-sm-6">
+								<select ng-model="dataEntity.goodsBrandId" class="form-control" ng-options="x.id as x.name for x in goodsBrandIdList | filter:{'name':filterEntitykeyword}">
+									<option value="">--请选择--</option>
+								</select>
+							</div>
+							
+							<div class="col-sm-4">
+								<input type="text" class="form-control" placeholder="检索品牌关键字" ng-model="filterEntitykeyword">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">库存单位：</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="库存单位" ng-verify="{required:true}" ng-model="dataEntity.unit">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">条形码：</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="条形码" ng-verify="{required:true,pattern:/^[0-9a-zA-Z]*$/}" ng-model="dataEntity.barCode">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">市场价格：</label>
+
+							<div class="col-sm-10">
+								<input type="number" class="form-control" placeholder="市场价格" ng-verify="pattern:/^((\d\.\d?[1-9]?)|([1-9]+\d*\.\d?[1-9]?)|([1-9]+\d*))$/,max:9" ng-model="dataEntity.marketPrice">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">是否推荐：</label>
+
+							<div class="col-sm-10">
+								<label class="radio-inline" ng-click="checkedRadio(1,'isTop')">
+                                <input type="radio" name="isTop" ng-checked="dataEntity.isTop=='1'">&nbsp;推荐&nbsp;
+                            </label>
+								<label class="radio-inline" ng-click="checkedRadio(0,'isTop')">
+                                <input type="radio" name="isTop" ng-checked="dataEntity.isTop=='0'">&nbsp;不推荐&nbsp;
+                            </label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品类型：</label>
+
+							<div class="col-sm-10">
+								<label class="radio-inline" ng-click="checkedRadio(1,'goodsType')">
+	                                <input type="radio" name="goodsType" ng-checked="dataEntity.goodsType=='1'">&nbsp;处方药&nbsp;
+	                            </label>
+								<label class="radio-inline" ng-click="checkedRadio(2,'goodsType')">
+	                                <input type="radio" name="goodsType" ng-checked="dataEntity.goodsType=='2'">&nbsp;非处方药&nbsp;
+	                            </label>
+								<label class="radio-inline" ng-click="checkedRadio(3,'goodsType')">
+	                                <input type="radio" name="goodsType" ng-checked="dataEntity.goodsType=='3'">&nbsp;其它&nbsp;
+	                            </label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">退货类型：</label>
+
+							<div class="col-sm-10">
+								<label class="radio-inline" ng-click="checkedRadio(1,'returnType')">
+	                                <input type="radio" name="returnType" ng-checked="dataEntity.returnType=='1'">&nbsp;可退货&nbsp;
+	                            </label>
+								<label class="radio-inline" ng-click="checkedRadio(0,'returnType')">
+	                                <input type="radio" name="returnType" ng-checked="dataEntity.returnType=='0'">&nbsp;不可退货&nbsp;
+	                            </label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品物流类型：</label>
+
+							<div class="col-sm-10">
+								<label class="radio-inline" ng-click="checkedRadio(1,'logisticsType')">
+	                                <input type="radio" name="logisticsType" ng-checked="dataEntity.logisticsType=='1'">&nbsp;药品&nbsp;
+	                            </label>
+								<label class="radio-inline" ng-click="checkedRadio(2,'logisticsType')">
+	                                <input type="radio" name="logisticsType" ng-checked="dataEntity.logisticsType=='2'">&nbsp;其他&nbsp;
+	                            </label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">是否医保：</label>
+
+							<div class="col-sm-10">
+								<label class="radio-inline" ng-click="checkedRadio(1,'isHealthInsurance')">
+	                                <input type="radio" name="isHealthInsurance" ng-checked="dataEntity.isHealthInsurance=='1'">&nbsp;是&nbsp;
+	                            </label>
+								<label class="radio-inline" ng-click="checkedRadio(0,'isHealthInsurance')">
+	                                <input type="radio" name="isHealthInsurance" ng-checked="dataEntity.isHealthInsurance=='0'">&nbsp;非医保&nbsp;
+	                            </label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">是否赠品：</label>
+
+							<div class="col-sm-10">
+								<label class="radio-inline" ng-click="checkedRadio(1,'isGift')">
+	                                <input type="radio" name="isGift" ng-checked="dataEntity.isGift=='1'">&nbsp;是&nbsp;
+	                            </label>
+								<label class="radio-inline" ng-click="checkedRadio(0,'isGift')">
+	                                <input type="radio" name="isGift" ng-checked="dataEntity.isGift=='0'">&nbsp;否&nbsp;
+	                            </label>
+							</div>
+						</div>
+						<!-- 
+						<div class="form-group">
+							<label class="col-sm-2 control-label">商品上架时间：</label>
+
+							<div class="col-sm-10">
+								<input type="text" minpicker class="Wdate form-control" placeholder="商品上架时间" readonly="readonly" ng-model="dataEntity.addTime">
+							</div>
+						</div>
+						 -->
+						<div class="form-group">
+							<label class="col-sm-2 control-label">包装清单：</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-verify="{required:false}" placeholder="包装清单" ng-model="dataEntity.packing">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">排序号：</label>
+
+							<div class="col-sm-10">
+								<input type="number" class="form-control" placeholder="排序号" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}" ng-model="dataEntity.sort">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">规格：</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="规格" ng-verify="{required:true}" ng-model="dataEntity.specification">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">生产厂家：</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="生产厂家" ng-verify="{required:true}" ng-model="dataEntity.factory">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">SEO描述：</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" placeholder="SEO描述" ng-verify="{required:true}" ng-model="dataEntity.seoDescription">
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" ng-click="okModal(dataEntity)" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                </button>
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+		</script>
+
+		<!-- 规格信息 -->
+		<script type="text/ng-template" id="goodsSpecIds.html">
+			<style type="text/css">
+				.ifEnabledheight{
+					height:415px
+				}
+				.ifEnabledheight43{
+					height:43px
+				}
+			</style>
+			<form name="myform2" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item">
+						<div class="form-group">
+							<div class="form-group" ng-class="{true:'ifEnabledheight',false:'ifEnabledheight43'}[ifEnabled]">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label class="col-sm-2 control-label">规格：</label>
+
+										<div class="col-sm-10" style="padding-top: 5px;">
+											<input type="radio" ng-click="checkedRadio(2,'isSpec')" ng-checked="dataEntity.isSpec=='2'" name="isSpec">&nbsp;启用&nbsp;
+											<input type="radio" ng-click="checkedRadio(1,'isSpec')" ng-checked="dataEntity.isSpec=='1'" name="isSpec">&nbsp;不启用&nbsp;
+										</div>
+									</div>
+								</div>
+
+								<!--规格的左右选择 start-->
+								<div style="width: 500px;float: left;margin-left: 20px;" ng-if="ifEnabled">
+									<table class="table table-striped table-bordered table-hover dataTables-example">
+										<thead>
+											<tr>
+												<th style="border: none;">规格名称</th>
+											</tr>
+										</thead>
+										<tbody style="position: absolute;overflow: auto;max-height: 336px;width: 515px;">
+											<tr style="cursor: pointer;" ng-repeat="info in goodsSpecIdsList" ng-dblclick="selected(info)" ng-click="selected1(info)" ng-class="{'singleclick':selectedGoodsClickid.contains(info.id),'dbclick':selectedGoodsid.contains(info.id)}">
+												<td style="width: 500px;">{{ info.name }}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div style="width: 51px;float: left;padding-top: 175px;padding-left: 20px;" ng-if="ifEnabled">
+									<span class="glyphicon glyphicon-arrow-right" style="cursor:pointer" ng-click="allChecked()"></span>
+									<br /><br /><br />
+									<span class="glyphicon glyphicon-arrow-left" style="cursor:pointer" ng-click="allRemove()"></span>
+									<br />
+								</div>
+
+								<div style="width: 500px;float: left;" ng-if="ifEnabled">
+									<table class="table table-striped table-bordered table-hover dataTables-example">
+										<thead>
+											<tr>
+												<th style="border: none;">规格名称</th>
+											</tr>
+										</thead>
+										<tbody style="position: absolute;overflow: auto;max-height: 336px;width: 515px;">
+											<tr style="cursor: pointer;" ng-repeat="info in selectedGoods track by $index" ng-dblclick="remove(info)" ng-click="remove1(info)" ng-class="{'singleclick':removeGoodsClickid.contains(info.id)}">
+												<td style="width: 500px;">{{ info.name }}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div style="clear: both;"></div>
+								<!--规格的左右选择 end-->
+							</div>
+							<div class="col-sm-12" ng-if="ifEnabled">
+								<table class="table table-striped table-bordered table-hover dataTables-example">
+									<tr ng-repeat="res in selectedGoods">
+										<td ng-bind="res.name" style="width: 150px;"></td>
+										<td>
+											<span ng-repeat="res2 in res.specAttrs" style="cursor: pointer;float:left;padding: 10px;margin-right: 5px;" ng-bind="res2.name" ng-click="specAttrsSplice(res2.id)" ng-class="{false:'zhende',true:'dbclick'}[specAttrsSpliceId.contains(res2.id)]"></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+
+							<div class="modal-footer col-sm-12">
+								<span ng-show="selectedGoods.length>0" ng-if="ifEnabled">（已经选中</span>
+								<span ng-show="selectedGoods.length>0" ng-if="ifEnabled" style="color: #003EFF;">{{selectedGoods.length}}</span>
+								<span ng-show="selectedGoods.length>0" ng-if="ifEnabled">个规格）</span>
+
+								<button type="button" class="btn btn-warning" ng-click="okProduct(dataProductEntity,dataEntity.isSpec,specAttrName,specAttrIds)" ng-verify="{control:'myform2'}" id="okmodal" ng-disabled="okModalDisabled">
+                                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                            </button>
+								<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                                <span class="glyphicon glyphicon-share-alt"></span> 取消
+                            </button>
+							</div>
+						</div>
+
+					</li>
+				</ul>
+			</form>
+		</script>
+
+		<!-- 类型属性 -->
+		<!--<script type="text/ng-template" id="goodsBrandIds.html">
+			<style type="text/css">
+				.tipStyle-1 {
+					width: 70px !important;
+					left: 40px !important;
+				}
+			</style>
+			<div name="mydiv" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal col-sm-6">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">过滤属性：</label>
+
+							<div class="col-sm-12">
+								<ul ng-repeat="data in dataTypeAttrList track by $index" class="form-horizontal col-sm-12" style="border: 1px solid #e7eaec;padding-right: 0;margin: 10px;">
+									<li style="height:34px;width: 25%;float: left;list-style: none;margin-top: inherit;" ng-bind="data.cateName"></li>
+									<li class="list-group-item" ng-repeat="typeAttrName in data.attrs track by $index" ng-if="typeAttrName.type=='1'" style="width: 75%;float: right;">
+										<div class="col-sm-3" style="display: inline;padding: 0;">{{typeAttrName.name}}</div>
+										<select ng-verify="option:0,errmsg:'必须选择'" ng-model="selectValue1[typeAttrName.id]" class="form-control" style="width: 75%;" ng-change="change(selectValue1[typeAttrName.id],typeAttrName.id,typeAttrName.name,typeAttrName.type)" ng-options="x for x in typeAttrName.value.split(',')">
+											<option value="">--请选择--</option>
+										</select>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<ul class="form-horizontal col-sm-6">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">自定义属性：</label>
+
+							<div class="col-sm-12">
+								<ul ng-repeat="data2 in dataTypeAttrList track by $index" class="form-horizontal col-sm-12" style="border: 1px solid #e7eaec;padding-right: 0;margin: 10px;">
+									<li style="height:34px;width: 25%;float: left;list-style: none;margin-top: inherit;word-wrap:break-word;" ng-bind="data2.cateName"></li>
+									<li class="list-group-item" ng-repeat="typeAttrName2 in data2.attrs track by $index" ng-if="typeAttrName2.type=='2'" style="width: 75%;float: right;">
+										<div class="col-sm-3" style="display: inline;padding: 0;word-wrap:break-word;">{{typeAttrName2.name}}</div>
+										<input type="text" ng-model="selectValue2[typeAttrName2.id]" ng-verify="{required:true}" class="form-control col-sm-9" style="width: 75%;" ng-blur="change(selectValue2[typeAttrName2.id],typeAttrName2.id,typeAttrName2.name,typeAttrName2.type)" />
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button class="btn btn-warning" ng-click="okModalType(dataEntity)" ng-verify="{control:'mydiv'}" ng-disabled="okModalDisabled">
+	                        <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+	                    </button>
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+	                        <span class="glyphicon glyphicon-share-alt"></span> 取消
+	                    </button>
+				</div>
+			</div>
+		</script>-->
+		<!-- 商品属性 -->
+		<script type="text/ng-template" id="goodsBrandIds2.html">
+			<div class="col-sm-12">
+				<div class="col-sm-12" style="padding: 0px;padding-bottom: 10px;padding-top: 10px;">
+					<div class="col-sm-3">
+						<select ng-model="goodsPropertiesObjId" class="form-control" ng-options="x.id as x.name for x in goodsBrandList | filter:{'name':filterEntityProp}" ng-change="changeProperties(goodsPropertiesObjId)">
+							<option value="">--请选择归类--</option>
+						</select>
+					</div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" placeholder="检索归类关键字" ng-model="filterEntityProp">
+					</div>
+					<!--<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="filterProperties" placeholder="检索属性名称" />
+					</div>-->
+				</div>
+<!--
+				<ul class="form-horizontal col-sm-6">
+					<li class="list-group-item col-sm-12" style="text-align: center;font-family: '微软雅黑';font-size: 16px;font-weight: 600;">属性名称</li>
+					<li class="list-group-item col-sm-12" style="text-align: center;cursor: pointer;" ng-repeat="res in propertiesAttrList | filter:{'propName':filterProperties}" ng-click="propsSeclected(res)" ng-hide="propertiesSelectedAttrListId.contains(res.id)">
+						{{res.propName}}
+					</li>
+				</ul>
+				<ul class="form-horizontal col-sm-6">
+					<li class="list-group-item col-sm-12" style="text-align: center;font-family: '微软雅黑';font-size: 16px;font-weight: 600;">选中的属性<small style="color: #d4d4d4;font-weight: 500;">(已选中{{propertiesSelectedAttrList.length}}个)</small></li>
+					<li style="text-align: center;cursor: pointer;" class="list-group-item col-sm-12" ng-repeat="res in propertiesSelectedAttrList track by $index" ng-click="removePropsSeclected(res.id)">
+						{{res.propName}}
+					</li>
+				</ul>-->
+			</div>
+
+			<style type="text/css">
+				.tipStyle-1 {
+					width: 90px !important;
+					left: 40px !important;
+				}				
+			</style>
+			<form name="myformsp" verify-scope="tipStyle: 1" ng-hide="propertiesSelectedAttrList.length==0">
+				<ul class="form-horizontal col-sm-6">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">筛选属性：</label>
+
+							<div class="col-sm-12">
+								<ul ng-repeat="data in propertiesSelectedAttrList track by $index" class="form-horizontal col-sm-12" style="border: 1px solid #e7eaec;padding-right: 0;margin: 10px;" ng-if="data.attrType=='1'">
+									<li style="height:34px;width: 25%;float: left;list-style: none;margin-top: inherit;" ng-bind="data.editName"></li>
+									<!--<li style="height:34px;width: 75%;float: right;list-style: none;margin-top: inherit;">输入类型</li>-->
+									<li class="list-group-item" style="width: 75%;float: right;position: relative">
+										<div style="margin-right: 10px;font-weight: 500;position: relative;" ng-repeat="res1 in data.propAttrsList" ng-if="data.inputType=='1' && res1.status==1"><input ng-click="radioClick(res1.id,data)" class="radio-inline" type="radio" ng-checked="listcontains.contains(data.propId+'-'+res1.id+'-'+changePropertiesId)" name="{{data.id}}" /><span style="position: absolute;top: 2px;left: 20px;">{{res1.name}}</span></div>
+										<div style="margin-right: 10px;font-weight: 500;position: relative;" ng-repeat="res2 in data.propAttrsList" ng-if="data.inputType=='2' && res2.status==1"><input class="checkbox-inline" ng-click="checkboxClick(res2.id,data)" type="checkbox" ng-checked="listcontains.contains(data.propId+'-'+res2.id+'-'+changePropertiesId)" name="{{data.id}}" /><span style="position: absolute;top: 2px;left: 20px;">{{res2.name}}</span></div>
+										
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<ul class="form-horizontal col-sm-6">
+					<li class="list-group-item">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">自定义属性：</label>
+
+							<div class="col-sm-12">
+								<ul ng-repeat="data in propertiesSelectedAttrList track by $index" class="form-horizontal col-sm-12" style="border: 1px solid #e7eaec;padding-right: 0;margin: 10px;" ng-if="data.attrType=='2'">
+									<li style="height:34px;width: 25%;float: left;list-style: none;margin-top: inherit;" ng-bind="data.editName"></li>
+									<!--<li style="height:34px;width: 75%;float: right;list-style: none;margin-top: inherit;">输入类型</li>-->
+									<li class="list-group-item" style="width: 75%;float: right;position: relative;">
+										<div style="margin-right: 10px;font-weight: 500;position: relative;" ng-repeat="res1 in data.propAttrsList" ng-if="data.inputType=='1' && res1.status==1"><input class="radio-inline" ng-click="radioClick(res1.id,data)" type="radio" ng-checked="{{listcontains.contains(data.propId+'-'+res1.id+'-'+changePropertiesId)}}" name="{{'inputTyperadio'+data.id}}" /><span style="position: absolute;top: 2px;left: 20px;">{{res1.name}}</span></div>
+										<div style="margin-right: 10px;font-weight: 500;position: relative;" ng-repeat="res2 in data.propAttrsList" ng-if="data.inputType=='2' && res2.status==1"><input class="checkbox-inline" ng-click="checkboxClick(res2.id,data)" type="checkbox" ng-checked="{{listcontains.contains(data.propId+'-'+res2.id+'-'+changePropertiesId)}}" name="{{'inputTypecheckbox'+data.id}}"/><span style="position: absolute;top: 2px;left: 20px;">{{res2.name}}</span></div>
+										<input maxlength="50" class="form-control" ng-if="data.inputType=='3'" type="text" ng-model='data.goodsPropAttrValue' placeholder="单行输入" ng-change="goodsPropAttrValueChange(data)" />
+										<textarea maxlength="250" class="form-control" rows="3" ng-if="data.inputType=='4'" placeholder="多行输入" ng-model='data.goodsPropAttrValue' ng-change="goodsPropAttrValueChange(data)"></textarea>
+										<input maxlength="25" class="form-control" ng-if="data.inputType=='5'" type="number" placeholder="数字输入" ng-model='data.goodsPropAttrValue' ng-change="goodsPropAttrValueChange(data)" />
+										<input maxlength="25" id="goodsPropAttrValueid" class="form-control" ng-if="data.inputType=='6'" type="date" placeholder="日期输入" ng-model='data.goodsPropAttrValue' ng-change="goodsPropAttrValueChange(data,6)" />
+										<input maxlength="8" class="form-control" style="width: 90%;" ng-if="data.inputType=='7'" type="number" placeholder="金额输入" ng-model='data.goodsPropAttrValue' ng-change="goodsPropAttrValueChange(data)" /><span style="padding: 6px 12px;position: absolute;top: 10px;right: 10px;" ng-if="data.inputType=='7'">元</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button class="btn btn-warning" ng-click="propsSeclectedOkmodal(propertiesSelectedAttrList)" ng-verify="{control:'myformsp'}">
+	                        <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+	                    </button>
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+	                        <span class="glyphicon glyphicon-share-alt"></span> 取消
+	                    </button>
+				</div>
+			</form>
+		</script>
+		<!-- 图片信息  -->
+		<script type="text/ng-template" id="customType.html">
+
+		</script>
+
+		<!-- 标签页end -->
+		<div ng-show="imgHide" name="myformOss" verify-scope="tipStyle: 1">
+
+			<button type="button" class="btn btn-success" ng-click="openModalOss()">
+                <span class="glyphicon glyphicon-plus"></span> 上传图片
+            </button>
+			<ul class="form-horizontal">
+				<li class="list-group-item" ng-repeat="img in dataInfoImages track by $index">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">上传的图片：</label>
+
+						<div class="col-sm-6">
+							<input type="text" class="form-control" ng-model="img.imagePath" ng-hide="true">
+							<img ng-src="{{img.imagePath}}" onerror="javascript:this.src='../../img/loadding.gif';" alt="努力加载中..." style="width: 50px" />
+						</div>
+						<div class="col-sm-2">
+							<label class="radio-inline" ng-click="img.state=1"> <input
+                                    type="radio" ng-checked="img.state=='1'"
+                                    name="{{'state'+$index}}">&nbsp;启用&nbsp;
+                            </label> <label class="radio-inline" ng-click="img.state=0"> <input
+                                type="radio" ng-checked="img.state=='0'"
+                                name="{{'state'+$index}}">&nbsp;不启用&nbsp;
+                        </label>
+						</div>
+						<div class="col-sm-2">
+							<input type="number" class="form-control" placeholder="排序号" ng-model="img.sort" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}">
+						</div>
+					</div>
+				</li>
+			</ul>
+			<ul class="form-horizontal">
+				<li class="list-group-item" ng-repeat="img2 in dataInfoImages2 track by $index">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">上传图片：</label>
+
+						<div class="col-sm-5">
+							<input type="text" class="form-control" ng-model="img2.imagePath" ng-hide="true">
+							<img ng-src="{{img2.imagePath}}" style="width: 50px" />
+						</div>
+						<div class="col-sm-2">
+							<label class="radio-inline" ng-click="img2.state=1"> <input
+                                    type="radio" name="{{'state2'+$index}}" ng-checked="img2.state==1">&nbsp;启用&nbsp;
+                            </label> <label class="radio-inline" ng-click="img2.state=0"> <input
+                                type="radio" name="{{'state2'+$index}}" ng-checked="img2.state==0">&nbsp;不启用&nbsp;
+                        </label>
+						</div>
+						<div class="col-sm-2">
+							<input type="number" class="form-control" placeholder="排序号" ng-model="img2.sort" ng-verify="{pattern:/^[0-9]*[1-9][0-9]*$/,required:true}">
+						</div>
+						<a class="col-sm-1" ng-click="dataInfoImages2.splice($index,1)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</div>
+				</li>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="add_li()" ng-hide="true">
+                        <span class="glyphicon glyphicon-plus"></span> 新增一行
+                    </button>
+					<button type="button" class="btn btn-warning" ng-click="okInfoImages(dataInfoImages,dataInfoImages2)" ng-verify="{control:'myformOss'}">
+                        <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+                    </button>
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                        <span class="glyphicon glyphicon-share-alt"></span> 取消
+                    </button>
+				</div>
+			</ul>
+		</div>
+
+	</div>
+</div>

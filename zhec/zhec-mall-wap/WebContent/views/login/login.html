@@ -1,0 +1,42 @@
+
+<div id="carte_head">
+	<ul class="head">
+		<li><img src="../../img/fficon.png" onclick="goback()"/></li>
+		<li class="shopping_tit">登录</li>
+		<li id="shopping_bj">
+			<a ui-sref="info.register({memberId:0})">注册</a>
+		</li>
+	</ul>
+</div>
+<div class="login_banner">
+	<a><img src="img/logo.png"></a>
+</div>
+<div class="login_conter clearfix">
+	<ul class="login_conter_ul clearfix">
+		<li>
+			<p ng-bind="phonePrompt" ng-class="{true: '', false: 'colorRed'}[phonePrompt=='请输入手机号']">请输入手机号</p>
+			<input type="text" ng-model="userName" placeholder="手机号或用户名" maxlength="22" onchange="this.value=this.value.substring(0, 22)" autofocus="autofocus" />
+			<span ng-click="empty(1)"><img src="../../img/scsr.png" /></span>
+		</li>
+		<li>
+			<p ng-bind="passwordPrompt" ng-class="{true: '', false: 'colorRed'}[passwordPrompt=='请输入密码']"></p>
+			<input type="password" placeholder="请输入密码" ng-model="password" maxlength="12" onchange="this.value=this.value.substring(0, 12)" ng-keyup="myKeyup($event)" />
+			<span ng-click="empty(2)"><img src="img/scsr.png" /></span>
+		</li>
+		<li id="login_conter_ul_li">
+			<p ng-bind="captchaPrompt" ng-class="{true: '', false: 'colorRed'}[captchaPrompt=='请输入验证码']"></p>
+			<input type="number" ng-model="captcha" maxlength="6" onchange="this.value=this.value.substring(0, 6)" placeholder="请输入验证码" ng-keyup="myKeyup($event)" id="conter_con_ul_input_one_loginput" />
+			<span ng-click="empty(3)"><img src="img/scsr.png" /></span>
+		</li>
+		<li id="login_conter_ul_div">
+			<div id="conter_con_ul_input_li" ng-click="yzmcli()"></div>
+		</li>
+	</ul>
+</div>
+<div class="login_conter_button">
+	<button ng-click="login()">登录</button>
+</div>
+<div class="login_conter_button_wj">
+	<a href="#/info/forgetpwd">忘记密码?</a>
+</div>
+

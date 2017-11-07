@@ -1,0 +1,67 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+	<div class="row marLeft15">
+		<div class="col-lg-12 ">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<div class="heading">
+						<!-- 搜索  -->
+						<div class="col-lg-8" style="padding-left: 0px;">
+							<div class="col-sm-3">
+								<input type="text" placeholder="关键词检索" class="form-control" ng-model="searchHotNameSearch">
+							</div>
+							<div class="col-sm-1">
+								<button class="btn btn-success" ng-click="loadData(true)"><span class="glyphicon glyphicon-search"></span></button>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<!-- 刷新按钮 -->
+							<button class="btn btn-success operationBtn" ng-click="loadData(true)">
+				                <span class="glyphicon glyphicon-refresh"></span> 刷新
+				           </button>
+							<!-- 添加按钮触发模态框 -->
+							<button class="btn btn-warning operationBtn" ng-click="openModal()">
+				                <span class="glyphicon glyphicon-plus"></span> 添加
+				            </button>
+						</div>
+					</div>
+				</div>
+
+				<div class="hideScroll">
+					<div class="ibox-content showContent">
+						<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>热门搜索ID</th>
+									<th>热门搜索内容</th>
+									<th>排序号</th>
+									<th>状态</th>
+									<th>创建时间</th>
+									<th>修改时间</th>
+									<th class="fixedWidth300">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="res in searchHotList">
+									<td>{{ res.hotId }}</td>
+									<td>{{ res.content }}</td>
+									<td>{{ res.sort }}</td>
+									<td>{{ res.status==1?'启用':'禁用' }}</td>
+									<td>{{ res.createTimeStr }}</td>
+									<td>{{ res.updateTimeStr }}</td>
+									<td>
+										<button class="btn btn-warning" ng-click="openModal(res.hotId,res)">修改</button>
+										<button class="btn btn-warning" ng-if="res.status==0" ng-click="editStatus(res.hotId,1)">启用</button>
+										<button class="btn btn-warning" ng-if="res.status==1" ng-click="editStatus(res.hotId,0)">禁用</button>
+										<button class="btn btn-warning" ng-click="editStatus(res.hotId,2)">删除</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<datalistpager></datalistpager>

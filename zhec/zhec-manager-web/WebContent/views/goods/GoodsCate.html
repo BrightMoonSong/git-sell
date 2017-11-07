@@ -1,0 +1,156 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <div class="col-lg-6">
+            <!--<ol class="breadcrumb">
+                <li class="active"><strong>鍒嗙被绠＄悊</strong></li>
+            </ol>-->
+        </div>
+        <div class="col-lg-6">
+            <!-- 鍒锋柊鎸夐挳 -->
+            <button type="button" class="btn btn-success pull-right"
+                    ng-click="loadTree()">
+                <span class="glyphicon glyphicon-refresh"></span> 刷新
+            </button>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight ">
+    <div class="row marLeft15">
+        <div class="col-lg-12 ">
+            <div class="ibox-content col-xs-12">
+                <div class="col-xs-4 ">
+                	<div >
+	                    <button class="btn btn-success" style="margin-left:20px;margin-bottom:10px;" ng-click="addFriendGoods()">添加同级分类
+	                    </button>
+	                    <button id="disabledShow" style="margin-bottom:10px;" class="btn btn-success {{btnDisabled}}" ng-disabled="ifShowThird" ng-click="addSonGoods()">添加子级分类
+	                    </button>
+	                </div>
+                    <div class="ibox-content treeView">
+                        <label style="font-size:16px;margin-bottom:10px;color:#f8ac59">分类树形结构图</label>
+                        <div js-tree="treeConfig" ng-model="treeData" tree="treeInstance"
+                             tree-events="ready:readyCB;click:nodeclickCB"></div>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-xs-8" name="myform" style="margin-top:44px;" ng-show="isShowEdit" verify-scope="tipStyle: 1">
+                    <ul class="form-horizontal horizontal1">
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label class="col-xs-4 control-label">父节点:</label>
+                                <div class="col-xs-6">
+                                    <input readonly=false type="text" ng-model="parentName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-4 control-label">分类名(*):</label>
+                                <div class="col-xs-6">
+                                    <input  ng-verify="required:true" type="text" class="form-control"
+                                           ng-model="currentNodeName">
+                                </div>
+                            </div>
+                            <!--<div class="form-group">
+                                <label class="col-xs-4 control-label">类型(*)</label>
+                                <div class="col-xs-6" ng-verify="required:true">
+                                    <select ng-verify="required:true" id="selectCat" class="form-control" ng-model="initType"
+                                            ng-options="type.id as type.name for type in allType"
+                                            ng-change="changeType(initType)">
+                                            <option value="">--请选择--</option>
+                                    </select>
+                                </div>
+                            </div>-->
+                            <div class="form-group" ng-if="thirdShow">
+                                <label class="col-xs-4 control-label">销售底价比例(*输入值需大于1):</label>
+                                <div class="col-xs-6">
+                                    <input placeholder="输入值需大于1" ng-verify="{required:true,pattern:/^(?:[1-9]\.[1-9]|[2-9]\d?)$/}"
+                                           type="text"  ng-model="data.basepriceProportion" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="thirdShow">
+                                <label class="col-xs-4 control-label">处方药分佣比例(*输入值需小于1):</label>
+                                <div class="col-xs-6">
+                                    <input ng-verify="{required:true,pattern:/^(?:0\.[1-9]\d?)$/}"
+                                           type="text" ng-model="data.prescriptionCommission" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="thirdShow">
+                                <label class="col-xs-4 control-label">非处方药分佣比例(*输入值需小于1):</label>
+                                <div class="col-xs-6">
+                                    <input ng-verify="{required:true,pattern:/^(?:0\.[1-9]\d?)$/}"
+                                           type="text" ng-model="data.nonprescriptionCommission" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="thirdShow">
+                                <label class="col-xs-4 control-label">其它商品分佣比例(*输入值需小于1):</label>
+                                <div class="col-xs-6">
+                                    <input ng-verify="{required:true,pattern:/^(?:0\.[1-9]\d?)$/}"
+                                           type="text" ng-model="data.othersCommission" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group" >
+                                <label class="col-xs-4 control-label">关联筛选属性:</label>
+                                <div class="col-xs-4">
+                                    <button type="button" class="btn btn-success pull-right" ng-click="showAttrSelect()">
+						                <span class="glyphicon glyphicon"></span> 选择筛选属性
+						            </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-4 control-label">排序</label>
+                                <div class="col-xs-6">
+                                    <input ng-verify="required:false" type="text" ng-model="sort" class="form-control">
+                                <div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-4 control-label">状态</label>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-model="status" ng-value="1" name="status">&nbsp;正常&nbsp;
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-model="status" ng-value="0" name="status">&nbsp;禁用&nbsp;
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="isShowBtn">
+                                <label class="col-xs-4 control-label"></label>
+                                <button class="btn btn-warning" ng-click="saveEditNode()"
+                                        ng-verify="{control:'myform'}">保存
+                                </button>
+                                <button class="btn btn-success" ng-click="cancleSave()">取消</button>
+                            </div>
+                            <div class="form-group" ng-show="isShowBtn1">
+                                <label class="col-xs-4 control-label"></label>
+                                <button class="btn btn-warning" ng-click="saveAddFriendNode()"
+                                        ng-verify="{control:'myform'}">保存
+                                </button>
+                                <button class="btn btn-success" ng-click="cancleSave()">取消</button>
+                            </div>
+                            <div class="form-group" ng-show="isShowBtn2">
+                                <label class="col-xs-4 control-label"></label>
+                                <button class="btn btn-warning" ng-click="saveAddSonNode()"
+                                        ng-verify="{control:'myform'}">保存
+                                </button>
+                                <button class="btn btn-success" ng-click="cancleSave()">取消</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- 鎻愮ず妗� -->
+<script type="text/ng-template" id="modalDialogId">
+    <div class="ngdialog-message">
+        <h3>提示信息</h3>
+        <p ng-model="MessageInfo">{{MessageInfo}}</p>
+    </div>
+    <div class="ngdialog-buttons">
+        <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">确定</button>
+    </div>
+</script>
+        	

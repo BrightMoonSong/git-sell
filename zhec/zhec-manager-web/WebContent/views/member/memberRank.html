@@ -1,0 +1,161 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+	<div class="row marLeft15">
+		<div class="col-lg-12 ">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<div class="heading">
+						<!-- 搜索  -->
+						<div class="col-sm-3">
+							<div class="input-group">
+								<input type="text" placeholder="按姓名检索" class="form-control "
+									ng-model="userNameSearch"> <span
+									class="input-group-btn">
+									<button class="btn btn-success" type="button"
+										ng-click="loadData(true)">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-lg-9">
+							<!-- 刷新按钮 -->
+							<button type="button" class="btn btn-success operationBtn"
+								ng-click="loadData(true)">
+								<span class="glyphicon glyphicon-refresh"></span> 刷新
+							</button>
+							<button type="button" ng-click="openModal()" class="btn btn-warning operationBtn">
+								<span class="glyphicon"></span> 新增
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="hideScroll">
+					<div class="ibox-content ">
+						<table datatable="ng" dt-options="dtOptions"
+							class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>等级名称</th>
+									<th>等级最小经验值</th>
+									<th>等级最大经验值</th>
+									<th>等级图片</th>
+									<th>状态</th>
+									<th class="col-lg-2">操作</th>
+								</tr>
+							</thead>
+							<tbody style="">
+								<tr ng-repeat="member in memberList">
+									<td>{{ member.id }}</td>
+									<td>{{ member.rankName }}</td>
+									<td>{{ member.rankEmpiricMin }}</td>
+									<td>{{ member.rankEmpiricMax }}</td>
+									<td ng-if="member.rankUrl!=''&&member.rankUrl!=null"><img ng-src="{{member.rankUrl}}" style="max-width:50px;max-height:50px"></td>
+									<td ng-if="member.status=1">启用</td>
+									<td ng-if="member.status=0">禁用</td>
+									<td class="action-column">
+										<button type="button" class="btn btn-warning"
+											data-toggle="modal" data-target="#update"
+											ng-click="openModal(member.id)">
+											修改
+										</button>
+										
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<datalistpager></datalistpager>
+
+<script type="text/ng-template" id="secDialogId">
+	<div class="inmodal" >
+    <div class="modal-header">
+        <h1 class="modal-title">会员等级管理</h1>
+    </div>
+    <div class="" name="myform" verify-scope="tipStyle: 1">
+        <ul class="form-horizontal ">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">等级名称：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify type="text" class="form-control"
+                               ng-model="dataEntity.rankName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">等级最小经验值：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify  type="text" class="form-control"
+                               ng-model="dataEntity.rankEmpiricMin">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">等级最大经验值：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify type="text" class="form-control"
+                               ng-model="dataEntity.rankEmpiricMax">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">等级图片：</label>
+                    <div class="col-sm-5" ng-if="dataEntity.rankUrl!=''&&dataEntity.rankUrl!=null">
+						<img class="col-sm-5"   src="{{dataEntity.rankUrl}}">
+                    </div>
+					<div class="col-sm-3">
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#update"
+								ng-click="getImg()">上传图片
+						</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">状态：</label>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label class="radio-inline" >
+								<input type="radio"
+                                       ng-checked="dataEntity.status=='0'" name="scope" value="0"
+                                       ng-model="dataEntity.status">&nbsp;禁用&nbsp;
+                            </label>
+                            <label class="radio-inline" >
+                               <input type="radio" ng-checked="dataEntity.status=='1'" name="scope" value="1"
+                                       ng-model="dataEntity.status">&nbsp;启用&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">操作时间：</label>
+                    <div class="col-sm-9">
+                        <input disabled type="text" class="form-control"
+                               ng-model="dataEntity.oTime">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">排序：</label>
+                    <div class="col-sm-9">
+                        <input ng-verify type="text" class="form-control"
+                               ng-model="dataEntity.sort">
+                    </div>
+                </div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}">
+            			<span class="glyphicon glyphicon-floppy-disk"></span> 保存
+       				 </button>
+					<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            			<span class="glyphicon glyphicon-share-alt"></span>取消
+       				 </button>
+	</div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</script>
+
+

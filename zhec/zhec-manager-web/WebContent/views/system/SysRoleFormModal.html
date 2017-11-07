@@ -1,0 +1,60 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">角色信息</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal ">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">名称：</label>
+					<div class="col-sm-9">
+						<!--{min:1,max:30}-->
+						<input ng-verify="{required:true}" type="text" class="form-control" ng-model="dataEntity.name" value="{{dataEntity.name}}">
+					</div>
+				</div>
+
+				<div class="form-group" ng-if="undefined==dataId">
+					<label class="col-sm-3 control-label">所属类型：</label>
+					<div class="col-sm-9">
+						<div class="form-group">
+							<label class="radio-inline" ng-click="check(1,'scope')">
+                                <input type="radio"
+                                        ng-checked="dataEntity.scope=='1'" name="scope" value="1">&nbsp;平台&nbsp;
+                            </label>
+							<label class="radio-inline" ng-click="check(2,'scope')">
+                                <input type="radio"
+                                       ng-checked="dataEntity.scope=='2'" name="scope" value="2">&nbsp;顾问&nbsp;
+                            </label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">状态：</label>
+					<div class="col-sm-9">
+						<div class="form-group">
+							<label class="radio-inline" ng-click="check(1,'status')">
+                                <input  type="radio"
+                                        ng-checked="dataEntity.status=='1'" name="status" value="1">&nbsp;正常&nbsp;
+                            </label>
+							<label class="radio-inline" ng-click="check(0,'status')">
+                                <input type="radio"
+                                       ng-checked="dataEntity.status=='0'" name="status" value="0">&nbsp;禁用&nbsp;
+                            </label>
+						</div>
+					</div>
+				</div>
+
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}">
+	            <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+	        </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+	            <span class="glyphicon glyphicon-share-alt"></span> 取消
+	        </button>
+		</div>
+	</div>
+
+</div>

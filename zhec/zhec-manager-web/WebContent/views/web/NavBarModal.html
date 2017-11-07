@@ -1,0 +1,94 @@
+<div class="inmodal" >
+	<div class="modal-header">
+		<h1 class="modal-title">导航栏管理</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">名称：</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control"
+							ng-model="navBarList.title">
+					</div>
+				</div>
+				<div class="form-group">
+					<label  class="col-sm-3 control-label">链接：</label>
+					<div class="col-sm-9">
+						<input type="text" ng-verify="pattern:/^[^\u4e00-\u9fa5]{0,}$/" class="form-control"
+							ng-model="navBarList.link">
+					</div>
+				</div>
+				<div class="form-group">
+					<label  class="col-sm-3 control-label">排序号：</label>
+					<div class="col-sm-9">
+						<input type="text" ng-verify="pattern:/^[0-9]{1,2}$/" class="form-control"
+							ng-model="navBarList.sort">
+					</div>
+				</div>
+				<div class="form-group">
+					<label  class="col-sm-3 control-label">跳转状态：</label>
+					<div class="col-sm-9" ng-verify>
+						<label class="radio-inline"> <input type="radio" 
+								ng-checked="navBarList.target=='0'" value="0" name="target" ng-model="navBarList.target">&nbsp;当前页面打开&nbsp;
+						</label> 
+						<label class="radio-inline"> <input type="radio"
+							ng-checked="navBarList.target=='1'" value="1" name="target" ng-model="navBarList.target">&nbsp;新建页面打开&nbsp;
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label  class="col-sm-3 control-label">应用类型：</label>
+					<div class="col-sm-9" ng-verify>
+						<label class="radio-inline"> <input type="radio" 
+								ng-checked="navBarList.applyType=='1'" value="1" name="applyType" ng-model="navBarList.applyType">&nbsp;web&nbsp;
+						</label> 
+						<label class="radio-inline"> <input type="radio" 
+							ng-checked="navBarList.applyType=='2'" value="2" name="applyType" ng-model="navBarList.applyType">&nbsp;wap&nbsp;
+						</label>
+						<label class="radio-inline"> <input type="radio" 
+							ng-checked="navBarList.applyType=='3'" value="3" name="applyType" ng-model="navBarList.applyType">&nbsp;IOS&nbsp;
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+				    <label class="col-sm-3 control-label">开始时间：</label>
+				    <div class="col-sm-9">
+				        <input type="text" start-picker class="Wdate form-control" placeholder="开始时间"
+							 ng-model="navBarList.startTime">
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label class="col-sm-3 control-label">结束时间：</label>
+				    <div class="col-sm-9">
+				        <input type="text" end-picker class="Wdate form-control" placeholder="结束时间"
+							 ng-model="navBarList.endTime">
+				    </div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">状态（*）：</label>
+					<div class="col-sm-9">
+						<div class="form-group">
+							<label class="radio-inline"> <input type="radio"
+								ng-checked="navBarList.status=='1'" name="status" value="1" ng-model="navBarList.status">&nbsp;启用&nbsp;
+							</label> <label class="radio-inline"> <input type="radio" ng-verify
+								ng-checked="navBarList.status=='0'" name="status" value="0" ng-model="navBarList.status">&nbsp;禁用&nbsp;
+							</label>
+						</div>
+					</div>
+				</div>
+				
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" >
+				<span class="glyphicon glyphicon-floppy-disk"></span> 保存
+			</button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+				<span class="glyphicon glyphicon-share-alt"></span> 取消
+			</button>
+		</div>
+	</div>
+	
+</div>
+

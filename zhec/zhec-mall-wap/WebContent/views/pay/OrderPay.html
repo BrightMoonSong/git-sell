@@ -1,0 +1,107 @@
+<link rel="stylesheet" type="text/css" href="../../vendor/switch/switch.css"/>
+<script type="text/javascript" src="../../vendor/switch/switch.js" ></script>
+<script type="text/javascript" src="../../vendor/switch/mySwitch.js" ></script>
+<div id="needs_head">
+	<ul class="head">
+		<li><img src="img/fh.png" onclick="history.go(-1);"/></li>
+		<li id="needs_xq">订单支付</li>
+	</ul>
+</div>
+<ul class="orderp_head clearfix">
+	<li>
+		<label>订单编号:</label>
+		<span ng-bind="dataEntity.orderSn"></span>
+	</li>
+	<li>
+		<label>应付金额:</label>
+		<span id="orderp_head_color" ng-bind="dataEntity.orderMoney | priceFormatFilter"></span>
+	</li>
+	<li>
+		<p>请您在提交订单后的24小时之内付款，否则订单自动取消。</p>
+	</li>
+</ul>
+<ul class="orderp_conter clearfix">
+	<li class="orderp_conter_one ">
+		<label>余额支付</label>
+		<a class="ycenter" ng-click="balancePay()">
+			<!--<img id="rect" ng-click="balancePay()" ng-src="{{checked}}">-->
+			<input type="checkbox" class="demo-size-3" />
+		</a>
+		<!--ng-click="balancePay()"-->
+	</li>
+	<li class="orderp_conter_two" ng-if="checked=='img/kgk.png'">
+		<label>账户名称</label>
+		<span ng-bind="dataEntity.loginId"></span>
+	</li>
+	<li class="orderp_conter_three" ng-if="checked=='img/kgk.png'">
+		<label>手机号:</label>
+		<span ng-bind="dataEntity.mobile"></span>
+		<a ng-click="sendpaybybalancesms()" ng-bind="btnMessage" ng-disabled="!paraclass"></a>
+	</li>
+	<li class="orderp_conter_four" ng-show="checked=='img/kgk.png'"><input type="number" ng-model="smsCode" placeholder="输入验证码"></li>
+	<li class="bill_fapiao orderp_ye" ng-if="checked=='img/kgk.png'">
+		<div>
+			<label>您的余额可支付:<span ng-bind="dataEntity.balance | priceFormatFilter"></span></label>
+			<img src="img/ljjt.png" />
+			<a href="#/info/property" id="orderp_span_yl">去充值</a>
+		</div>
+	</li>
+	<li class="orderp_conter_five" ng-if="checked=='img/kgk.png'" ng-show="dataEntity.balance<dataEntity.orderMoney">
+		<label><b>*</b>选择余额支付后还需在线支付:</label>
+		<span ng-bind="(dataEntity.orderMoney-dataEntity.balance) | priceFormatFilter"></span>
+	</li>
+	<li class="bill_fapiao orderp_ye" id="orderp_li_img">
+		<a class="ycenter">
+			<label style="color: #333333;">在线支付:</label>
+			<img src="img/ljjt.png" ng-click="onlineshow()"/>
+			<span ng-if="payMethodValue=='wxpay'" class="ycenter" ng-click="onlineshow()"><img src="img/wx.png" />微信</span>
+			<span ng-if="payMethodValue=='zfbpay'" class="ycenter" ng-click="onlineshow()"><img src="img/alipay.png" />支付宝</span>
+			<span ng-if="payMethodValue=='ylpay'" class="ycenter" ng-click="onlineshow()"><img src="img/yl.png" />银联</span>
+		</a>
+	</li>
+</ul>
+<div class="fix_foot" ng-hide="thirdOnline">
+	<div class="fix_foot_orderdiv">
+		<label ng-hide="moneyPayBalance==0||moneyPayBalance==null">余额支付:<span ng-bind="moneyPayBalance | priceFormatFilter"></span></label>
+		<label>在线支付:<span ng-bind="thirdpay | priceFormatFilter"></span></label>
+		<button ng-click="submitPay()" ng-bind="subbut" ng-disabled="subbut != '去支付'"></button>
+	</div>
+
+</div>
+<div class="all_bill" ng-show="thirdOnline">
+	<div class="all_bill_div clearfix" style="display: none;">
+		<!--处方回拨电话-->
+		<ul class="all_bill_div_head">
+			<b>
+						发票抬头
+					</b>
+			<a ng-click="succthird()">
+				完成
+			</a>
+		</ul>
+		<ul class="all_bill_div_ul clearfix" id="all_orderp_div_ul">
+			<li ng-click="payMethod('ylpay')" ng-class="{true: 'active', false: ''}[payMethodValue=='ylpay']">
+				<a href="" class=" xcenter">
+					<div class="ycenter"><img src="img/yl.png"><span>银联</span></div>
+				</a>
+			</li>
+			<li ng-click="payMethod('wxpay')" ng-class="{true: 'active', false: ''}[payMethodValue=='wxpay']">
+				<a href="" class=" xcenter">
+					<div class="ycenter"><img src="img/wx.png"><span>微信</span></div>
+				</a>
+			</li>
+			<li ng-click="payMethod('zfbpay')" ng-class="{true: 'active', false: ''}[payMethodValue=='zfbpay']">
+				<a href="" class=" xcenter">
+					<div class="ycenter"><img src="img/alipay.png"><span>支付宝</span></div>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<style type="text/css">
+	.active{
+		border-top: 1px #0062CC solid;
+		border-bottom: 1px #0062CC solid;
+	}
+</style>

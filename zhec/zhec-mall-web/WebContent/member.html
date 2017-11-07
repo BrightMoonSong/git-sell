@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html ng-app="memberApp">
+<script type="text/javascript">
+	//IE8以及以下
+	if (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") ==
+		"MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+		alert("您的浏览器版本过低，请下载最新版的浏览器（IE9（包括IE9）以上版本或者谷歌/火狐浏览器）");
+		window.open(
+			"https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%E8%B0%B7%E6%AD%8C%E4%B8%8B%E8%BD%BD&rsv_pq=c246ab6d002fbb27&rsv_t=1135U61vvE3wASTN2idG5bjwinFSQIQgwYOCvAaXqx4hMUqIDCQyCSpWnYM&rqlang=cn&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100",
+			"_self");
+	}
+</script>
+
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+	<script language="javascript">
+		if (/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)) {
+
+		} else {
+			var strDelete = publicUrlMall.split("/mall");
+			publicUrlMall = strDelete[0] + strDelete[1];
+		}
+		document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href=" + publicUrlMall + "favicon.ico>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/screen.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/jDialog/jDialog.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog.min.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngDialog/ngDialog-theme-default.min.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/jedate/jedate.css>");
+		document.write("<link rel=\"stylesheet\" href=" + publicUrlMall + "stylesheets/plugins/ngVerify/ngVerify.css>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/jquery/dist/jquery.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/angular/angular.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/CommonService.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/directives.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/CommonFilter.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/controllers/member/memberConfig.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/ngDialog/ngDialog.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/cookie.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/zhec.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/jedate/jquery.jedate.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/Piwik.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/jDialog/jDialog.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/common/interceptor.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/controllers/member/memberController.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/services/member/memberService.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/angular-ui-router/release/angular-ui-router.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/oclazyload/dist/ocLazyLoad.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/ngVerify/ngVerify.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/angular-qr/bower_components/qrcode/lib/qrcode.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/angular-qr/angular-qr.min.js><\/script>");
+		document.write("<script src=" + publicUrlMall + "js/plugins/me-lazyload/me-lazyload.js><\/script>");
+	</script>
+
+	<title ng-bind="memberTitle"></title>
+
+
+
+</head>
+
+<body ng-controller="memberController">
+	<headerpage></headerpage>
+	<smallcart></smallcart>
+	<navigation-bar></navigation-bar>
+
+	<div class="nav clearfix">
+		<ul>
+			<li class="left_list">
+				<div class="left_list_div nav_ul">
+					<ul style="height:auto">
+						<li>
+							<a href="#/center" ng-class="{selectColor:sideIndex==0}" ng-click="renovate(sideIndex)"><i><img src="images/list1.png"></i>会员中心</a>
+						</li>
+						<li>
+							<a href="#/orders" ng-class="{selectColor:sideIndex==1}" ng-click="renovate(sideIndex)"><i><img src="images/list2.png"></i>我的订单</a>
+						</li>
+						<li>
+							<a href="#/personalInformation" ng-class="{selectColor:sideIndex==2}" ng-click="renovate(sideIndex)"><i><img src="images/list4.png"></i>我的信息</a>
+						</li>
+						<li>
+							<a href="#/property" ng-class="{selectColor:sideIndex==3}" ng-click="renovate(sideIndex)"><i><img src="images/listzc.png"></i>我的资产</a>
+						</li>
+						<li>
+							<a href="#/collection" ng-class="{selectColor:sideIndex==4}" ng-click="renovate(sideIndex)"><i><img src="images/list5.png"></i>用户收藏</a>
+						</li>
+						<li>
+							<a href="#/address" ng-class="{selectColor:sideIndex==5}" ng-click="renovate(sideIndex)"><i><img src="images/list6.png"></i>地址管理</a>
+						</li>
+						<li>
+							<a href="#/returnOrder" ng-class="{selectColor:sideIndex==6}" ng-click="renovate(sideIndex)"><i><img src="images/list7.png"></i>退货订单</a>
+						</li>
+						<li>
+							<a href="#/prescription" ng-class="{selectColor:sideIndex==7}" ng-click="renovate(sideIndex)"><i><img src="images/list_8.png"></i>处方申请</a>
+						</li>
+						<li>
+							<a href="#/coupon" ng-class="{selectColor:sideIndex==8}" ng-click="renovate(sideIndex)"><i><img src="images/list9.png"></i>优惠券</a>
+						</li>
+						<li>
+							<a href="#/generalize" ng-class="{selectColor:sideIndex==9}" ng-click="renovate(sideIndex)"><i><img src="images/list10.png"></i>会员推广</a>
+						</li>
+					</ul>
+				</div>
+				<div class="left_goods clearfix">
+					<ul class="clearfix">
+						<li class="goods_border" ng-repeat="good in goodsinleft">
+							<ol>
+								<li>
+									<a href="goods.html?id={{good.id}}"><img ng-src="{{good.masterImg}}"></a>
+								</li>
+								<li id="goods_li_one">
+									<a href="goods.html?id={{good.id}}" ng-bind="good.name1"></a>
+								</li>
+								<li>
+									<p>
+										<span ng-bind="good.salesPrice | priceFormatFilter"></span>
+										<span ng-bind="good.marketPrice | priceFormatFilter" class="line"></span>
+									</p>
+
+								</li>
+							</ol>
+						</li>
+					</ul>
+				</div>
+			</li>
+			<li class="right_list clearfix">
+				<ul class="clearfix">
+					<li>
+						<ol>
+							<li>
+								<a href="#/personalInformation"><img ng-src="{{image_path}}" alt="我的头像" class="width59" src="images/grtx.png" /></a>
+							</li>
+							<li>
+								<a href="#/personalInformation" ng-bind="loginID"></a>
+								<p ng-bind="welcomeBeerDoctor"></p>
+							</li>
+
+							<li>
+								<!--<p>我的优惠券：<span ng-bind="integral"></span>-->
+								<p>账户余额：
+									<span>￥</span><span ng-bind="balance|number:2"></span>
+									<a href="#/property">充值</a>
+								</p>
+
+								</p>
+							</li>
+
+							<li class="treat_payment treat">
+								<img src="images/yhk.png" />
+								<p>待付款(<span ng-bind="ordersnum.unpaidNum"></span>)</p>
+							</li>
+							<li class="treat_goods treat">
+								<img src="images/shx.png" />
+								<p>待收货(<span ng-bind="ordersnum.tobeReceivNum"></span>)</p>
+							</li>
+						</ol>
+					</li>
+
+				</ul>
+				<!--显示-->
+				<div ui-view>
+
+				</div>
+				<goodsindown></goodsindown>
+			</li>
+		</ul>
+	</div>
+
+	<footerpage></footerpage>
+
+
+
+
+</body>
+
+
+</html>

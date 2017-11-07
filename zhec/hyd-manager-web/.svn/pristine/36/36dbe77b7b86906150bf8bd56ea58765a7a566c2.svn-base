@@ -1,0 +1,99 @@
+angular
+	.module('managerApp')
+	.factory('syscodeService', function($http, $q, constMapiLocation) {
+		var baseUrl = constMapiLocation + '/syscode';
+		return {
+			//获取字典列表
+			find: function(pageSize, pageNo, codeType, codeId) {
+				var defer = $q.defer();
+				var url = baseUrl + "/findlist?pageSize=" + pageSize + "&pageNo=" + pageNo;
+				if(codeType) {
+					url += "&codeType=" + codeType;
+				}
+				if(codeId) {
+					url += "&codeId=" + codeId;
+				}
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//获取字典分组
+			getTypes: function() {
+				var defer = $q.defer();
+				var url = baseUrl + "/group";
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//物理删除字典
+			delete: function(id) {
+				var defer = $q.defer();
+				var url = baseUrl + "/del?id=" + id;
+				$http({
+					method: 'put',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//获取字典详情
+			getinfo: function(id) {
+				var defer = $q.defer();
+				var url = baseUrl + "/getinfo?id=" + id;
+				$http({
+					method: 'get',
+					url: url
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//更新字典
+			update: function(obj) {
+				var defer = $q.defer();
+				var url = baseUrl + "/update";
+				$http({
+					method: 'put',
+					url: url,
+					data: obj
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			},
+			//新增字典
+			insert: function(obj) {
+				var defer = $q.defer();
+				var url = baseUrl + "/insert";
+				$http({
+					method: 'post',
+					url: url,
+					data: obj
+				}).success(function(data) {
+					defer.resolve(data);
+				}).error(function(data) {
+					defer.reject(data);
+				});
+				return defer.promise;
+			}
+		}
+	});

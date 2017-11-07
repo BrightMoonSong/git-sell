@@ -1,0 +1,127 @@
+.coupon_head{
+	width: 100%;
+	height: 3.166rem;
+	background: #FFFFFF;
+	margin-top: 1px;
+}
+.coupon_head>li{
+	width: 25%;
+	text-align: center;
+	height: 100%;
+}
+.coupon_head>li>a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #666666;
+	letter-spacing: 0.1px;
+	line-height: 3.166rem;
+}
+.coupon_head .coupon_color{
+	color: #22A2FF;
+	border-bottom: 1px solid #22A2FF;
+}
+
+.coupon_conter{
+	width: 100%;
+}
+.coupon_yhq{
+	width:94.6%;
+	height:8.75rem;
+	margin: 0 auto;
+	background: url(../img/xyhq.png) no-repeat;
+	background-size: 100% 100%;
+	margin-top: 1.25rem;
+  position: relative;
+}
+.coupon_yhq_ul_yh{
+	background: url(../img/yhqw.png) no-repeat;
+	background-size: 100% 100%;
+}
+.coupon_yhq_ul,.coupon_yhq_ol{
+	float: left;
+
+}
+.coupon_yhq_ul{
+	width: 70.42%;
+	height: 100%;
+}
+.coupon_yhq_ul>li{
+	margin-top: 0.533rem;
+	width: 100%;
+}
+.coupon_yhq_ul>li>h3{
+	margin-left: 1.2rem;
+	font-family: MicrosoftYaHei;
+	font-size: 1.25rem;
+	color: #333333;
+	letter-spacing: 0.08px;
+}
+.coupon_yhq_ul>li>label,.coupon_yhq_ul>li>span{
+	display: block;
+	float: left;
+
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #666666;
+}
+.coupon_yhq_ul>li>label{
+	margin-left: 1.2rem;
+}
+.coupon_yhq_ul .coupon_last_Li>label{
+  font-family: MicrosoftYaHei;
+  font-size: 0.916rem;
+  color: #999999;
+}
+.coupon_yhq_ul .coupon_last_Li>span{
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #999999;
+  display: inline-block;
+  width: 7rem;
+  overflow: hidden;
+  height: 1.2rem;
+}
+.coupon_yhq_ol{
+	width: 29.58%;
+	height: 100%;
+}
+.coupon_yhq_ol>li{
+	width: 100%;
+	text-align: center;
+}
+.coupon_yhq_ol>li:nth-child(1){
+	font-family: MicrosoftYaHei;
+	font-size: 2.083rem;
+	color: #FFFFFF;
+	letter-spacing: 0.13px;
+	margin-top: 2.416rem;
+
+}
+.coupon_yhq_ol>li:nth-child(2){
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #FFFFFF;
+	letter-spacing: 0.06px;
+	margin-top: 0.833rem;
+}
+.coupon_conter .coupon_ysy{
+	background: url(../img/sxyhq.png) no-repeat;
+	background-size: 100% 100%;
+}
+.coupon_ysy{
+	position: relative;
+}
+.coupon_ysy_img{
+	width: 6.25rem;
+	height: 6.25rem;
+	position: absolute;
+	right: 5.25rem;
+	top: 1.291rem;
+}
+.coupon_ysy_img>img{
+	width: 6.25rem;
+	height: 6.25rem;
+}

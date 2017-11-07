@@ -1,0 +1,42 @@
+<div class="wrapper wrapper-content animated fadeInRight ">
+	<div class="row marLeft15">
+		<div class="col-lg-12 ">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<div class="heading">
+						<!-- 搜索  -->
+						<div class="col-sm-3">
+							<div class="input-group">
+								<input type="text" placeholder="按登录名检索" class="form-control " ng-model="userNameSearch"> <span class="input-group-btn">
+									<button class="btn btn-success" type="button"
+										ng-click="loadData(true)">
+										<span class="glyphicon glyphicon-search"></span>
+								</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-lg-9" style="padding-right: 30px;">
+							<!-- 刷新按钮 -->
+							<button type="button" class="btn btn-success operationBtn" ng-click="loadData(true)">
+								<span class="glyphicon glyphicon-refresh"></span> 刷新
+							</button>
+							<!-- 添加按钮触发模态框 -->
+							<button type="button" class="btn btn-warning operationBtn" data-toggle="modal" ng-click="openModal()">
+								<span class="glyphicon glyphicon-plus"></span> 添加
+							</button>
+						</div>
+					</div>
+				</div>
+				<!--拖拽表格指令-->
+				<table-drag></table-drag>
+				
+				<!--富文本-->
+				<!--<div>
+					<h1>富文本标题</h1><button onclick="getContent()">获得内容</button>
+					<script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+				</div>-->
+			</div>
+		</div>
+	</div>
+</div>
+

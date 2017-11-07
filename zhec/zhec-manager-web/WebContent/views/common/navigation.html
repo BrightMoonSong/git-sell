@@ -1,0 +1,184 @@
+<nav class="navbar-default navbar-static-side" role="navigation"  ng-controller="functionController">
+	<div class="sidebar-collapse">
+		<ul side-navigation class="nav metismenu" id="side-menu">
+			<li class="nav-header">
+
+				<div class="profile-element" uib-dropdown>
+					<img alt="image" class="img-circle" style="width: 48px;height: 48px;" src="img/profile.jpg"/>
+					<a uib-dropdown-toggle href> <span class="clear">
+						<span class="block m-t-xs"> <strong class="font-bold">{{main.userName}}</strong>
+						</span> <span class="text-muted text-xs block">操作<b class="caret"></b></span>
+					</span>
+					</a>
+					<ul uib-dropdown-menu="" class="animated fadeInRight m-t-xs">
+						<li><a ng-click="modifyPassword()">修改密码</a></li>
+						<li><a ng-click="quitLogin()">退出</a></li>
+					</ul>
+				</div>
+				<div class="logo-element">...</div>
+			</li>
+
+			<li ng-show="ifshowOrders"
+				ng-class="{active: $state.includes('orders')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">订单管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('orders')}">
+					<li ui-sref-active="active" ng-repeat="son in ordersFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})" >{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+
+			<li ng-show="ifshowRefund"
+				ng-class="{active: $state.includes('refundconfig')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">退单管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('refundconfig')}">
+					<li ui-sref-active="active" ng-repeat="son in refundFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+
+			<li ng-show="ifshowGoods"
+					ng-class="{active: $state.includes('products')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">商品管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('products')}">
+					<li ui-sref-active="active" ng-repeat="son in goodsFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+
+			<li ng-show="ifshowPromotionmanage"
+					ng-class="{active: $state.includes('promotionmanage')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">促销管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('promotionmanage')}">
+					<li ui-sref-active="active" ng-repeat="son in promotionmanageFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+
+			<li ng-show="ifshowSysconfig"
+					ng-class="{active: $state.includes('sysconfig')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">系统管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('sysconfig')}">
+					<li ui-sref-active="active" ng-repeat="son in sysconfigFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-show="ifshowMember"
+					ng-class="{active: $state.includes('member')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">会员管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('member')}">
+					<li ui-sref-active="active" ng-repeat="son in memberFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-show="ifshowWeb"
+					ng-class="{active: $state.includes('web')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">WEB管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('web')}">
+					<li ui-sref-active="active" ng-repeat="son in webFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-show="ifshowConsultant"
+					ng-class="{active: $state.includes('consultant')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">顾问管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('consultant')}">
+					<li ui-sref-active="active" ng-repeat="son in consultantFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-show="ifshowArticleconfig"
+					ng-class="{active: $state.includes('articleconfig')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">文章管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('articleconfig')}">
+					<li ui-sref-active="active" ng-repeat="son in articleconfigFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-show="ifshowfinancialconfig"
+					ng-class="{active: $state.includes('financialconfig')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">财务管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('financialconfig')}">
+					<li ui-sref-active="active" ng-repeat="son in financialconfigFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-show="ifshowappconfig"
+					ng-class="{active: $state.includes('appconfig')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">app管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('appconfig')}">
+					<li ui-sref-active="active" ng-repeat="son in appconfigFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+			<li ng-show="ifshowresearchconfig"
+					ng-class="{active: $state.includes('researchconfig')}">
+				<a href="#"><i class="fa fa-shopping-cart"></i>
+					<span class="nav-label">研发管理</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="nav nav-second-level collapse"
+					ng-class="{in: $state.includes('researchconfig')}">
+					<li ui-sref-active="active" ng-repeat="son in researchconfigFunc">
+						<a ui-sref="{{son.menuUrl}}({funcId: son.id})">{{son.name}}</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+	</div>
+</nav>

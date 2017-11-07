@@ -1,0 +1,91 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">基本信息</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal" style="background-color: #faf9f6;">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">促销名（*）：</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="{min:1 ,max:12}" type="text" class="form-control" ng-model="addData.promotionName" disabled>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">专题链接（*）：</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="{max:255}" type="text" class="form-control" ng-model="addData.topicUrl" disabled>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">使用门槛（*）：</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="{pattern:/^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/,max:8}" type="number" class="form-control" ng-model="addData.threshold" disabled>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">优惠额度（*）：</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="pattern:/^((\d\.\d?[1-9]?)|([1-9]+\d*\.\d?[1-9]?)|([1-9]+\d*))$/,max:9" type="number" class="form-control" ng-model="addData.quota" disabled>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">使用平台（*）：</label>
+
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+							<label class="radio-inline" style="padding-left: 0;">
+                                <input type="checkbox" ng-checked="addData.applicablePlatform.split(',').contains(1)" name="applicablePlatform" value="1"
+                                       ng-model="checkbox1" disabled>&nbsp;WEB&nbsp;
+                            </label>
+							<label class="radio-inline">
+                                <input type="checkbox" ng-checked="addData.applicablePlatform.split(',').contains(2)" name="applicablePlatform" value="2"
+                                       ng-model="checkbox2" disabled>&nbsp;WAP&nbsp;
+                            </label>
+							<label class="radio-inline">
+                                <input type="checkbox" ng-checked="addData.applicablePlatform.split(',').contains(3)" name="applicablePlatform" value="3"
+                                       ng-model="checkbox3" disabled>&nbsp;APP&nbsp;
+                            </label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">参与商品选择类型（*）：</label>
+
+					<div class="col-sm-9">
+						<span class="form-control" ng-if="addData.goodsSelectType==1">按个别商品</span>
+						<span class="form-control" ng-if="addData.goodsSelectType==2">按分类</span>
+						<span class="form-control" ng-if="addData.goodsSelectType==3">按品牌</span>
+						<span class="form-control" ng-if="addData.goodsSelectType==4">全站</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">促销开始时间：</label>
+
+					<div class="col-sm-9">
+						<input type="text" readonly="readonly" placeholder="促销开始时间" start-pickers class="Wdate form-control" style="background-color: white;" ng-model="addData.startTime" disabled>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">促销结束时间：</label>
+
+					<div class="col-sm-9">
+						<input type="text" readonly="readonly" placeholder="促销结束时间" end-pickers class="Wdate form-control" style="background-color: white;" ng-model="addData.endTime" disabled>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+</div>

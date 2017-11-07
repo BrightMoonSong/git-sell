@@ -1,0 +1,92 @@
+<style type="text/css">
+	table caption {
+		text-align: center;
+		font-weight: 700;
+		color: black;
+	}
+</style>
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">专题推荐商品</h1>
+	</div>
+	<div class="modal-body">
+		<div class="heading">
+			<!-- 搜索  -->
+			<div class="col-lg-8" style="padding-top: 5px;padding-left: 0px;height: 78px;">
+				<div class="col-sm-3" style="padding-left: 0px;">
+					<input type="text" placeholder="关键词检索" class="form-control" ng-model="infoNameSearch">
+				</div>
+				<div class="col-sm-8" style="padding-left: 0px;padding-bottom: 5px;">
+					<select ng-model="firstCateObj" class="form-controls form-controls2" ng-options="x.cateName for x in allCateList" ng-change="findinfosbypid(firstCateObj.cateId,1)">
+						<option value="">--选择一级分类--</option>
+					</select>
+					<select ng-model="secCateObj" class="form-controls form-controls2" ng-options="x.cateName for x in secCateList" ng-change="findinfosbypid(secCateObj.cateId,2)">
+						<option value="">--选择二级分类--</option>
+					</select>
+					<select ng-model="thirdCateObj" class="form-controls form-controls2" ng-options="x.cateName for x in thirdCateList">
+						<option value="">--选择三级分类--</option>
+					</select>
+				</div>
+				<div class="col-sm-1" style="padding-left: 0px;">
+					<button class="btn btn-success" ng-click="loadDataDialog()"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
+			</div>
+			<div class="col-lg-4" style="padding-top: 5px;padding-left: 0px;height: 78px;">
+
+			</div>
+		</div>
+
+		<ul class="form-horizontal">
+			<li class="list-group-item col-sm-6" style="min-height: 250px;max-height: 470px;overflow: auto;">
+				<table class="table table-striped table-bordered table-hover dataTables-example marginBottom25">
+					<caption>在售商品列表<small style="font-weight: 500;color: rgba(104, 103, 106, 0.81);">注:双击选中</small></caption>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>商品图片</th>
+							<th>商品名称</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="res in goodsList" ng-dblclick="singleClick(res)" ng-class="{true: 'singleclick', false: ''}[selectGoodsIdList.contains(res.goodsId)]">
+							<td ng-bind="res.goodsId"></td>
+							<td><img onerror="this.src='img/loadding.gif'" ng-src="{{res.masterImg}}" alt="..." style="max-width: 40px;max-height: 40px;" /></td>
+							<td ng-bind="res.name1"></td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+			<li class="list-group-item col-sm-6" style="min-height: 300px;max-height: 470px;overflow: auto;">
+				<table class="table table-striped table-bordered table-hover dataTables-example marginBottom25">
+					<caption>推荐商品列表<small style="font-weight: 500;color: rgba(104, 103, 106, 0.81);">注:双击移除</small></caption>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>商品名称</th>
+							<th style="width: 150px;">排序号</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="res in selectGoodsList" ng-dblclick="singleClickRemove(res.goodsId)" ng-show="filterRightLoopId==res.drugstoreId||!filterRightLoopId">
+							<td ng-bind="res.goodsId"></td>
+							<td ng-bind="res.goodsName"></td>
+							<td>
+								<input type="text" style="text-align: center;" class="form-control" ng-model="res.sort" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+		</ul>
+		<br />
+		<datalistpagerdialog></datalistpagerdialog>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="okModal()" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+       </button>
+			<button class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+		</div>
+	</div>
+</div>

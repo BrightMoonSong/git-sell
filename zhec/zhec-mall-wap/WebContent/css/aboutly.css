@@ -1,0 +1,27 @@
+.aboutlys_log{
+	width: 100%;
+	height: 15.75rem;
+}
+.aboutlys_log>a{
+	display: -webkit-flex;
+	width: 100%;
+	height:10.25rem;
+}
+.aboutlys_log>a>img{
+	height: 8.166rem;
+	width: 6.125rem;
+	margin-top:  2.083rem;
+}
+.aboutlys_log>p{
+	width: 100%;
+	height: 4.458rem;
+    line-height: 4.458rem;
+	text-align: center;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #999999;
+	letter-spacing: 0.1px;
+}
+.aboutlys_border{
+	border-bottom: 1px solid #EEEEEE;
+}

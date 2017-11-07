@@ -1,0 +1,239 @@
+	<div  id="carte_head">
+			<ul class="head">
+				<li ><img src="../../img/code.png"  /></li>
+				<li class="shopping_tit">订单</li>
+			</ul>
+		</div>
+		<ul class="orders_ul">
+			<li ng-class="{order_ul_li:orderState==0}" ng-click="findAllOrders()">全部</li>
+			<li ng-class="{order_ul_li:orderState==1}" ng-click="findNotPay()">待付款</li>
+			<li ng-class="{order_ul_li:orderState==3}" ng-click="findNotReceive()">待收货</li>
+		</ul>
+
+		<div class="orders_ul_conter clearfix">
+			<ul  class="orders_conter clearfix" ng-repeat="orders in allOrders">
+			<li class="orders_conter_one ycenter" >
+				<img src="../../img/zdd.png"/  ng-show="allhide">
+				<label  ng-show="allhide" >订单号：<b ng-bind='orders.orderSn'></b></label>
+				
+				<a class="ycenter orders_a_img_sc"  ng-click="cancleOrder(orders.id,orders.memberId)"  ng-if="orders.shiped == true&&orders.orderStatus!=2">
+					<img src="../../img/qxh.png" />
+				</a>
+			</li>
+			<li class="orders_conter_one ycenter orders_conter_one_yh" ng-if="orders.promotionType2!=undefined||orders.promotionType3!=undefined" >
+				<span ng-bind="orders.promotionType2" ></span>
+               <span ng-bind="orders.promotionType3"></span>
+			</li>
+			<li class="clearfix" ng-repeat="oneorder in orders.ordersSub">
+				<a ui-sref="info.orderId({orderId:oneorder.id})">
+					<ol class="clearfix orderlist_order swiper-container" >
+						<li class="orders_conter_two">
+							<label>订单号： <b ng-bind="oneorder.orderSn"></b></label>
+							<span class="orders_conter_but" ng-bind="showStatus(oneorder.orderStatus)"></span>
+						</li>
+						<li class="orders_conter_three swiper-wrapper" ng-click="orderClick()">
+						
+								 <span   class="swiper-slide" ng-repeat="good in oneorder.ordersProduct">
+								 <img ng-src="{{good.masterImg}}" >
+								<span id="orders_conter_three_name" class="clearfix" ng-if="oneorder.productinfo">
+									<b><span class="words orderlist_word" ng-bind="good.goodsName"></span></b>
+									<b><span ng-bind="good.productSpecInfo" class="orders_conter_three_name_b"></span></b>
+								</span>
+							</span>
+						
+
+
+						</li>
+					</ol>
+				</a>
+				<div class="orders_conter_five ">
+					<a ng-if="oneorder.orderStatus>0&&oneorder.buyagain==true" >
+						<button  class="orders_conter_but" ng-click="addOrderToCar(oneorder.ordersProduct)" >再次购买</button>
+					</a>
+					<!--<a href="orderDetail.html?orderId={{oneorder.id}}">
+						<button>查看订单</button>
+					</a>-->
+					<!--取消订单-->
+					<!--<a href="javascript:void(0);" ng-if="!orders.promotionType2&&!orders.promotionType3 && oneorder.orderStatus<3 && orders.payStatus != 2">
+						<button ng-click="cancleDialog(oneorder.id,oneorder.orderSn,oneorder.orderStatus,memberId,memberLoginId,orders.payStatus)">取消订单</button>
+					</a>-->
+				
+					<a ng-if="2<oneorder.orderStatus&&oneorder.orderStatus<4">
+						 <button ng-click="confirmOrder(oneorder.id,oneorder.orderSn,oneorder.orderStatus,memberId,memberLoginId)">
+                   			 确认收货
+                 		 </button>
+					</a>
+					 <!--href="afterSales.html?memberId={{memberId}}&orderId={{list.id}}&productId={{good.productId}}&goodsId={{good.goodsId}}"
+					<a href="index.html#/info/apply-{{memberId}}orderId-:productId-:goodsId">
+						<button>申请售后</button>
+					     <!--ng-if="!orderList.promotionType2&&!orderList.promotionType3 && list.orderStatus<3 && orderList.payStatus != 2">
+                    <a href="javascript:void(0);"-->
+                       <!--ng-click="cancleDialog(list.id,list.orderSn,list.orderStatus,memberId,memberLoginId,orderList.payStatus)">取消订单</a>-->
+				</div>
+
+
+			</li>
+
+			<li class="orders_conter_four"  ng-show="allhide">
+				<div>
+					<span><label>合计:<b ng-bind="orders.moneyProduct | priceFormatFilter:2">¥ 200.00</b></label></span>
+					<span>含运费(<b ng-bind="orders.moneyOrder | priceFormatFilter:2">¥00.00</b>) </span>
+					<span class="orders_conter_fiv_a" ng-if="orders.payStatus==0&&orders.orderStatus==1&&orders.immidiateBuy==true">
+						<a  ui-sref="info.orderpay({orderId:{{orders.id}}})">
+							<button class="orders_conter_but">立即付款</button>
+						</a>
+					</span>
+					<span class="orders_conter_fiv_a" ng-if="orders.payStatus==2&&orders.immidiateBuy==true">
+						<a  ui-sref="info.orderpay({orderId:{{orders.id}}})">
+							<button class="orders_conter_but">继续付款</button>
+						</a>
+					</span>
+				</div>
+
+			</li>
+		</ul>
+		<div class="coupon_img_conter" ng-show="orderlistimg">
+			<span class="xcenter">
+				<img src="img/wsp.png" />
+			</span>
+			<p>订单空空如也</p>
+		</div>
+      <div ng-if="scrollFoot == false"><img src="../../img/fdddb.png" alt=""></div>
+      <div ng-show='loadding' class="all_lode_img ycenter xcenter"><img src="../../img/loadding.gif" alt="" /></div>
+		<div ng-show="orderlistimg" >
+				<findcommenddata></findcommenddata>
+		</div>
+	
+
+
+
+
+
+		<!--<ul  class="orders_conter clearfix">
+			<li class="orders_conter_one ycenter">
+				<img src="../../img/zdd.png"/>
+				<label>订单号：<b>354364659809</b></label>
+				<span>满300减20</span>
+				<a class="ycenter orders_a_img_sc">
+					<img src="../../img/qxh.png" />
+				</a>
+			</li>
+			<li class="orders_conter_two">
+				<label>订单号：<b>354364659809</b></label>
+				<span >已收货</span>
+			</li>
+			<li class="orders_conter_three">
+				<a><img src="../../img/ss.png"></a>
+				<a><img src="../../img/1.png"></a>
+				<a><img src="../../img/1.png"></a>
+				<a><img src="../../img/1.png"></a>
+				<a><img src="../../img/1.png"></a>
+
+			</li>
+			<li class="orders_conter_four">
+				<div>
+					<span>共<b>4</b>件商品</span>
+					<span><label>合计:<b>¥ 200.00</b></label></span>
+					<span>含运费(<b>¥00.00</b>) </span>
+				</div>
+
+			</li>
+			<li class="orders_conter_five">
+				<button  class="orders_conter_but">再次购买</button>
+				<button>查看物流</button>
+			</li>
+		</ul>-->
+		<!--<ul  class="orders_conter clearfix">
+			<li class="orders_conter_one ycenter">
+			<!--	<input type="checkbox" name="1" value="1" />-->
+				<!--<label>订单号：<b>354364659809</b></label>
+				<span>满300减20</span>
+			</li>
+			<li class="orders_conter_two">
+				<label>订单号：<b>354364659809</b></label>
+				<span >已支付</span>
+			</li>
+			<li class="orders_conter_three">
+				<a><img src="../../img/1.png"></a>
+				<ol id="orders_conter_three_name" class="clearfix">
+					<li><a class="words">金嗓子后薄片韩偏导数发实打实干嘛东(铁盒)(内喊6小戴)</a></li>
+					<li><span>包装4*5片</span></li>
+				</ol>
+			</li>
+			<li class="orders_conter_four">
+				<div>
+					<span>共<b>4</b>件商品</span>
+					<span><label>合计:<b>¥ 200.00</b></label></span>
+					<span>含运费(<b>¥00.00</b>) </span>
+				</div>
+
+			</li>
+			<li class="orders_conter_five">
+				<button  class="orders_conter_but">再次购买</button>
+				<button>查看物流</button>
+				<button>取消订单</button>
+			</li>
+		</ul>
+		</div>-->
+
+
+
+
+
+
+		<!--<div class="fix_order">
+			<label>已选择:<b>  0</b></label>
+			<button>取消订单</button>
+		</div>-->
+		<!--<div class="fix_foot">
+			<ol class="fix_foot_ol">
+			<li>
+				<a>
+					<img src="img/sy2.png" />
+					<p>首页</p>
+				</a>
+			</li>
+			<li>
+				<a>
+					<img src="img/fl2.png" />
+					<p>分类</p>
+				</a>
+
+			</li>
+			<li>
+				<a>
+					<img src="img/gwc2.png" />
+					<p>购物车</p>
+				</a>
+			</li>
+			<li>
+				<a>
+					<img src="img/dd1.png" />
+					<p >订单</p>
+				</a>
+			</li>
+			<li>
+				<a>
+					<img src="img/wd2.png" />
+					<p class="foot_color_all">我的</p>
+				</a>
+			</li>
+		</ol>
+		</div>
+		<div class="all_bill" style="display: none;">
+		<div class="all_bill_div clearfix">
+				<!--处方回拨电话-->
+				<!--<ul class="all_bill_div_head">
+					<b>
+						取消总订单
+					</b>
+					<a>
+						取消
+					</a>
+				</ul>
+				<ul class="orders_tc clearfix">
+					<li> <a href="">是否取消总订单？</a></li>
+					<li><a href="">完成</a></li>
+				</ul>
+		</div>
+	</div>-->

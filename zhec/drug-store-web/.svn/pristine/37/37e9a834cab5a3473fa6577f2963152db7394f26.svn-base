@@ -1,0 +1,82 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="ibox-title col-lg-12" style="height: 50px">
+		<div class="heading">
+			<!-- 搜索  -->
+			<div class="col-sm-12">
+								
+				<div class="form-group col-sm-4">
+					<div>
+						<select ng-model="floorId"  class="form-controls" ng-options="x.floorId as x.name for x in floorList">
+							<option value="">--楼层管理--</option>
+						</select>
+					</div>
+					<button class="btn btn-success" type="button" ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-search"></span>
+                </button>
+				</div>
+
+				
+
+				<!--刷新按钮触发模态框-->
+				<button type="button" class="btn btn-success pull-right" style="margin-top: 0px;" ng-click="loadData(true)">
+				                <span class="glyphicon glyphicon-refresh"></span> 刷新
+				            </button>
+				<!-- 添加按钮触发模态框 -->
+				<button type="button" class="btn  btn-warning pull-right" style="margin-top: 0px;" ng-click="addFoolOpenModal()">
+	                <span class="glyphicon glyphicon-plus"></span> 新增
+	            </button>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+	</div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+
+				<div class="ibox-content">
+					<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+						<thead>
+							<tr>
+								<th>首页楼层商品推荐ID</th>
+								<th>药店ID</th>
+								<th>商品ID </th>
+								<th>商品名称</th>
+								<th>商品图片</th>
+								<th>排序号 </th>
+								<th> 创建时间</th>
+								<th>状态 </th>
+								<th>修改时间</th>
+								<th style="    width: 165px;">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="recom in recomList">
+								<td ng-bind="recom.recommendId"></td>
+								<td ng-bind="recom.drugstoreId"></td>
+								<td ng-bind="recom.goodsId"></td>
+								<td ng-bind="recom.goodsName"></td>
+								<td><img my-img ng-src="{{recom.goodsImg}}" onerror="javascript:this.src='../../img/loadding.gif';" alt="努力加载中..." style="width: 50px" /></td>
+								<td ng-bind="recom.sort"></td>
+								<td ng-bind="recom.createTimeStr"></td>
+								<td ng-if="recom.status==0">禁用</td>
+								<td ng-if="recom.status==1">启用</td>
+								<td ng-bind="recom.updateTimeStr"></td>
+								<td class="action-column">
+									<button class="btn btn-warning" ng-click="openModal3(recom.recommendId, false)">修改</button>
+									<button ng-if="recom.status==1" class="btn btn-warning" ng-click="enableById(recom.recommendId,0)">禁用</button>
+									<button ng-if="recom.status==0" class="btn btn-warning" ng-click="enableById(recom.recommendId,1)">启用</button>
+									<button class="btn btn-warning" ng-click="deleteById(recom.recommendId)">删除</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<datalistpager></datalistpager>

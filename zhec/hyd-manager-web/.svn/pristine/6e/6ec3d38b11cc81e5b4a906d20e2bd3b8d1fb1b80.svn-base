@@ -1,0 +1,175 @@
+function CarownerPendingController($scope, $q, $http, $rootScope, CarownerPendingService, constPageSize, ngDialog, goodsReminder) {
+	$scope.id = "" //操作当前id
+	$scope.WdatePicker = {}; //日期
+	//待审核列表
+	$scope.find = function(currentPageNo, currentPaseSize) {
+
+		var defer = $q.defer();
+		var realName = $scope.realName;
+		var phone = $scope.phone;
+		var carLicenseNo = $scope.carLicenseNo;
+		$scope.startTime = $scope.WdatePicker.startTimes;
+		CarownerPendingService
+			.find(realName, phone, carLicenseNo, $scope.startTime, currentPageNo, currentPaseSize)
+			.then(function(result) {
+				console.log(result)
+				$scope.carList = result.data;
+				defer.resolve(result);
+			}, function(result) {
+				defer.reject(result)
+			})
+		return defer.promise;
+	}
+	//弹出详情菜单弹窗
+	$scope.openModal = function(id) {
+		$scope.carOwnerId = id;
+		$scope.dialog = ngDialog.open({
+			template: 'views/carowner/CarownerPendingDetailFormModel.html',
+			className: 'ngdialog-theme-default',
+			controller: 'CarownerPendingDetailFormModelController',
+			scope: $scope,
+			width: 1150
+		})
+	};
+	//弹出审核备注弹窗
+	$scope.openCheck = function(id, checkStatus) {
+		$scope.carOwnerId = id;
+		$scope.checkStatus = checkStatus;
+		$scope.dialog1 = ngDialog.open({
+			template: 'views/carowner/CarownerPendingFormModel.html',
+			className: 'ngdialog-theme-default',
+			controller: 'CarownerPendingFormModelController',
+			scope: $scope,
+			width: 850
+		})
+	};
+	//关闭详情弹窗
+	$scope.cancelModal = function() {
+		$scope.dialog.close();
+	}
+	//关闭审核弹窗
+	$scope.cancelModal1 = function() {
+		$scope.dialog1.close();
+	}
+}
+//弹窗详情操作
+function CarownerPendingDetailFormModelController($scope, $q,CarownerPendingService) {
+	$scope.companyNatures = function(n) {
+		switch(n) {
+			case 1:
+				return '国有';
+				break;
+			case 2:
+				return '集体';
+				break;
+			case 3:
+				return '有限责任';
+				break;
+			case 4:
+				return '股份有限';
+				break;
+			case 5:
+				return '中外合资';
+				break;
+			case 6:
+				return '外商投资';
+				break;
+		}
+	}
+	$scope.checkStatus = function(j) {
+		switch(j) {
+			case 1:
+				return '注册未提交审核';
+				break;
+			case 2:
+				return '提交审核（待审核）';
+				break;
+			case 3:
+				return '审核通过';
+				break;
+			case 4:
+				return '审核不通过';
+				break;
+		}
+	}
+
+	$scope.innter = function() {
+		if($scope.carOwnerId) {
+			CarownerPendingService
+				.detail($scope.carOwnerId)
+				.then(function(result) {
+					$scope.carOwnerEntiy = result.data;
+					$scope.dataArry = [1, 2, 3, 4, 5, 6, 7, 8];
+				}, function(reason) {
+
+				})
+		}
+	}
+	$scope.search = function(currentPageNo, currentPaseSize) {
+		var defer = $q.defer();
+		CarownerPendingService
+			.seach($scope.carOwnerId, currentPageNo, currentPaseSize)
+			.then(function(result) {
+				console.log(result)
+				$scope.carowerSear = result.data;
+				defer.resolve(result);
+			}, function(result) {
+				defer.reject(result)
+			})
+		return defer.promise;
+	}
+	//标签页
+	$scope.onClickTab = function(url) {
+		if($scope.currentTab == url) {
+			return true;
+		}
+		$scope.currentTab = url;
+		switch(url) {
+			case 'cardetail.html': //车主详情
+				$scope.innter(); //初始化基本信息数据
+				break;
+			case 'carownerch.html': //审核记录
+//				$scope.search(); //初始化基本信息数据
+				break;
+		}
+	}
+
+	$scope.onClickTab('cardetail.html');
+
+}
+//弹窗操作
+function CarownerPendingFormModelController($scope, CarownerPendingService) {
+	$scope.carOwnerEntiy = {};
+	//保存操作
+	$scope.okModal = function() {
+		console.log($scope.carOwnerEntiy.remark)
+		CarownerPendingService
+			.check($scope.carOwnerId, $scope.checkStatus, $scope.carOwnerEntiy.remark)
+			.then(function(result) {
+				$scope.cancelModal();
+				$scope.cancelModal1();
+				$scope.loadData();
+			}, function(reason) {
+
+			})
+	}
+	//切换操作
+	$scope.checks = function(n) {
+		$scope.carEntiy.checkStatus = n;
+	}
+	//关闭详情弹窗
+	$scope.cancelModal = function() {
+		$scope.dialog.close();
+	}
+	//关闭审核弹窗
+	$scope.cancelModal1 = function() {
+		$scope.dialog1.close();
+	}
+
+}
+
+angular
+	.module("managerApp")
+	.controller("CarownerPendingController", CarownerPendingController)
+	.controller("CarownerPendingDetailFormModelController", CarownerPendingDetailFormModelController)
+	.controller("CarownerPendingFormModelController", CarownerPendingFormModelController)

@@ -1,0 +1,121 @@
+function functionController($rootScope, $scope, $http, $q, constPageSize, ngDialog, $interval, functionService, constManagerLocation, $state) {
+	/**
+	 * 获取导航栏列表
+	 */
+	$scope.find = function() {
+		//判断是否登录
+		$rootScope.checkLogin();
+		var userToken = localStorage.userToken;
+		functionService
+			.find(userToken)
+			.then(function(result) {
+					$scope.dataEntityfun = result.data;
+					if(!$scope.dataEntityfun) {
+						$rootScope.showAlert("登录信息失效,请重新登录!", 1000);
+						$rootScope.gotoLogin();
+						return false;
+					}
+					try {
+						//展开左侧导航栏
+						$scope.dataEntityfun.forEach(function(element, index, array) {
+							if(element.parentId === 0) {
+								if(isContains($state.current.name, element.functionUrl)) {
+									$scope.toggleClassClick(index);
+								}
+							}
+						});
+					} catch(e) {
+						//TODO handle the exception
+					}
+				},
+				function(result) {})
+	}
+	//登出   清除缓存
+	$scope.quitLogin = function() {
+		$scope.userToken = localStorage.userToken;
+		functionService
+			.logout($scope.userToken)
+			.then(function(result) {
+					if(result.code == 0) {
+						localStorage.removeItem("userToken");
+						$rootScope.showAlert("退出成功!", 1000);
+						$rootScope.gotoLogin();
+					}
+				},
+				function(result) {})
+	}
+	//修改密码
+	$scope.modifyPassword = function() {
+		$scope.dialog = ngDialog.open({
+			template: 'views/common/updatePassword.html',
+			className: 'ngdialog-theme-default',
+			controller: 'updatePasswordModalController',
+			scope: $scope,
+			width: 650
+		})
+	}
+	//
+	//	$scope.funcIdPower = function(funcId) {
+	//		localStorage.removeItem("funcId");
+	//		localStorage.setItem("funcId", funcId);
+	//	};
+
+	//导航栏点击选中
+	$scope.toggleClassClick = function(n) {
+		$scope.activeFirst == n ? $scope.activeFirst = -1 : $scope.activeFirst = n;
+	}
+
+	//关闭弹窗
+	$scope.cancelModal = function() {
+		$scope.dialog.close();
+	};
+	//异常数据个数
+	$scope.timerFirst = function() {
+		functionService
+			.getunreadabnormalsigncount()
+			.then(function(result) {
+					$scope.getSignCount = result.data;
+				},
+				function(result) {})
+	}
+	
+	var timer = $interval(function() {
+		$scope.timerFirst();
+	}, 10000);
+	//--通过$interval.cancle(timer);
+	//$interval.cancel(timer);
+
+	$scope.find();
+	$scope.timerFirst();
+}
+//修改密码弹窗
+function updatePasswordModalController($scope, functionService, $rootScope) {
+	var userToken = localStorage.userToken;
+	//修改密码
+	$scope.updatePassword = function() {
+		if($scope.updatePasswordDisable) {
+			return false;
+		}
+		$scope.updatePasswordDisable = true;
+		if($scope.newPwd != $scope.newPwdFirst) {
+			$rootScope.showAlert("密码两次输入不一致！");
+			$scope.updatePasswordDisable = false;
+			return false;
+		}
+		functionService
+			.changepwd(userToken, $scope.oldPwd, $scope.newPwd)
+			.then(function(result) {
+					$rootScope.showAlert("修改成功！");
+					$scope.quitLogin();
+					$scope.updatePasswordDisable = false;
+				},
+				function(result) {
+					$scope.updatePasswordDisable = false;
+				})
+	};
+}
+
+angular
+	.module('managerApp')
+	.controller('functionController', functionController)
+	.controller('updatePasswordModalController', updatePasswordModalController)

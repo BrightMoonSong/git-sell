@@ -1,0 +1,54 @@
+<div class="inmodal" name="myforms" verify-scope="tipStyle: 2">
+    <div class="modal-header">
+        <h1 class="modal-title">发货</h1>
+    </div>
+    <div class="modal-body">
+        <ul class="form-horizontal">
+            <li class="list-group-item">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">物流公司：</label>
+
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-verify="option:0" ng-model="logisticsCompany" ng-options="x.code as x.name for x in logisticsCompanyAttr">
+                        	<option value="">--请选择--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">物流单号：</label>
+					<!--ng-verify="{min:3,max:6}"-->
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-verify
+                               ng-model="logisticsNumber">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">物流费用：</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-verify
+                               ng-model="logisticsMoney">
+                    </div>
+                    <label class="col-sm-1 control-label" style="text-align: left;">元</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">备注：</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-verify="{max:100,required: false}"
+                               ng-model="remark">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" ng-click="okModal(remark)" ng-verify="{control:'myforms'}">
+            <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+        </button>
+        <button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span> 取消
+        </button>
+    </div>
+</div>
+

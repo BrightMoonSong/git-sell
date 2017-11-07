@@ -1,0 +1,49 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h2 class="modal-title" ng-bind="stringName"></h2>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="list-group form-horizontal">
+			<div class="form-group">
+				<!--<label class="col-sm-3 control-label">资料文件：</label>-->
+				<div class="col-sm-9">
+					<form name=theform ng-hide="true">
+						<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+						<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+						<br/> 上传到指定目录:
+						<input type="text" value="{{picPath}}/{{idData}}" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+					</form>
+					<img id="imgPreview" style="max-width: 150px;" />
+
+					<div id="ossfile" ng-hide="previewHide">
+						你的浏览器不支持flash,Silverlight或者HTML5(出错了！！！请联系XXX)
+					</div>
+					<br/>
+					<div id="container" style="width: 100%;clear: both;">
+                        <a id="selectfiles" href="javascript:void(0);" class="btn btn-success" ><img style="width: 50px;" src="../../img/plus.png"/></a>
+                        <a id="postfiles" href="javascript:void(0);" class="btn btn-warning" style="display: none;">开始上传</a>
+                    </div>
+					<pre id="console" ng-hide="true"></pre>
+					<!--OSS结束 -->
+				</div>
+				
+			</div>
+
+		</ul>
+		<div class="modal-footer">
+			<button type="button"  class="btn btn-success" id="ifSucessShow" disabled ng-click="addData()">
+                <span class="glyphicon glyphicon-share-alt"></span> 确定
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancleModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/lib/base64.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="../../js/plugins/oss/upload.js"></script>

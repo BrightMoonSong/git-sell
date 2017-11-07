@@ -1,0 +1,44 @@
+.detailsord_head{
+	width: 100%;
+	margin-top:0.416rem ;
+}
+.detailsord_header{
+	width: 100%;
+	background: #FFFFFF;
+	height:3.165rem ;
+	font-family: MicrosoftYaHei;
+	font-size: 1.083rem;
+	color: #333333;
+	letter-spacing: 1.08px;
+	line-height: 3.165rem ;
+	text-indent: 0.84rem;
+	border-bottom: 1px solid #EEEEEE;
+}
+.detailsord_address{
+	width: 100%;
+	background: #FFF;
+}
+.detailsord_address>li{
+	margin-left: 0.84rem;
+	margin-right: 0.84rem;
+	color: #22A2FF;
+	font-family: MicrosoftYaHei;
+}
+.detailsord_address>li:first-child{
+	font-size: 1rem;
+	letter-spacing: 1px;
+	line-height: 1.66rem;
+	margin-top: 0.835rem;
+}
+.detailsord_address>li:last-child{
+	font-size: 0.75rem;
+	line-height: 1.66rem;
+	margin-top: 0.42rem;
+	margin-bottom: 0.835rem;
+}
+.detailord_ol{
+	margin-bottom: 10rem !important;
+}
+.orderd_conter_ul_mon .orderd_conter_ul_mon_rig_jj{
+	margin-right: 0.833rem ;
+}

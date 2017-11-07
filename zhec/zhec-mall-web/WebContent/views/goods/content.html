@@ -1,0 +1,209 @@
+<div class="marginCenter popApplay" name="myForm" verify-scope="tipStyle: 1">
+	<div class="needModal pop clearfix">
+		<ul class="pop_header">
+			<li>购买信息</li>
+		</ul>
+		<ul class="pop_list clearfix">
+			<li class="pop_list_left">
+				<ol class="needModalUl clearfix">
+					<li>
+						<label for="" ng-if="goodsPromotionList.length==0">价格:</label>
+						<label for="" ng-if="goodsPromotionList.length>0">促销价:</label>
+						<span>
+									￥<b ng-if="goodsPromotionList.length==0" class="zhPrice" ng-bind="zhPrice | number:2"></b>
+									<b ng-if="goodsPromotionList.length>0" class="zhPrice" ng-bind="promptionPrice | number:2"></b>
+									<ul id="goods_spcx" class="clearfix" ng-if="ordersPromotionList.length!=0" ng-repeat="ordersPromotion in ordersPromotionList">
+										<!--<li ng-bind="ordersPromotion.promotionName"></li>-->
+										<li>满减</li>
+										<li ng-bind="'满'+ordersPromotion.threshold+'减'+ordersPromotion.quota">
+											
+										</li>
+									</ul>
+									<ul id="goods_spyh" class="clearfix" ng-if="couponsPromotionList.length!=0" ng-repeat="couponsPromotion in couponsPromotionList">
+										
+										<li class="content_li_two">
+											<span ng-bind="couponsPromotion.quota"></span>
+						<span>优惠券</span>
+					</li>
+					<li ng-bind="'满'+couponsPromotion.threshold+'减'+couponsPromotion.quota">
+
+					</li>
+		</ul>
+		</span>
+
+		</li>
+		<li ng-if="goodsDetail.productList[0].specName!=null" class="goods_tc_li">
+			<label for="" ng-bind="goodsDetail.productList[0].specName+'：'"></label>
+			<span ng-bind="selectSpc1"></span>
+		</li>
+		<li class="goods_tc_li" >
+			<label for="">规格：</label>
+			<span ng-bind="specInfoName"></span>
+			<span ng-if="specInfoName==''||specInfoName==null||specInfoName==undefined" ng-bind="goodsDetail.specification"></span>
+		</li>
+		<li class="goods_tc_li">
+			<label for="" class="pop_label">数量：</label>
+			<ul class="pop_number">
+				<li>
+					<input class="goodsNum" ng-model="goodsNum" value="1" readonly="true" type="text" />
+				</li>
+				<li class="pop_number_li">
+					<button ng-click="goodsNum=goodsNum+1" ng-disabled="goodsNum>=200 || goodsStatus != 6 || goodsNum >= initStock"><img ng-if="initStock >=1" ng-src="images/upallow.png"><img ng-if="initStock <1 || goodsStatus != 6" ng-src="images/upnotallow.png" /></button>
+					<button ng-click="goodsNum=goodsNum-1" ng-disabled="goodsStatus != 6 || goodsNum<=1"><img ng-if="initStock >1 && goodsNum>1" ng-src="images/downallow.png"><img ng-if="goodsNum<=1 || initStock <1" ng-src="images/downnotallow.png" /></button>
+				</li>
+				<li>件</li>
+			</ul>
+		</li>
+		<li class="goods_tc_li">
+			<label for="" class="pop_label"><b>*</b>姓名：</label>
+			<input class="orderName" ng-verify="{min:2,max:8}" ng-model="memberMessage.consigneeName" type="text" />
+		</li>
+		<li class="goods_tc_li">
+			<label for="" class="pop_label"><b>*</b>电话：</label>
+			<input class="orderMobile" ng-verify="pattern:/^0?1[3|4|5|7|8][0-9]\d{8}$/,errmsg:'手机号格式不正确'" ng-model="memberMessage.consigneeMobile" type="text" />
+		</li>
+		<li class="clearfix goods_tc_li" id="pop_select_tex">
+			<label for="" class="pop_label"><b>*</b>地址：</label>
+			<div class="pop_select">
+				<select  ng-model="memberMessage.consigneeProvince" ng-verify="option:0,errmsg:'请选择省'" ng-change="change(memberMessage.consigneeProvince,1)" ng-options="x.id as x.name for x in consigneeProvinceAttr">
+					<option value="">--选择省--</option>
+				</select>
+				<select  ng-model="memberMessage.consigneeCity" ng-verify="option:0,errmsg:'请先选择省再选市'" ng-change="change(memberMessage.consigneeCity,2)" ng-options="x.id as x.name for x in consigneeCityAttr" value="{{x.id}}">
+					<option value="">--选择市--</option>
+				</select>
+
+				<select ng-model="memberMessage.consigneeArea" ng-verify="option:0,errmsg:'请先选择省市再选区'" ng-change="change(memberMessage.consigneeArea,3)" ng-options="x.id as x.name for x in consigneeAreaAttr" value="{{x.id}}">
+					<option value="">--选择区--</option>
+				</select>
+			</div>
+			<textarea class="inputMoreMes" ng-verify="required: false" ng-model="consigneeAddress" placeholder="请填写详细收货地址 , 例如街道名称 , 门牌号码 , 楼层和房间号等信息" name="" id="" cols="30" rows="10"></textarea>
+		</li>
+		</ol>
+		</li>
+		<li class="pop_list_right clearfix">
+			<ul class="clearfix">
+				<li>
+					<b>温馨提示:</b> 请上传医生对您的状况所开的
+					<b>处方,</b> 为您服务，细致如一。
+				</li>
+				<li class="clearfix pop_img">
+					<p><b>*</b><span>上传处方</span><span>(最多上传五张)</span></p>
+					<div class="pop_img_all">
+						<form name=theform ng-hide="true">
+							<input type="radio" name="myradio" value="local_name" checked=true/>上传文件名字保持本地文件名字
+							<input type="radio" name="myradio" value="random_name" />上传文件名字是随机文件名
+							<br/> 上传到指定目录：
+							<input type="text" value="{{prescriptionUrl}}/{{memberId}}" id="dirname" placeholder="如果不填，默认是上传到根目录" size=50>
+						</form>
+						<!--<img id="imgPreview" style="max-width： 150px;" />-->
+
+						<div id="ossfile">
+							你的浏览器不支持flash,Silverlight或者HTML5
+						</div>
+						<div id="container" class="prescripiton_button pop_img_button">
+							<a id="selectfiles" href="javascript:void(0);" class="btn"><img class="showPosition" ng-click="selectOssPic()" src="../../images/xnjh.png" /></a>
+							<!--<img class="showPosition" src="../../images/xnjj.png" />
+											<img class="showPosition" src="../../images/xnjj.png" />
+											<img class="showPosition" src="../../images/xnjj.png" />
+											<img class="showPosition" src="../../images/xnjj.png" />-->
+
+							<!--<span>(最多上传五张)</span>-->
+						</div>
+						<div class="pop_img_com clearfix">
+							<a id="postfiles" style="display: none;" href="javascript:void(0);" class="btn">开始上传</a>
+						</div>
+
+						<pre id="console" ng-hide="true"></pre>
+						<!--OSS结束 -->
+					</div>
+				</li>
+				<li class="pop_textare">
+					<span>留言：</span>
+					<textarea name="" ng-model="inputMessage" class="memberMessage" id="" cols="30" rows="10"></textarea>
+				</li>
+			</ul>
+		</li>
+		<li class="pop_buttom">
+			<ol>
+				<li>发票信息：</li>
+				<li class="confirmType" ng-if="confirmType == 0">无需发票</li>
+				<li class="confirmType" ng-if="confirmType == 1">普通发票</li>
+				<li class="confirmType" ng-if="confirmType == 2">电子发票</li>
+				<li class="confirmTitle" ng-bind="confirmTitle"></li>
+				<li class="confirmDetail" ng-bind="confirmDetail"></li>
+				<li ng-click="openInvoiceModal()">
+					<a>修改</a>
+				</li>
+			</ol>
+		</li>
+		</ul>
+		<div class="pop_fa clearfix" ng-show="showInvoice">
+			<ul class="clearfix pop_fa_ul">
+				<li>
+					<ol class="selectIfOrc">
+						<li ng-click="changeInvoiceType(1,$event)" style="cursor:pointer">普通发票</li>
+						<li ng-click="changeInvoiceType(2,$event)" style="cursor:pointer">电子发票</li>
+						<li class="pop_blue" ng-click="changeInvoiceType(0,$event)" style="cursor:pointer">无需发票</li>
+					</ol>
+				</li>
+				<li class="clearfix">
+					<ul class="clearfix">
+						<li class="clearfix" ng-show="middleType != 0">
+							<label for="">发票抬头：</label>
+							<b class="chooseTitle">
+										<input ng-click="chooseTitle(1,$event)" type="text" class="goods_bord" readonly="true" placeholder="个人"/>
+										<i class="goods_right"></i>
+									</b>
+							<b class="chooseTitle">
+										<input ng-click="chooseTitle(2,$event)"  type="text" ng-model="inputTitle" calss="changeTitle" placeholder="请输入单位发票抬头"/>
+										<i></i>
+									</b>
+						</li>
+
+						<li ng-show="middleType != 0">
+							<label for="">发票内容：</label>
+							<ol class="pop_all_ol">
+								<li ng-click="chooseDetail('明细')">
+									<a ng-class="{true:'li_border',false:''}[middleDetail=='明细']">明细<i class="pop_img_i" ng-show="middleDetail == '明细'"></i></a>
+								</li>
+								<li ng-click="chooseDetail('药品')">
+									<a ng-class="{true:'li_border',false:''}[middleDetail=='药品']">药品<i class="pop_img_i" ng-show="middleDetail == '药品'"></i></a>
+								</li>
+								<li ng-click="chooseDetail('保健品')">
+									<a ng-class="{true:'li_border',false:''}[middleDetail=='保健品']">保健品<i class="pop_img_i" ng-show="middleDetail == '保健品'"></i></a>
+								</li>
+								<li ng-click="chooseDetail('医疗器械')">
+									<a ng-class="{true:'li_border',false:''}[middleDetail=='医疗器械']">医疗器械<i class="pop_img_i" ng-show="middleDetail == '医疗器械'"></i></a>
+								</li>
+								<li ng-click="chooseDetail('其他')">
+									<a ng-class="{true:'li_border',false:''}[middleDetail=='其他']">其他<i class="pop_img_i" ng-show="middleDetail == '其他'"></i></a>
+								</li>
+							</ol>
+						</li>
+						<li ng-show="middleType == 2">
+							<label for="">收件人邮箱：</label>
+							<input ng-verify="required: false,pattern:/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/,errmsg:'邮箱格式不正确'" type="text" ng-model="orderEmail" class="orderEmail" />
+						</li>
+						<li ng-if="middleType == 0">
+							<label for=""></label>您好，您正在选择不需要发票，我们会尽快为您发货~
+						</li>
+						<li id="pop_all_last">
+							<button ng-click="saveInvoice()">保存</button>
+							<a ng-click="cancleInvoice()">取消</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="pop_last">
+			<button ng-click="submitInputMessage(2)" ng-disabled = "okModalDisabled1" class="pop_last_button">提交购买</button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/plugins/oss/lib/crypto1/crypto/crypto.js"></script>
+<script type="text/javascript" src="js/plugins/oss/lib/crypto1/hmac/hmac.js"></script>
+<script type="text/javascript" src="js/plugins/oss/lib/crypto1/sha1/sha1.js"></script>
+<script type="text/javascript" src="js/plugins/oss/lib/base64.js"></script>
+<script type="text/javascript" src="js/plugins/oss/plupload.full.min.js"></script>
+<script type="text/javascript" src="js/plugins/oss/upload.js"></script>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="managerApp">
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- Page title set in pageTitle directive -->
+		<title page-title></title>
+		<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/animate.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+		<link rel="stylesheet" type="text/css" href="css/ngVerify.css" />
+		<link rel="stylesheet" type="text/css" href="css/plugins/ngDialog/ngDialog.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/plugins/ngDialog/ngDialog-theme-default.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/plugins/jDialog/jDialog.css" />
+	</head>
+
+	<body ng-controller="MainCtrl as main">
+		<div id="bigimgbody"></div>
+		<!-- Main view  -->
+		<div ui-view></div>
+	</body>
+	<script type="text/javascript" src="js/zhecConfig.js"></script>
+	<script src="js/My97DatePicker/WdatePicker.js"></script>
+	<!-- echarts -->
+	<script src="js/plugins/echarts/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/html5.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery/wheelbigimg.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/slimscroll/jquery.slimscroll.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/pace/pace.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/initview.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/angular/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="js/angular/angular-sanitize.min.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/ui-router/angular-ui-router.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap/ui-bootstrap-tpls-1.1.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/angular/angular-resource.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/ngVerify/ngVerify.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/ngDialog/ngDialog.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/CommonFilter.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/router.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/directives.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/controllers.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/interceptor.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/services/common/functionService.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/controllers/common/functionController.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/controllers/common/topnavbarController.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/jDialog/jDialog.js" type="text/javascript" charset="utf-8"></script>
+	<!--html转pdf-->
+	<script type="text/javascript" src="js/jquery/jsToExcelToPdf/canvg2.js"></script>
+	<script type="text/javascript" src="js/jquery/jsToExcelToPdf/html2canvas-0.4.1.js"></script>
+	<script type="text/javascript" src="js/jquery/jsToExcelToPdf/jspdf.min.js"></script>
+	<!--html转pdf 依赖jquery 所以放在jquery后面-->
+	<script src="js/controllers/common/htmlToPdf.js" type="text/javascript" charset="utf-8"></script>
+
+	<!--JSON转Excel-->
+	<script type="text/javascript" src="js/controllers/common/jsToExcel.js"></script>
+	<!--依赖angular的拖拽-->
+	<script src="js/plugins/ngDraggable/ngDraggable.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/controllers/common/drag.js" type="text/javascript" charset="utf-8"></script>
+	<!--柱形图 折线图 饼图-->
+	<script src="js/controllers/common/funEcharts.js" type="text/javascript" charset="utf-8"></script>
+	<!--UEditor-->
+	<script src="js/plugins/ueditor/ueditor.config.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/ueditor/ueditor.all.js" type="text/javascript" charset="utf-8"></script>
+	<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+	<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+	<script type="text/javascript" charset="utf-8" src="js/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<!--UEditor的一些封装好的方法-->
+	<script src="js/plugins/ueditor/ueditorFun.js" type="text/javascript" charset="utf-8"></script>
+	<!--baiduMap-->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=L0EcRkZ9YBaGTOH5X1mpQqC7SVvDhmKL"></script>
+	<script src="js/plugins/baiduMap/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/plugins/baiduMap/stylelist.js" type="text/javascript" charset="utf-8"></script>
+</html>

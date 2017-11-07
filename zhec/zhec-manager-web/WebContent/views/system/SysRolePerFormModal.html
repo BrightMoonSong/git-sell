@@ -1,0 +1,40 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">权限分配</h1>
+    </div>
+    <div name="myform">
+        <div class="col-sm-12" style="padding: 10px 40px 10px;">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="show in dataEntity" ng-if="show.parentId==0">
+                    <label class="radio-inline">
+                        <input type="checkbox"
+                               ng-checked="isSelectedOrders(show.id)"
+                               ng-click="updateSelectionOrders($event,show.id,show.name)" name="ordersArray">
+                        &nbsp;{{show.name}}&nbsp;：
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <label class="radio-inline" ng-repeat="show2 in dataEntity" style="margin-left: 10px;"
+                                       ng-if="show2.parentId == show.id">
+                                    <input type="checkbox"
+                                           ng-checked="isSelectedOrders(show2.id)"
+                                           ng-click="updateSelectionOrders($event,show2.id,show2.name,show.id,show.name)"
+                                           name="ordersArray">
+                                    &nbsp;{{show2.name}}&nbsp;
+                                </label>
+                            </li>
+                        </ul>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" ng-click="okModal()">
+            <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+        </button>
+        <button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span> 取消
+        </button>
+    </div>
+</div>
+

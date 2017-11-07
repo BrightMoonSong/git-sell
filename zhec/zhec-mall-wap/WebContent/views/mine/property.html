@@ -1,0 +1,53 @@
+
+		<div  id="needs_head">
+			<ul class="head">
+
+				<li ng-click="goBack()"><a><img src="img/fh.png"  /></a></li>
+				<li id="needs_xq">我的资产</li>
+				<li id="apply_bj"><a ng-click='replace()'>明细</a></li>
+			</ul>
+		</div>
+		<div class="mymoney_conter">
+			<label >账户余额(元)</label>
+			<span ng-bind="balance|number:2"></span>
+		</div>
+		<div class="bill_fapiao " id="mymoney_bill_img">
+			<a>
+				<label class="bill_fapiao_label" style="color: #333333;">支付方式</label>
+				<img src="img/ljjt.png" />
+				<span ng-bind="refundReason" id="payment-id">微信</span>
+				<span class="mymoney_img ycenter "><img src="img/wx.png" class="ycenter"></span>
+			</a>
+		</div>
+		<div class="spread_footer">
+			<p>鹿医生-百姓信得过的网上药店</p>
+		</div>
+		<div class="mymoney_foot">
+			<button>充  值</button>
+		</div>
+
+
+
+		<style type="text/css">
+			.chooseTitle {
+				border-top: 1px solid #22A2FF;
+				border-bottom: 1px solid #22A2FF;
+			}
+			.containerSubmitOrder li{
+				float: initial;
+			}
+			.containerSubmitOrderTitle li{
+				float: initial;
+			}
+		</style>
+
+		<div class="containerSubmitOrderTitle"></div>
+		<div class="containerSubmitOrder"></div>
+		<script src="../../js/controllers/mine/paymentController.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="../../vendor/oss/lib/crypto1/crypto/crypto.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../vendor/oss/lib/crypto1/hmac/hmac.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../vendor/oss/lib/crypto1/sha1/sha1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../vendor/oss/lib/base64.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../vendor/oss/plupload.full.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../vendor/oss/upload.js" type="text/javascript" charset="utf-8"></script>

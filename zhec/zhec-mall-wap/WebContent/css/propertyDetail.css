@@ -1,0 +1,13 @@
+.money_detail_conter{
+	width: 100%;
+	min-height: 48.75rem;
+	margin-top: 0.416rem;
+	background: #FFFFFF;
+}
+.money_detail_conter>ol{
+	width: 100%;
+	height: 100%;
+}
+.money_detail_conter>ol>li{
+	border-bottom: 1px solid #f7f7f7;
+}

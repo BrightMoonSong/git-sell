@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html ng-app="CartinfoApp" ng-controller="cartinfoController">
+
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="js/common/zhecConfig.js"></script>
+		<script language="javascript">
+			if(/lys613.oss-cn-beijing.aliyuncs.com/g.test(publicUrlMall)){
+				
+			}else{
+				var strDelete = publicUrlMall.split("/mall");
+				publicUrlMall = strDelete[0] + strDelete[1];
+			}
+			document.write("<link rel=\"shortcut icon\" type=\"image/ico\" href="+publicUrlMall+"favicon.ico>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/screen.css>");
+			document.write("<link rel=\"stylesheet\" href="+publicUrlMall+"stylesheets/cart/addShopping.css>");
+			document.write("<script src="+publicUrlMall+"js/plugins/jquery/dist/jquery.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/plugins/angular/angular.min.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonFilter.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/CommonService.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/directives.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/cartinfo/cartinfoConfig.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/cookie.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/zhec.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/common/Piwik.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/controllers/cartinfo/cartinfoController.js><\/script>");
+			document.write("<script src="+publicUrlMall+"js/services/cartinfo/cartinfoService.js><\/script>");
+		</script>
+		<!--<link rel="shortcut icon" type="image/ico" href="/favicon.ico">-->
+
+		<!--<link rel="stylesheet" href="/stylesheets/screen.css" />-->
+		<!--<script type="text/javascript" src="js/plugins/jquery/dist/jquery.min.js"></script>-->
+		<!--<link rel="stylesheet" href='/stylesheets/cart/addShopping.css' />-->
+		<!--<link rel="stylesheet" href='/stylesheets/screen.css' />-->
+		<!--<script type="text/javascript" src="js/common/CommonFilter.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/CommonService.js"></script>-->
+		<!-- jDialog -->
+		<!--<script src="js/plugins/angular/angular.min.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/directives.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/zhecConfig.js"></script>-->
+		
+		<!-- End Piwik Code -->
+		<!--<script src="js/controllers/cartinfo/cartinfoConfig.js"></script>-->
+
+		<!-- cookie -->
+		<!--<script type="text/javascript" src="js/common/cookie.js"></script>-->
+		<!--<script type="text/javascript" src="js/common/zhec.js"></script>-->
+		<!-- Piwik -->
+		<!--<script src="js/common/Piwik.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script type="text/javascript" src="js/controllers/cartinfo/cartinfoController.js"></script>
+		<script type="text/javascript" src="js/services/cartinfo/cartinfoService.js"></script>-->
+
+		<title ng-if="type == 1">商品已成功加入购物车 - 鹿医生</title>
+		<title ng-if="type == 2">支付成功 - 鹿医生</title>
+		<title ng-if="type == 3">申请成功 - 鹿医生</title>
+		<title ng-if="type == 4">充值成功 - 鹿医生</title>
+		<style>
+
+		</style>
+	</head>
+
+	<body  class="cartinfon_body">
+		<headerpage></headerpage>
+		<search></search>
+		<navigation-bar></navigation-bar>
+		<div class="add_banner">
+			<div class="add_banner_all" ng-if="type == 1">
+				<div class="add_banner_head">商品已成功加入购物车！</div>
+				<ul ng-repeat="cartinfo in consultantAuditList">
+					<li>
+						
+					</li>
+					<li>
+						<div class="add_detalis">
+							<a href="goods.html?id={{cartinfo.goodsId}}">查看商品详情</a>
+							<a href="cart.html">去购物车结算<b></b></a>
+						</div>
+					</li>
+				</ul>
+				
+			</div>
+			<!-- 支付成功页面-->
+				<div class="add_banner_all" ng-if="type == 2">
+					<div class="add_banner_head">
+						恭喜您！支付成功
+					</div>
+					<ul>
+						<li></li>
+						<li>
+							<div class="add_detalis">
+								<a href="index.html">继续购买</a>
+								<a href="member.html#/orders">点击查看订单 <b></b></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- 支付成功页面-->
+				<div class="add_banner_all" ng-if="type == 3">
+					<div class="add_banner_head">
+						恭喜您！申请成功
+					</div>
+					<ul>
+						<li></li>
+						<li>
+							<div class="add_detalis">
+								<a href="index.html">继续购买</a>
+								<a href="member.html#/orders">点击查看订单 <b></b></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="add_banner_all" ng-if="type == 4">
+					<div class="add_banner_head">
+						恭喜您！充值成功
+					</div>
+					<ul>
+						<li></li>
+						<li>
+							<div class="add_detalis">
+								<a href="index.html">去购物</a>
+								<a href="member.html#/property">点击查看资产 <b></b></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+		</div>
+		
+		<div class="conter_con_all clearfix">
+			<div class="conter_commodity clearfix">
+				<div class="commodity_head clearfix">推荐商品</div>
+				<ul>
+					<li ng-repeat="good in goodsindown">
+						<ol>
+							<li>
+									<a ng-href="goods.html?id={{good.id}}" ng-bind="good.name1"></a>
+							</li>
+							<li>
+								<b ng-bind="good.salesPrice | priceFormatFilter"></b>
+							</li>
+							<li>
+								<a ng-href="goods.html?id={{good.id}}">
+									<img ng-src="{{good.masterImg}}" alt="" />
+								</a>
+							</li>
+						</ol>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+
+		<footerpage></footerpage>
+
+	</body>
+
+</html>

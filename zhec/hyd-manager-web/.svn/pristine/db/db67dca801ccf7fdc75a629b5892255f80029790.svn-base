@@ -1,0 +1,258 @@
+<style type="text/css">
+	.table-striped>tbody>tr:nth-of-type(odd) {
+		background-color: #f9f9f9;
+	}
+	
+	.table-striped>tbody>tr {
+		background-color: #f9f9f9;
+	}
+	
+	.singleclick {
+		background-color: #c5c5f7 !important;
+	}
+	
+	.dbclick {
+		background-color: #7e9ec8 !important;
+	}
+	
+	.zhende {
+		background-color: #cdcdcd !important;
+		color: #9d9a9a !important;
+	}
+</style>
+
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">货主详情管理</h1>
+	</div>
+	<div class="modal-body">
+		<!-- 标签页start -->
+		<ul class="nav nav-tabs">
+			<!--  class="active" -->
+			<li class="active" ng-click="onClickTab('cardetail.html')">
+				<a data-toggle="tab"> 货主详情 </a>
+			</li>
+			<li ng-click="onClickTab('carownerch.html')">
+				<a data-toggle="tab"> 审核记录 </a>
+			</li>
+		</ul>
+		<div id="mainView">
+			<div ng-include="currentTab"></div>
+		</div>
+		<!-- 车主详情 -->
+		<script type="text/ng-template" id="cardetail.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item col-sm-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">货主ID :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="shipperEntiy.shipperId "></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">货主经营类型:</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-if="shipperEntiy.businessType==1">个人</span>
+								<span class="form-control" ng-if="shipperEntiy.businessType==2">企业</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">货主签约类型  :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-if="shipperEntiy.contractType==1">未签约</span>
+								<span class="form-control" ng-if="shipperEntiy.contractType==2">签约</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">手机号 :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="shipperEntiy.phone "></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">姓名 :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="shipperEntiy.realName"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">身份证号码 :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="shipperEntiy.idCardNo"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">公司名称 :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="shipperEntiy.companyName "></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">结算方式:</label>
+							<div class="col-sm-9">
+								<div class="form-group" style="margin: 0px;">
+									<input class="spanin innputy" type="radio" ng-click="checked(1)" ng-checked="shipperEntiy.settlementMethod==1" name=type value="1" ng-disabled="true"><span class="spanin">&nbsp;现结&nbsp;</span>
+									<input class="spanin innputy" type="radio" ng-click="checked(2)" ng-checked="shipperEntiy.settlementMethod==2" ng-disabled="true" name=type value="2"><span class="spanin">&nbsp;月结&nbsp;</span>
+									<button type="button" class="btn btn-warning btnClass" ng-click="openSetModal(shipperEntiy.shipperId,shipperEntiy.settlementMethod)" ng-verify="{control:'myform'}" ng-if="dataBollea">
+            					修改
+        					</button>
+								</div>
+							</div>
+						</div>
+						
+					</li>
+					<li class="list-group-item col-sm-6" style="min-height: 408px;">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">公司性质 :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="companyNatures(shipperEntiy.companyNature) "></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">状态 :</label>
+							<div class="col-sm-9">
+								<div class="form-group" style="margin: 0px;">
+									<span class="form-control" ng-if="shipperEntiy.status==1" ng-class="{true: 'enabok', false: 'enabno'}[shipperEntiy.status==1]">启用</span>
+									<span class="form-control" ng-if="shipperEntiy.status==2" ng-class="{true: 'enabok', false: 'enabno'}[shipperEntiy.status==1]">禁用</span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">头像 :</label>
+							<div class="col-sm-9">
+								<img my-img onerror="this.src='img/loadding.gif'" ng-src="{{shipperEntiy.headImg}}" alt="..." style="max-width: 40px;max-height: 40px;" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">昵称 :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="shipperEntiy.nickName "></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">性别 :</label>
+							<div class="col-sm-9">
+								<div class="form-group" style="margin: 0px;">
+
+									<input class="spanin innputy" type="radio" ng-click="checked(1)" ng-checked="shipperEntiy.sex==1" name=type value="3" ng-disabled="true"><span class="spanin">&nbsp;男&nbsp;</span>
+
+									<input class="spanin innputy" type="radio" ng-click="checked(2)" ng-checked="shipperEntiy.sex==2" ng-disabled="true" name=type value="4"><span class="spanin">&nbsp;女&nbsp;</span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">审核状态  :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="checkStatus(shipperEntiy.checkStatus)"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">创建时间 :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="shipperEntiy.createTimeStr "></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">修改时间 :</label>
+							<div class="col-sm-9">
+								<span class="form-control" ng-bind="shipperEntiy.updateTimeStr "></span>
+							</div>
+						</div>
+					
+					</li>
+					<li class="list-group-item col-sm-12">
+
+						<table class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+								<!--	<th>头像</th>-->
+									<th>身份证正面图</th>
+									<th>身份证反面图</th>
+									<th>手持身份证</th>
+									<!--<th>驾驶本</th>
+							<th>驾驶本副页</th>
+							<th>行驶本</th>
+							<th>带牌车辆45°照片</th>-->
+									<th>企业营业执照</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<!--<td>
+										<img my-img ng-src="{{shipperEntiy.headImg}}" alt="" width="50" style="max-height: 38px;" />
+									</td>-->
+									<td ng-repeat="r in dataArry">
+										<span ng-repeat="res in shipperEntiy.paperworks">
+									<img ng-if="res.type==r" my-img ng-src="{{res.imgUrl}}" alt="" width="50" style="max-height: 38px;" />
+								</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()" style="margin-top: 13px;">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+			</form>
+		</script>
+		<script type="text/ng-template" id="carownerch.html">
+			<form name="myform" verify-scope="tipStyle: 1">
+				<ul class="form-horizontal">
+					<li class="list-group-item col-sm-12">
+						<table class="table table-striped table-bordered table-hover dataTables-example">
+							<thead>
+								<tr>
+									<th>审核ID</th>
+									<th>范围</th>
+									<th>审核前状态</th>
+									<th>审核后状态</th>
+									<th>操作时间</th>
+									<th>用户名</th>
+									<th>手机号</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="res in carowerSear">
+									<td ng-bind="res.checkId"></td>
+									<td ng-if="res.scope==1">平台</td>
+									<td ng-if="res.scope==2">车主</td>
+									<td ng-if="res.scope==3">货主</td>
+									<td ng-if="res.scope!=2&&res.scope!=1&&res.scope!=3"></td>
+									<td ng-if="res.oldStatus==2" ng-class="{true: 'enabok', false: 'enabno'}[res.oldStatus==3]">待审核</td>
+									<td ng-if="res.oldStatus==1" ng-class="{true: 'enabok', false: 'enabno'}[res.oldStatus==3]">新注册</td>
+									<td ng-if="res.oldStatus==3" ng-class="{true: 'enabok', false: 'enabno'}[res.oldStatus==3]">审核通过</td>
+									<td ng-if="res.oldStatus==4" ng-class="{true: 'enabok', false: 'enabno'}[res.oldStatus==3]">审核不通过</td>
+									<td ng-if="res.oldStatus!=2&&res.oldStatus!=1&&res.oldStatus!=3&&res.oldStatus!=4"></td>
+									<td ng-if="res.newStatus==2" ng-class="{true: 'enabok', false: 'enabno'}[res.newStatus==3]">待审核</td>
+									<td ng-if="res.newStatus==1" ng-class="{true: 'enabok', false: 'enabno'}[res.newStatus==3]">新注册</td>
+									<td ng-if="res.newStatus==3" ng-class="{true: 'enabok', false: 'enabno'}[res.newStatus==3]">审核通过</td>
+									<td ng-if="res.newStatus==4" ng-class="{true: 'enabok', false: 'enabno'}[res.newStatus==3]">审核不通过</td>
+									<td ng-if="res.newStatus!=2&&res.newStatus!=1&&res.newStatus!=3&&res.newStatus!=4"></td>
+									<td ng-bind="res.optTimeStr"></td>
+									<td ng-bind="res.authSysUser.userName"></td>
+									<td ng-bind="res.authSysUser.phone"></td>
+
+								</tr>
+							</tbody>
+						</table>
+
+					</li>
+				</ul>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="cancelModal()" style="margin-top: 13px;">
+                    <span class="glyphicon glyphicon-share-alt"></span> 取消
+                </button>
+				</div>
+			</form>
+			<datalistpagerdialog></datalistpagerdialog>
+		</script>
+
+		<!--尾部-->
+	</div>
+
+</div>

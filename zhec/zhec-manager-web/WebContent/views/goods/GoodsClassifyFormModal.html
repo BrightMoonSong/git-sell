@@ -1,0 +1,99 @@
+<style type="text/css">
+	.table-striped>tbody>tr:nth-of-type(odd) {
+		background-color: #f9f9f9;
+	}
+	
+	.table-striped>tbody>tr {
+		background-color: #f9f9f9;
+	}
+	
+	.singleclick {
+		background-color: #c5c5f7 !important;
+	}
+	
+	.dbclick {
+		background-color: #7e9ec8 !important;
+	}
+</style>
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">选择属性</h1>
+	</div>
+	<div name="myform" style="height: 480px;">
+		<div class="col-sm-12">
+			<div class="form-group col-md-2">
+				<div>
+					<select class="form-control" ng-model="dialogSearchSelect1" ng-options="x.attrType as x.name for x in propList">
+						<option value="">--请选择--</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group col-md-2">
+				<div>
+					<input type="text" placeholder="按属性名称检索" class="form-control" ng-model="parmValue">
+				</div>
+			</div>
+			<button class="btn btn-success" type="button" ng-click="proplistfun()">
+                <span class="glyphicon glyphicon-search"></span>
+           	</button>
+			<div class="form-group col-md-2 pull-right" style="margin-right: 32px;">
+				<div>
+					<select class="form-control" ng-model="dialogSearchSelect" ng-options="x.id as x.name for x in groupList">
+						<option value="">--请选择分组名--</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div style="width: 540px;float: left;">
+			<table class="table table-striped table-bordered table-hover dataTables-example">
+				<thead>
+					<tr>
+						<th style="border: none;">属性名称</th>
+					</tr>
+				</thead>
+				<tbody style="position: absolute;overflow: auto;max-height: 336px;width: 540px;">
+					<tr style="cursor: pointer;" ng-repeat="info in brandLta" ng-dblclick="selected(info)" ng-click="selected1(info)" ng-class="{'singleclick':selectedGoodsClickid.contains(info.propId),'dbclick':selectedGoodsid.contains(info.propId)}">
+						<td style="width: 540px;">{{ info.editName }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div style="width: 51px;float: left;padding-top: 175px;padding-left: 20px;">
+			<span class="glyphicon glyphicon-arrow-right" style="cursor:pointer" ng-click="allChecked()"></span>
+			<br /><br /><br />
+			<span class="glyphicon glyphicon-arrow-left" style="cursor:pointer" ng-click="allRemove()"></span>
+			<br />
+		</div>
+
+		<div style="width: 540px;float: left;">
+			<table class="table table-striped table-bordered table-hover dataTables-example">
+				<thead>
+					<tr>
+						<th style="border: none;">属性名称</th>
+						<th style="border: none;border-left: 1px solid #DDDDDD;">分组名称</th>
+					</tr>
+				</thead>
+				<tbody style="position: absolute;overflow: auto;max-height: 336px;width: 539px;">
+					<tr style="cursor: pointer;" ng-repeat="info in selectedGoods" ng-dblclick="remove(info)" ng-click="remove1(info)" ng-show="dialogSearchSelect==undefined||dialogSearchSelect==0||dialogSearchSelect==null||dialogSearchSelect==info.groupId" ng-class="{'singleclick':removeGoodsClickid.contains(info.propId)}">
+						<td style="width: 269px;">{{ info.editName }}</td>
+						<td style="width: 269px;">{{info.group}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div style="clear: both;"></div>
+		<div class="modal-footer" style="position: absolute;bottom: 1px;right: 1px;z-index: 999999999999;">
+			<span ng-show="selectedGoods.length>0">（已经选中</span>
+			<span ng-show="selectedGoods.length>0" style="color: #003EFF;">{{selectedGoods.length}}</span>
+			<span ng-show="selectedGoods.length>0">个属性）</span>
+			<button type="button" class="btn btn-warning" ng-click="okModalBrand()" ng-disabled="okmodaldis">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+
+	</div>
+</div>

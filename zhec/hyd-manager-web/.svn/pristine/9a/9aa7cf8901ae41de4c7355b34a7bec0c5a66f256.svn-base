@@ -1,0 +1,51 @@
+<style type="text/css">
+	.btn.active,
+	.btn:active {
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+	}
+
+	.spanin {
+		display: inline-block;
+		float: left;
+		margin-top: 5px;
+	}
+
+	.innputy {
+		margin-top: 9px !important;
+	}
+	.innputy:focus{
+		outline: none !important;
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">待审核管理</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">结算方式</label>
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+
+							<input class="spanin innputy" type="radio" ng-click="check(1)" ng-checked="settlementMethod==1" name=sex value="1"><span class="spanin">&nbsp;现结&nbsp;</span>
+
+							<input class="spanin innputy" type="radio" ng-click="check(2)" ng-checked="settlementMethod==2" name=sex value="2"><span class="spanin">&nbsp;月结&nbsp;</span>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModalshipper1()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

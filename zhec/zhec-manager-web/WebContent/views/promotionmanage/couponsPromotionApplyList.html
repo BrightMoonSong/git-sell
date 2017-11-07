@@ -1,0 +1,126 @@
+<!--优惠券-->
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="ibox-title col-lg-12" style="height: 50px">
+		<div class="heading">
+			<!-- 搜索  -->
+			<div class="col-sm-12">
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" placeholder="按名称检索" class="form-control" ng-model="parmValue">
+					</div>
+				</div>
+
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" readonly="readonly" placeholder="按促销时间检索(开始)" start-picker class="Wdate form-control" ng-model="startTime">
+					</div>
+				</div>
+
+				<div class="form-group col-md-2">
+					<div>
+						<input type="text" readonly="readonly" placeholder="按促销时间检索(结束)" end-picker class="Wdate form-control" ng-model="endTime">
+					</div>
+				</div>
+
+				<button class="btn btn-success" type="button" ng-click="loadData(true)">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+
+				<button type="button" class="btn btn-success pull-right" style="margin-top: 0px;" ng-click="loadData(true)">
+				                <span class="glyphicon glyphicon-refresh"></span> 刷新
+				           </button>
+				<button class="btn btn-warning pull-right" style="margin-top: 0px;" type="button" ng-click="openModal(1)">
+	                添加
+	            </button>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+	</div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+
+				<div class="ibox-content">
+					<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+						<thead>
+							<tr>
+								<th>促销名</th>
+								<th>使用门槛</th>
+								<th>优惠额度</th>
+								<th>优惠券数量</th>
+								<th>优惠券类型</th>
+								<th>使用平台</th>
+								<th>参与商品选择类型</th>
+								<th>促销开始时间</th>
+								<th>促销结束时间</th>
+								<th>状态</th>
+								<th>备注</th>
+								<th>创建人</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="res in ordersAllList">
+								<td>{{ res.promotionName}}</td>
+								<td>{{ res.threshold}}</td>
+								<td>{{ res.quota}}</td>
+								<td>{{ res.couponNum}}</td>
+								<td ng-show="res.couponType==1">满减券</td>
+								<td>
+									<span ng-show="res.applicablePlatform.split(',').contains(1)">WEB</span>
+									<span ng-show="res.applicablePlatform.split(',').contains(2)">WAP</span>
+									<span ng-show="res.applicablePlatform.split(',').contains(3)">APP</span>
+								</td>
+								<!--1 按个别商品  2 按分类  3 按品牌 4 全站-->
+								<td ng-show="res.goodsSelectType==1">按个别商品</td>
+								<td ng-show="res.goodsSelectType==2">按分类</td>
+								<td ng-show="res.goodsSelectType==3">按品牌</td>
+								<td ng-show="res.goodsSelectType==4">全站</td>
+								<td>{{ res.startTime }}</td>
+								<td>{{ res.endTime}}</td>
+								<!--审批状态   0 新增  1 待审核 2 审核通过 3 审核不通过  4 维护-->
+								<td ng-show="res.auditStatus==0">新增</td>
+								<td ng-show="res.auditStatus==1">待审核</td>
+								<td ng-show="res.auditStatus==2">审核通过</td>
+								<td ng-show="res.auditStatus==3">审核不通过</td>
+								<td ng-show="res.auditStatus==4">维护</td>
+								<td>{{ res.remark}}</td>
+								<td>{{ res.createUser}}</td>
+								<td class="action-column">
+									<button type="button" class="btn btn-warning" ng-click="openModal(1,res)">
+	                                    <spanaria-hidden="true">修改基本信息</span>
+	                               	</button>
+	                               	
+									<button type="button" class="btn btn-warning" ng-click="openModal(2,res)" ng-show="res.goodsSelectType==1">
+	                                    <spanaria-hidden="true">选择商品</span>
+	                               	</button>
+	                               	
+									<button type="button" class="btn btn-warning" ng-click="openModal(3,res)" ng-show="res.goodsSelectType==2">
+	                                    <spanaria-hidden="true">选择分类</span>
+	                               	</button>
+	                               	
+									<button type="button" class="btn btn-warning" ng-click="openModal(4,res)" ng-show="res.goodsSelectType==3">
+	                                    <spanaria-hidden="true">选择品牌</span>
+	                              	</button>
+
+									<button type="button" class="btn btn-warning" ng-click="openModal(7,res)" ng-show="res.goodsSelectType==4">
+	                                    <spanaria-hidden="true">添加商品</span>
+	                              	</button>
+	                              	
+									<button type="button" class="btn btn-warning" ng-click="openModal(5,res)">
+	                                    <spanaria-hidden="true">提交审核</span>
+	                               	</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<datalistpager></datalistpager>

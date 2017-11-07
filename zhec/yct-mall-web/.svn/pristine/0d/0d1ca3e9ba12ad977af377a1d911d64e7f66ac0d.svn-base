@@ -1,0 +1,26 @@
+function newsListController($scope, $http, $q, newsListService, ngDialog, $rootScope) {
+	$scope.isActiveId = 1;
+	$scope.findnews = function(type) {
+		$scope.isActiveId = type;
+		switch (type){
+			case 1:
+			$scope.newdata="公司公告";
+				break;
+			case 2:
+			$scope.newdata="公司新闻";
+				break;
+			case 3:
+			$scope.newdata="行业新闻";
+				break;
+		}
+		newsListService
+			.findnews(type)
+			.then(function(result) {
+				console.log(result)
+				$scope.newlist = result.data;
+			})
+	}
+	$scope.findnews(1);
+}
+
+app.controller('newsListController', newsListController);

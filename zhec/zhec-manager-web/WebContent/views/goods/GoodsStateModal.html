@@ -1,0 +1,158 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">待售商品</h1>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="col-sm-12">
+					<label class="col-sm-2 control-label" ng-if="isSpec==2">规格已启用</label>
+					<label class="col-sm-2 control-label" ng-if="isSpec==1">规格未启用</label>
+				</div>
+				<!--<label ng-show="ifShowSpec2" class="col-sm-2 control-label">{{isSpecName}}：</label>-->
+				<div class="col-sm-12" ng-show="ifShowSpec2">
+					<div class="form-group">
+						<div class="col-sm-10">
+							<label style="margin-left: 0px;margin-right: 10px;" class="radio-inline" ng-repeat="result in dataEntity track by $index" ng-click="ifShowData($index)">
+                                <input type="radio" name="specAttrsFirst"/>{{result.specInfo}}
+                            </label>
+						</div>
+					</div>
+				</div>
+				<!-- 货品信息  -->
+				<div class="col-sm-12" ng-show="ifShowSelected">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">SKU：</label>
+
+						<div class='col-sm-10'>
+							<input type="text" class="form-control" placeholder="SKU"  
+								ng-model="dataProductEntity.sku"  readonly="readonly">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label">web站销售价格(元)：</label>
+
+						<div ng-class="{true:'col-sm-3',false:'col-sm-10'}[isIf]">
+							<input onfocus="if(this.value==0){this.value=''}" type="number" ng-if="!isIf" class="form-control" placeholder="web站销售价格" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[1-9]?)|([1-9]+\d*\.\d?[1-9]?)|([1-9]+\d*))$/}" 
+								ng-model="dataProductEntity.salesWebPrice" ng-change="firefoxVerifyChange()" ng-blur="blurChange()" onfocus="this.value=''" ng-disabled="isIf">
+							<!--<input type="number" ng-if="isIf" class="form-control" placeholder="web站销售价格" onfocus="this.value=''" ng-model="dataProductEntity.salesWebPrice" ng-disabled="isIf">
+							--><span class="form-control" ng-if="isIf" ng-bind="dataProductEntity.salesWebPrice.priceFilternum()"></span>
+						</div>
+						<div class="col-sm-1" ng-if="isIf">→→</div>
+						<div class="col-sm-6" ng-if="isIf">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" class="form-control" placeholder="web站销售价格" ng-change="firefoxVerifyChange()" onfocus="this.value=''" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[1-9]?)|([1-9]+\d*\.\d?[1-9]?)|([1-9]+\d*))$/}" ng-model="dataProductEntitys.salesWebPrice">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">wap站销售价格(元)：</label>
+
+						<div ng-class="{true:'col-sm-3',false:'col-sm-10'}[isIf]">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-change="firefoxVerifyChange()" ng-if="!isIf" class="form-control" placeholder="wap站销售价格" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[1-9]?)|([1-9]+\d*\.\d?[1-9]?)|([1-9]+\d*))$/}" ng-model="dataProductEntity.salesWapPrice" ng-disabled="isIf">
+							<!--<input type="number" onfocus="this.value=''" ng-if="isIf" class="form-control" placeholder="wap站销售价格" ng-model="dataProductEntity.salesWapPrice" ng-disabled="isIf">
+						--><span class="form-control" ng-if="isIf" ng-bind="dataProductEntity.salesWapPrice.priceFilternum()"></span>
+						</div>
+						<div class="col-sm-1" ng-if="isIf">→→</div>
+						<div class="col-sm-6" ng-if="isIf">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-change="firefoxVerifyChange()" class="form-control" placeholder="wap站销售价格" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[1-9]?)|([1-9]+\d*\.\d?[1-9]?)|([1-9]+\d*))$/}" ng-model="dataProductEntitys.salesWapPrice">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">app站销售价格(元)：</label>
+
+						<div ng-class="{true:'col-sm-3',false:'col-sm-10'}[isIf]">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-change="firefoxVerifyChange()" ng-if="!isIf" class="form-control" placeholder="app站销售价格" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[1-9]?)|([1-9]+\d*\.\d?[1-9]?)|([1-9]+\d*))$/}" ng-model="dataProductEntity.salesAppPrice" ng-disabled="isIf">
+							<!--<input type="number" onfocus="this.value=''" ng-if="isIf" class="form-control" placeholder="app站销售价格" ng-model="dataProductEntity.salesAppPrice" ng-disabled="isIf">
+						--><span class="form-control" ng-if="isIf" ng-bind="dataProductEntity.salesAppPrice.priceFilternum()"></span>
+						
+						</div>
+						<div class="col-sm-1" ng-if="isIf">→→</div>
+						<div class="col-sm-6" ng-if="isIf">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-change="firefoxVerifyChange()" class="form-control" placeholder="app站销售价格" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[1-9]?)|([1-9]+\d*\.\d?[1-9]?)|([1-9]+\d*))$/}" ng-model="dataProductEntitys.salesAppPrice">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">成本价(元)：</label>
+
+						<div ng-class="{true:'col-sm-3',false:'col-sm-10'}[isIf]">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-change="firefoxVerifyChange();costPriceBlurChange()" ng-if="!isIf" class="form-control" placeholder="成本价" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[0-9]?)|([0-9]+\d*\.\d?[0-9]?)|([0-9]+\d*))$/}" ng-model="dataProductEntity.costPrice" ng-disabled="isIf">
+							<!--<input type="number" onfocus="this.value=''" ng-if="isIf" class="form-control" placeholder="成本价" ng-model="dataProductEntity.costPrice" ng-disabled="isIf">
+						--><span class="form-control" ng-if="isIf" ng-bind="dataProductEntity.costPrice.priceFilternum()"></span>
+						
+						</div>
+						<div class="col-sm-1" ng-if="isIf">→→</div>
+						<div class="col-sm-6" ng-if="isIf">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-change="firefoxVerifyChange();costPriceBlurChange()" class="form-control" placeholder="成本价" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[0-9]?)|([0-9]+\d*\.\d?[0-9]?)|([0-9]+\d*))$/}" ng-model="dataProductEntitys.costPrice">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">销售底价计算规则：</label>
+
+						<div class="col-sm-10">
+							<label class="radio-inline" ng-click="checkedRadio(1,isIf)">
+                                <input type="radio" name="priceStatus" ng-checked="dataProductEntity.priceStatus =='1'">&nbsp;系统计算&nbsp;
+                            </label>
+							<label class="radio-inline" ng-click="checkedRadio(2,isIf)">
+                                <input type="radio" name="priceStatus" ng-checked="dataProductEntity.priceStatus =='2'">&nbsp;手动输入&nbsp;
+                            </label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">销售底价(元)：</label>
+
+						<div ng-class="{true:'col-sm-3',false:'col-sm-10'}[isIf]">
+							<input type="text" onfocus="if(this.value==0){this.value=''}" ng-if="!isIf" ng-change="firefoxVerifyChange()" ng-readonly="basePriceRadio" class="form-control" placeholder="销售底价" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[0-9]?)|([0-9]+\d*\.\d?[0-9]?)|([0-9]+\d*))$/}" ng-model="dataProductEntity.basePrice" ng-disabled="isIf">
+							<!--<input type="number" ng-if="isIf" ng-readonly="basePriceRadio" class="form-control" placeholder="销售底价" ng-model="dataProductEntity.basePrice" ng-disabled="isIf">
+						--><span class="form-control" ng-if="isIf" ng-bind="dataProductEntity.basePrice.priceFilternum()"></span>
+						
+						</div>
+						<div class="col-sm-1" ng-if="isIf">→→</div>
+						<div class="col-sm-6" ng-if="isIf">
+							<input type="text" onfocus="if(this.value==0){this.value=''}" ng-readonly="basePriceRadio" ng-change="firefoxVerifyChange()" class="form-control" placeholder="销售底价" ng-verify="{min:1,max:8,required:true,pattern:/^((\d\.\d?[0-9]?)|([0-9]+\d*\.\d?[0-9]?)|([0-9]+\d*))$/}" ng-model="dataProductEntitys.basePrice">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">库存预警值(个)：</label>
+
+						<div ng-class="{true:'col-sm-3',false:'col-sm-10'}[isIf]">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-if="!isIf" ng-change="firefoxVerifyChange()" class="form-control" placeholder="库存预警值" ng-verify ng-model="dataProductEntity.stockWarning" ng-disabled="isIf">
+							<input type="number" ng-if="isIf" class="form-control" placeholder="库存预警值" ng-model="dataProductEntity.stockWarning" ng-disabled="isIf">
+						</div>
+						<div class="col-sm-1" ng-if="isIf">→→</div>
+						<div class="col-sm-6" ng-if="isIf">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-change="firefoxVerifyChange()" class="form-control" placeholder="库存预警值" ng-verify ng-model="dataProductEntitys.stockWarning">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">重量(克)：</label>
+
+						<div ng-class="{true:'col-sm-3',false:'col-sm-10'}[isIf]">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-if="!isIf" ng-change="firefoxVerifyChange()" class="form-control" placeholder="重量" ng-verify ng-model="dataProductEntity.weight" ng-disabled="isIf">
+							<input type="number" ng-if="isIf" class="form-control" placeholder="重量" ng-model="dataProductEntity.weight" ng-disabled="isIf">
+						</div>
+						<div class="col-sm-1" ng-if="isIf">→→</div>
+						<div class="col-sm-6" ng-if="isIf">
+							<input type="number" onfocus="if(this.value==0){this.value=''}" ng-change="firefoxVerifyChange()" class="form-control" placeholder="重量" ng-verify ng-model="dataProductEntitys.weight">
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button type="button" id="firefoxVerifyChange" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 提交审核
+            </button>
+			<button type="button" class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+
+</div>

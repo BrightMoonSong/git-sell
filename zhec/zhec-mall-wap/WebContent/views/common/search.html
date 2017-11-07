@@ -1,0 +1,70 @@
+<div>
+	<div id="needs_head">
+		<ul class="head">
+			<li class="seach_header_img">
+				<a ng-click="onCancel()">
+					<img src="img/fh.png" />
+				</a>
+			</li>
+			<li class="seach_header_input ycenter">
+				<input type="text" placeholder="高血压" ng-model="searchKeyWord" />
+			</li>
+			<li class="seach_header_button">
+				<a ng-click="goSearch('')">搜索</a>
+			</li>
+		</ul>
+	</div>
+	<div class="clearfix">
+		<!--有历史的时候显示-->
+		<!-- <div class="search_list">
+			最近搜索
+		</div>
+		<div class="search_list_conter clearfix">
+			<ul class="clearfix">
+				<li>
+					<a>高血脂发呆思考</a>
+				</li>
+				<li>
+					<a>高血脂</a>
+				</li>
+				<li>
+					<a>眼药水</a>
+				</li>
+				<li>
+					<a>眼药水</a>
+				</li>
+			</ul>
+		</div> -->
+		<div class="search_list">
+			热门搜索
+		</div>
+		<div class="clearfix search_list_conter">
+			<ul class="clearfix">
+				<li ng-repeat="hotWord in hotKeyWordList">
+					<a ng-bind="hotWord" ng-click=goSearch(hotWord)></a>
+				</li>
+			</ul>
+		</div>
+		<!-- 联想 -->
+		<!-- <div class="seach_history_list clearfix">
+			<ul class="clearfix">
+				<li>
+					<a>高血压</a>
+				</li>
+				<li>
+					<a>高血脂</a>
+				</li>
+				<li>
+					<a>高血<b>压降压药</b></a>
+				</li>
+				<li>
+					<a>高血<b>压降压药</b></a>
+				</li>
+				<li>
+					<a>高血<b>压降压药</b></a>
+				</li>
+
+			</ul>
+		</div> -->
+	</div>
+</div>

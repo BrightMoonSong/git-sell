@@ -1,0 +1,184 @@
+body {
+	background: #FFFFFF;
+}
+
+.login_banner {
+	width: 100%;
+	height: 14.41rem;
+}
+
+.login_banner>a {
+	width: 100%;
+	height: 100%;
+	display: block;
+	text-align: center;
+}
+
+.login_banner>a>img {
+	width: 6.458rem;
+	height: 8.166rem;
+	margin-top: 2.833rem;
+}
+
+.notallowClick {
+	background: #ccc !important;
+}
+
+.login_conter {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.login_conter_ul {
+	width: 100%;
+}
+
+.login_conter_ul>li {
+	width: 100%;
+	height: 5.666rem;
+	border-bottom: 1px solid #E5E5E5;
+	margin: 0 auto;
+	position: relative;
+}
+
+.login_conter_ul>li>p {
+	width: 100%;
+	font-family: MicrosoftYaHei;
+	font-size: 0.916rem;
+	color: #CCCCCC;
+	letter-spacing: 0.16px;
+	margin-top: 0.833rem;
+	height: 0.916rem;
+	text-indent: 0.2rem;
+}
+
+.login_conter_ul>li>input {
+	width: 100%;
+	height: 1.75rem;
+	border: 0;
+	outline: medium;
+	text-indent: 0.2rem;
+	font-family: MicrosoftYaHei;
+	font-size: 1.333rem;
+	color: #333333;
+	letter-spacing: 0.16px;
+	margin-top: 0.8333rem;
+}
+
+.login_conter_ul>li>span {
+	display: block;
+	position: absolute;
+	right: 4px;
+	top: 30px;
+}
+
+.login_conter_ul>li>span>img {
+	width: 2.083rem;
+	height: 2.083rem;
+}
+
+#login_conter_ul_li {
+	width: 66.66%;
+}
+
+#login_conter_ul_div {
+	width: 30%;
+	border: 0;
+	float: right;
+}
+#login_conter_ul_div button{
+	width: 7.5rem;
+	height: 2.75rem;
+	border: 0;
+	outline: medium;
+	border: 1px solid #B2B2B2;
+	font-family: MicrosoftYaHei;
+	font-size: 1.166rem;
+	color: #333333;
+	letter-spacing: 0.14px;
+	background: #FFFFFF;
+	margin-top: 2.867rem
+}
+#login_conter_ul_div>div {
+	width: 100%;
+	height: 2.75rem;
+	border: 1px solid #E5E5E5;
+	margin-top: 1.958rem;
+}
+
+.login_conter_button {
+	margin-top: 3.208rem;
+	width: 100%;
+	height: 3.666rem;
+}
+
+.login_conter_button>button {
+	width: 82.9%;
+	height: 100%;
+	margin: 0 auto;
+	outline: medium;
+	border: 0;
+	font-family: MicrosoftYaHei;
+	font-size: 1.333rem;
+	color: #FFFFFF;
+	letter-spacing: 1.33px;
+	display: block;
+	background-image: linear-gradient(-90deg, #22A2FF 0%, #1ACEFF 100%);
+	border-radius: 4px;
+}
+
+.login_conter_foot {
+	width: 100%;
+	margin-top: 1.291rem;
+	margin-bottom: 2rem;
+}
+
+.login_conter_foot>label {
+	display: block;
+	margin: 0 auto;
+	width: 8rem;
+}
+
+.login_conter_foot>label>input,
+.login_conter_foot>label>span {
+	float: left;
+}
+
+.login_conter_foot>label>input {
+	width: 1.25rem;
+	height: 1.25rem;
+	outline: medium;
+	border: 0;
+	border-radius: 100px;
+	background: url(../img/勾选.png) no-repeat;
+	background-size: 100% 100%;
+}
+
+.login_conter_foot>label>span {
+	display: block;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #999999;
+	letter-spacing: 0.16px;
+	line-height: 1.083rem;
+	margin-left: 0.333rem;
+}
+
+.login_conter_button_wj {
+	width: 100%;
+	margin-top: 0.8333rem;
+}
+
+.login_conter_button_wj>a {
+	font-family: MicrosoftYaHei;
+	font-size: 1.166rem;
+	color: #999999;
+	letter-spacing: 0.19px;
+	display: block;
+	float: right;
+	margin-right: 3.5rem;
+}
+
+.colorRed {
+	color: #FF6666 !important;
+}

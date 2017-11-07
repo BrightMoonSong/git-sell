@@ -1,0 +1,67 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-12">
+		<div class="col-lg-9" style="padding-left: 0px;">
+			<div class="ibox-title">
+				<div class="heading">
+					<!-- 搜索  -->
+					<div class="col-lg-12" style="padding-top: 5px;padding-left: 0px;">
+						
+					</div>
+					<!-- /.col-lg-4 -->
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<!-- 刷新按钮 -->
+			<button class="btn btn-success pull-right" ng-click="loadData(true)"> <span class="glyphicon glyphicon-refresh"></span>刷新 </button>
+			<!-- 添加按钮触发模态框 -->
+			<button class="btn btn-warning pull-right" ng-click="openModal()"><span class="glyphicon glyphicon-plus"></span>添加</button>
+		</div>
+	</div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+						<thead>
+							<tr>
+								<th>热门ID</th>
+								<th>商品图片</th>
+								<th>商品名称</th>
+								<th>商品价格</th>
+								<th>商品规格</th>
+								<th>排序号</th>
+								<th>状态</th>
+								<th>操作</th>
+
+							</tr>
+						</thead>
+						<tbody style="">
+							<tr ng-repeat="res in homeHotRecommendList">
+								<td>{{ res.recommendId }}</td>
+								<td><img my-img ng-src="{{res.goodsImg }}" onerror="javascript:this.src='../../img/loadding.gif';" alt="..." style="max-width: 45px;max-height: 45px;" /></td>
+								<td>{{ res.goodsName }}</td>
+								<td>{{ res.goodsPrice }}</td>
+								<td>{{ res.goodsSpec }}</td>
+								<td>{{ res.sort }}</td>
+								<td ng-if="res.status==1">正常</td>
+								<td ng-if="res.status==0">禁用</td>
+								<td class="action-column">
+									<button class="btn btn-warning" ng-click="openModal(res.recommendId)">修改</button>
+									<button class="btn btn-warning" ng-if="res.status==1" ng-click="updataStatus(res.recommendId,0)">禁用</button>
+									<button class="btn btn-warning" ng-if="res.status==0" ng-click="updataStatus(res.recommendId,1)">启用</button>
+									<button class="btn btn-warning" ng-click="updataStatus(res.recommendId,2)">删除</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<datalistpager></datalistpager>

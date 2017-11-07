@@ -1,0 +1,100 @@
+<style type="text/css">
+	.btn.active,
+	.btn:active {
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, .125);
+	}
+	
+	.spanin {
+		display: inline-block;
+		float: left;
+		margin-top: 5px;
+	}
+	
+	.innputy {
+		margin-top: 9px !important;
+	}
+</style>
+<div class="inmodal" name="myform" verify-scope="tipStyle: 1">
+	<div class="modal-header">
+		<h1 class="modal-title">APP版本管理</h1>
+	</div>
+	<div style="background-color: #fff;">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label"> 版本名称(*)</label>
+					<div class="col-sm-9">
+						<input ng-readonly="datared" ng-verify="{min:1 ,max:30,required:true}" type="text" class="form-control" ng-model="versionEntiy.versionName">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">  版本号(*)</label>
+					<div class="col-sm-9">
+						<input ng-readonly="datared" ng-verify="{required:true}" type="text" class="form-control" ng-model="versionEntiy.versionCode">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">  下载路径(*)</label>
+					<div class="col-sm-9">
+						<input ng-readonly="datared" ng-verify="{required:true}" type="text" class="form-control" ng-model="versionEntiy.downloadUrl">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">范围(*)</label>
+					<div class="col-sm-9">
+						<select ng-model="versionEntiy.scope" ng-verify="option:0" class="form-control" ng-options="x.id as x.name for x in scopeList">
+							<option value="">--请选择--</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">平台(*)</label>
+					<div class="col-sm-9">
+						<select ng-model="versionEntiy.platform" ng-verify="option:0" class="form-control" ng-options="x.id as x.name for x in platformList">
+							<option value="">--请选择--</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">更新类型(*)</label>
+					<div class="col-sm-9">
+						<select ng-model="versionEntiy.updateType " ng-verify="option:0" class="form-control" ng-options="x.id as x.name for x in updateTypeList">
+							<option value="">--请选择--</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">  版本描述 (*)</label>
+					<div class="col-sm-9">
+						<textarea ng-readonly="datared" ng-verify="{required:true}" class="form-control" ng-model="versionEntiy.versionDesc" placeholder="版本描述">
+							</textarea>
+					</div>
+				</div>
+				<!--<div class="form-group">
+					<label class="col-sm-3 control-label">状态</label>
+					<div class="col-sm-9">
+						<div class="form-group" style="margin: 0px;">
+
+							<input class="spanin innputy" type="radio" ng-click="check(1)" ng-verify="least:1" ng-checked="versionEntiy.status==1" name=status value="1" ng-disabled="datared"><span class="spanin">&nbsp;正常&nbsp;</span>
+
+							<input class="spanin innputy" type="radio" ng-click="check(2)" ng-verify="least:1" ng-checked="versionEntiy.status==0" ng-disabled="dataStatus" name=status value="2"><span class="spanin">&nbsp;禁用&nbsp;</span>
+						</div>
+
+					</div>
+				</div>-->
+
+			</li>
+		</ul>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="okModal()" ng-verify="{control:'myform'}" ng-disabled="okModalDisabled" ng-hide="datared==true">
+            <span class="glyphicon glyphicon-floppy-disk" ></span> 保存
+        </button>
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span>取消
+        </button>
+	</div>
+</div>

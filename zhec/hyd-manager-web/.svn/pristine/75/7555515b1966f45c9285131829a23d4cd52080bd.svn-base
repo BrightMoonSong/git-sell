@@ -1,0 +1,127 @@
+function CarownerOkController($scope, $q, $http, $rootScope, CarownerOkService, constPageSize, ngDialog, goodsReminder) {
+
+
+	//审核通过列表
+	$scope.find = function(currentPageNo, currentPaseSize) {
+
+		var defer = $q.defer();
+		var realName = $scope.realName;
+		var phone = $scope.phone;
+		var carLicenseNo = $scope.carLicenseNo;
+		var startTime = $scope.startTime;
+		CarownerOkService
+			.find(realName, phone, carLicenseNo, startTime, currentPageNo, currentPaseSize)
+			.then(function(result) {
+				console.log(result)
+				$scope.carList = result.data;
+				defer.resolve(result);
+			}, function(result) {
+				defer.reject(result)
+			})
+		return defer.promise;
+	}
+	//弹出详情菜单弹窗
+	$scope.openModal = function(id) {
+		$scope.carOwnerId = id;
+		$scope.dialog = ngDialog.open({
+			template: 'views/carowner/CarownerDetailFormModel.html',
+			className: 'ngdialog-theme-default',
+			controller: 'CarownerOkDetailFormModelController',
+			scope: $scope,
+			width: 1150
+		})
+	};
+	//启禁用操作
+	$scope.enableId = function(id, status) {
+		var chainstouses;
+		if(status == 1) {
+			//0禁1启
+			chainstouses = goodsReminder.goodsState.enable;
+		} else if(status == 2) {
+			chainstouses = goodsReminder.goodsState.forbidden;
+		} else if(status == 3) {
+			chainstouses = goodsReminder.goodsbranddelete;
+		}
+		ngDialog.openConfirm({
+			template: '<p>' + chainstouses + '</p>' +
+				'<div class="ngdialog-buttons">' +
+				'<button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">取消' +
+				'<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">确定' +
+				'</button></div>',
+			plain: true,
+			closeByDocument: false,
+			closeByEscape: false,
+			className: 'ngdialog-theme-default'
+		}).then(function(value) {
+			CarownerOkService
+				.detel(id, status)
+				.then(function(result) {
+					$scope.loadData()
+				}),
+				function(reason) {}
+		})
+	}
+	//关闭详情弹窗
+	$scope.cancelModal = function() {
+		$scope.dialog.close();
+	}
+	
+}
+//弹窗详情操作
+function CarownerOkDetailFormModelController($scope, CarownerOkService) {
+	$scope.companyNatures = function(n) {
+		switch(n) {
+			case 1:
+				return '国有';
+				break;
+			case 2:
+				return '集体';
+				break;
+			case 3:
+				return '有限责任';
+				break;
+			case 4:
+				return '股份有限';
+				break;
+			case 5:
+				return '中外合资';
+				break;
+			case 6:
+				return '外商投资';
+				break;
+		}
+	}
+	$scope.checkStatus = function(j) {
+		switch(j) {
+			case 1:
+				return '注册未提交审核';
+				break;
+			case 2:
+				return '提交审核（待审核）';
+				break;
+			case 3:
+				return '审核通过';
+				break;
+			case 4:
+				return '审核不通过';
+				break;
+		}
+	}
+	//详情初始化
+	$scope.innter = function() {
+		if($scope.carOwnerId) {
+			CarownerOkService
+				.detail($scope.carOwnerId)
+				.then(function(result) {
+					$scope.carOwnerEntiy = result.data;
+				}, function(reason) {
+
+				})
+		}
+	}
+	$scope.innter();
+}
+angular
+	.module("managerApp")
+	.controller("CarownerOkController", CarownerOkController)
+	.controller("CarownerOkDetailFormModelController",CarownerOkDetailFormModelController)

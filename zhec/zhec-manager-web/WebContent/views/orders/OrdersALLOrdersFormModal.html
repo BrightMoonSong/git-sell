@@ -1,0 +1,839 @@
+<div class="inmodal">
+	<div class="modal-header">
+		<h1 class="modal-title">订单管理</h1>
+	</div>
+	<div class="modal-body" name="myform" verify-scope="tipStyle: 2">
+		<!-- 标签页start -->
+		<ul class="nav nav-tabs">
+			<!--  class="active" -->
+			<!--<li class="active" ng-click="onClickTab('basicInformation.html')">
+				<a data-toggle="tab">基本信息</a>
+			</li>
+			<li ng-click="onClickTab('ordersProduct.html')">
+				<a data-toggle="tab">网单信息</a>
+			</li>-->
+			<li class="active" ng-click="onClickTab('ordersGoods.html')">
+				<a data-toggle="tab">订单商品</a>
+			</li>
+			<li ng-click="onClickTab('ordersDetails.html')">
+				<a data-toggle="tab">订单详情</a>
+			</li>
+			<li ng-click="onClickTab('totalOrderDetails.html')">
+				<a data-toggle="tab">总订单详情</a>
+			</li>
+			<li ng-click="onClickTab('leaveMessage.html')">
+				<a data-toggle="tab">订单备注</a>
+			</li>
+			<li ng-click="onClickTab('receivingMessage.html')">
+				<a data-toggle="tab">收货信息</a>
+			</li>
+			<li ng-click="onClickTab('logisticsMessage.html')">
+				<a data-toggle="tab">物流信息</a>
+			</li>
+			<li ng-click="onClickTab('evaluateMessage.html')">
+				<a data-toggle="tab">评价信息</a>
+			</li>
+			<li ng-click="onClickTab('operationRecord.html')">
+				<a data-toggle="tab">操作日志</a>
+			</li>
+		</ul>
+		<div id="mainView">
+			<div ng-include="currentTab"></div>
+		</div>
+		<!-- 基本信息 -->
+		<script type="text/ng-template" id="basicInformation.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">订单号</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.orderSn" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">商品金额</label>
+
+						<div class="col-sm-9">
+							<span class="form-control" ng-model="dataEntity.moneyProduct | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">下单时间</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.orderCreateTime" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">会员姓名</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.memberLoginId" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">会员ID</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.memberId" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">会员ip地址</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.memberIp" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">顾问ID</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.consultantId" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">付款时间</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.paidTime" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">订单状态</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.orderState" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">物流单号</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.logisticsNumber" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">收货人手机号</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneeMobile" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">收货详细地址</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneeAddress" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">收货省市区</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneePca" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">收货省</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneeProvince" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">收货市</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneeCity" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">收货区</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneeArea" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">收货邮编</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneePost" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">发票抬头</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.invoiceTitle" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">发票类型</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.invoiceType" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">物流公司ID</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.logisticsId" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">物流公司</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.logisticsName" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">物流费用</label>
+
+						<div class="col-sm-9">
+							<span class="form-control" ng-model="dataEntity.moneyLogistics | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">订单总金额</label>
+
+						<div class="col-sm-9">
+							<span class="form-control" ng-model="dataEntity.moneyOrder | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">优惠金额</label>
+
+						<div class="col-sm-9">
+							<span class="form-control" ng-model="dataEntity.moneyDiscount | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">第三方支付金额</label>
+
+						<div class="col-sm-9">
+							<span class="form-control" ng-model="dataEntity.moneyPay | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">余额账户支付总金额</label>
+
+						<div class="col-sm-9">
+							<span class="form-control" ng-model="dataEntity.moneyPayBalance | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">退款的金额</label>
+
+						<div class="col-sm-9">
+							<span class="form-control" ng-model="dataEntity.moneyRefund | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">操作记录备注</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.operationalNotes" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">订单来源 </label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.orderSource" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">ordersPay</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.ordersPay" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">付款状态</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.payStatus" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">订单备注</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.remark" readonly>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<!-- 网单信息 -->
+		<script type="text/ng-template" id="ordersProduct.html">
+			<ul class="nav nav-tabs">
+				<!--nav nav-tabs-->
+				<!--form-horizontal horizontal1-->
+				<li class="list-group-item col-sm-3" ng-repeat="ordersProduct in dataEntity.ordersProduct track by $index">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">顾问ID：</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="ordersProduct.consultantId" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">商品id：</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="ordersProduct.goodsId" readonly>
+						</div>
+					</div>
+
+					<!--<div class="form-group">
+                        <label class="col-sm-3 control-label">商品分类ID：</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"
+                                   ng-model="ordersProduct.goodsCateId" readonly>
+                        </div>
+                    </div>-->
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">商品名称：</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="ordersProduct.goodsName" readonly>
+						</div>
+					</div>
+
+					<!--<div class="form-group">
+                        <label class="col-sm-3 control-label">货品ID：</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"
+                                   ng-model="ordersProduct.productId" readonly>
+                        </div>
+                    </div>-->
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">货品sku：</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="ordersProduct.productSku" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">规格Id：</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="ordersProduct.productSpecId" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">规格：</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="ordersProduct.productSpecName" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">货品单价：</label>
+
+						<div class="col-sm-9">
+							<span class="form-control" ng-model="ordersProduct.productPrice | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label">货品数量：</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="ordersProduct.productNumber" readonly>
+						</div>
+					</div>
+
+				</li>
+			</ul>
+
+		</script>
+		<!-- 订单商品 -->
+		<script type="text/ng-template" id="ordersGoods.html">
+			<table class="table table-striped table-bordered table-hover dataTables-example">
+				<thead>
+					<tr>
+						<th>商品图片</th>
+						<th>商品名称</th>
+						<th>商品规格</th>
+						<th>sku</th>
+						<th>原价(元) X 数量</th>
+						<th>优惠(元)</th>
+						<th>商品总价(元)</th>
+						<th>实付(元)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="order in dataEntity.ordersProduct">
+						<td><img style="width: 66px;" ng-src="{{order.masterImg}}" /></td>
+						<td>{{ order.goodsName}}</td>
+						<td ng-if="order.productSpecInfo.split(':')[0]=='null'">无</td>
+						<td ng-if="order.productSpecInfo.split(':')[0]!='null'" ng-bind="order.productSpecInfo"></td>
+						<td>{{ order.productSku}}</td>
+						<td>{{ (order.productPrice | priceFormatFilter)+' * '+ order.productNumber}}</td>
+						<td>{{ ((order.productPrice-order.moneyPay)*order.productNumber) | priceFormatFilter }}</td>
+						<td>{{ (order.salesPrice*order.productNumber) | priceFormatFilter }}</td>
+						<td>{{ (order.moneyPay*order.productNumber) | priceFormatFilter }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</script>
+		<!-- 订单详情   ordersDetails-->
+		<script type="text/ng-template" id="ordersDetails.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">订单编号:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.orderSn" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">下单时间:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.createTime" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">会员姓名:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.memberLoginId" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">订单状态:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.orderState" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">付款时间:</label>
+
+						<div class="col-sm-8" ng-if="dataEntity.payStatus!=0">
+							<input type="text" class="form-control" ng-model="dataEntity.paidTime" readonly>
+						</div>
+						<div class="col-sm-8" ng-if="dataEntity.payStatus==0">
+							<input type="text" class="form-control" value="未付款" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-4">
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">订单来源 :</label>
+
+						<div class="col-sm-8" ng-if="dataEntity.orderSource==1">
+							<input type="text" class="form-control" value="web" readonly>
+						</div>
+						<div class="col-sm-8" ng-if="dataEntity.orderSource==2">
+							<input type="text" class="form-control" value="wap" readonly>
+						</div>
+						<div class="col-sm-8" ng-if="dataEntity.orderSource==3||dataEntity.orderSource==4">
+							<input type="text" class="form-control" value="app" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">优惠金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.moneyDiscount | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">订单总金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.moneyOrder | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">实付款:</label>
+
+						<div class="col-sm-8" ng-hide="dataEntity.orderStatus==0">
+							<span class="form-control" ng-bind="dataEntity.moneyPay | priceFormatFilter" readonly></span>
+						</div>
+						<div class="col-sm-8" ng-show="dataEntity.orderStatus==0">
+							<span class="form-control" readonly>￥0.00</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">商品金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.moneyProduct | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">总订单物流费用:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.memberMoneyLogistics | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">该订单物流费用:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.actualMoneyLogistics | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<!--	<div class="form-group">
+						<label class="col-sm-4 control-label">余额支付金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.moneyPayBalance | priceFormatFilter" readonly></span>
+						</div>
+					</div>-->
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">退款的金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.moneyRefund | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">已支付金额:</label>
+
+						<div class="col-sm-8" ng-hide="dataEntity.orderStatus==0">
+							<span class="form-control" ng-bind="dataEntity.moneyPay | priceFormatFilter" readonly></span>
+						</div>
+						<div class="col-sm-8" ng-show="dataEntity.orderStatus==0">
+							<span class="form-control" readonly>￥0.00</span>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<!-- 总订单详情   totalOrderDetails-->
+		<script type="text/ng-template" id="totalOrderDetails.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">总订单编号:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.parentOrder.orderSn" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">物流费用:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.parentOrder.moneyLogistics" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">下单时间:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.parentOrder.createTime" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">发票抬头:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.parentOrder.invoiceTitle" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">发票手机:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.parentOrder.invoicePhone" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">发票类型:</label>
+
+						<div class="col-sm-8" ng-if="dataEntity.parentOrder.invoiceType==2">
+							<input type="text" class="form-control" value="电子发票" readonly>
+						</div>
+						<div class="col-sm-8" ng-if="dataEntity.parentOrder.invoiceType==1">
+							<input type="text" class="form-control" value="普通发票" readonly>
+						</div>
+						<div class="col-sm-8" ng-if="dataEntity.parentOrder.invoiceType==0">
+							<input type="text" class="form-control" value="无需发票" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">发票详情:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.parentOrder.invoiceDetail" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">发票邮箱:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.parentOrder.invoiceEmail" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">付款时间:</label>
+
+						<div class="col-sm-8" ng-if="dataEntity.parentOrder.payStatus!=0">
+							<input type="text" class="form-control" ng-model="dataEntity.parentOrder.paidTime" readonly>
+						</div>
+						<div class="col-sm-8" ng-if="dataEntity.parentOrder.payStatus==0">
+							<input type="text" class="form-control" value="未付款" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">订单来源 :</label>
+
+						<div class="col-sm-8" ng-if="dataEntity.parentOrder.orderSource==1">
+							<input type="text" class="form-control" value="web" readonly>
+						</div>
+						<div class="col-sm-8" ng-if="dataEntity.parentOrder.orderSource==2">
+							<input type="text" class="form-control" value="wap" readonly>
+						</div>
+						<div class="col-sm-8" ng-if="dataEntity.parentOrder.orderSource==3||dataEntity.parentOrder.orderSource==4">
+							<input type="text" class="form-control" value="app" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">优惠金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.parentOrder.moneyDiscount | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">订单总金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.parentOrder.moneyOrder | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label">货品总金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.parentOrder.moneyProduct | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">第三方支付金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.parentOrder.moneyPay | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">余额支付金额:</label>
+
+						<div class="col-sm-8">
+							<span class="form-control" ng-bind="dataEntity.parentOrder.moneyPayBalance | priceFormatFilter" readonly></span>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-12" ng-show="dataEntity.parentOrder.ordersDiscount.length>0">
+					<h4 class="form-horizontal col-sm-12" style="text-align: center;font-size: 16px;">参与的促销活动</h4>
+					<ul class="form-horizontal col-sm-12">
+						<li class="list-group-item" ng-repeat="res in dataEntity.parentOrder.ordersDiscount" ng-class="{'col-sm-4':dataEntity.parentOrder.ordersDiscount.length==3,'col-sm-6':dataEntity.parentOrder.ordersDiscount.length==2,'col-sm-10':dataEntity.parentOrder.ordersDiscount.length==1}">
+							<div class="form-group">
+								<label class="col-sm-4 control-label">促销名称:</label>
+								<div class="col-sm-8">
+									<span class="form-control" ng-bind="res.promotionName" readonly></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">促销类型:</label>
+								<div class="col-sm-8">
+									<span class="form-control" ng-show="res.promotionType==1" readonly>商品促销</span>
+									<span class="form-control" ng-show="res.promotionType==2" readonly>订单满减</span>
+									<span class="form-control" ng-show="res.promotionType==3" readonly>优惠券促销</span>
+								</div>
+							</div>
+							<div class="form-group" ng-hide="res.promotionType==1">
+								<label class="col-sm-4 control-label">使用门槛:</label>
+								<div class="col-sm-8">
+									<span class="form-control" ng-bind="res.threshold" readonly></span>
+								</div>
+							</div>
+							<div class="form-group" ng-hide="res.promotionType==1">
+								<label class="col-sm-4 control-label">优惠额度:</label>
+								<div class="col-sm-8">
+									<span class="form-control" ng-bind="res.quota" readonly></span>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<!--ordersDiscount-->
+
+		</script>
+		<!-- 留言标记 -->
+		<script type="text/ng-template" id="leaveMessage.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">订单备注:</label>
+
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="dataEntity.remark" readonly>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<!-- 收货信息 -->
+		<script type="text/ng-template" id="receivingMessage.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">收货人姓名:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneeName" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">收货人手机号:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneeMobile" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">收货邮编:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneePost" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">收货省市区:</label>
+
+						<div class="col-sm-8">
+							<input type="text" class="form-control" ng-model="dataEntity.consigneePca" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-12">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">详细地址:</label>
+
+						<div class="col-sm-10">
+							<textarea class="form-control" ng-model="dataEntity.consigneeAddress" readonly></textarea>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<!-- 物流信息 -->
+		<script type="text/ng-template" id="logisticsMessage.html">
+			<ul class="form-horizontal">
+				<li class="list-group-item col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">物流单号:</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.logisticsNumber" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">物流公司:</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="dataEntity.logisticsName" readonly>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item" ng-repeat="logistics in logisticsAttr.reverse()">
+					<div class="form-group">
+						<span class="col-sm-12 pull-left">{{logistics.AcceptTime}}</span>
+						<span class="col-sm-12 pull-left">{{logistics.AcceptStation}}</span>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<!-- 评价信息 -->
+		<script type="text/ng-template" id="evaluateMessage.html">
+			<span class="control-label">暂无评价！！！</span>
+		</script>
+		<!-- 操作日志 -->
+		<script type="text/ng-template" id="operationRecord.html">
+			<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example">
+				<thead>
+					<tr>
+						<th>操作人名称</th>
+						<th>操作人身份</th>
+						<th>操作后状态</th>
+						<th>操作前状态</th>
+						<th>操作时间</th>
+						<th class="fixedWidth">备注</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="res in dataEntity.ordersFlow">
+						<td>{{ res.handleName}}</td>
+						<td ng-show="res.handleType!=2">后台管理员</td>
+						<td ng-show="res.handleType==2">会员</td>
+						<td>{{ res.newStatus }}</td>
+						<td>{{ res.oldStatus}}</td>
+						<td>{{res.optTime}}</td>
+						<td>
+							<div style="width: 100px;margin: 0 auto;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+								{{ res.remark}}
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</script>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-success" ng-click="cancelModal()">
+            <span class="glyphicon glyphicon-share-alt"></span> 取消
+        </button>
+	</div>
+</div>

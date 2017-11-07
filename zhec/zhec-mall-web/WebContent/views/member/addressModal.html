@@ -1,0 +1,67 @@
+<div class="order_morder_all" name="myform" verify-scope="tipStyle: 1">
+	<div class="order_morder_head">
+		<h1>收货地址管理</h1>
+	</div>
+	<div class="clearfix order_morder_conter">
+		<ul>
+				<li>
+					<label><b>*</b>收货人：</label>
+					<input type="text" ng-verify="{min:2,max:8}" ng-model="dataEntity.consigneeName" placeholder="请输入收货人姓名">
+				</li>
+				<li>
+					<label><b>*</b>电话：</label>
+					<input type="text" ng-model="dataEntity.consigneeMobile" ng-verify="pattern:/^0?1[3|4|5|7|8][0-9]\d{8}$/,errmsg:'手机号格式不正确'" placeholder="请输入手机号">
+				</li>
+				<li>
+					<label>邮箱：</label>
+					<input type="email" ng-model="dataEntity.consigneeEmail" ng-verify="required: false" placeholder="请输入邮箱 ">
+				</li>
+				<li>
+					<label><b>*</b>所在地区：</label>
+					<select class="addres_select"   ng-model="dataEntity.consigneeProvince" ng-change="change(dataEntity.consigneeProvince,1,0)" ng-options="x.id as x.name for x in consigneeProvinceAttr" ng-verify="option:0,errmsg:'请选择省'">
+						<option value="">--请选择--</option>
+					</select>
+
+					<select ng-model="dataEntity.consigneeCity" ng-change="change(dataEntity.consigneeCity,2,0)" ng-options="x.id as x.name for x in consigneeCityAttr" value="{{x.id}}" ng-verify="option:0,errmsg:'请先选择省再选市'">
+						<option value="">--请选择--</option>
+					</select>
+
+					<select ng-model="dataEntity.consigneeArea" ng-change="change(dataEntity.consigneeArea,3,0)" ng-options="x.id as x.name for x in consigneeAreaAttr" value="{{x.id}}" ng-verify="option:0,errmsg:'请先选择省市再选区'">
+						<option value="">--请选择--</option>
+					</select>
+
+				</li>
+				<li>
+					<label>邮编：</label>
+					<input type="text" ng-model="dataEntity.consigneePost" readonly>
+				</li>
+
+				<li>
+					<label><b>*</b>详细地址：</label>
+					<!--<input type="text" ng-model="dataEntity.consigneeAddress" ng-verify>-->
+					<textarea name="" rows="" cols="" ng-model="dataEntity.consigneeAddress" ng-verify="{min:0,max:30}"></textarea>
+				</li>
+				<li ng-hide="true">
+					<label >state：</label>
+					<input type="text" ng-model="dataEntity.state">
+
+				</li>
+
+				<li class="order_morder_conter_label" ng-show="addressId <= 0">
+					<label ng-click="isDefaultClick(1)"><input type="radio" ng-checked="dataEntity.isDefault==1" name="isDefault"/><span>设为默认收货地址</span></label>
+					<!--<label ng-click="isDefaultClick(0)"><input type="radio" ng-checked="dataEntity.isDefault==0" name="isDefault"/>不设为默认收货地址</label>-->
+				</li>
+				<li class="order_morder_conter_button" id="order_morder_conter_buttonli">
+					<button type="button"ng-click="okModal()" ng-verify="{control:'myform'}" onmouseover="this.style.cursor='pointer'">
+			     		保存
+			    	</button>
+				</li>
+				<li class="order_morder_conter_button" >
+					<button type="button" ng-click="cancelModal()" onmouseover="this.style.cursor='pointer'" class="order_morder_conter_buttonq">
+			      		取消
+			    	</button>
+				</li>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,46 @@
+
+
+<div id="carte_head">
+	<ul class="head">
+		<li><img src="img/fficon.png"  onclick="goback()"/></li>
+		<li class="shopping_tit">忘记密码</li>
+		<li id="shopping_bj">
+			<a href="#/info/login">登录</a>
+		</li>
+	</ul>
+</div>
+<div class="login_banner">
+	<a><img src="img/logo.png"></a>
+</div>
+<div class="login_conter clearfix" name="myform">
+	<ul class="login_conter_ul clearfix">
+		<li>
+			<p>请输入手机号</p><!--ng-verify="pattern:/^[1][3,4,5,7,8][0-9]{9}$/" -->
+			<input type="text" placeholder="请输入手机号" type="text" ng-model="userPhone" maxlength="11" />
+			<span ng-click="empty(1)"><img src="img/scsr.png" /></span>
+		</li>
+		<li id="login_conter_ul_li">
+			<p>请输入验证码</p>
+			<input type="text" placeholder="请输入验证码" ng-model="phoneCode" maxlength="6" onchange="this.value=this.value.substring(0, 6)" />
+			<span ng-click="empty(2)"><img src="img/scsr.png" /></span>
+		</li>
+		<li id="login_conter_ul_div">
+			<!--<div class="">发送验证码</div>-->
+			<button ng-class="{true: 'notallowClick', false: 'allowClick'}[paraclass == false]" ng-disabled="paraclass == false && okModalDisabled" ng-click="getPhoneCode()" id="clickBtn"  ng-bind="btnMessage"></button>
+		</li>
+		<li>
+			<p></p><!-- ng-verify="{required: true,min:6,max:12}"-->
+			<input type="password" placeholder="请输入新密码" name="userPassword" ng-model="userPassword" />
+			<span ng-click="empty(3)"><img src="img/scsr.png" /></span>
+		</li>
+		<li>
+			<p></p><!-- ng-verify="{recheck:'userPassword',min:6,max:12,errmsg:'两次密码输入不一致'}"-->
+			<input type="password" placeholder="请再次输入密码"  ng-model="confirmParssword" />
+			<span ng-click="empty(4)"><img src="img/scsr.png" /></span>
+		</li>
+
+	</ul>
+</div>
+<div class="login_conter_button"><!-- ng-verify="{control:'myform'}"-->
+	<button ng-click="forgetPwdBtn()">确认</button>
+</div>

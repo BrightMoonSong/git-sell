@@ -1,0 +1,183 @@
+.myorder_head{
+	width: 100%;
+	height: 13.541rem;
+	background: url(../img/bj.png) no-repeat;
+	background-size:100% 100%;
+	overflow: hidden;
+}
+.myorder_head_sz{
+	width: 100%;
+
+}
+.myorder_head_sz>a{
+	display: block;
+	float: right;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #FFFFFF;
+	letter-spacing: 0.1px;
+	margin-top: 1.4rem;
+	margin-right: 0.833rem;
+}
+.myorder_head_ul{
+	width: 100%;
+	height: 10.854rem;
+	position: relative;
+}
+.myorder_head_ul>li{
+	height:70%;
+}
+.myorder_head_ul>li:first-child{
+	width:7.083rem ;
+	margin-left: 1.66rem;
+}
+.myorder_head_ul>li:first-child>a{
+	display: block;
+	    width: 6.25rem;
+    height: 6.25rem;
+	margin-top: 0.8rem;
+	border-radius: 100%;
+}
+.myorder_head_ul>li:first-child>a>img{
+	    width: 6.25rem;
+    height: 6.25rem;
+    border-radius: 100%;
+}
+.myorder_head_ul>li:nth-child(2){
+	margin-top: 1.8125rem;
+	height: 17%;
+	margin-left: 0.416rem;
+	width: 52%;
+}
+.myorder_head_ul>li:nth-child(2)>a{
+	display: block;
+	font-family: MicrosoftYaHei;
+	font-size: 1.5rem;
+	color: #FFFFFF;
+	letter-spacing: 0.18px;
+
+}.myorder_head_ul>li:nth-child(3){
+	height: 17%;
+	margin-top: 0.833rem;
+	margin-left: 0.416rem;
+	width: 40%;
+}
+.myorder_head_ul>li:nth-child(3)>img,.myorder_head_ul>li:nth-child(3)>span{
+	float: left;
+	display: block;
+}
+.myorder_head_ul>li:nth-child(3)>img{
+	width: 1.083rem;
+	height: 1.083rem;
+	margin-top: 0.237rem;
+}
+.myorder_head_ul>li:nth-child(3)>span{
+	margin-left: 0.416rem;
+	font-family: MicrosoftYaHei;
+	font-size:0.916rem;
+	color: #FFFFFF;
+	letter-spacing: 1px;
+}
+.myorder_banner{
+	width: 100%;
+	height: 8rem;
+	background: #FFFFFF;
+	border-bottom: 1px solid #E5E5E5;
+}
+.myorder_banner_ul{
+	width: 100%;
+	height: 100%;
+}
+.myorder_banner_ul>li{
+	width: 24%;
+	height: 100%;
+}
+.myorder_banner_ul>li>a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+.myorder_banner_ul>li>a>img{
+	width: 2.5rem;
+	height: 2.5rem;
+	margin-top: 2.375rem;
+}
+.myorder_banner_ul>li>a>p{
+	width: 100%;
+	text-align: center;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #666666;
+	letter-spacing: 0.15px;
+	text-align: center;
+	margin-top: 0.541rem;
+}
+.myorder_conter{
+	width: 100%;
+	margin-bottom: 30rem;
+}
+.myorder_conter_ul{
+	width: 100%;
+}
+.myorder_conter_ul>li{
+	width: 100%;
+	height:4.541rem ;
+	background: #FFFFFF;
+
+}
+.myorder_conter_ul_ol{
+	width: 100%;
+	height: 100%;
+}
+.myorder_conter_ul_ol>li{
+	height: 100%;
+}
+.myorder_conter_ul_ol_li_one{
+	width: 3.75rem;
+	text-align: right;
+}
+.myorder_conter_ul_ol_li_one>img{
+	width:1.666rem ;
+	height:1.666rem  ;
+	margin-top:1.461rem ;
+}
+.myorder_conter_ul_ol_li_two{
+	font-family: MicrosoftYaHei;
+	font-size: 1.083rem;
+	color: #666666;
+	letter-spacing: 0.13px;
+	margin-left: 0.833rem;
+	line-height:4.541rem ;
+}
+.myorder_conter_ul_ol_li_three{
+	float: right;
+	font-family: MicrosoftYaHei;
+	font-size: 1rem;
+	color: #999999;
+	letter-spacing: 0.12px;
+	line-height:4.541rem ;
+	margin-right: 0.45rem;
+}
+.myorder_conter_ul_ol_li_four{
+	float: right;
+	margin-right: 1.6875rem;
+
+}
+.myorder_conter_ul_ol_li_four>img{
+	    width: 0.675rem;
+	margin-top:1.661rem ;
+}
+.myorder_conter_ul_li{
+	margin-top: 0.8333rem;
+	border-bottom: 1px solid #eee;
+}
+#myorder_jt{
+float: right;
+    position: absolute;
+    top: 3.3rem;
+    right: 1rem;
+}
+#myorder_jt>img{
+	width: 1.541rem;
+}

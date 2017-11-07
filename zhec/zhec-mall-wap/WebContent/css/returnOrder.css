@@ -1,0 +1,18 @@
+.app_det_button>button,.app_det_button>a{
+	float: right;
+}
+.app_det_button>a{
+    display: block !important;
+    width: 6.25rem;
+    height: 1.916rem;
+    background: #FFFFFF;
+    border: 1px solid #22A2FF;
+    border-radius: 2px;
+    margin-right: 0.833rem;
+    font-family: MicrosoftYaHei;
+    font-size: 1rem;
+    color: #22A2FF;
+    text-align: center;
+    line-height: 1.8rem;
+	    margin-top: 1rem;
+}

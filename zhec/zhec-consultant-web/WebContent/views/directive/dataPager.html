@@ -1,0 +1,19 @@
+<ul class="pagination col-sm-12 pageSep" ng-show="ifHasPage">
+	<li class="active btnLeft"><a ng-click="jumpFirst()" >&laquo;</a></li>
+   	<li class="active btnLeft"><a  ng-click="upPage()">&lsaquo;</a></li>
+   	<li class="active" ng-show="isShowPage1"><a>{{providerPage}}</a></li>
+   	<li ng-repeat="item in arr track by $index" ><a ng-click="choosePageNum($index)">{{item}}</a></li>
+    <li class="active" id="turnRight" ng-show="isShowPage2"><a>{{behindPage}}</a></li>
+    <li class="btnRight"><a ng-click="downPage()">&rsaquo;</a></li>
+    <li class="btnRight" ng-click="jumpLast()"><a >&raquo;</a></li>
+    <li class="active"><a>共{{allDataCount}}条</a></li>
+    <li class="active"><a ng-click="choosePage()">第{{currentPageNo}}页/共{{allPage}}页</a></li>
+    <li class="chooseBtn"><select ng-change="changePage(value)" ng-model="value" ng-init="value='10'">
+	  <option>5</option>
+	  <option>10</option>
+	  <option>20</option>
+	  <option>30</option>
+	  <option>40</option>
+	  <option>50</option>
+	</select></li>
+</ul>

@@ -1,0 +1,46 @@
+
+<div class="order_no_diadiv">取消订单</div>
+<div class="order_no_dialeft">
+	<label ng-repeat="note in notBuyReason">
+		<input type="radio" name="sex" ng-click="selectSeason(note)"/>
+		<span ng-bind="note"></span>
+	</label>
+
+	<!--<label>
+		<input type="radio" name="sex" value="2" />
+		<span>该商品鹿医生降价了</span>
+	</label>
+	<label>
+		<input type="radio" name="sex" value="3" />
+		<span>重复下单/误下单</span>
+	</label>
+	<label>
+		<input type="radio" name="sex" value="4" />
+		<span>发票信息有误。配送信息有误</span>
+	</label>
+	<label>
+		<input type="radio" name="sex" value="5" />
+		<span>商品卖错了，忘记使用优惠券</span>
+	</label>
+	<label>
+		<input type="radio" name="sex" value="6" />
+		<span>订单不能按预计时间送达</span>
+	</label>
+	<label>
+		<input type="radio" name="sex" value="7" />
+		<span>其他渠道价格更低，支付方式有误/无法支付</span>
+	</label>-->
+
+</div>
+<div class="order_no_diaright">
+	<label>其他原因:</label>
+	<textarea cols=70 rows=10 name=text  ng-model="operationalNotes"></textarea>
+</div>
+
+<div class="order_no_diabutton">
+	   <button ng-click="sum()" ng-disabled="cancleSon">确认</button>
+    <button ng-click="closeCancleDialog()">取消</button>
+
+</div>
+</div>
+

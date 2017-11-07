@@ -1,0 +1,71 @@
+/**
+ * 路径配置
+ *
+ */
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+	$urlRouterProvider.otherwise("/manager/index");
+
+	$ocLazyLoadProvider.config({
+		//设置为true，如果您想查看什么和什么时候动态加载
+		debug: true
+	});
+
+	$stateProvider
+		.state('manager', {
+			url: "/manager",
+			templateUrl: "views/common/content.html",
+		})
+		.state('manager.index', {
+			url: "/index",
+			templateUrl: "views/homepage/home.html",
+			data: {
+				pageTitle: '管理首页'
+			},
+			controller: 'HomeController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'mallApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/homepage/HomeService.js',
+							'js/controllers/homepage/HomeController.js'
+						]
+					}])
+				}]
+			}
+		})
+		//系统管理
+		.state('manager.sysconfig', {
+			abstract: true,
+			url: "/sysconfig",
+			template: "<ui-view/>",
+		})
+		.state('manager.sysconfig.sysuserlist', {
+			url: "/sysuserlist/:funcId",
+			templateUrl: "views/system/SysUserList.html",
+			data: {
+				pageTitle: '管理员'
+			},
+			controller: 'SysUserController',
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'mallApp',
+						insertbefore: "#ng_load_plugins_before",
+						files: [
+							'js/services/system/SysUserService.js',
+							'js/controllers/system/SysUserController.js',
+							'js/controllers/system/SysUserDragData.js',
+							'js/controllers/common/drag.js'
+						]
+					}])
+				}]
+			}
+		})
+}
+
+app.config(config)
+	.run(function($rootScope, $state) {
+		$rootScope.$state = $state;
+	});

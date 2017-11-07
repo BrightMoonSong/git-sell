@@ -1,0 +1,63 @@
+<style type="text/css">
+	.ngdialog-theme-default {
+		margin-top: 100px;
+	}
+</style>
+<div class="inmodal">
+	<div class="modal-header">
+		<h2 class="modal-title">忘记密码</h2>
+	</div>
+	<div class="" name="myform" verify-scope="tipStyle: 1">
+		<ul class="form-horizontal">
+			<li class="list-group-item">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">手机号：</label>
+
+					<div class="col-sm-9">
+						<input ng-verify="{min:11,max:11,required:true}" type="text" class="form-control" ng-model="phone" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">验证码：</label>
+
+					<div class="col-sm-9">
+						<div class="input-group" style="margin-bottom: 0px !important;">
+							<input ng-verify="{required:true,min:6,max:6}" type="text" class="form-control" ng-model="smsCode" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+							<span class="input-group-btn">
+								<button class="btn btn-success" ng-click="reciveCode()" ng-disabled="reciveCodeDis" style="padding: 9px 12px;" ng-bind="btnMessage"></button>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">新密码：</label>
+
+					<div class="col-sm-9">
+						<input type="password" class="form-control" ng-verify="{required:true,min:6,max:16}" ng-model="newPwdFirst">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">再次输入：</label>
+
+					<div class="col-sm-9">
+						<input type="password" class="form-control" ng-verify="{required:true,min:6,max:16}" ng-model="newPwd">
+						<span ng-hide="newPwd==newPwdFirst||newPwd==''||newPwd==null||newPwd==undefined" style="color: red;">两次输入不一致!</span>
+					</div>
+				</div>
+
+			</li>
+		</ul>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="okmodal()" ng-verify="{control:'myform'}">
+                <span class="glyphicon glyphicon-floppy-disk"></span> 提交
+            </button>
+			<button class="btn btn-success" ng-click="cancelModal()">
+                <span class="glyphicon glyphicon-share-alt"></span> 取消
+            </button>
+		</div>
+	</div>
+
+</div>

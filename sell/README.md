@@ -137,3 +137,21 @@ alert('foo'); // eslint-disable-line no-alert, quotes, semi
 // eslint-disable-next-line no-alert, quotes, semi
 alert('foo');
 ```
+
+
+
+/*eslint "plugin1/rule1": "error" */
+　　临时关闭eslint校验：
+　　/*eslint-disable */
+　　//Disable all rules between comments
+　　alert('foo');
+　　/*eslint-enable */
+　　/*eslint-disable no-alert, no-console */
+　　alert('foo');
+　　console.log('bar');
+　　/*eslint-enable no-alert */
+　　在js特定行关闭校验：
+　　alert('foo'); // eslint-disable-line
+　　// eslint-disable-next-line
+　　alert('foo');
+　　alert('foo'); // eslint-disable-line no-alert, quotes, semi// eslint-disable-next-line no-alert, quotes, semialert('foo');

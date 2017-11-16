@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /*滚动条*/
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-button {
+      background-color: #f9f5f5;
+      height: 0px;
+      display: none;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #c7c7c7;
+    }
+
+
+    /* ::-webkit-scrollbar-track-piece {
+    	background: url(http://www.lyblog.net/wp/wp-content/themes/mine/img/stripes_tiny_08.png);
+    }*/
+
+    ::-webkit-scrollbar-thumb {
+      background: #888787;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a2a1a2;
+    }
+
+    ::-webkit-scrollbar-corner {
+      /*background: #82AFFF;*/
+    }
+
+    ::-webkit-scrollbar-resizer {
+      background: #FF0BEE;
+    }
+
+    .box {
+      width: 100%;
+      height: 100%;
+      background: #162436;
+      overflow: auto;
+    }
+
+    .first {
+      height: 1000px;
+      width: 2000px;
+      background: #567213;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="first">first</div>
+  </div>
+</body>
+
+</html>

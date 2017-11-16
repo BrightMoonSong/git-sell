@@ -1,0 +1,23 @@
+Ctrl+p +文件名字可以直接定位到文件
+ 在断点状态 可以直接在控制台输入 当前函数体内的变量  显示出其值
+
+vue2中$index  （item,index） in items
+
+箭头函数  内部的this 指向外部的this,作用域。。。。
+eg:
+var _this = this;
+...then(function(res){
+  _this。。。
+})
+
+...then(res=>{
+  this...
+})
+
+
+如何判断一个Object中是否存在某个元素，
+if(typeof item.test === "undefined"){
+
+}
+
+查vm.$set

@@ -1,0 +1,6 @@
+flex-align：默认是设置垂直方向的对齐方式，值： start、end、center、stretch、baseline。
+flex-pack：设置子元素之间如何分配多余空间，值：start、end、center、justify。
+flex-direction：设置子元素的排列方式， row、row-reverse、column、column-reverse。
+flex-wrap：设置子元素的是否自动换行和排列方向，值：nowrap、wrap和wrap-reverse。
+-ms-flex：设置子元素弹性，参数，分别是正弹性、负弹性和默认大小。
+其实布局还有好多新玩法，你可以多看看相关的教程，比如说现在有个视频的系列名称叫做 《Buid New World》，里面有一集专门讲 CSS3 复杂布局形式

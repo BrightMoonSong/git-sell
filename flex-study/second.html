@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+  <style media="screen">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #c9e9c7;
+    }
+
+    .container {
+      display: flex;
+      /* flex-direction: row;
+    flex-wrap: nowrap; */
+      /* flex-flow: row nowrap; 默认值 */
+      padding: 5px;
+    }
+
+    .item {
+      flex: 1 1 auto;
+      background-color: #779f8b;
+      border: 1px solid #111;
+      border-right: none;
+      height: 150px;
+      padding: 0 10px 0 10px;
+      display: flex;
+      /* 主轴、交叉轴 居中 */
+      justify-content: center;
+      /*内部元素左右居中  ：水平的主轴（main axis）和垂直的交叉轴（cross axis）*/
+      align-items: center;
+      /*内部元素上下居中*/
+    }
+
+    .item:last-child {
+      border-right: 1px solid #111;
+    }
+
+    .item>span {
+      text-align: center;
+    }
+
+    .box {
+      display: flex;
+      background-color: #333;
+    }
+
+    .left-nav {
+      flex: 0 0 100px;
+      background-color: #333555;
+    }
+
+    .box>.content {
+      flex: 1 1 auto;
+      flex-flow: row wrap;
+      background-color: #333777;
+      /* 内容自动换行,中英文字符串全部自动换行,word-wrap: break-word;不好使有时候，记住word-break: break-all; */
+      word-break: break-all;
+    }
+
+    .left-nav>.content {}
+
+    span {
+    /* 内容自动换行,中英文字符串全部自动换行 */
+      word-break: break-all;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="item"><span>header 6header 6header 6header 6</span></div>
+    <div class="item"><span>header 7header 7header 7header 7</span></div>
+    <div class="item"><span>header 8header 8header 8header 8</span></div>
+  </div>
+  <div class="box">
+    <div class="left-nav">
+      <div class="content">left-nav4</div>
+      <div class="content">left-nav5</div>
+      <div class="content">left-nav6</div>
+      <div class="content">left-nav7</div>
+      <div class="content">left-nav8</div>
+    </div>
+    <div class="content">
+      .content.content.content.content.content.content.content.content.content.content====@@@@@@@@@~~~~~~~~~~~~~!!!!!!!!!!
+    </div>
+  </div>
+</body>
+
+</html>

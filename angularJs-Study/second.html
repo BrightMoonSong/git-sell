@@ -26,6 +26,11 @@
 				<br />
 				<input type="text" my-model="firstVal"/>
 				<p>{{firstVal}}</p>
+				payType：
+				<input type="text" my-model="payType"/>
+				<span ng-if="payType==2" class="form-control">微信</span>
+				<span ng-if="payType==1" class="form-control">支付宝</span>
+				<span ng-if="payType!=2&&payType!=1" class="form-control">其他</span>
 			</div>
 			<div class="borderRed backdata">
 				<br /> 普通日期指令：

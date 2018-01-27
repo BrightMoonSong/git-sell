@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>html2canvas网页截图</title>
+
+		<script src="js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/html2canvas.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			/*html2canvas()中,第一个参数是要截图的Dom对象，第二个参数时渲染完成后回调的canvas对象。*/
+			$(function() {
+				$("#down_button").click(function() {
+					html2canvas(document.getElementById("myCanvas"), {
+						onrendered: function(canvas) {
+							$('#down_button').attr('href', canvas.toDataURL());
+							$('#down_button').attr('download', 'myjobdeer.png');
+							$('#img').attr('src', canvas.toDataURL());
+							//$('#down_button').css('display','inline-block');
+							//var html_canvas = canvas.toDataURL();
+							//$.post('', {
+							//order_id: 1,
+							//type_id: 2,
+							//html_canvas: html_canvas
+							//}, function(json) {}, 'json');
+						}
+					});
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="myCanvas" style="width: 100%;background-color: cornflowerblue;">
+			<ul>
+				<li>fsdfsd</li>
+				<li>fsdfsd</li>
+				<li>fsdfsd</li>
+				<li><input type="text" id="" value="" /></li>
+				<li>fsdfsd</li>
+			</ul>
+			<img src="img/Star2.png"/>
+		</div>
+		<hr>
+		<br/>
+		<a id="down_button">下载</a>
+		<img id="img" />
+	</body>
+
+</html>

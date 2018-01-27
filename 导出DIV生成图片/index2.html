@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div class="div1" style="width:150px;height: 20px;;">也许这是优美的文字</div>
+		<div class="div2" style="background-repeat:no-repeat;width:200px;height:200px;background-size:100%;background-image: url(img/background.png);">
+			<img class="img3" style="width:150px;margin-left:25px;height:20px;margin-top:50px;" /></div>
+		<div class="div3" style="width: 200;height: 200px;;"></div>
+		<button class="getpic1">获取图片1</button>
+		<button class="getpic2">获取图片2</button>
+		<script src="js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/html2canvas.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			//生成第一张视频  
+			$(".getpic1").bind("click", function() {
+				getpic1()
+			});
+			//将第一张图片放置在div上  
+			$(".getpic2").bind("click", function() {
+				getpic2()
+			});
+
+			function getpic1() {
+				var str = $('.div1');
+				//console.log(str);    
+				html2canvas([str.get(0)], {
+					onrendered: function(canvas) {
+						var image = canvas.toDataURL("image/png");
+						$('.img3').attr("src", image);
+					}
+				});
+			}
+
+			function getpic2() {
+				var str = $('.div2');
+				//console.log(str);    
+				html2canvas([str.get(0)], {
+					onrendered: function(canvas) {
+						var image = canvas.toDataURL("image/png");
+						var pHtml = "<img src=" + image + " />";
+						$('.div3').html(pHtml);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

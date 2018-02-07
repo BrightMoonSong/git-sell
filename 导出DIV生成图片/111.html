@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<canvas id="canvas" width="" height=""></canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas"), //获取canvas
+				ctx = canvas.getContext("2d"), //对应的CanvasRenderingContext2D对象(画笔)
+				img = new Image(), //创建新的图片对象
+				base64 = ''; //base64 
+			img.src = 'https://zhydl.oss-cn-beijing.aliyuncs.com/dev/doctor/header/2018123163323390.jpg';
+			img.setAttribute("crossOrigin", 'Anonymous')
+			img.onload = function() { //图片加载完，再draw 和 toDataURL
+				ctx.drawImage(img, 0, 0);
+				base64 = canvas.toDataURL("image/png");
+				console.log(base64);
+			};
+		</script>
+	</body>
+
+</html>

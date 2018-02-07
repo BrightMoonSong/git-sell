@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<style>
+			.my-div {
+				background-color: antiquewhite;
+				/*background: url(https://zhydl.oss-cn-beijing.aliyuncs.com/dev/doctor/header/2018123163323390.jpg) no-repeat;*/
+				/*height: 200px;*/
+			}
+		</style>
+		<script src="js/html2canvas.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="my-div">
+			this is source
+			<img src="https://zhydl.oss-cn-beijing.aliyuncs.com/dev/doctor/header/2018123163323390.jpg" id="sendImg"/>
+		</div>
+		<div class="content">
+			<span>next node is a img tag</span>
+			<button onclick="test()">htmlImg</button>
+			<img id="img" />
+		</div>
+		<script>
+			/**
+			 * create by lrj
+			 * @param source    要转换为图片的dom对象
+			 * @param image     要显示图片的img标签
+			 */
+			function html2image(source, image) {
+				html2canvas(source, {
+					onrendered: function(canvas) {
+//						var imageData = canvas.toDataURL('image/png');
+//						image.src = imageData;
+						document.body.appendChild(canvas);
+					},
+					allowTaint: true
+				});
+			}
+
+			function test() {
+				//要转换为图片的dom对象
+				var element = document.querySelector('.my-div');
+				//要显示图片的img标签
+				var image = document.querySelector('#img');
+				//调用html2image方法	
+				html2image(element, image);
+			}
+
+			//			function getBase64Image(img) {
+			//				var canvas = document.createElement("canvas");
+			//				canvas.width = img.width;
+			//				canvas.height = img.height;
+			//				var ctx = canvas.getContext("2d");
+			//				ctx.drawImage(img, 0, 0, img.width, img.height);
+			//				var dataURL = canvas.toDataURL("image/png");
+			//				return dataURL
+			//				// return dataURL.replace("data:image/png;base64,", "");
+			//			}
+			//
+			//			function main() {
+			//				var img = document.createElement('img');
+			//				img.src = 'https://zhydl.oss-cn-beijing.aliyuncs.com/dev/doctor/header/2018123163323390.jpg'; //此处自己替换本地图片的地址
+			//				img.setAttribute("crossOrigin",'Anonymous');
+			//				img.onload = function() {
+			//					var data = getBase64Image(img);
+			//					var img1 = document.querySelector('#sendImg');
+			//					img1.src = data;
+			//				}
+			//			}
+			//			main()
+		</script>
+	</body>
+
+</html>

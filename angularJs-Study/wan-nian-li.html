@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>万年历</title>
+		<style type="text/css">
+			table {
+				width: 100%;
+			}
+			
+			td,
+			th {
+				text-align: center;
+			}
+			
+			.selected {
+				background-color: #A332E7;
+			}
+			
+			.unselected {
+				background-color: #FAEBD7;
+			}
+		</style>
+	</head>
+
+	<body ng-app='myApp'>
+		<div class="borderRed" ng-controller="myctr">
+			<select ng-model="selectedYear" ng-options="x for x in yearList">
+				<option value="">--请选择年--</option>
+			</select>
+			<select ng-model="selectedMonth" ng-options="x for x in monthList">
+				<option value="">--请选择月--</option>
+			</select>
+			<table border="1" cellspacing="0" cellpadding="0">
+				<tr>
+					<th>星期一</th>
+					<th>星期二</th>
+					<th>星期三</th>
+					<th>星期四</th>
+					<th>星期五</th>
+					<th>星期六</th>
+					<th>星期日</th>
+				</tr>
+				<tr ng-repeat="res in tableList">
+					<td ng-repeat="val in res track by $index" ng-class="{true:'selected',false:'unselected'}[val===today]">
+						{{val}}
+					</td>
+				</tr>
+			</table>
+		</div>
+		<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var app = angular.module('myApp', []);
+			app.controller('myctr', myctr);
+
+			function myctr($scope) {
+				/**
+				 * 1，一个月有多少天
+				 * 2，一个月有多少星期
+				 * 3，一个月从周几开始
+				 */
+				//初始化默认值
+				$scope.selectedYear = '';
+				$scope.selectedMonth = '';
+				$scope.today = 0; //当天为几号
+				$scope.yearList = ['2016', '2017', '2018'];
+				$scope.monthList = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+				$scope.tableList = [];
+
+				$scope.initDataList = function() {
+					var data = getYearMonth();
+					$scope.selectedYear = data.today.split('-')[0];
+					$scope.selectedMonth = Number(data.today.split('-')[1]) + '';
+					$scope.today = Number(data.today.split('-')[1]); // 当天为几号
+					var first = data.numberWeekFirst - 1;
+					var last = 7 - data.numberWeekLast;
+					var length = data.monthDays + first + last;
+					var arry = [],
+						i = 0;
+					while(i < length) {
+						if((i - first) < data.monthDays && i >= first) {
+							arry.push(i - first + 1);
+						} else {
+							arry.push('');
+						}
+						i++;
+					}
+					$scope.tableList = [];
+					var bArr = [];
+					arry.forEach(function(val) {
+						if(bArr.length < 7) {
+							bArr.push(val);
+						} else {
+							$scope.tableList.push(bArr);
+							bArr = [val];
+						}
+					});
+					if(bArr.length > 0) {
+						$scope.tableList.push(bArr);
+					}
+				}
+				//初始化方法
+				$scope.initDataList();
+			}
+			// 获取现在时间是哪一年-那一月-那一天 星期几,该月有几天...
+			function getYearMonth() {
+				var nowDate = new Date();
+				var year = nowDate.getFullYear();
+				var month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
+				var day = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+				var dateStr = year + "-" + month + "-" + day + " 星期" + "日一二三四五六".charAt(nowDate.getDay());
+				var num = getDate(nowDate); // 该月有几天
+				var obj = {
+					'today': dateStr,
+					'numberWeekFirst': (new Date(year + "-" + month + "-01")).getDay(), // 该月第一天为周几，返回 number
+					'numberWeekLast': (new Date(year + "-" + month + "-" + num)).getDay(), // 该月最后一天为周几，返回 number
+					'monthDays': num
+				};
+				return obj;
+			}
+			//获取某月有几天
+			function getDate(date) {
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var d = new Date(year, month, 0);
+				return d.getDate();
+			}
+		</script>
+	</body>
+
+</html>

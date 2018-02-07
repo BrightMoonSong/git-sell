@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>html2canvas example</title>
+		<script src="js/html2canvas.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<script type="text/javascript">
+function takeScreenshot() {
+    html2canvas(document.getElementById('view'), {
+        onrendered: function(canvas) {
+            document.body.appendChild(canvas);
+        },
+        allowTaint: true
+      // width: 300,
+      // height: 300
+    });
+}
+</script>
+<body>
+    <div id="view" style="background:url(https://zhydl.oss-cn-beijing.aliyuncs.com/dev/doctor/header/2018123163323390.jpg) 50%; width: 700px; height: 500px;">
+        <input type="button" value="截图" onclick="takeScreenshot()">
+    </div>
+</body>
+
+</html>

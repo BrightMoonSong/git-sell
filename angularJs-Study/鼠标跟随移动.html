@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>移动</title>
+		<script type="text/javascript">
+			function move(keynum) {
+				//获取屏幕宽度
+				var w = screen.availWidth;
+				//获取屏幕高度
+				var h = screen.availHeight
+				var d = document.getElementById("dv");
+				//创建随机数，也就是我们的移动速度
+				var speed = Math.floor(Math.random() * 100);
+
+				switch(keynum) {
+					case 65: //a--向左移动
+						if(d.offsetLeft < 5) {
+							d.style.left = w / 2 + "px";
+						} else {
+							d.style.left = d.offsetLeft - speed + "px";
+						}
+						break;
+					case 68: //d---右移动
+						if(d.offsetLeft > screen.w - speed) {
+							d.style.left = w / 2 + "px";
+						} else {
+							d.style.left = d.offsetLeft + speed + "px";
+						}
+						break;
+					case 87: //w---向上移动
+						if(d.offsetTop < speed) {
+							d.style.top = h / 2 + "px";
+						} else {
+							d.style.top = d.offsetTop - speed + "px";
+						}
+						break;
+					case 83: //s---向下移动
+						if(d.offsetTop > h - speed) {
+							d.style.top = h / 2 + "px";
+						} else {
+							d.style.top = d.offsetTop + speed + "px";
+						}
+						break;
+				}
+			}
+
+			function keyChange(e) {
+				var keynum;
+				if(window.event) // IE
+				{
+					keynum = e.keyCode
+				} else if(e.which) // Netscape/Firefox/Opera
+				{
+					keynum = e.which
+				}
+				move(keynum);
+			}
+			//随着鼠标一起动
+			/* document.onmousemove=function showxy(e) {
+			    if(!e){
+			        e = window.event;
+			    }
+			    var d = document.getElementById("dv");
+			    d.style.left=e.clientX+"px";
+			    d.style.top=e.clientY+"px";
+			    //alert(e.clientX+","+e.clientY);
+			} */
+			//点击鼠标移动
+			document.onmousedown = function showxy(e) {
+
+				var d = document.getElementById("dv");
+				d.style.left = e.clientX + "px";
+				d.style.top = e.clientY + "px";
+			}
+		</script>
+	</head>
+
+	<body onkeydown="keyChange(event)">
+		<div style="position: absolute; left: 100px; top: 100px;" id="dv">
+			<img src="ball.png" width="50px" height="50px" />
+		</div>
+
+	</body>
+
+</html>

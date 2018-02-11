@@ -26,10 +26,10 @@
 
 	<body ng-app='myApp'>
 		<div class="borderRed" ng-controller="myctr">
-			<select ng-model="selectedYear" ng-options="x for x in yearList">
+			<select ng-model="selectedYear" ng-options="x for x in yearList" ng-change="initDataList()">
 				<option value="">--请选择年--</option>
 			</select>
-			<select ng-model="selectedMonth" ng-options="x for x in monthList">
+			<select ng-model="selectedMonth" ng-options="x for x in monthList" ng-change="initDataList()">
 				<option value="">--请选择月--</option>
 			</select>
 			<table border="1" cellspacing="0" cellpadding="0">
@@ -43,7 +43,7 @@
 					<th>星期日</th>
 				</tr>
 				<tr ng-repeat="res in tableList">
-					<td ng-repeat="val in res track by $index" ng-class="{true:'selected',false:'unselected'}[val===today]">
+					<td ng-repeat="val in res track by $index" ng-class="{true:'selected',false:'unselected'}[val==today&&selectedMonth==thisM&&selectedYear==thisY]">
 						{{val}}
 					</td>
 				</tr>
@@ -64,15 +64,33 @@
 				$scope.selectedYear = '';
 				$scope.selectedMonth = '';
 				$scope.today = 0; //当天为几号
+				$scope.thisM = 0; //当前月份
+				$scope.thisY = 0; //当前年份
 				$scope.yearList = ['2016', '2017', '2018'];
 				$scope.monthList = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 				$scope.tableList = [];
-
+				// 初始化数据
+				$scope.init = function() {
+					var nowDate = new Date();
+					var year = nowDate.getFullYear();
+					var month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
+					var day = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+					$scope.selectedYear = Number(year) + ''; // 当前年份--下拉选中
+					$scope.selectedMonth = Number(month) + ''; // 当前月份--下拉选中		
+					$scope.today = Number(day) + ''; // 当天为几号
+					$scope.thisM = Number(month) + ''; // 当前月份
+					$scope.thisY = Number(year) + ''; // 当前年份
+					$scope.yearList = [];
+					var num = Number(year) + 3;
+					for(var i = 0; i < 10; i++) {
+						$scope.yearList.push(num - i + '');
+					}
+					$scope.initDataList();
+				}
+				//初始化日历列表
 				$scope.initDataList = function() {
-					var data = getYearMonth();
-					$scope.selectedYear = data.today.split('-')[0];
-					$scope.selectedMonth = Number(data.today.split('-')[1]) + '';
-					$scope.today = Number(data.today.split('-')[1]); // 当天为几号
+					var data = getYearMonth($scope.selectedYear + '-' + $scope.selectedMonth + '-01');
+					console.log(data)
 					var first = data.numberWeekFirst - 1;
 					var last = 7 - data.numberWeekLast;
 					var length = data.monthDays + first + last;
@@ -101,11 +119,11 @@
 					}
 				}
 				//初始化方法
-				$scope.initDataList();
+				$scope.init();
 			}
 			// 获取现在时间是哪一年-那一月-那一天 星期几,该月有几天...
-			function getYearMonth() {
-				var nowDate = new Date();
+			function getYearMonth(dd) {
+				var nowDate = new Date(dd);
 				var year = nowDate.getFullYear();
 				var month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
 				var day = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();

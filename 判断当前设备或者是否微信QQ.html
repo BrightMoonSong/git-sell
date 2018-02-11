@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+	</head>
+
+	<body style="font-size:40px;">
+		<div id="tips" style="padding: 50px 0;width:100%;margin:0 auto;display: none;">
+			<h1 style="text-align: center;font-size:50px;">请点击右上角</h1>
+			<h2 style="text-align: center;font-size:50px;">选择浏览器打开</h2>
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		//判断访问终端
+		var browser = {
+			versions: function() {
+				var u = navigator.userAgent,
+					app = navigator.appVersion;
+				return {
+					trident: u.indexOf('Trident') > -1, //IE内核
+					presto: u.indexOf('Presto') > -1, //opera内核
+					webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+					gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+					mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+					ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+					android: u.indexOf('Android') > -1 || u.indexOf('Adr') > -1, //android终端
+					iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+					iPad: u.indexOf('iPad') > -1, //是否iPad
+					webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+					weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+					qq: u.match(/\sQQ/i) == " qq" //是否QQ
+				};
+			}(),
+			language: (navigator.browserLanguage || navigator.language).toLowerCase()
+		};
+
+		if(!browser.versions.mobile) {
+			//如果不是手机扫二维码
+			alert("请用手机扫描二维码");
+		} else if(browser.versions.android) {
+			if(browser.versions.weixin) {
+				alert('是android微信')
+			} else {
+				alert('是android')
+			}
+			//如果是android则直接跳转至下载链接
+			location.href = 'http://url.cn/42G7PNz';
+		} else if(browser.versions.weixin && (browser.versions.ios || browser.versions.iPad)) {
+			alert('是ios系统，并且在微信中打开，则显示提醒（微信不支持直接跳转appStore）')
+			//如果是ios系统，并且在微信中打开，则显示提醒（微信不支持直接跳转appStore）
+			document.getElementById("tips").style.display = "block";
+		} else if(browser.versions.ios || browser.versions.iPad) {
+			alert('是ios系统且不是微信中打开的，则直接跳转appStore')
+			//如果是ios系统且不是微信中打开的，则直接跳转appStore
+			location.href = 'https://itunes.apple.com/cn/app/sui-shi-bao/id1097442883?mt=8';
+		}
+	</script>
+
+</html>

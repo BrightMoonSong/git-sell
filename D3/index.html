@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<script src="http://apps.bdimg.com/libs/d3/3.4.8/d3.min.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="https://d3js.org/d3.v4.0.0-alpha.50.min.js"></script>
+	</head>
+
+	<body>
+		<svg width="960" height="500"></svg>
+
+		<script>
+			var arcGenerator = d3.arc().innerRadius(80).outerRadius(100).startAngle(0);
+
+			var picture = d3.select('svg').append('g').attr('transform', 'translate(480,250)');
+			//第一个圆弧
+			var backGround = picture.append("path")
+				.datum({
+					endAngle: 2 * Math.PI
+				})
+				.style("fill", "#FDF5E6")
+				.attr("d", arcGenerator);
+			//第二层圆弧
+			var upperGround = picture.append('path')
+				.datum({
+					endAngle: Math.PI / 2
+				})
+				.style('fill', '#FFC125')
+				.attr('d', arcGenerator);
+			//圆心处的实时数据展示
+			var dataText = picture.append('text')
+				.text('25%')
+				.attr('text-anchor', 'middle')
+				.attr('dominant-baseline', 'middle')
+				.attr('font-size', '38px');
+		</script>
+	</body>
+
+</html>

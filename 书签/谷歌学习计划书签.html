@@ -17,32 +17,42 @@
 			a {
 				/*//块级元素显示在这一行，不换行，其他块级元素也可以显示在这一行*/
 				display: inline-block;
-				width: 21%;
+				width: 16%;
 				/*//超过指定的宽度和高度也隐藏*/
 				overflow: hidden;
 				/*//多余文本用省略号表示*/
 				text-overflow: ellipsis;
 				/*//所有的文本都显示在这一行*/
 				white-space: nowrap;
-				font-size: 20px;
-				line-height: 30px;
+				font-size: 16px;
+				line-height: 25px;
 				margin: 10px;
 				/*text-decoration 属性规定添加到文本的修饰。去除下滑线*/
 				text-decoration: none;
-				border: 1px solid #009E86;
-				padding: 15px;
+				/*border-bottom: 1px solid #009E86;*/
+				padding: 10px;
 				text-align: center;
 			}
 			
 			.bg-red {
-				border: 2px solid red;
+				/*border: 4px groove red;*/
+				/*dotted: dotted:定义一个点线边框
+				 dashed: 定义一个虚线边框
+				 solid: 定义实线边框
+				 double: 定义两个边框。 两个边框的宽度和 border-width 的值相同
+				 groove: 定义3D沟槽边框。效果取决于边框的颜色值
+				 ridge: 定义3D脊边框。效果取决于边框的颜色值
+				 inset:定义一个3D的嵌入边框。效果取决于边框的颜色值
+				 outset: 定义一个3D突出边框。 效果取决于边框的颜色值
+				 * */
+				outline: 5px outset red;/*outline不占位置，不会挤周围元素位置，而border会。*/
 			}
 			
 			#disFlex {
 				position: absolute;
-				border: 8px solid #FFDD57;
-				outline: 8px solid #3273DC;
-				outline-offset:3px;
+				border: 5px inset #FFDD57;
+				outline: 8px inset #3273DC;
+				/*outline-offset:3px;*/
 				/*border-radius: 40px;*/
 				font-size: 25px;
 				color: #F6FBFE;
@@ -75,7 +85,8 @@
 		<a target="_blank" href="https://www.douban.com/note/643399449/">CSS 框架 Bulma 教程</a>
 		<a target="_blank" href="https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90">知乎日报 API 分析</a>
 		<a target="_blank" href="http://www.html5plus.org/doc/zh_cn/barcode.html">5+app规范--barcode--扫描二维码</a>
-		<a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/zh-cn/layout">vue-element-admin-site</a>
+		<a class="bg-red" target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/zh-cn/layout">vue-element-admin-site</a>
+		<a class="bg-red" target="_blank" href="https://github.com/lin-xin/vue-manage-system">vue-manage-system</a>
 		<a target="_blank" href="http://www.zhufengpeixun.cn/docs/html/index.html">珠峰--前端教程</a>
 		<a target="_blank" href="http://www.hcoder.net/course/info_211.html">《MUI 视频教程 - app开发》课程提纲</a>
 		<a target="_blank" href="http://blog.csdn.net/xiejunna/article/details/53170068">mui框架用extra实现页面间传值</a>
@@ -92,7 +103,19 @@
 		<a target="_blank" href="https://juejin.im/post/5a77006d6fb9a063461fd113?utm_source=gold_browser_extension">React全家桶构建一款Web音乐App实战（九）：皮肤切换</a>
 		<a target="_blank" href="https://www.cnblogs.com/webapi/p/6881825.html">js模板引擎art-template使用方法</a>
 		<a target="_blank" href="https://www.cnblogs.com/Chen-XiaoJun/p/6246946.html">React 还是 Vue: 你应该选择哪一个Web前端框架？</a>
-		<a href="https://juejin.im/post/5a7e9063f265da4e732ec32b?utm_source=gold_browser_extension">前端菜鸟帝都一月面试记</a>
+		<a target="_blank" href="https://juejin.im/post/5a7e9063f265da4e732ec32b?utm_source=gold_browser_extension">前端菜鸟帝都一月面试记</a>
+		<a target="_blank" href="https://www.jianshu.com/p/669a618f3212">forever介绍</a>
+		<a target="_blank" href="https://juejin.im/post/59e85eebf265da430d571f89">这一次，彻底弄懂 JavaScript 执行机制</a>
+		<a target="_blank" href="http://xc.hubwiz.com/course/54fd40cfe564e50d50dcf284?sec=index">数据可视化利器-d3.js</a>
+		<a target="_blank" href="https://juejin.im/post/5a81a8946fb9a06334266f05">基于 D3.js 绘制动态进度条</a>
+		<a target="_blank" href="https://juejin.im/post/5a8fe8a05188255efc5f6c94">撸js基础之异步</a>
+		<a target="_blank" href="http://cdn.code.baidu.com/">百度静态资源公共库</a>
+		<a target="_blank" href="https://www.cnblogs.com/linsx/p/6796888.html">ES6数组方法</a>
+		<a target="_blank" href="https://juejin.im/post/5a9361755188257a5c608c2c?utm_source=gold_browser_extension">前端面试题整理汇总</a>
+		<a target="_blank" href="https://www.cnblogs.com/ZxrGloria/p/5316969.html">常见的几种数组排序算法JS实现</a>
+		<a target="_blank" href="https://www.cnblogs.com/foreverZ/p/console-time-and-others.html">console装逼的好方法</a>
+		<a target="_blank" href="https://www.cnblogs.com/richardcastle/p/8297016.html">js获取鼠标选中的文字内容</a>
+		<a target="_blank" href="https://juejin.im/post/5a9361755188257a5c608c2c?utm_source=gold_browser_extension">前端面试题整理汇总</a>
 		<div id="disFlex"></div>
 	</body>
 	<script type="text/javascript">

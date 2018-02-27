@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>我的计算器</title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.borderRed {
+				border: 1px solid greenyellow;
+			}
+			
+			.content {
+				outline: 2px outset #3273DC;
+			}
+			
+			.first {
+				border: 1px solid red;
+			}
+			
+			input,
+			select,
+			button,
+			li {
+				font-size: 18px;
+				line-height: 24px;
+				margin: 10px;
+			}
+			
+			li {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body ng-app='myApp'>
+		<div class="borderRed" ng-controller="myctr">
+			<div class="top">
+				<input type="number" ng-model="a" />
+				<select ng-model="selectedSymbol" ng-options="x for x in symbolList">
+					<option value="">符号</option>
+				</select>
+				<input type="number" ng-model="b" />
+				<button ng-click="jisuan()">计算</button>
+			</div>
+			<div class="content">
+				<ul>
+					<li ng-repeat="res in arrList track by $index" ng-class="{true:'first',false:''}[$index===0]">{{res}}</li>
+				</ul>
+			</div>
+			<iframe src="" width="" height=""></iframe>
+		</div>
+		<script src="js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			var app = angular.module('myApp', []);
+			app.controller('myctr', myctr);
+
+			function myctr($scope) {
+				$scope.a = '';
+				$scope.b = '';
+				$scope.symbolList = ['+', '-', '*', '/', ];
+				$scope.arrList = [];
+				$scope.jisuan = function() {
+					if($scope.a == '' || $scope.b == '') {
+						alert('请输入数字');
+						return false;
+					}
+					switch($scope.selectedSymbol) {
+						case '+':
+							var sub = $scope.a + $scope.b;
+							$scope.arrList.unshift('' + $scope.a + '+' + $scope.b + "=" + sub);
+							break;
+						case '-':
+							var sub = $scope.a - $scope.b;
+							$scope.arrList.unshift('' + $scope.a + '-' + $scope.b + "=" + sub);
+							break;
+						case '*':
+							var sub = $scope.a * $scope.b;
+							$scope.arrList.unshift('' + $scope.a + '*' + $scope.b + "=" + sub);
+							break;
+						case '/':
+							var sub = $scope.a / $scope.b;
+							$scope.arrList.unshift('' + $scope.a + '/' + $scope.b + "=" + sub);
+							break;
+						default:
+							alert('请选择运算符');
+							break;
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

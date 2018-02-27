@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<p onmouseup="mouseUp()">Click the text!Click the text!Click the text!Click the text!</p>
+
+		<script type="text/javascript">
+			function mouseUp() {
+				//获取选中的文字：
+				var txt = window.getSelection ? window.getSelection() : document.selection.createRange().text;
+				alert(txt);
+				//取消处于选中状态的文字：
+				window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+			}
+			var arr = [
+				[1, 2, 3],
+				[5, 8, 7],
+				[
+					[10],
+					[22]
+				]
+			];
+
+			function concatArr(ar) {
+				//				ar = [].concat.call([], ...ar);
+				ar = [].concat.apply([], ar);
+				return ar.some(Array.isArray) ? concatArr(ar) : ar;
+			}
+			console.log(concatArr(arr));
+			console.log("%c Hello", "color:red");
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			li {
+				padding: 10px;
+				background-color: #1496ED;
+				border: 1px solid red;
+				width: 100px;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<button>添加li</button>
+		<script type="text/javascript">
+			//最大值
+			Array.prototype.max = function() {
+				var max = this[0];
+				var len = this.length;
+				for(var i = 1; i < len; i++) {
+					if(this[i] > max) {
+						max = this[i];
+					}
+				}
+				return max;
+			}
+
+			//使用addEventListener点击li弹出内容，并且动态添加li之后有效
+			var ulNode = document.getElementsByTagName('ul')[0];
+			ulNode.addEventListener('click', function(e) {
+				console.dir(e);
+				if(e.target && e.target.nodeName.toUpperCase() == 'LI') {
+					alert(e.target.innerHTML);
+				}
+			});
+			var buttonNode = document.getElementsByTagName('button')[0];
+			buttonNode.addEventListener('click', function(e) {
+				var elementList = ulNode.children;
+				var li = document.createElement('li');
+				var t = document.createTextNode(elementList.length + 1);
+				li.appendChild(t);
+				ulNode.appendChild(li);
+			});
+		</script>
+	</body>
+
+</html>

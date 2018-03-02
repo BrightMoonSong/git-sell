@@ -27,7 +27,7 @@
 			];
 
 			function concatArr(ar) {
-				//				ar = [].concat.call([], ...ar);
+				//ar = [].concat.call([], ...ar);
 				ar = [].concat.apply([], ar);
 				return ar.some(Array.isArray) ? concatArr(ar) : ar;
 			}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>fourth</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<style type="text/css">
+			.box {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap-reverse;
+				justify-content: space-between;
+				align-items: baseline;
+			}
+			
+			.item {
+				width: 32%;
+				background-color: #209CEE;
+				border: 1px solid #00B89C;
+				text-align: center;
+			}
+			
+			.a {
+				font-size: 18px;
+				line-height: 60px;
+			}
+			
+			.b {
+				font-size: 15px;
+				line-height: 25px;
+			}
+			
+			.c {
+				font-size: 12px;
+				line-height: 13px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<div class="item c">3</div>
+			<div class="item a">1</div>
+			<div class="item b">2</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+			<div class="item">6</div>
+			<div class="item">7</div>
+			<div class="item">8</div>
+			<div class="item">9</div>
+			<div class="item">10</div>
+			<div class="item">11</div>
+			<div class="item">12</div>
+			<div class="item">13</div>
+			<div class="item">14</div>
+			<div class="item">15</div>
+		</div>
+		<script type="text/javascript">
+			//第一题
+			//			Function.prototype.a = 'a';
+			//			Object.prototype.b = 'b';
+			//
+			//			function Person() {};
+			//			var p = new Person();
+			//			console.dir(p)
+			//			console.log('p.a: ' + p.a); // p.a: undefined
+			//			console.log('p.b: ' + p.b); // p.b: b
+
+			//第二题
+			//			var name='2';
+			//			const person = {
+			//				name: 'menglinghua',
+			//				say: function() {
+			//					//					console.log(this.name);
+			//					return function() {
+			//						console.log(this.name);
+			//					};
+			//				}
+			//			};
+			//			var sss = person.say()(); // undefined
+			//			console.log(sss === undefined); //true
+
+			//第三题
+			obj = {
+				name: 'a',
+				getName: function() {
+					console.log(this.name);
+				}
+			}
+
+			var fn = obj.getName
+			obj.getName()
+			var fn2 = obj.getName()
+			fn()
+			fn2()
+		</script>
+	</body>
+
+</html>
